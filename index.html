@@ -267,6 +267,10 @@ a.btn{text-decoration:none}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(.92);opacity:.75}}
 .btn[disabled]{opacity:.45}
+.howto{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:800;color:var(--green);text-decoration:none;background:var(--green-tint);border-radius:10px;padding:8px 12px}
+.wrow{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.wrow .check{border-bottom:0}
+.hq{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--green-tint);color:var(--green);font-size:12px;text-decoration:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -353,8 +357,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.2.0";
+const APP_VERSION = "2.2.1";
 const CHANGELOG = {
+  "2.2.1": ["Every exercise and stretch now has a Watch how to do it link"],
   "2.2.0": ["Import your schedule from a file, a calendar link, or a photo", "Synced calendars update your plan when games move", "Add every game to your phone calendar in one tap", "Works for any sport: races get a taper and an easy day after"],
   "2.1.0": ["New Good Reads tab: 90 hand-picked books with buy and review links", "Track what you are reading. Minutes count toward your wind-down and badges", "Recommend books to the whole crew"],
   "2.0.2": ["Game Shape logo now lives in the background and in small touches across every page"],
@@ -386,6 +391,11 @@ const I = {
   gear: sv('<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>'),
   save: sv('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>')
 };
+/* "How to" links: a YouTube search for the exact exercise, so every exercise (any user, any future swap) always has a working demo. */
+const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits" };
+const howUrl = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " how to proper form");
+const howFor = (id, name) => howUrl(HOWQ[id] || name);
+const howText = t => howUrl(String(t).replace(/\(.*?\)/g, "").replace(/\s+x\d.*$/i, "").replace(/\s+\d+(\s*(sec|min)).*$/i, "").replace(/,.*$/, "").trim());
 const emptyState = msg => `<div class="empty"><img src="icon-180.png" alt="">${msg}</div>`;
 const sheetTitle = t => `<div class="sheet-title"><img src="icon-180.png" alt=""><h2>${t}</h2></div>`;
 const TAB_ART = { today: ["court", "top:-40px;right:-90px;width:330px"], train: ["key", "top:-6px;left:-20px;right:-20px"], fuel: ["swoosh", "top:70px;left:-40px;width:440px;opacity:.07"], reads: ["book", "top:-14px;right:-40px;width:300px"], recover: ["moon", "top:-10px;right:-30px;width:300px"], progress: ["bars", "top:-8px;right:4px;width:110px"] };
@@ -811,10 +821,10 @@ function sessionHTML(se, live) {
   o += `<div class="small muted" style="margin-top:4px">${esc(se.note)}</div>`;
   if (!live) o += `<button class="btn primary block" style="margin-top:14px" data-act="openWO" data-date="${se.date}">${se.date === todayStr() ? "Start" : "Open"} workout</button>`;
   o += `</div>`;
-  if (se.warm.length) o += `<div class="card"><h2>Warmup + stretch</h2>${se.warm.map((w, i) => live ? checkRow(se.date, "w" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;border-bottom:1px solid var(--line)">${esc(w)}</div>`).join("")}</div>`;
+  if (se.warm.length) o += `<div class="card"><h2>Warmup + stretch</h2>${se.warm.map((w, i) => `<div class="wrow">${live ? checkRow(se.date, "w" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;flex:1">${esc(w)}</div>`}<a class="hq" href="${howText(w)}" target="_blank" rel="noopener" aria-label="How to">\u25B6</a></div>`).join("")}</div>`;
   o += `<div class="card"><h2 class="brand">Main</h2>${se.main.map(m => exHTML(se, m, live)).join("")}</div>`;
   if (se.core.length) o += `<div class="card"><h2>Core</h2>${se.core.map(m => exHTML(se, m, live)).join("")}</div>`;
-  o += `<div class="card"><h2>Cooldown</h2>${se.cool.map((w, i) => live ? checkRow(se.date, "c" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;border-bottom:1px solid var(--line)">${esc(w)}</div>`).join("")}</div>`;
+  o += `<div class="card"><h2>Cooldown</h2>${se.cool.map((w, i) => `<div class="wrow">${live ? checkRow(se.date, "c" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;flex:1">${esc(w)}</div>`}<a class="hq" href="${howText(w)}" target="_blank" rel="noopener" aria-label="How to">\u25B6</a></div>`).join("")}</div>`;
   o += `<div class="card"><h2>Hot tub</h2><div>${se.tub} min. Drink 12 to 16 oz water while you are in.</div><h3>Today's tip</h3><div class="small">${esc(se.tip)}</div></div>`;
   return o;
 }
@@ -833,7 +843,7 @@ function exHTML(se, m, live) {
   o += `<div class="meta">Load: ${esc(ex.load)}${ph.wk >= 3 && ex.track ? ". Up to +5 to 10% vs week 2" : ""}${ph.deload ? ". Use 80% of last week" : ""}</div>`;
   if (m.from) o += `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>`;
   const sug = ex.track ? suggestion(m.id) : ""; if (sug) o += `<div class="small" style="color:var(--accent2)">${esc(sug)}</div>`;
-  o += `<ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul>`;
+  o += `<ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul><a class="howto" href="${howFor(m.id, ex.name)}" target="_blank" rel="noopener">\u25B6 Watch how to do it</a>`;
   if (live) {
     o += `<div class="sets">${Array.from({ length: m.sets }, (_, i) => `<button class="set ${sets[i] ? "on" : ""}" data-act="set" data-id="${m.id}" data-i="${i}" data-rest="${ex.rest}">${sets[i] ? "✓" : i + 1}</button>`).join("")}</div>`;
     if (ex.track) o += `<div class="row" style="margin-top:10px"><input type="number" inputmode="decimal" placeholder="Weight (lb)" value="${l.weights[m.id] || ""}" data-in="weight" data-id="${m.id}" style="max-width:160px"><span class="small muted">lb</span></div>`;
