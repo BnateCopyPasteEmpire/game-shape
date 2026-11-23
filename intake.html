@@ -123,7 +123,7 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 <form id="f" autocomplete="off" onsubmit="return false">
 
 <div class="card step" data-step="1"><div class="eyebrow">Step 1 of 10</div><h2>About you</h2><p class="coach">Numbers are just a starting line. Only you and {from} see these.</p>
-<div class="g2"><div><label>First name</label><input name="name" placeholder="Mark"></div><div><label>Age</label><input name="age" type="number" inputmode="numeric"></div></div>
+<div class="g2"><div><label>First name</label><input name="name" placeholder="First name"></div><div><label>Age</label><input name="age" type="number" inputmode="numeric"></div></div>
 <div class="g3"><div><label>Height (ft)</label><input name="heightFt" type="number" inputmode="numeric" placeholder="6"></div><div><label>Height (in)</label><input name="heightIn" type="number" inputmode="numeric" placeholder="0"></div><div><label>Weight (lb)</label><input name="weight" type="number" inputmode="decimal"></div></div>
 <div class="g2"><div><label>Waist (in, at belly button)</label><input name="waist" type="number" inputmode="decimal"></div><div><label>Goal weight (lb)</label><input name="goalWeight" type="number" inputmode="decimal"></div></div>
 <label>Phone</label><select name="phone"><option>iPhone</option><option>Android</option></select>
@@ -139,18 +139,33 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 <label>Recurring evening commitments (kids, church, etc.)</label><textarea name="evenings" placeholder="Wed nights: kids practice"></textarea>
 </div>
 
-<div class="card step" data-step="3"><div class="eyebrow">Step 3 of 10</div><h2>Basketball</h2><p class="coach">We plan around the court so your legs are fresh for game night.</p>
+<div class="card step" data-step="3"><div class="eyebrow">Step 3 of 10</div><h2>Your sport + your why</h2><p class="coach">Tell us what you play and why now. This is the fuel behind your whole plan.</p>
+<label>Main sport or activity</label><select name="sport" id="sportSel"><option value="">Choose one</option><option>Basketball</option><option>Running</option><option>Pickleball</option><option>Tennis</option><option>Golf</option><option>Soccer</option><option>Baseball / Softball</option><option>Volleyball</option><option>Flag / rec football</option><option>Hockey</option><option>Cycling</option><option>Swimming</option><option>Hiking</option><option>CrossFit / functional fitness</option><option>Lifting / bodybuilding</option><option>Martial arts / boxing</option><option>Yoga / Pilates</option><option>No sport, general fitness</option><option>Other</option></select>
+<div id="sportOther" style="display:none"><label>Which one?</label><input name="sportOther" placeholder="Disc golf, rowing, dance..."></div>
+<div class="g2"><div><label>Level</label><select name="sportLevel"><option>Just for fun</option><option>Rec league</option><option>Competitive</option><option>Training for an event</option></select></div><div><label>Times per week</label><input name="sportPerWeek" type="number" inputmode="numeric" value="2"></div></div>
+<div id="bballBlock">
 <label>Team</label><select name="team"><option>Easley Pres - Mens II - B (same as Brett)</option><option>Different team</option><option>No team right now</option></select>
 <div class="g3"><div><label>Practice day</label><select name="practiceDay"><option>Tue</option><option>Mon</option><option>Wed</option><option>Thu</option><option>Fri</option><option>Sat</option><option>Sun</option><option>None</option></select></div><div><label>Start</label><input name="practiceStart" type="time" value="19:00"></div><div><label>End</label><input name="practiceEnd" type="time" value="21:00"></div></div>
 <label>Position</label><select name="position"><option>Guard</option><option>Wing</option><option>Big</option><option>Anywhere</option></select>
 <label>Other pickup or rec games per week</label><input name="pickup" type="number" inputmode="numeric" value="0">
 <label>What do you want to improve on the court?</label>
 <div class="chips" data-group="courtGoals"><label><input type="checkbox" value="Vertical jump">Vertical jump</label><label><input type="checkbox" value="First step / speed">First step / speed</label><label><input type="checkbox" value="Conditioning">Conditioning</label><label><input type="checkbox" value="Lateral defense">Lateral defense</label><label><input type="checkbox" value="Strength in the post">Strength in the post</label><label><input type="checkbox" value="Stay healthy">Stay healthy</label></div>
+
+</div>
+<div id="genericBlock">
+<label>Days you usually play or train</label>
+<div class="chips" data-group="sportDays"><label><input type="checkbox" value="Mon">Mon</label><label><input type="checkbox" value="Tue">Tue</label><label><input type="checkbox" value="Wed">Wed</label><label><input type="checkbox" value="Thu">Thu</label><label><input type="checkbox" value="Fri">Fri</label><label><input type="checkbox" value="Sat">Sat</label><label><input type="checkbox" value="Sun">Sun</label></div>
+<div class="g2"><div><label>Usual time</label><input name="sportTime" type="time" value="18:00"></div><div><label>How long (min)</label><input name="sportLength" type="number" inputmode="numeric" value="60"></div></div>
+</div>
+<label>Main goal for your sport or activity</label>
+<div class="chips" data-group="sportGoals"><label><input type="checkbox" value="Get faster">Get faster</label><label><input type="checkbox" value="Jump higher">Jump higher</label><label><input type="checkbox" value="More endurance">More endurance</label><label><input type="checkbox" value="More strength and power">More strength and power</label><label><input type="checkbox" value="Better agility">Better agility</label><label><input type="checkbox" value="Stay injury-free">Stay injury-free</label><label><input type="checkbox" value="Keep playing for years">Keep playing for years</label><label><input type="checkbox" value="Lose weight to perform better">Lose weight to perform better</label><label><input type="checkbox" value="Finish an event or race">Finish an event or race</label><label><input type="checkbox" value="Keep up with my kids">Keep up with my kids</label></div>
+<label>What is driving this change right now?</label><textarea name="driver" placeholder="Doctor said my blood pressure is up. Want to keep up with my kids. Tired of being winded in games."></textarea>
+<div class="g2"><div><label>Target event (optional)</label><input name="eventName" placeholder="Half marathon, league season, beach trip"></div><div><label>Event date</label><input name="eventDate" type="date"></div></div>
 </div>
 
 <div class="card step" data-step="4"><div class="eyebrow">Step 4 of 10</div><h2>Goals</h2><p class="coach">Rank what matters most. Your plan follows your top two.</p><div class="hint">Rank each: 1 = top priority, 5 = does not matter.</div>
 <div id="ranks"></div>
-<label>In your own words: what would make the next 3 months a win?</label><textarea name="winDef" placeholder="Lose 15 lb, feel good in games, see abs"></textarea>
+<label>In your own words: what would make the next 3 months a win?</label><textarea name="winDef" placeholder="Lose 15 lb, feel great, see abs"></textarea>
 <label>Training experience</label><select name="experience"><option>New / coming back after a long break</option><option>Some lifting experience</option><option>Lift regularly now</option><option>Very experienced</option></select>
 <label>Current activity besides basketball</label><input name="currentActivity" placeholder="Walk 2x a week">
 </div>
@@ -224,7 +239,7 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const EQUIP = ["Gym membership", "Barbell + rack", "Smith machine", "Dumbbells", "Kettlebells", "Adjustable bench", "Leg curl / extension", "Cable machine", "Resistance bands", "Pull-up bar", "Medicine ball", "Plyo box / step", "Bike", "Treadmill", "Rower", "Vibration board", "Nothing (bodyweight only)"];
 const TROUBLE = ["Calves", "Achilles", "Ankles", "Knees", "Hamstrings", "Hips", "Groin", "Low back", "Upper back / neck", "Shoulders", "Elbows / wrists", "Plantar fascia / feet"];
-const GOALS = [["injury", "Stay healthy + flexible"], ["legs", "Bigger, stronger legs + glutes"], ["fatloss", "Lose belly fat / abs"], ["upper", "Bigger chest + arms"], ["hoops", "Basketball performance"], ["conditioning", "Conditioning / endurance"], ["strength", "Overall strength"]];
+const GOALS = [["injury", "Stay healthy + flexible"], ["legs", "Bigger, stronger legs + glutes"], ["fatloss", "Lose belly fat / abs"], ["upper", "Bigger chest + arms"], ["hoops", "Sport performance"], ["conditioning", "Conditioning / endurance"], ["strength", "Overall strength"]];
 const chip = (g, v) => `<label><input type="checkbox" value="${v}">${v}</label>`;
 document.querySelector('[data-group=blockedDays]').innerHTML = DAYS.map(d => chip("b", d)).join("");
 document.querySelector('[data-group=equipment]').innerHTML = EQUIP.map(d => chip("e", d)).join("");
@@ -252,7 +267,8 @@ function build() {
     profileSchema: 1, id: slug, createdAt: new Date().toISOString().slice(0, 10),
     person: { name: r.name, age: n(r.age), heightIn: (n(r.heightFt) || 0) * 12 + (n(r.heightIn) || 0), weight: n(r.weight), waist: n(r.waist), goalWeight: n(r.goalWeight), phone: r.phone },
     schedule: { wake: r.wake, leave: r.leave, workoutWhen: r.workoutWhen, workoutMin: n(r.workoutMin), blockedDays: r.blockedDays, bedtime: r.bedtime, sleepNow: n(r.sleepNow), travel: r.travel, evenings: r.evenings },
-    basketball: { team: r.team, practice: r.practiceDay === "None" ? null : { day: r.practiceDay, start: r.practiceStart, end: r.practiceEnd }, position: r.position, pickupPerWeek: n(r.pickup), courtGoals: r.courtGoals },
+    sport: { name: r.sport === "Other" ? (r.sportOther || "Other") : (r.sport || null), level: r.sportLevel, perWeek: n(r.sportPerWeek), days: r.sport === "Basketball" ? [] : r.sportDays, time: r.sportTime, lengthMin: n(r.sportLength), goals: r.sportGoals, driver: r.driver, event: r.eventName ? { name: r.eventName, date: r.eventDate || null } : null },
+    basketball: r.sport !== "Basketball" ? null : { team: r.team, practice: r.practiceDay === "None" ? null : { day: r.practiceDay, start: r.practiceStart, end: r.practiceEnd }, position: r.position, pickupPerWeek: n(r.pickup), courtGoals: r.courtGoals },
     goals: { ranked: goals, win: r.winDef, experience: r.experience, currentActivity: r.currentActivity },
     equipment: { items: r.equipment, maxDB: n(r.maxDB) },
     health: { troubleAreas: r.trouble, injuryNotes: r.injuryNotes, painNow: r.painNow, conditions: r.conditions, bloodwork: r.bloodwork },
@@ -271,7 +287,7 @@ const TEAMS = { easley: { label: "Easley Pres \u2022 Mens II \u2022 B", option: 
 const escH = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 document.querySelectorAll(".coach").forEach(c => c.textContent = c.textContent.replace("{from}", P.from));
 if (P.name) {
-  document.getElementById("greet").textContent = "Hey " + P.name + ", " + P.from + " built you a spot on the team.";
+  document.getElementById("greet").textContent = "Hey " + P.name + ", " + P.from + (P.team ? " built you a spot on the team." : " built you a custom plan.");
   document.getElementById("greetSub").textContent = "10 quick sections. Your answers build a training, food, and recovery app made just for you.";
 }
 const tm = TEAMS[P.team];
@@ -282,6 +298,12 @@ document.getElementById("sms").textContent = "Text it to " + P.from;
 let draft = null; try { draft = JSON.parse(localStorage.getItem(DK) || "null"); } catch (e) {}
 if (P.name && !(draft && draft.name)) F.elements.name.value = P.name;
 if (tm && !(draft && draft.team)) { F.elements.team.selectedIndex = tm.option; F.elements.practiceDay.value = tm.practice[0]; F.elements.practiceStart.value = tm.practice[1]; F.elements.practiceEnd.value = tm.practice[2]; }
+
+/* ---------- Sport section: basketball fields only for basketball ---------- */
+const sportSel = document.getElementById("sportSel");
+if (tm && !(draft && draft.sport)) sportSel.value = "Basketball";
+function sportUI() { const v = sportSel.value; document.getElementById("bballBlock").style.display = v === "Basketball" ? "block" : "none"; document.getElementById("genericBlock").style.display = v === "Basketball" ? "none" : "block"; document.getElementById("sportOther").style.display = v === "Other" ? "block" : "none"; }
+sportSel.addEventListener("change", sportUI); sportUI();
 
 /* ---------- Step flow ---------- */
 const STEPS = [document.querySelector(".hero"), ...document.querySelectorAll(".step"), document.querySelector(".finish")];
