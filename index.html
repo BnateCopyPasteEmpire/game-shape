@@ -271,6 +271,16 @@ a.btn{text-decoration:none}
 .wrow{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
 .wrow .check{border-bottom:0}
 .hq{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--green-tint);color:var(--green);font-size:12px;text-decoration:none}
+.le{margin-top:8px}
+.lerow{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.lerow input,.lerow textarea{flex:1;min-width:0;min-height:44px;padding:10px}
+.lerow textarea{min-height:58px;resize:none;line-height:1.3}
+.lerow input.tm{flex:0 0 112px}
+.lebtn{flex:none;width:40px;height:44px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:800;color:var(--ink-2)}
+.lebtn.del{color:var(--danger)}
+.lebtn[disabled]{opacity:.3}
+ol.aff{margin:10px 0 0;padding-left:20px}
+ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -357,8 +367,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.2.1";
+const APP_VERSION = "2.3.0";
 const CHANGELOG = {
+  "2.3.0": ["Edit, add, remove, and reorder your affirmations right on Recover", "New Customize screen: daily times, checklist items, your own habits, wind-down steps, quotes, hot tub on or off, and targets", "Add or remove supplements"],
   "2.2.1": ["Every exercise and stretch now has a Watch how to do it link"],
   "2.2.0": ["Import your schedule from a file, a calendar link, or a photo", "Synced calendars update your plan when games move", "Add every game to your phone calendar in one tap", "Works for any sport: races get a taper and an easy day after"],
   "2.1.0": ["New Good Reads tab: 90 hand-picked books with buy and review links", "Track what you are reading. Minutes count toward your wind-down and badges", "Recommend books to the whole crew"],
@@ -749,17 +760,19 @@ function checkRow(s, id, time, label, sub) {
 
 /* ---------------------------- TODAY ---------------------------- */
 function dayChecklist(s) {
-  const info = dayInfo(s), l = getL(s), items = [], court = info.court[0];
+  const info = dayInfo(s), items = [], court = info.court[0], c = C(), T = c.times, hide = c.hide;
   const acute = S.alert && between(S.alert.date, s) <= 3 && S.alert.flags.some(f => ["pop", "swelling", "dvt"].includes(f));
-  items.push(["water_wake", info.midday ? "06:30" : "05:00", "16 oz water on waking"]);
+  const add = (id, t, label) => { if (!hide[id]) items.push([id, t, label]); };
+  add("water_wake", info.midday ? fromMin(toMin(T.wake) + 90) : T.wake, c.waterWakeOz + " oz water on waking");
   S.supplements.forEach(p => items.push(["supp_" + p.id, p.time, esc(p.name) + " <span class='muted small'>" + esc(p.dose) + "</span>"]));
-  items.push(["workout", info.midday ? "12:00" : "05:05", "<b>Workout:</b> " + esc(buildSession(s).focus)]);
-  items.push(["hottub", info.midday ? "12:45" : "05:45", acute ? "Skip hot tub today (possible fresh injury)" : "Hot tub " + TPL[tplKey(info)].tub + " min + 12 oz water"]);
-  items.push(["breakfast", "06:30", "Protein breakfast (35 g+)"]);
-  items.push(["lunch", "12:00", "Protein + veg lunch"]);
-  if (court) { items.push(["electro", fromMin(toMin(court.start) - 60), "Electrolyte drink"]); items.push(["court", court.start, "<b>" + esc(court.label) + "</b>" + (court.gym ? " <span class='muted small'>@ " + esc(court.gym) + "</span>" : "")]); }
-  if (court) { items.push(["wd_tv", fromMin(toMin(court.end) + 15), "Short wind-down: shower, protein, 5 min stretch"]); items.push(["bed", "22:15", "Lights out by 10:15"]); }
-  else { items.push(["wd_tv", "20:00", "Wind-down: TV off, phone on charger"]); items.push(["wd_read", "20:35", esc(readLabel())]); items.push(["bed", "21:00", "In bed by 9:00"]); }
+  items.push(["workout", info.midday ? "12:00" : T.workout, "<b>Workout:</b> " + esc(buildSession(s).focus)]);
+  if (c.features.hotTub) add("hottub", info.midday ? "12:45" : T.hottub, acute ? "Skip hot tub today (possible fresh injury)" : "Hot tub " + TPL[tplKey(info)].tub + " min + 12 oz water");
+  add("breakfast", T.breakfast, "Protein breakfast (35 g+)");
+  add("lunch", T.lunch, "Protein + veg lunch");
+  c.habits.forEach(h => items.push([h.id, h.time, esc(h.label)]));
+  if (court) { add("electro", fromMin(toMin(court.start) - 60), "Electrolyte drink"); items.push(["court", court.start, "<b>" + esc(court.label) + "</b>" + (court.gym ? " <span class='muted small'>at " + esc(court.gym) + "</span>" : "")]); }
+  if (court && toMin(court.end) >= toMin(T.windDown)) { add("wd_tv", fromMin(toMin(court.end) + 15), "Short wind-down: shower, protein, 5 min stretch"); add("bed", fromMin(Math.max(toMin(T.bed), toMin(court.end) + 75)), "Lights out"); }
+  else { add("wd_tv", T.windDown, "Wind-down: " + esc((c.wind[0] || { label: "TV off" }).label)); add("wd_read", T.read, esc(readLabel())); add("bed", T.bed, "In bed by " + fmtT(T.bed)); }
   return items.sort((a, b) => toMin(a[1]) - toMin(b[1]));
 }
 function renderToday() {
@@ -767,7 +780,7 @@ function renderToday() {
   const h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
   const nc = nextCourt(), st = streak(), x = xp(), lvl = Math.floor(x / 300) + 1;
   let out = "";
-  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${typeBadge(info.type, info.leg ? info.leg : "")}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc(IDENTITY[pd(s).getDate() % IDENTITY.length])}</div></div>`;
+  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${typeBadge(info.type, info.leg ? info.leg : "")}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
   // banners
   if (S.schedAlert) out += `<div class="banner info"><b>Your schedule changed</b>${S.schedAlert.msgs.map(esc).join("<br>")}<br>Your plan was updated.<div style="margin-top:10px" class="row"><button class="btn sm" data-act="sheet" data-k="hoops">View schedule</button><button class="btn sm" data-act="dismissSched">Got it</button></div></div>`;
   if (!upcomingEvents().length) out += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
@@ -825,7 +838,7 @@ function sessionHTML(se, live) {
   o += `<div class="card"><h2 class="brand">Main</h2>${se.main.map(m => exHTML(se, m, live)).join("")}</div>`;
   if (se.core.length) o += `<div class="card"><h2>Core</h2>${se.core.map(m => exHTML(se, m, live)).join("")}</div>`;
   o += `<div class="card"><h2>Cooldown</h2>${se.cool.map((w, i) => `<div class="wrow">${live ? checkRow(se.date, "c" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;flex:1">${esc(w)}</div>`}<a class="hq" href="${howText(w)}" target="_blank" rel="noopener" aria-label="How to">\u25B6</a></div>`).join("")}</div>`;
-  o += `<div class="card"><h2>Hot tub</h2><div>${se.tub} min. Drink 12 to 16 oz water while you are in.</div><h3>Today's tip</h3><div class="small">${esc(se.tip)}</div></div>`;
+  o += `<div class="card"><h2>${C().features.hotTub ? "Hot tub" : "Recovery"}</h2><div>${C().features.hotTub ? se.tub + " min. Drink 12 to 16 oz water while you are in." : "10 min easy walk, then a warm shower. Drink 16 oz water."}</div><h3>Today's tip</h3><div class="small">${esc(se.tip)}</div></div>`;
   return o;
 }
 function suggestion(id) {
@@ -900,8 +913,9 @@ function renderRecover() {
   const s = todayStr(), l = getL(s), sl = l.sleep || {}, a = last7Sleep();
   let o = `<div class="card"><h2 class="brand">Last night's sleep</h2><div class="grid2"><div><label class="f">In bed</label><input type="time" value="${sl.bed || ""}" data-in="sleep" data-k="bed"></div><div><label class="f">Woke up</label><input type="time" value="${sl.wake || ""}" data-in="sleep" data-k="wake"></div></div><label class="f">Quality</label><div class="row">${[1, 2, 3, 4, 5].map(n => `<button class="chip ${+sl.q === n ? "on" : ""}" style="flex:1" data-act="sleepQ" data-v="${n}">${n}</button>`).join("")}</div>
   <div class="grid2" style="margin-top:14px"><div class="tile"><div class="k">7-day avg sleep</div><div class="v">${a.hrs ? a.hrs.toFixed(1) + " h" : "--"}</div></div><div class="tile"><div class="k">7-day quality</div><div class="v">${a.q ? a.q.toFixed(1) + "/5" : "--"}</div></div></div></div>`;
-  o += `<div class="card"><h2>Wind-down (8:00 to 9:00 PM)</h2><div class="small muted">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out by 10:15." : ""}</div>${WIND.map(w => checkRow(s, w[0], fmtT(w[1]), esc(w[0] === "wd_read" ? readLabel() : w[2]))).join("")}
-  <h3>Affirmations</h3><ul class="list">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  const cw = C(), wind = cw.wind.filter(w => cw.features.hotTub || !/hot tub/i.test(w.label));
+  o += `<div class="card"><div class="row between"><h2 style="margin:0">Wind-down (${fmtT(cw.times.windDown)} to ${fmtT(cw.times.bed)})</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div><div class="small muted" style="margin-top:6px">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out late is OK." : ""}</div>${UI.windEdit ? timedEditor("wind", cw.wind, "New step") : wind.map(w => checkRow(s, w.id, fmtT(w.time), esc(w.id === "wd_read" ? readLabel() : w.label))).join("")}</div>`;
+  o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
   o += `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>`;
   o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
   o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
@@ -937,21 +951,20 @@ function closeSheet() { UI.sheet = null; $("sheet").classList.add("hidden"); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
   } else if (kind === "import") { o = back + importSheetHTML();
   } else if (kind === "review") { o = reviewHTML();
   } else if (kind === "mapper") { o = mapperHTML();
-  } else if (kind === "supps") {
-    const s = todayStr();
-    o = back + `${sheetTitle("Supplements")}<div class="small muted" style="margin-bottom:10px">Split across the day so nothing blocks iron absorption.</div>` + S.supplements.map((p, i) => `<div class="card" style="background:var(--card2)">${checkRow(s, "supp_" + p.id, fmtT(p.time), "<b>" + esc(p.name) + "</b>")}<div class="grid2"><div><label class="f">Dose</label><input value="${esc(p.dose)}" data-in="supp" data-i="${i}" data-k="dose"></div><div><label class="f">Time</label><input type="time" value="${p.time}" data-in="supp" data-i="${i}" data-k="time"></div></div><div class="small muted" style="margin-top:8px">${esc(p.note)}</div></div>`).join("");
+  } else if (kind === "custom") { o = customizeHTML();
+  } else if (kind === "supps") { o = supplementsHTML();
   } else if (kind === "appts") {
     o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
   } else if (kind === "settings") {
     const p = S.profile;
-    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><label class="f">Affirmations (one per line)</label><textarea data-in="affirm">${esc(S.affirmations.join("\n"))}</textarea><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
   } else if (kind === "backup") {
     o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
   } else if (kind === "book") o = bookSheet(arg);
@@ -1072,6 +1085,86 @@ $("importFile").addEventListener("change", e => { const f = e.target.files[0]; i
 
 if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
 document.addEventListener("visibilitychange", () => { if (!document.hidden) { invalidate(); rerenderAll(); } });
+
+/* ---------------------------- CUSTOMIZE (v2.3) ----------------------------
+   Everything a person may want to change lives in S.custom and is edited in the app:
+   daily times, which checklist items show, personal habits, wind-down steps, Today quotes, features, targets. */
+const DEFAULT_TIMES = { wake: "05:00", workout: "05:05", hottub: "05:45", breakfast: "06:30", lunch: "12:00", windDown: "20:00", read: "20:35", bed: "21:00" };
+const TIME_LABELS = [["wake", "Wake up + water"], ["workout", "Workout"], ["hottub", "Hot tub"], ["breakfast", "Breakfast"], ["lunch", "Lunch"], ["windDown", "Wind-down starts"], ["read", "Reading"], ["bed", "In bed"]];
+const CHECK_ITEMS = [["water_wake", "Water on waking"], ["hottub", "Hot tub"], ["breakfast", "Protein breakfast"], ["lunch", "Protein + veg lunch"], ["electro", "Electrolytes before court"], ["wd_tv", "Wind-down start"], ["wd_read", "Reading"], ["bed", "Bedtime"]];
+function C() {
+  if (!S.custom) S.custom = {};
+  const c = S.custom;
+  if (!c.times) c.times = clone(DEFAULT_TIMES);
+  for (const k in DEFAULT_TIMES) if (!c.times[k]) c.times[k] = DEFAULT_TIMES[k];
+  if (!c.hide) c.hide = {};
+  if (!c.habits) c.habits = [];
+  if (!c.wind) c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] }));
+  if (!c.identity) c.identity = IDENTITY.slice();
+  if (!c.features) c.features = { hotTub: true };
+  if (c.waterWakeOz == null) c.waterWakeOz = 16;
+  return c;
+}
+const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+
+/* A simple list editor: every line is editable in place, with move up, move down, and remove. */
+function listEditor(key, items, placeholder) {
+  return `<div class="le">${items.map((x, i) => `<div class="lerow"><textarea rows="2" data-in="le" data-key="${key}" data-i="${i}">${esc(x)}</textarea><button class="lebtn" data-act="leMove" data-key="${key}" data-i="${i}" data-v="-1" aria-label="Move up" ${i ? "" : "disabled"}>↑</button><button class="lebtn" data-act="leMove" data-key="${key}" data-i="${i}" data-v="1" aria-label="Move down" ${i < items.length - 1 ? "" : "disabled"}>↓</button><button class="lebtn del" data-act="leDel" data-key="${key}" data-i="${i}" aria-label="Remove">✕</button></div>`).join("")}
+  <div class="lerow"><input id="leNew_${key}" placeholder="${esc(placeholder)}"><button class="btn sm primary" data-act="leAdd" data-key="${key}">Add</button></div></div>`;
+}
+function listRef(key) { return key === "aff" ? S.affirmations : key === "idn" ? C().identity : []; }
+
+/* Timed rows editor (wind-down steps and personal habits). */
+function timedEditor(key, rows, placeholder) {
+  return `<div class="le">${rows.map((r, i) => `<div class="lerow"><input type="time" class="tm" value="${r.time}" data-in="tr" data-key="${key}" data-i="${i}" data-k="time"><input value="${esc(r.label)}" data-in="tr" data-key="${key}" data-i="${i}" data-k="label"><button class="lebtn del" data-act="trDel" data-key="${key}" data-i="${i}" aria-label="Remove">✕</button></div>`).join("")}
+  <div class="lerow"><input type="time" class="tm" id="trNewT_${key}" value="${key === "wind" ? "20:30" : "07:00"}"><input id="trNewL_${key}" placeholder="${esc(placeholder)}"><button class="btn sm primary" data-act="trAdd" data-key="${key}">Add</button></div></div>`;
+}
+const timedRef = key => key === "wind" ? C().wind : C().habits;
+
+function customizeHTML() {
+  const c = C(), p = S.profile;
+  const tog = (act, on, label, extra) => `<button class="toggle ${on ? "on" : ""}" data-act="${act}" ${extra || ""}>${label}<span class="sw"></span></button>`;
+  return back + `${sheetTitle("Customize")}<div class="small muted">Make the app fit your day. Changes save instantly.</div>
+  <h3 class="sh3">Daily times</h3><div class="grid2">${TIME_LABELS.map(([k, l]) => `<div><label class="f">${l}</label><input type="time" value="${c.times[k]}" data-in="ctime" data-k="${k}"></div>`).join("")}</div>
+  <div class="small muted" style="margin-top:6px">Sleep-in days and court nights still adjust these automatically.</div>
+  <h3 class="sh3">Today's checklist</h3><div class="small muted">Turn off anything you don't want to see each day.</div>
+  ${CHECK_ITEMS.map(([k, l]) => tog("cHide", !c.hide[k], l, `data-k="${k}"`)).join("")}
+  <h3 class="sh3">My daily habits</h3><div class="small muted">Add anything you want to check off every day: vitamins, a walk, a call home, journaling.</div>
+  ${timedEditor("habits", c.habits, "New habit")}
+  <h3 class="sh3">Wind-down routine</h3>${timedEditor("wind", c.wind, "New step")}
+  <h3 class="sh3">Affirmations</h3>${listEditor("aff", S.affirmations, "New affirmation")}
+  <h3 class="sh3">Today screen quotes</h3><div class="small muted">One shows each day under your greeting.</div>${listEditor("idn", c.identity, "New quote")}
+  <h3 class="sh3">Features</h3>${tog("cFeat", c.features.hotTub, "Hot tub", 'data-k="hotTub"')}
+  <h3 class="sh3">Daily targets</h3><div class="grid2"><div><label class="f">Protein (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Extra water court days (oz)</label><input type="number" value="${p.waterCourtExtra}" data-in="prof" data-k="waterCourtExtra"></div><div><label class="f">Water on waking (oz)</label><input type="number" value="${c.waterWakeOz}" data-in="cwake"></div><div><label class="f">Calories, training day</label><input type="number" value="${p.calTrain}" data-in="prof" data-k="calTrain"></div><div><label class="f">Calories, court day</label><input type="number" value="${p.calCourt}" data-in="prof" data-k="calCourt"></div></div>
+  <button class="btn block" style="margin-top:18px" data-act="cReset">${UI.cResetArm ? "Tap again to restore defaults" : "Restore default times and lists"}</button>`;
+}
+function supplementsHTML() {
+  const s = todayStr();
+  return back + `${sheetTitle("Supplements")}<div class="small muted" style="margin-bottom:10px">Split across the day so nothing blocks iron absorption.</div>` +
+    S.supplements.map((p, i) => `<div class="card" style="background:var(--card2)">${checkRow(s, "supp_" + p.id, fmtT(p.time), "<b>" + esc(p.name) + "</b>")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="supp" data-i="${i}" data-k="name"><div class="grid2"><div><label class="f">Dose</label><input value="${esc(p.dose)}" data-in="supp" data-i="${i}" data-k="dose"></div><div><label class="f">Time</label><input type="time" value="${p.time}" data-in="supp" data-i="${i}" data-k="time"></div></div><label class="f">Note</label><input value="${esc(p.note || "")}" data-in="supp" data-i="${i}" data-k="note"><button class="btn sm danger" style="margin-top:10px" data-act="suppDel" data-i="${i}">${UI.suppDelArm === i ? "Tap again to remove" : "Remove"}</button></div>`).join("") +
+    `<button class="btn primary block" data-act="suppAdd">+ Add supplement</button>`;
+}
+Object.assign(ACT, {
+  leAdd: el => { const k = el.dataset.key, inp = $("leNew_" + k), v = (inp.value || "").trim(); if (!v) return toast("Type something first"); listRef(k).push(v); save(); rerenderAll(); toast("Added"); },
+  leDel: el => { listRef(el.dataset.key).splice(+el.dataset.i, 1); save(); rerenderAll(); },
+  leMove: el => { const a = listRef(el.dataset.key), i = +el.dataset.i, j = i + +el.dataset.v; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; save(); rerenderAll(); },
+  trAdd: el => { const k = el.dataset.key, t = $("trNewT_" + k).value, l = ($("trNewL_" + k).value || "").trim(); if (!l) return toast("Type a name first"); timedRef(k).push({ id: (k === "wind" ? "wd_" : "hb_") + Date.now().toString(36), time: t || "07:00", label: l }); timedRef(k).sort((a, b) => toMin(a.time) - toMin(b.time)); save(); rerenderAll(); toast("Added"); },
+  trDel: el => { timedRef(el.dataset.key).splice(+el.dataset.i, 1); save(); rerenderAll(); },
+  cHide: el => { const c = C(), k = el.dataset.k; c.hide[k] = !c.hide[k]; save(); rerenderAll(); },
+  cFeat: el => { const c = C(), k = el.dataset.k; c.features[k] = !c.features[k]; save(); rerenderAll(); },
+  cReset: () => { if (!UI.cResetArm) { UI.cResetArm = true; renderSheet(); setTimeout(() => { UI.cResetArm = false; }, 4000); return; } UI.cResetArm = false; const c = C(); c.times = clone(DEFAULT_TIMES); c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] })); c.identity = IDENTITY.slice(); c.hide = {}; save(); toast("Defaults restored"); rerenderAll(); },
+  suppAdd: () => { S.supplements.push({ id: uid("s"), name: "New supplement", dose: "1 serving", time: "08:00", note: "" }); save(); renderSheet(); render(); },
+  suppDel: el => { const i = +el.dataset.i; if (UI.suppDelArm !== i) { UI.suppDelArm = i; renderSheet(); setTimeout(() => { UI.suppDelArm = null; }, 4000); return; } UI.suppDelArm = null; S.supplements.splice(i, 1); save(); renderSheet(); render(); },
+  editAff: () => { UI.affEdit = !UI.affEdit; render(); },
+  editWind: () => { UI.windEdit = !UI.windEdit; render(); }
+});
+document.addEventListener("change", e => {
+  const el = e.target, k = el.dataset.in; if (!k) return;
+  if (k === "le") { const a = listRef(el.dataset.key), v = el.value.trim(); if (v) a[+el.dataset.i] = v; else a.splice(+el.dataset.i, 1); save(); rerenderAll(); }
+  else if (k === "tr") { const r = timedRef(el.dataset.key)[+el.dataset.i]; if (!r) return; r[el.dataset.k] = el.value || r[el.dataset.k]; if (el.dataset.k === "time") timedRef(el.dataset.key).sort((a, b) => toMin(a.time) - toMin(b.time)); save(); rerenderAll(); }
+  else if (k === "ctime") { if (el.value) C().times[el.dataset.k] = el.value; save(); render(); }
+  else if (k === "cwake") { C().waterWakeOz = +el.value || 16; save(); render(); }
+});
 
 /* ---------------------------- GOOD READS (v2.1) ----------------------------
    Curated list: books.json (edit it to change Brett's list, no code changes).
