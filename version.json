@@ -1,9 +1,9 @@
 {
- "version": "2.1.0",
+ "version": "2.2.0",
  "date": "2026-11-23",
  "notes": [
-  "New Good Reads tab: 90 hand-picked books with buy and review links",
-  "Track what you are reading. Minutes count toward your wind-down and badges",
-  "Recommend books to the whole crew"
+  "Import your schedule from a file, a calendar link, or a photo",
+  "Synced calendars update your plan when games move",
+  "Add every game to your phone calendar in one tap"
  ]
 }

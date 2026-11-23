@@ -95,6 +95,16 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 .bar button{flex:1;min-height:54px;border-radius:14px;font:inherit;font-weight:800;border:0;cursor:pointer}
 .bar .back{flex:0 0 34%;background:#fff;border:1px solid var(--line);color:var(--ink)}
 .bar .next{background:var(--orange);color:var(--ink)}
+.schbox{margin-top:16px;padding:14px;border:1px dashed #cfd5cf;border-radius:14px;background:var(--surface)}
+.schbtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.schbtns .btn{min-height:46px;margin:0;font-size:13px}
+.schrow{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.schrow input{width:22px;min-height:22px;accent-color:#ff8200}
+.schteams{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.schteams button{border:1px solid var(--line);background:#fff;border-radius:10px;min-height:38px;padding:0 10px;font:inherit;font-size:13px;font-weight:700}
+.schteams button.on{background:var(--green);color:#fff;border-color:var(--green)}
+#schLinkBox{display:flex;gap:8px;margin-top:8px}
+#schLinkBox .btn{width:auto;margin:0;padding:0 14px}
 .toast{position:fixed;left:50%;top:calc(var(--st) + 16px);transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;display:none;z-index:50}
 .wm-bg{position:fixed;right:-80px;bottom:calc(var(--sb) + 64px);width:380px;max-width:90vw;opacity:.07;z-index:0;pointer-events:none;user-select:none}
 .signoff{display:flex;align-items:center;justify-content:center;gap:8px;margin:22px 0 6px;color:#9aa39e;font-size:12px;font-weight:700;letter-spacing:.3px;position:relative;z-index:1}
@@ -160,6 +170,10 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 <label>Main goal for your sport or activity</label>
 <div class="chips" data-group="sportGoals"><label><input type="checkbox" value="Get faster">Get faster</label><label><input type="checkbox" value="Jump higher">Jump higher</label><label><input type="checkbox" value="More endurance">More endurance</label><label><input type="checkbox" value="More strength and power">More strength and power</label><label><input type="checkbox" value="Better agility">Better agility</label><label><input type="checkbox" value="Stay injury-free">Stay injury-free</label><label><input type="checkbox" value="Keep playing for years">Keep playing for years</label><label><input type="checkbox" value="Lose weight to perform better">Lose weight to perform better</label><label><input type="checkbox" value="Finish an event or race">Finish an event or race</label><label><input type="checkbox" value="Keep up with my kids">Keep up with my kids</label></div>
 <label>What is driving this change right now?</label><textarea name="driver" placeholder="Doctor said my blood pressure is up. Want to keep up with my kids. Tired of being winded in games."></textarea>
+<div class="schbox"><b>Have a schedule? Add it (optional)</b><div class="hint">Games, practices, or races. Upload a file, paste a calendar link, or snap a photo.</div>
+<div class="schbtns"><button type="button" class="btn sec" id="schFile">Upload file</button><button type="button" class="btn sec" id="schLinkBtn">Calendar link</button><button type="button" class="btn sec" id="schPhoto">Photo</button></div>
+<div id="schLinkBox" style="display:none"><input id="schUrl" type="url" placeholder="webcal://... or https://...ics"><button type="button" class="btn green" id="schLinkGo">Connect</button></div>
+<div id="schOut"></div></div>
 <div class="g2"><div><label>Target event (optional)</label><input name="eventName" placeholder="Half marathon, league season, beach trip"></div><div><label>Event date</label><input name="eventDate" type="date"></div></div>
 </div>
 
@@ -233,6 +247,7 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 </main>
 <div class="bar"><button class="back" id="back" type="button">Back</button><button class="next" id="next" type="button">Let's go</button></div>
 <div class="toast" id="toast"></div>
+<script src="schedule-lib.js"></script>
 <script>
 
 /* Fillable profile for Game Shape. Output: a profile JSON Brett pastes into Claude to build the person's app. */
@@ -276,7 +291,8 @@ function build() {
     supplements: (r.supplements || "").split("\n").map(s => s.trim()).filter(Boolean),
     recovery: { tools: r.recovery, winddown: r.winddown },
     motivation: { pastQuit: r.pastQuit, tone: r.tone, motivators: r.motivators, affirmations: (r.affirmations || "").split("\n").map(s => s.trim()).filter(Boolean) },
-    theme: { accent: r.accent }
+    theme: { accent: r.accent },
+    schedule: SCH.events.length ? { source: SCH.label, events: SCH.events.filter(e => e.sel).map(e => ({ date: e.date, start: e.start, end: e.end, type: e.type, title: e.title, opponent: e.opponent || "", homeAway: e.homeAway || null, location: e.location || "" })) } : null
   };
 }
 
@@ -298,6 +314,61 @@ document.getElementById("sms").textContent = "Text it to " + P.from;
 let draft = null; try { draft = JSON.parse(localStorage.getItem(DK) || "null"); } catch (e) {}
 if (P.name && !(draft && draft.name)) F.elements.name.value = P.name;
 if (tm && !(draft && draft.team)) { F.elements.team.selectedIndex = tm.option; F.elements.practiceDay.value = tm.practice[0]; F.elements.practiceStart.value = tm.practice[1]; F.elements.practiceEnd.value = tm.practice[2]; }
+
+/* ---------- Optional schedule import (same parser as the app) ---------- */
+const SCH = { events: [], label: "", teams: [], my: "", src: null };
+try { const v = JSON.parse(localStorage.getItem(DK + "_sched") || "null"); if (v) Object.assign(SCH, v, { src: null }); } catch (e) {}
+const live = () => /^https?:$/.test(location.protocol);
+function schSave() { try { localStorage.setItem(DK + "_sched", JSON.stringify({ events: SCH.events, label: SCH.label, teams: SCH.teams, my: SCH.my })); } catch (e) {} }
+function schSet(evs, label, teams, src) { const t = new Date().toISOString().slice(0, 10); SCH.all = evs; SCH.label = label; SCH.teams = teams || []; SCH.src = src || null; SCH.events = evs.map(e => Object.assign({}, e, { sel: e.date >= t })); schSave(); schRender(); }
+function schTeam(name) {
+  SCH.my = name;
+  if (SCH.src && SCH.src.rows) SCH.events = GS_SCHED.csvToEvents(SCH.src.rows, SCH.src.det, { myTeam: name }).map(e => Object.assign(e, { sel: e.date >= new Date().toISOString().slice(0, 10) }));
+  else if (SCH.all) SCH.events = SCH.all.filter(e => !(e.home || e.away) || [e.home, e.away].includes(name)).map(e => (e.home || e.away) ? Object.assign({}, e, { title: (e.home === name ? "vs " : "@ ") + (e.home === name ? e.away : e.home), homeAway: e.home === name ? "home" : "away", sel: true }) : e);
+  schSave(); schRender();
+}
+function schRender() {
+  const o = document.getElementById("schOut"); if (!SCH.events.length && !SCH.teams.length) { o.innerHTML = ""; return; }
+  const n = SCH.events.filter(e => e.sel).length;
+  o.innerHTML = `<div class="hint" style="margin-top:12px"><b>${n} of ${SCH.events.length} events selected</b> from ${escH(SCH.label)}. Uncheck any that are not yours.</div>` +
+    (SCH.teams.length > 1 ? `<div class="hint">Which team is yours?</div><div class="schteams">${SCH.teams.slice(0, 12).map(t => `<button type="button" class="${SCH.my === t ? "on" : ""}" data-team="${escH(t)}">${escH(t)}</button>`).join("")}</div>` : "") +
+    SCH.events.map((e, i) => `<label class="schrow" style="margin:0;color:var(--ink);font-weight:600"><input type="checkbox" data-sch="${i}" ${e.sel ? "checked" : ""}><span>${escH(e.date)} ${e.start ? escH(e.start) : ""} \u2022 ${escH(e.title)}${e.location ? " at " + escH(e.location) : ""}</span></label>`).join("") +
+    `<button type="button" class="btn sec" id="schClear" style="margin-top:10px">Remove schedule</button>`;
+}
+document.getElementById("schOut").addEventListener("click", e => { const b = e.target.closest("[data-team]"); if (b) schTeam(b.dataset.team); if (e.target.id === "schClear") { SCH.events = []; SCH.teams = []; SCH.label = ""; schSave(); schRender(); } });
+document.getElementById("schOut").addEventListener("change", e => { const i = e.target.dataset.sch; if (i != null) { SCH.events[+i].sel = e.target.checked; schSave(); schRender(); } });
+function pick(accept, cb) { const i = document.createElement("input"); i.type = "file"; i.accept = accept; i.style.display = "none"; document.body.appendChild(i); i.onchange = () => { const f = i.files[0]; i.remove(); if (f) cb(f); }; i.click(); }
+async function schPhoto(f) {
+  if (!live()) return toast("Photo reading works on the live link");
+  toast("Reading your schedule...");
+  try {
+    let data, mediaType;
+    if (/pdf/i.test(f.type)) { data = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1]); r.onerror = rej; r.readAsDataURL(f); }); mediaType = "application/pdf"; }
+    else { const img = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(f); }); const k = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement("canvas"); c.width = img.width * k; c.height = img.height * k; const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height); data = c.toDataURL("image/jpeg", 0.8).split(",")[1]; mediaType = "image/jpeg"; }
+    const r = await fetch("/.netlify/functions/schedule-vision", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ data, mediaType, device: "intake-" + (F.elements.name.value || "anon"), hints: { sport: F.elements.sport.value, today: new Date().toISOString().slice(0, 10), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone } }) });
+    const j = await r.json().catch(() => ({})); if (!r.ok || !j.ok) throw new Error(j.error || "Couldn't read that photo");
+    const evs = (j.events || []).map(e => ({ date: e.date, start: GS_SCHED.parseTime(e.start), end: GS_SCHED.parseTime(e.end), title: e.title, opponent: e.opponent || "", location: e.location || "", type: e.type || "game", home: e.homeTeam || "", away: e.awayTeam || "" }));
+    schSet(evs, f.name || "photo", (j.teamsFound || []).length > 1 ? j.teamsFound : []);
+  } catch (e) { toast(e.message || "Couldn't read that photo. Try a file instead."); }
+}
+document.getElementById("schFile").addEventListener("click", () => pick(".csv,.ics,.txt,.pdf,image/*", async f => {
+  if (/^image\//.test(f.type) || /\.pdf$/i.test(f.name)) return schPhoto(f);
+  const text = await f.text();
+  if (/BEGIN:VCALENDAR/i.test(text)) { const evs = GS_SCHED.parseICS(text); if (!evs.length) return toast("No events found"); return schSet(evs, f.name); }
+  const rows = GS_SCHED.parseCSV(text), det = GS_SCHED.detectColumns(rows);
+  if (det.map.date == null) return toast("Couldn't find a date column. Brett can import it for you.");
+  const teams = GS_SCHED.teamsFromRows(rows, det);
+  schSet(GS_SCHED.csvToEvents(rows, det, {}), f.name, teams, { rows, det });
+}));
+document.getElementById("schPhoto").addEventListener("click", () => pick("image/*,application/pdf", schPhoto));
+document.getElementById("schLinkBtn").addEventListener("click", () => { const b = document.getElementById("schLinkBox"); b.style.display = b.style.display === "none" ? "flex" : "none"; });
+document.getElementById("schLinkGo").addEventListener("click", async () => {
+  const u = document.getElementById("schUrl").value.trim(); if (!u) return toast("Paste a calendar link");
+  if (!live()) return toast("Calendar links work on the live link");
+  try { const r = await fetch("/.netlify/functions/schedule-fetch?url=" + encodeURIComponent(u)); if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(j.error || "Couldn't load that calendar"); } const evs = GS_SCHED.parseICS(await r.text()); if (!evs.length) throw new Error("No upcoming events in that calendar"); schSet(evs, "calendar link"); SCH.feedUrl = u; }
+  catch (e) { toast(e.message); }
+});
+schRender();
 
 /* ---------- Sport section: basketball fields only for basketball ---------- */
 const sportSel = document.getElementById("sportSel");

@@ -12,3 +12,5 @@
   Cache-Control: no-store
 /books.json
   Cache-Control: no-cache
+/schedule-lib.js
+  Cache-Control: no-cache

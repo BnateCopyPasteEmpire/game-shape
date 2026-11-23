@@ -249,6 +249,24 @@ a.btn{text-decoration:none}
 .toggle .sw:after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s}
 .toggle.on .sw{background:var(--green)}
 .toggle.on .sw:after{left:23px}
+.imp{display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:14px;border:1px solid var(--line);border-radius:16px;margin-bottom:10px;background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.imp .mi{width:44px;height:44px;border-radius:12px;background:var(--orange-tint);color:var(--orange-ink);display:grid;place-items:center;flex:none;font-size:22px}
+.imp b{display:block;font-size:16px}
+.rvlist{margin-top:10px}
+.rvrow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.rvrow.off .bt,.rvrow.off .ba{opacity:.5}
+.rvi{flex:1;min-width:0;cursor:pointer}
+.rvedit{margin-top:8px;padding:10px;background:var(--surface);border-radius:12px;border:1px solid var(--line)}
+.rvedit input,.rvedit select{min-width:0;padding:10px 8px}
+.evrow{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.evrow.cx .lbl b{text-decoration:line-through;color:var(--ink-2)}
+.evi{display:flex;gap:12px;flex:1;text-align:left;color:var(--ink);min-width:0}
+.evi .t{width:44px;flex:none;font-weight:800;font-size:13px;color:var(--green)}
+.maprow{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.maprow select{width:150px}
+.pulse{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.92);opacity:.75}}
+.btn[disabled]{opacity:.45}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -276,6 +294,7 @@ a.btn{text-decoration:none}
 <div id="toast"></div>
 <div id="splash" class="hidden"><img src="icon-512.png" alt=""><img class="wm" src="wordmark-on-light.png" alt="Game Shape"></div>
 <div id="updateBar" class="hidden"></div>
+<script src="schedule-lib.js"></script>
 <input type="file" id="importFile" accept="application/json,.json" class="hidden">
 
 <script>
@@ -287,7 +306,7 @@ a.btn{text-decoration:none}
 
 /* ---------------------------- SEED (edit me) ---------------------------- */
 const SEED = {
-  profile: { name: "Brett", age: 37, heightIn: 72, weight: 190, waist: 34,
+  profile: { name: "Brett", sport: "Basketball", team: "Easley Pres - B", age: 37, heightIn: 72, weight: 190, waist: 34,
     protein: 180, waterBase: 100, waterCourtExtra: 25, calTrain: 2300, calCourt: 2500, fiber: 34 },
   programStart: "2026-11-23",
   readsSpicyDefault: true,   // Brett: on. New users: set false in their profile.
@@ -334,8 +353,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.1.0";
+const APP_VERSION = "2.2.0";
 const CHANGELOG = {
+  "2.2.0": ["Import your schedule from a file, a calendar link, or a photo", "Synced calendars update your plan when games move", "Add every game to your phone calendar in one tap", "Works for any sport: races get a taper and an easy day after"],
   "2.1.0": ["New Good Reads tab: 90 hand-picked books with buy and review links", "Track what you are reading. Minutes count toward your wind-down and badges", "Recommend books to the whole crew"],
   "2.0.2": ["Game Shape logo now lives in the background and in small touches across every page"],
   "2.0.1": ["Copy Paste Empire mark and today's date in the top right of every page"],
@@ -498,14 +518,20 @@ const RED_FLAGS = [
 /* ---------------------------- STORAGE ---------------------------- */
 const KEY = "gameShape_v1", SCHEMA = 1;
 const clone = o => JSON.parse(JSON.stringify(o));
+function gamesToEvents(games) {
+  return (games || []).map(g => { const [h, m] = g.time.split(":").map(Number), e = h * 60 + m + 60;
+    return { id: g.id, date: g.date, start: g.time, end: String(Math.floor(e / 60) % 24).padStart(2, "0") + ":" + String(e % 60).padStart(2, "0"), type: "game", title: g.opp, opponent: g.opp.replace(/^(vs|@)\s+/, ""), homeAway: /^@/.test(g.opp) ? "away" : "home", location: g.gym, sport: "Basketball", intensity: "high", affectsTraining: true, source: { kind: "manual" } }; });
+}
 function fresh() {
   return { schemaVersion: SCHEMA, profile: clone(SEED.profile), programStart: SEED.programStart, practice: clone(SEED.practice),
-    practiceSkips: [], games: clone(SEED.games), supplements: clone(SEED.supplements), appointments: clone(SEED.appointments),
+    practiceSkips: [], games: clone(SEED.games), events: gamesToEvents(SEED.games), feeds: [], imports: [], schedAlert: null, supplements: clone(SEED.supplements), appointments: clone(SEED.appointments),
     affirmations: clone(SEED.affirmations), logs: {}, body: [], checkins: [], pain: {}, exHist: {}, midDay: {}, alert: null,
     reads: { shelf: {}, rating: {}, notes: {}, progress: {}, minutes: {}, current: null, hidden: [], spicy: SEED.readsSpicyDefault !== false, myRecs: [], community: [], adminPin: "", backend: false, lastSync: null },
     grocery: { sel: {}, kit: false, checked: {} }, meta: { lastBackup: null, badges: [], created: todayStr() } };
 }
 function migrate(d) {
+  if (d.events === undefined) d.events = gamesToEvents(d.games || SEED.games);   // v2.2: games become events
+  if (d.profile && d.profile.sport === undefined) { d.profile.sport = SEED.profile.sport; d.profile.team = SEED.profile.team; }
   const base = fresh();
   for (const k in base) if (d[k] === undefined) d[k] = base[k];
   for (const k in base.meta) if (d.meta[k] === undefined) d.meta[k] = base.meta[k];
@@ -540,9 +566,13 @@ let weekCache = {};
 function invalidate() { weekCache = {}; }
 function courtOn(s) {
   const ev = [];
-  S.games.forEach(g => { if (g.date === s) ev.push({ type: "game", date: s, start: g.time, end: fromMin(toMin(g.time) + 60), label: "Game " + g.opp, gym: g.gym, id: g.id }); });
-  if (dow(s) === S.practice.weekday && !S.practiceSkips.includes(s))
-    ev.push({ type: "practice", date: s, start: S.practice.start, end: S.practice.end, label: "Practice", gym: S.practice.location });
+  (S.events || []).forEach(e => {
+    if (e.date !== s || e.cancelled || e.affectsTraining === false || e.intensity === "low") return;
+    const st = e.start || "18:00";
+    ev.push({ type: e.intensity === "high" ? "game" : "practice", kind: e.type, date: s, start: st, end: e.end || fromMin(toMin(st) + 60), label: (e.type === "game" ? "Game " : e.type === "race" ? "Race: " : "") + e.title, gym: e.location, id: e.id });
+  });
+  if (S.practice.weekday >= 0 && dow(s) === S.practice.weekday && !S.practiceSkips.includes(s))
+    ev.push({ type: "practice", kind: "practice", date: s, start: S.practice.start, end: S.practice.end, label: "Practice", gym: S.practice.location });
   return ev.sort((a, b) => toMin(a.start) - toMin(b.start));
 }
 function baseType(s) {
@@ -551,6 +581,8 @@ function baseType(s) {
   if (c.length) return "PRACTICE_DAY";
   if (dow(s) === 0) return "RECOVERY";
   if (courtOn(addDays(s, 1)).length) return "PRE_COURT";
+  if (courtOn(addDays(s, 2)).some(e => e.kind === "race")) return "PRE_COURT";   // 2-day taper before a race
+  if (courtOn(addDays(s, -1)).some(e => e.kind === "race")) return "FLEX";       // easy day after a race
   return null;
 }
 function resolveWeek(ws) {
@@ -727,6 +759,8 @@ function renderToday() {
   let out = "";
   out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${typeBadge(info.type, info.leg ? info.leg : "")}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc(IDENTITY[pd(s).getDate() % IDENTITY.length])}</div></div>`;
   // banners
+  if (S.schedAlert) out += `<div class="banner info"><b>Your schedule changed</b>${S.schedAlert.msgs.map(esc).join("<br>")}<br>Your plan was updated.<div style="margin-top:10px" class="row"><button class="btn sm" data-act="sheet" data-k="hoops">View schedule</button><button class="btn sm" data-act="dismissSched">Got it</button></div></div>`;
+  if (!upcomingEvents().length) out += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
   if (S.alert) out += `<div class="banner bad"><b>See a doctor or PT</b>${S.alert.msgs.map(esc).join("<br>")}<div style="margin-top:10px"><button class="btn sm" data-act="dismissAlert">Got it</button></div></div>`;
   const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Backing off: ${pa.map(a => AREAS.find(x => x[0] === a)[1] + " (" + S.pain[a].left + " left)").join(", ")}</b>Exercises that load these areas are swapped for pain-free versions.</div>`;
   if (info.midday) out += `<div class="banner info"><b>Sleep-in day</b>Late night yesterday. Sleep until 6:30 and train at 12:00.</div>`;
@@ -893,17 +927,13 @@ function closeSheet() { UI.sheet = null; $("sheet").classList.add("hidden"); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Hoops schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
-  else if (kind === "hoops") {
-    const t = todayStr(), g = S.games.slice().sort((a, b) => a.date < b.date ? -1 : 1);
-    o = back + `${sheetTitle("Hoops")}<div class="card" style="background:var(--card2)"><b>Weekly practice</b><div class="grid2"><div><label class="f">Day</label><select data-in="prac" data-k="weekday">${DOW.map((d, i) => `<option value="${i}" ${S.practice.weekday === i ? "selected" : ""}>${d}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" value="${S.practice.start}" data-in="prac" data-k="start"></div></div><label class="f">End</label><input type="time" value="${S.practice.end}" data-in="prac" data-k="end"><label class="f">Skip practice on a date</label><div class="row"><input type="date" id="skipD"><button class="btn sm" data-act="skipAdd">Skip</button></div>${S.practiceSkips.map(d => `<div class="row between small" style="padding:6px 0">${fmtD(d)}<button class="btn sm" data-act="skipDel" data-d="${d}">Undo</button></div>`).join("")}</div>`;
-    o += `<button class="btn primary block" data-act="sheet" data-k="game" style="margin:6px 0 12px">+ Add game</button>`;
-    o += g.map(x => `<button class="check" data-act="sheet" data-k="game" data-a="${x.id}" style="${x.date < t ? "opacity:.45" : ""}"><span class="t">${fmtShort(x.date)}</span><span class="lbl"><b>${esc(x.opp)}</b><div class="small muted">${DOW[dow(x.date)]} ${fmtT(x.time)} @ ${esc(x.gym)}</div></span><span class="muted">›</span></button>`).join("");
-    o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Game-day protocol</b><ol class="list small"><li>Water: 125 oz total. 16 oz on waking.</li><li>AM: 15-min activation only, hot tub 10 min.</li><li>Real meal 3 to 4 hrs before: chicken, rice, veg.</li><li>Snack 60 to 90 min before: banana + jerky or yogurt.</li><li>Electrolyte drink 60 min before tip.</li><li>Extra 5 min calf + ankle warmup at the gym.</li><li>After: 40 g protein + 20 oz water, shower, 5 min stretch.</li><li>Lights out by 10:15. No hot tub after 9:30 PM.</li><li>Late game? Tomorrow auto-moves to a midday session.</li></ol></div>`;
-  } else if (kind === "game") {
-    const g = S.games.find(x => x.id === arg) || { id: "", date: todayStr(), time: "18:30", opp: "", gym: "" };
-    o = `<button class="btn sm" data-act="sheet" data-k="hoops" style="margin-bottom:10px">‹ Hoops</button><h2>${arg ? "Edit game" : "Add game"}</h2><label class="f">Date</label><input type="date" id="gD" value="${g.date}"><label class="f">Time</label><input type="time" id="gT" value="${g.time}"><label class="f">Opponent</label><input id="gO" value="${esc(g.opp)}" placeholder="vs Team"><label class="f">Gym</label><input id="gG" value="${esc(g.gym)}"><button class="btn primary block" style="margin-top:14px" data-act="gameSave" data-a="${g.id}">Save</button>${arg ? `<button class="btn block danger" style="margin-top:10px" data-act="gameDel" data-a="${g.id}">Delete game</button>` : ""}`;
+  else if (kind === "hoops") { o = scheduleHTML();
+  } else if (kind === "game") { o = eventFormHTML(arg);
+  } else if (kind === "import") { o = back + importSheetHTML();
+  } else if (kind === "review") { o = reviewHTML();
+  } else if (kind === "mapper") { o = mapperHTML();
   } else if (kind === "supps") {
     const s = todayStr();
     o = back + `${sheetTitle("Supplements")}<div class="small muted" style="margin-bottom:10px">Split across the day so nothing blocks iron absorption.</div>` + S.supplements.map((p, i) => `<div class="card" style="background:var(--card2)">${checkRow(s, "supp_" + p.id, fmtT(p.time), "<b>" + esc(p.name) + "</b>")}<div class="grid2"><div><label class="f">Dose</label><input value="${esc(p.dose)}" data-in="supp" data-i="${i}" data-k="dose"></div><div><label class="f">Time</label><input type="time" value="${p.time}" data-in="supp" data-i="${i}" data-k="time"></div></div><div class="small muted" style="margin-top:8px">${esc(p.note)}</div></div>`).join("");
@@ -1183,6 +1213,271 @@ Object.assign(ACT, {
 });
 document.addEventListener("input", e => { if (e.target.id === "readSearch") { RUI.q = e.target.value; RUI.limit = 30; renderReadList(); } });
 
+/* ---------------------------- SCHEDULE IMPORT (v2.2) ----------------------------
+   Events live in S.events. Three ways in: file (CSV/ICS/PDF), calendar link (synced feed), photo (Claude vision).
+   Everything lands on the Review screen first. Parsing lives in schedule-lib.js (GS_SCHED). */
+const SCHED_API = { fetch: "/.netlify/functions/schedule-fetch", vision: "/.netlify/functions/schedule-vision", ics: "/.netlify/functions/schedule-ics" };
+const TYPE_LABEL = { game: "Game", practice: "Practice", event: "Event", race: "Race" };
+const onlineHost = () => /^https?:$/.test(location.protocol) && !/claude|anthropic/.test(location.hostname);
+function normEvent(e, kind, extra) {
+  const sport = (S.profile.sport || "Basketball").toLowerCase();
+  let intensity = e.intensity;
+  if (!intensity) {
+    if (e.type === "game" || e.type === "race") intensity = sport === "golf" ? "medium" : "high";
+    else if (e.type === "practice") intensity = "medium";
+    else intensity = /tournament|tourney|scrimmage|meet\b|showcase|match/i.test(e.title || "") ? (sport === "golf" ? "medium" : "high") : "low";
+  }
+  return Object.assign({
+    id: e.id || "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    date: e.date, start: e.start || null, end: e.end || (e.start ? GS_SCHED.addMin(e.start, e.type === "practice" ? 90 : 60) : null),
+    type: e.type || "game", title: e.title || "Event", opponent: e.opponent || "", homeAway: e.homeAway || null,
+    location: e.location || "", sport: S.profile.sport || "Basketball", intensity, affectsTraining: intensity !== "low",
+    source: { kind: kind || "manual", uid: e.uid || null }
+  }, extra || {});
+}
+function upcomingEvents() { const t = todayStr(); return (S.events || []).filter(e => e.date >= t).sort((a, b) => (a.date + (a.start || "")).localeCompare(b.date + (b.start || ""))); }
+
+/* ---------- Import entry points ---------- */
+function importSheetHTML() {
+  const big = (act, icon, t, sub) => `<button class="imp" data-act="${act}"><span class="mi">${icon}</span><span><b>${t}</b><span class="small muted">${sub}</span></span></button>`;
+  return `${sheetTitle("Import schedule")}<div class="small muted" style="margin-bottom:12px">Nothing is saved until you review it. Your training plan rebuilds around whatever you import.</div>
+  ${big("impFile", I.save, "Upload a file", "CSV or calendar file (.ics) from TeamSnap, GameChanger, LeagueApps, Google, or Apple")}
+  ${big("impLink", I.flag, "Paste a calendar link", "webcal:// or .ics link. Stays synced when games move")}
+  ${big("impPhoto", I.ball, "Take or choose a photo", "Snap a printed schedule, a screenshot, or a PDF. AI reads it")}
+  <div id="impLinkBox" class="hidden" style="margin-top:6px"><label class="f">Calendar link</label><input id="impUrl" type="url" placeholder="webcal://... or https://...ics"><label class="f">Name (optional)</label><input id="impName" placeholder="Easley Pres league"><button class="btn primary block" style="margin-top:12px" data-act="impLinkGo">Connect calendar</button></div>
+  <div class="small muted" style="margin-top:14px">Photo reading uses AI. Double-check dates before importing.</div>`;
+}
+const fileInput = (accept, capture) => { const i = document.createElement("input"); i.type = "file"; i.accept = accept; if (capture) i.setAttribute("capture", "environment"); i.style.display = "none"; document.body.appendChild(i); return i; };
+function pickFile(accept, capture, cb) { const i = fileInput(accept, capture); i.onchange = () => { const f = i.files[0]; i.remove(); if (f) cb(f); }; i.click(); }
+async function handleFile(f) {
+  const name = f.name || "file", lower = name.toLowerCase();
+  if (/\.pdf$/.test(lower) || /^image\//.test(f.type)) return handlePhoto(f);
+  const text = await f.text();
+  if (/BEGIN:VCALENDAR/i.test(text) || /\.ics$/.test(lower)) {
+    const evs = GS_SCHED.parseICS(text);
+    if (!evs.length) return toast("No events found in that calendar file");
+    return openReview({ kind: "ics", label: name }, evs, []);
+  }
+  const rows = GS_SCHED.parseCSV(text), det = GS_SCHED.detectColumns(rows);
+  if (!rows.length) return toast("That file looks empty");
+  if (!det.confident || det.map.date == null) { UI.map = { rows, det, label: name }; return openSheet("mapper"); }
+  csvToReview(rows, det, name);
+}
+function csvToReview(rows, det, label) {
+  const teams = GS_SCHED.teamsFromRows(rows, det);
+  const guess = teams.find(t => S.profile.team && t.toLowerCase() === S.profile.team.toLowerCase());
+  const evs = GS_SCHED.csvToEvents(rows, det, { myTeam: guess || "" });
+  openReview({ kind: "csv", label, rows, det }, evs, teams, guess || "");
+}
+function mapperHTML() {
+  const m = UI.map, opts = [["", "Ignore"], ["date", "Date"], ["time", "Start time"], ["end", "End time"], ["title", "Title"], ["opponent", "Opponent"], ["home", "Home team"], ["away", "Away team"], ["location", "Location"], ["type", "Type"]];
+  const cols = m.det.headers.map((h, i) => { const cur = Object.keys(m.det.map).find(k => m.det.map[k] === i) || ""; const ex = (m.rows[m.det.headerRow + 1] || [])[i] || ""; return `<div class="maprow"><div><b>${esc(h)}</b><div class="small muted">${esc(ex)}</div></div><select data-in="mapcol" data-i="${i}">${opts.map(o => `<option value="${o[0]}" ${o[0] === cur ? "selected" : ""}>${o[1]}</option>`).join("")}</select></div>`; }).join("");
+  return `${sheetTitle("Match your columns")}<div class="small muted">Tell us what each column is. Date is required.</div><label class="toggle ${m.det.headerRow >= 0 ? "on" : ""}" data-act="mapHeader">First row is a header<span class="sw"></span></label>${cols}<button class="btn primary block" style="margin-top:14px" data-act="mapGo">Continue</button>`;
+}
+async function connectFeed(url, name) {
+  if (!navigator.onLine) return toast("Needs internet");
+  if (!onlineHost()) return toast("Calendar links work on your live app link");
+  toast("Connecting...");
+  try {
+    const r = await fetch(SCHED_API.fetch + "?url=" + encodeURIComponent(url), { cache: "no-store" });
+    if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(j.error || "Couldn't load that calendar"); }
+    const evs = GS_SCHED.parseICS(await r.text());
+    if (!evs.length) throw new Error("That calendar has no upcoming events");
+    openReview({ kind: "feed", label: name || hostOf(url), url, name: name || hostOf(url) }, evs, []);
+  } catch (e) { toast(e.message || "Couldn't load that calendar"); }
+}
+const hostOf = u => { try { return new URL(u.replace(/^webcal/i, "https")).hostname.replace(/^www\./, ""); } catch (e) { return "Calendar"; } };
+function shrinkImage(file) {
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { const k = Math.min(1, 1600 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res({ data: c.toDataURL("image/jpeg", 0.8).split(",")[1], mediaType: "image/jpeg", thumb: c.toDataURL("image/jpeg", 0.5) }); };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("Couldn't open that image")); };
+    img.src = url;
+  });
+}
+const fileB64 = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1]); r.onerror = rej; r.readAsDataURL(f); });
+async function handlePhoto(f) {
+  if (!navigator.onLine) return toast("Needs internet");
+  if (!onlineHost()) return toast("Photo import works on your live app link");
+  let n = 0, day = todayStr(); try { const k = JSON.parse(localStorage.getItem("gs_vision") || "{}"); n = k.day === day ? k.n : 0; } catch (e) {}
+  if (n >= 10) return toast("Daily limit reached (10 photos)");
+  openSheet("result", `<div class="done-hero"><img class="pulse" src="icon-512.png" alt=""><h2>Reading your schedule...</h2><div class="muted">This takes about 5 to 10 seconds.</div></div>`);
+  try {
+    let payload;
+    if (/pdf/i.test(f.type) || /\.pdf$/i.test(f.name)) { if (f.size > 4.4e6) throw new Error("That PDF is too big. Try a screenshot of the schedule."); payload = { data: await fileB64(f), mediaType: "application/pdf" }; }
+    else payload = await shrinkImage(f);
+    const r = await fetch(SCHED_API.vision, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ data: payload.data, mediaType: payload.mediaType, device: deviceId(), hints: { myTeam: S.profile.team || "", sport: S.profile.sport || "", timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, today: todayStr() } }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.ok) throw new Error(j.error || "Couldn't read that photo");
+    try { localStorage.setItem("gs_vision", JSON.stringify({ day, n: n + 1 })); } catch (e) {}
+    const evs = (j.events || []).filter(e => /^\d{4}-\d{2}-\d{2}$/.test(e.date)).map(e => ({ date: e.date, start: GS_SCHED.parseTime(e.start), end: GS_SCHED.parseTime(e.end), title: e.title, opponent: e.opponent || "", homeAway: e.homeAway || null, location: e.location || "", type: e.type || "game", conf: typeof e.confidence === "number" ? e.confidence : 1, home: e.homeTeam || "", away: e.awayTeam || "", sourceText: e.sourceText || "" }));
+    if (!evs.length) throw new Error("No events found in that image");
+    const teams = (j.teamsFound || []).filter(Boolean);
+    const guess = teams.find(t => S.profile.team && t.toLowerCase() === S.profile.team.toLowerCase()) || "";
+    openReview({ kind: "photo", label: f.name || "Photo", thumb: payload.thumb }, evs, teams.length > 1 ? teams : [], guess);
+  } catch (e) {
+    openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Couldn't read it</h2><div class="muted">${esc(e.message)}</div></div><button class="btn primary block" data-act="sheet" data-k="import">Try another way</button>`);
+  }
+}
+
+/* ---------- Review ---------- */
+function teamFilter(evs, team, src) {
+  if (!team) return evs;
+  if (src.kind === "csv") return GS_SCHED.csvToEvents(src.rows, src.det, { myTeam: team });
+  const t = team.toLowerCase();
+  return evs.filter(e => !(e.home || e.away) || [e.home, e.away].some(x => (x || "").toLowerCase() === t)).map(e => {
+    if (!(e.home || e.away)) return e;
+    const home = (e.home || "").toLowerCase() === t, opp = home ? e.away : e.home;
+    return Object.assign({}, e, { homeAway: home ? "home" : "away", opponent: opp, title: (home ? "vs " : "@ ") + opp });
+  });
+}
+function openReview(src, evs, teams, myTeam) {
+  UI.rv = { src, all: evs, teams: teams || [], myTeam: myTeam || "", items: [] };
+  buildReviewItems(); openSheet("review");
+}
+function buildReviewItems() {
+  const rv = UI.rv, t = todayStr();
+  rv.items = teamFilter(rv.all, rv.myTeam, rv.src).map(e => {
+    const dup = (S.events || []).find(x => GS_SCHED.sameEvent(x, Object.assign({ uid: e.uid }, e)));
+    const changed = dup && (dup.start !== e.start || (e.location && dup.location !== e.location));
+    return Object.assign({}, e, { sel: !(e.date < t) && !dup && !(e.conf != null && e.conf < 0.5), past: e.date < t, dup: dup ? dup.id : null, changed, low: e.conf != null && e.conf < 0.75, edit: false });
+  });
+}
+function impactOf(items) {
+  const sel = items.filter(x => x.sel); if (!sel.length) return null;
+  const dates = sel.map(x => x.date).sort(), from = addDays(dates[0], -2), to = addDays(dates[dates.length - 1], 2);
+  const snap = (() => { const m = {}; for (let d = from; d <= to; d = addDays(d, 1)) { const i = dayInfo(d); m[d] = i.type + (i.midday ? "*" : ""); } return m; })();
+  const keep = S.events; S.events = keep.filter(e => !sel.some(x => x.dup === e.id)).concat(sel.map(x => normEvent(x, "preview"))); invalidate();
+  let changed = 0, game = 0, pre = 0, sleep = 0;
+  for (let d = from; d <= to; d = addDays(d, 1)) { const i = dayInfo(d), v = i.type + (i.midday ? "*" : ""); if (v !== snap[d]) { changed++; if (i.type === "GAME_DAY") game++; if (i.type === "PRE_COURT") pre++; if (i.midday) sleep++; } }
+  S.events = keep; invalidate();
+  return { changed, game, pre, sleep };
+}
+function reviewHTML() {
+  const rv = UI.rv, n = rv.items.filter(x => x.sel).length, imp = impactOf(rv.items);
+  let o = `<div class="row" style="gap:12px;align-items:center">${rv.src.thumb ? `<img src="${rv.src.thumb}" style="width:54px;height:54px;object-fit:cover;border-radius:10px;border:1px solid var(--line)">` : `<img src="icon-180.png" style="width:44px;height:44px;border-radius:11px">`}<div><h2 style="margin:0;font-size:22px">We found ${rv.items.length} event${rv.items.length === 1 ? "" : "s"}</h2><div class="small muted">${esc(rv.src.label || "")}</div></div></div>`;
+  if (rv.teams.length > 1) o += `<h3 class="sh3">Which team is yours?</h3><div class="chiprow wrap" style="flex-wrap:wrap">${rv.teams.slice(0, 12).map(t => `<button class="chip ${rv.myTeam === t ? "on" : ""}" data-act="rvTeam" data-v="${esc(t)}">${esc(t)}</button>`).join("")}${rv.myTeam ? `<button class="chip" data-act="rvTeam" data-v="">Show all</button>` : ""}</div>`;
+  o += `<div class="rvlist">${rv.items.map((e, i) => `<div class="rvrow ${e.sel ? "" : "off"}"><button class="box ${e.sel ? "on" : ""}" data-act="rvSel" data-i="${i}">${CHK}</button><div class="rvi" data-act="rvEdit" data-i="${i}"><div class="bt">${esc(e.title)}</div><div class="ba">${fmtD(e.date)}${e.start ? " • " + fmtT(e.start) : " • all day"}${e.location ? " • " + esc(e.location) : ""}</div><div class="bp"><span class="cat">${TYPE_LABEL[e.type] || "Game"}</span>${e.low ? '<span class="tg shelf">Check this</span>' : ""}${e.dup ? `<span class="tg">${e.changed ? "Update existing" : "Already in your schedule"}</span>` : ""}${e.past ? '<span class="tg">Past</span>' : ""}</div>${e.edit ? editRowHTML(e, i) : ""}</div></div>`).join("")}</div>`;
+  if (imp) o += `<div class="banner info" style="margin-top:12px"><b>This changes your plan on ${imp.changed} day${imp.changed === 1 ? "" : "s"}</b>${imp.game} game day${imp.game === 1 ? "" : "s"}, ${imp.pre} pre-game day${imp.pre === 1 ? "" : "s"}, ${imp.sleep} sleep-in day${imp.sleep === 1 ? "" : "s"}. Leg days move around them automatically.</div>`;
+  o += `<button class="btn primary block" style="margin-top:12px;min-height:56px" data-act="rvImport" ${n ? "" : "disabled"}>Import ${n} event${n === 1 ? "" : "s"}</button><button class="btn block" style="margin-top:8px" data-act="closeSheet">Cancel</button>`;
+  return o;
+}
+function editRowHTML(e, i) {
+  return `<div class="rvedit"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${e.date}" data-in="rv" data-i="${i}" data-k="date"></div><div><label class="f">Type</label><select data-in="rv" data-i="${i}" data-k="type">${Object.entries(TYPE_LABEL).map(([k, v]) => `<option value="${k}" ${e.type === k ? "selected" : ""}>${v}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" value="${e.start || ""}" data-in="rv" data-i="${i}" data-k="start"></div><div><label class="f">End</label><input type="time" value="${e.end || ""}" data-in="rv" data-i="${i}" data-k="end"></div></div><label class="f">Title</label><input value="${esc(e.title)}" data-in="rv" data-i="${i}" data-k="title"><label class="f">Location</label><input value="${esc(e.location || "")}" data-in="rv" data-i="${i}" data-k="location">${e.sourceText ? `<div class="small muted" style="margin-top:8px">Read from: "${esc(e.sourceText)}"</div>` : ""}<button class="btn sm" style="margin-top:10px" data-act="rvEdit" data-i="${i}">Done</button></div>`;
+}
+function doImport() {
+  const rv = UI.rv, sel = rv.items.filter(x => x.sel); if (!sel.length) return;
+  const importId = "i" + Date.now().toString(36), added = [], updated = [];
+  let feedId = null;
+  if (rv.src.kind === "feed") { feedId = "f" + Date.now().toString(36); S.feeds.push({ id: feedId, url: rv.src.url, name: rv.src.name, lastSync: new Date().toISOString(), lastHash: GS_SCHED.hashEvents(rv.all), autoSync: true }); }
+  sel.forEach(x => {
+    const ev = normEvent(x, rv.src.kind, { source: { kind: rv.src.kind, importId, feedId, uid: x.uid || null } });
+    if (x.dup) { const i = S.events.findIndex(e => e.id === x.dup); if (i >= 0) { updated.push(clone(S.events[i])); ev.id = S.events[i].id; S.events[i] = ev; return; } }
+    S.events.push(ev); added.push(ev.id);
+  });
+  S.imports.unshift({ id: importId, date: todayStr(), at: Date.now(), kind: rv.src.kind, label: rv.src.label, count: sel.length, added, updated, feedId });
+  S.imports = S.imports.slice(0, 20);
+  invalidate(); save(); UI.rv = null;
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${sel.length} event${sel.length === 1 ? "" : "s"} imported</h2><div class="muted">Your training plan was rebuilt around them.</div></div><button class="btn green block" data-act="calAll">Add all to my phone calendar</button><button class="btn block" style="margin-top:8px" data-act="undoImport" data-id="${importId}">Undo import</button><button class="btn primary block" style="margin-top:8px" data-act="closeSheet">Done</button>`);
+  render();
+}
+function undoImport(id) {
+  const im = S.imports.find(x => x.id === id); if (!im) return;
+  S.events = S.events.filter(e => !im.added.includes(e.id));
+  (im.updated || []).forEach(u => { const i = S.events.findIndex(e => e.id === u.id); if (i >= 0) S.events[i] = u; });
+  if (im.feedId) S.feeds = S.feeds.filter(f => f.id !== im.feedId);
+  S.imports = S.imports.filter(x => x.id !== id); invalidate(); save(); toast("Import undone"); closeSheet(); render();
+}
+
+/* ---------- Feed auto-sync ---------- */
+async function syncFeeds(force) {
+  if (!onlineHost() || !navigator.onLine || !(S.feeds || []).length) return;
+  const changes = [];
+  for (const f of S.feeds) {
+    if (!f.autoSync && !force) continue;
+    if (!force && f.lastSync && Date.now() - new Date(f.lastSync) < 6 * 3600e3) continue;
+    try {
+      const r = await fetch(SCHED_API.fetch + "?url=" + encodeURIComponent(f.url), { cache: "no-store" }); if (!r.ok) continue;
+      const evs = GS_SCHED.parseICS(await r.text()), h = GS_SCHED.hashEvents(evs);
+      f.lastSync = new Date().toISOString(); if (h === f.lastHash) continue; f.lastHash = h;
+      const mine = S.events.filter(e => e.source && e.source.feedId === f.id), t = todayStr(), seen = new Set();
+      evs.forEach(n => {
+        const ex = mine.find(e => (n.uid && e.source.uid === n.uid) || GS_SCHED.sameEvent(e, n));
+        if (ex) { seen.add(ex.id); if (ex.date !== n.date || ex.start !== n.start || ex.cancelled) { changes.push(ex.title + " moved to " + fmtD(n.date) + (n.start ? " " + fmtT(n.start) : "")); Object.assign(ex, { date: n.date, start: n.start, end: n.end, location: n.location || ex.location, cancelled: false }); } }
+        else if (n.date >= t) { const ev = normEvent(n, "feed", { source: { kind: "feed", feedId: f.id, uid: n.uid || null } }); S.events.push(ev); seen.add(ev.id); changes.push("New: " + ev.title + " " + fmtD(ev.date)); }
+      });
+      mine.forEach(e => { if (!seen.has(e.id) && e.date >= t && !e.cancelled) { e.cancelled = true; changes.push(e.title + " on " + fmtD(e.date) + " was cancelled"); } });
+    } catch (e) {}
+  }
+  if (changes.length) { S.schedAlert = { date: todayStr(), msgs: changes.slice(0, 6) }; invalidate(); }
+  save(); if (changes.length) rerenderAll();
+}
+
+/* ---------- Phone calendar ---------- */
+function calAdd(evs) {
+  const list = evs.map(e => ({ id: e.id, date: e.date, start: e.start, end: e.end, title: e.title, location: e.location }));
+  if (onlineHost()) {
+    const f = document.createElement("form"); f.method = "POST"; f.action = SCHED_API.ics; f.target = "_blank";
+    const i = document.createElement("input"); i.type = "hidden"; i.name = "events"; i.value = JSON.stringify(list); f.appendChild(i);
+    document.body.appendChild(f); f.submit(); f.remove(); return;
+  }
+  download("game-shape-schedule.ics", GS_SCHED.toICS(list));
+}
+
+/* ---------- Schedule screen (replaces Hoops) ---------- */
+function scheduleHTML() {
+  const t = todayStr(), up = upcomingEvents(), past = (S.events || []).filter(e => e.date < t).length;
+  let o = back + `${sheetTitle("Schedule")}<button class="btn primary block" data-act="sheet" data-k="import">Import schedule</button>`;
+  o += `<div class="row" style="margin:10px 0"><button class="btn sm" style="flex:1" data-act="sheet" data-k="game">+ Add event</button><button class="btn sm" style="flex:1" data-act="calAll" ${up.length ? "" : "disabled"}>Add all to my calendar</button></div>`;
+  if (!up.length) o += emptyState("No upcoming events. Import your schedule or add one.");
+  let mon = "";
+  up.forEach(e => {
+    const m = MON[pd(e.date).getMonth()] + " " + pd(e.date).getFullYear();
+    if (m !== mon) { mon = m; o += `<h3 class="sh3">${m}</h3>`; }
+    o += `<div class="evrow ${e.cancelled ? "cx" : ""}"><button class="evi" data-act="sheet" data-k="game" data-a="${e.id}"><span class="t">${fmtShort(e.date)}<br><span class="small muted">${DOW[dow(e.date)]}</span></span><span class="lbl"><b>${esc(e.title)}</b><div class="small muted">${e.start ? fmtT(e.start) : "All day"}${e.location ? " at " + esc(e.location) : ""}</div><div class="bp"><span class="cat" style="${e.intensity === "high" ? "background:var(--orange-tint);color:var(--orange-ink)" : ""}">${TYPE_LABEL[e.type] || "Game"}</span>${e.cancelled ? '<span class="tg spice">Cancelled</span>' : ""}${e.source && e.source.feedId ? '<span class="tg">Synced</span>' : ""}</div></span></button><button class="btn sm" data-act="calOne" data-id="${e.id}">Add</button></div>`;
+  });
+  if (past) o += `<div class="small muted" style="margin-top:8px">${past} past event${past === 1 ? "" : "s"} hidden.</div>`;
+  o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Weekly practice</b><div class="grid2"><div><label class="f">Day</label><select data-in="prac" data-k="weekday"><option value="-1" ${S.practice.weekday < 0 ? "selected" : ""}>None</option>${DOW.map((d, i) => `<option value="${i}" ${S.practice.weekday === i ? "selected" : ""}>${d}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" value="${S.practice.start}" data-in="prac" data-k="start"></div></div><label class="f">End</label><input type="time" value="${S.practice.end}" data-in="prac" data-k="end"><label class="f">Skip practice on a date</label><div class="row"><input type="date" id="skipD"><button class="btn sm" data-act="skipAdd">Skip</button></div>${S.practiceSkips.map(d => `<div class="row between small" style="padding:6px 0">${fmtD(d)}<button class="btn sm" data-act="skipDel" data-d="${d}">Undo</button></div>`).join("")}</div>`;
+  if ((S.feeds || []).length) o += `<h3 class="sh3">Synced calendars</h3>` + S.feeds.map(f => `<div class="evrow"><span class="lbl" style="flex:1"><b>${esc(f.name)}</b><div class="small muted">${f.autoSync ? "Auto-sync on" : "Paused"} • last synced ${f.lastSync ? new Date(f.lastSync).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "never"}</div></span><button class="btn sm" data-act="feedSync">Sync</button><button class="btn sm" data-act="feedPause" data-id="${f.id}">${f.autoSync ? "Pause" : "Resume"}</button><button class="btn sm danger" data-act="feedDel" data-id="${f.id}">${UI.feedDelArm === f.id ? "Tap: keep events" : "Remove"}</button></div>${UI.feedDelArm === f.id ? `<button class="btn sm danger block" data-act="feedDelAll" data-id="${f.id}">Remove and delete its events</button>` : ""}`).join("");
+  if ((S.imports || []).length) o += `<h3 class="sh3">Recent imports</h3>` + S.imports.slice(0, 6).map(im => `<div class="row between small" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${fmtShort(im.date)} • ${esc(im.label || im.kind)} (${im.count})</span><button class="btn sm" data-act="undoImport" data-id="${im.id}">Undo</button></div>`).join("");
+  o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Game-day protocol</b><ol class="list small"><li>Water: 125 oz total. 16 oz on waking.</li><li>AM: 15-min activation only, hot tub 10 min.</li><li>Real meal 3 to 4 hrs before: chicken, rice, veg.</li><li>Snack 60 to 90 min before: banana + jerky or yogurt.</li><li>Electrolyte drink 60 min before.</li><li>Extra 5 min calf + ankle warmup.</li><li>After: 40 g protein + 20 oz water, shower, 5 min stretch.</li><li>Lights out by 10:15. No hot tub after 9:30 PM.</li><li>Late game? Tomorrow auto-moves to a midday session.</li></ol></div>`;
+  return o;
+}
+function eventFormHTML(id) {
+  const e = (S.events || []).find(x => x.id === id) || { id: "", date: todayStr(), start: "18:30", end: "", type: "game", title: "", location: "" };
+  return `<button class="btn sm" data-act="sheet" data-k="hoops" style="margin-bottom:10px">‹ Schedule</button>${sheetTitle(id ? "Edit event" : "Add event")}<div class="grid2"><div><label class="f">Date</label><input type="date" id="evD" value="${e.date}"></div><div><label class="f">Type</label><select id="evY">${Object.entries(TYPE_LABEL).map(([k, v]) => `<option value="${k}" ${e.type === k ? "selected" : ""}>${v}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" id="evS" value="${e.start || ""}"></div><div><label class="f">End</label><input type="time" id="evE" value="${e.end || ""}"></div></div><label class="f">Title</label><input id="evT" value="${esc(e.title)}" placeholder="vs Team, Practice, 10K race"><label class="f">Location</label><input id="evL" value="${esc(e.location || "")}"><button class="btn primary block" style="margin-top:14px" data-act="evSave" data-a="${e.id}">Save</button>${id ? `<button class="btn block" style="margin-top:8px" data-act="calOne" data-id="${e.id}">Add to my calendar</button><button class="btn block danger" style="margin-top:8px" data-act="evDel" data-a="${e.id}">Delete event</button>` : ""}`;
+}
+
+Object.assign(ACT, {
+  impFile: () => pickFile(".csv,.ics,.txt,.pdf,text/csv,text/calendar,application/pdf", false, handleFile),
+  impPhoto: () => pickFile("image/*,application/pdf", false, handlePhoto),
+  impLink: () => { const b = $("impLinkBox"); if (b) { b.classList.toggle("hidden"); const u = $("impUrl"); if (u) u.focus(); } },
+  impLinkGo: () => { const u = ($("impUrl").value || "").trim(); if (!u) return toast("Paste a calendar link"); connectFeed(u, ($("impName").value || "").trim()); },
+  mapHeader: () => { const m = UI.map; m.det.headerRow = m.det.headerRow >= 0 ? -1 : 0; m.det.headers = m.det.headerRow >= 0 ? m.rows[0] : m.rows[0].map((_, i) => "Column " + (i + 1)); renderSheet(); },
+  mapGo: () => { const m = UI.map; if (m.det.map.date == null) return toast("Pick which column is the Date"); csvToReview(m.rows, m.det, m.label); },
+  rvTeam: el => { UI.rv.myTeam = el.dataset.v; if (UI.rv.myTeam) { S.profile.team = UI.rv.myTeam; save(); } buildReviewItems(); renderSheet(); },
+  rvSel: el => { const it = UI.rv.items[+el.dataset.i]; it.sel = !it.sel; renderSheet(); },
+  rvEdit: (el, e) => { if (e && e.target.closest("input,select,textarea,label")) return; const it = UI.rv.items[+el.dataset.i]; it.edit = !it.edit; renderSheet(); },
+  rvImport: () => doImport(),
+  undoImport: el => undoImport(el.dataset.id),
+  calAll: () => { const up = upcomingEvents().filter(e => !e.cancelled); if (!up.length) return toast("No upcoming events"); calAdd(up); },
+  calOne: el => { const e = S.events.find(x => x.id === el.dataset.id); if (e) calAdd([e]); },
+  feedSync: () => { (S.feeds || []).forEach(f => f.lastSync = null); syncFeeds(true).then(() => { toast("Synced"); renderSheet(); }); },
+  feedPause: el => { const f = S.feeds.find(x => x.id === el.dataset.id); if (f) f.autoSync = !f.autoSync; save(); renderSheet(); },
+  feedDel: el => { const id = el.dataset.id; if (UI.feedDelArm !== id) { UI.feedDelArm = id; return renderSheet(); } S.feeds = S.feeds.filter(f => f.id !== id); S.events.forEach(e => { if (e.source && e.source.feedId === id) e.source.feedId = null; }); UI.feedDelArm = null; save(); toast("Calendar removed. Events kept."); renderSheet(); },
+  feedDelAll: el => { const id = el.dataset.id; S.feeds = S.feeds.filter(f => f.id !== id); S.events = S.events.filter(e => !(e.source && e.source.feedId === id)); UI.feedDelArm = null; invalidate(); save(); toast("Calendar and its events removed"); renderSheet(); render(); },
+  evSave: el => { const id = el.dataset.a, d = $("evD").value; if (!d) return toast("Pick a date"); const base = { date: d, start: $("evS").value || null, end: $("evE").value || null, type: $("evY").value, title: $("evT").value || TYPE_LABEL[$("evY").value], location: $("evL").value };
+    const i = S.events.findIndex(x => x.id === id); if (i >= 0) { const keep = S.events[i]; S.events[i] = normEvent(base, keep.source && keep.source.kind, { id: keep.id, source: keep.source }); } else S.events.push(normEvent(base, "manual"));
+    invalidate(); save(); toast("Saved. Plan updated."); openSheet("hoops"); render(); },
+  evDel: el => { S.events = S.events.filter(x => x.id !== el.dataset.a); invalidate(); save(); toast("Event removed"); openSheet("hoops"); render(); },
+  dismissSched: () => { S.schedAlert = null; save(); render(); }
+});
+document.addEventListener("change", e => {
+  const el = e.target;
+  if (el.dataset.in === "rv") { const it = UI.rv.items[+el.dataset.i]; it[el.dataset.k] = el.value || null; if (el.dataset.k === "date") it.past = it.date < todayStr(); }
+  if (el.dataset.in === "mapcol") { const m = UI.map.det.map, i = +el.dataset.i; Object.keys(m).forEach(k => { if (m[k] === i) delete m[k]; }); if (el.value) m[el.value] = i; }
+});
+
 /* ---------------------------- UPDATES: auto-update, update bar, What's new ----------------------------
    Release steps: bump APP_VERSION + CHANGELOG here, "version" in version.json, and VERSION in sw.js. Deploy.
    Data lives in localStorage under the same key, so updates never touch anyone's logs. */
@@ -1233,6 +1528,7 @@ showWhatsNew();
 checkUpdate(true);
 loadBooks();
 syncCommunity();
+syncFeeds(false);
 </script>
 </body>
 </html>
