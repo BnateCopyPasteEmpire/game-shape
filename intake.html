@@ -108,7 +108,9 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
 .toast{position:fixed;left:50%;top:calc(var(--st) + 16px);transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;display:none;z-index:50}
 .wm-bg{position:fixed;right:-80px;bottom:calc(var(--sb) + 64px);width:380px;max-width:90vw;opacity:.07;z-index:0;pointer-events:none;user-select:none}
 .signoff{display:flex;align-items:center;justify-content:center;gap:8px;margin:22px 0 6px;color:#9aa39e;font-size:12px;font-weight:700;letter-spacing:.3px;position:relative;z-index:1}
-.signoff img{width:22px;height:22px}
+.signoff img{width:22px;height:22px;flex:none}
+.signoff{flex-wrap:wrap;text-align:center}
+.signoff .ball{color:var(--orange-ink);font-weight:900;letter-spacing:.5px}
 .step .eyebrow{display:flex;align-items:center;gap:7px}
 .step .eyebrow:before{content:"";width:16px;height:16px;background:url(gs-mark.png) center/contain no-repeat}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -243,7 +245,7 @@ details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-
   <button class="btn sec" id="edit" type="button">Go back and edit</button>
   <details><summary>Show my answers</summary><textarea id="json" readonly></textarea></details>
 </section>
-<div class="signoff"><img src="gs-mark.png" alt="">Game Shape • Train. Fuel. Recover. Hoop.</div>
+<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>
 </main>
 <div class="bar"><button class="back" id="back" type="button">Back</button><button class="next" id="next" type="button">Let's go</button></div>
 <div class="toast" id="toast"></div>

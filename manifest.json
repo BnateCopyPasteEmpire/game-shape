@@ -1,7 +1,7 @@
 {
   "name": "Game Shape",
   "short_name": "Game Shape",
-  "description": "Train. Fuel. Recover. Hoop.",
+  "description": "Train. Fuel. Read. Recover. BALL out your Life.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

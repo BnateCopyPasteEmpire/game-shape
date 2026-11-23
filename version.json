@@ -1,9 +1,7 @@
 {
- "version": "2.3.0",
+ "version": "2.3.2",
  "date": "2026-11-23",
  "notes": [
-  "Edit your affirmations right on Recover",
-  "New Customize screen for times, checklist, habits, wind-down, quotes, and targets",
-  "Add or remove supplements"
+  "Bottom tabs now glow with a breathing green and orange gradient"
  ]
 }
