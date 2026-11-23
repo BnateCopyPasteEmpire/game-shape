@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Game Shape">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Game Shape">
+<meta property="og:description" content="Train. Fuel. Recover. Built around game day.">
+<meta property="og:image" content="https://game-shape-os1.netlify.app/og-app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://game-shape-os1.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Game Shape</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+<meta name="description" content="Train. Fuel. Recover. Hoop. Your daily plan for workouts, food, sleep, and recovery.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Game Shape">
+<meta property="og:title" content="Game Shape">
+<meta property="og:description" content="Train. Fuel. Recover. Hoop. Your daily plan for workouts, food, sleep, and recovery.">
+<meta property="og:url" content="https://game-shape-os1.netlify.app/">
+<meta property="og:image" content="https://game-shape-os1.netlify.app/og-image.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Game Shape logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Game Shape">
+<meta name="twitter:description" content="Train. Fuel. Recover. Hoop. Your daily plan for workouts, food, sleep, and recovery.">
+<meta name="twitter:image" content="https://game-shape-os1.netlify.app/og-image.png?v=2">
+<style>
+/* ===================== BRAND (shared tokens for every Game Shape app + intake) ===================== */
+:root{
+  --bg:#ffffff; --surface:#f7f8f6; --line:#e6e9e4; --ink:#0d1210; --ink-2:#55605a; --dim:#9aa39e;
+  --green:#013919; --green-2:#0e5a2e; --green-tint:#e8f1eb; --orange:#ff8200; --orange-ink:#b85c00; --orange-tint:#fff1e2; --danger:#c62828; --danger-tint:#fdecec;
+  /* legacy aliases used by the engine's templates */
+  --card:#ffffff; --card2:var(--surface); --text:var(--ink); --muted:var(--ink-2); --accent:var(--orange); --accent2:var(--green); --warn:var(--orange-ink); --bad:var(--danger);
+  --LEG_DAY:#ff8200; --PRE_COURT:#0e5a2e; --GAME_DAY:#013919; --PRACTICE_DAY:#2f7a4f; --RECOVERY:#6ba37e; --FLEX:#d9a21b;
+  --shadow:0 1px 2px rgba(1,57,25,.04),0 8px 24px rgba(1,57,25,.06);
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.4;overscroll-behavior-y:none}
+body{min-height:100vh;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;width:100%;min-height:48px}
+textarea{min-height:90px;resize:vertical}
+input[type=range]{accent-color:var(--danger);min-height:40px;border:0;background:none}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--green);outline-offset:0}
+.top{position:sticky;top:0;z-index:20;display:block;padding:calc(var(--st) + 14px) 18px 12px;background:linear-gradient(#fff 78%,rgba(255,255,255,0))}
+.brandrow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.brandrow>img{height:22px;display:block;margin-top:2px}
+.cpe{text-align:right;line-height:1.15}
+.cpe-mark{font-size:10.5px;font-weight:900;letter-spacing:.9px;text-transform:uppercase;color:var(--green);white-space:nowrap}
+.cpe-mark i{display:inline-block;width:6px;height:6px;border-radius:1.5px;background:var(--orange);margin-right:5px;vertical-align:1px}
+.cpe-mark sup{font-size:7px;letter-spacing:0;margin-left:1px;vertical-align:5px}
+.cpe-logo{height:30px;width:auto;display:block;margin-left:auto;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.cpe-date{font-size:11px;font-weight:700;color:var(--ink-2);margin-top:3px;white-space:nowrap}
+.titlerow{display:flex;align-items:flex-end;justify-content:space-between;width:100%}
+.top h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.6px;color:var(--ink)}
+.eyebrow{color:var(--ink-2);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.iconbtn{width:48px;height:48px;border-radius:14px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:var(--green)}
+main{position:relative;padding:0 16px calc(var(--sb) + 100px);max-width:640px;margin:0 auto}
+main>*{position:relative;z-index:1}
+.art{position:absolute!important;z-index:0!important;pointer-events:none}
+.art svg{display:block;width:100%;height:auto}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;padding:8px 6px calc(var(--sb) + 6px);background:rgba(255,255,255,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line)}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-height:54px;font-size:10px;min-width:0;font-weight:700;color:var(--dim);position:relative}
+.tabbar button.on{color:var(--green)}
+.tabbar button.on:after{content:"";position:absolute;bottom:-2px;width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.tabbar svg{width:24px;height:24px}
+.card{background:#fff;border-radius:20px;padding:16px;margin:0 0 14px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.card h2{margin:0 0 10px;font-size:19px;font-weight:800;letter-spacing:-.3px;color:var(--ink)}
+.card h3{margin:16px 0 8px;font-size:12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.6px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.wrap{flex-wrap:wrap}
+.muted{color:var(--ink-2)} .small{font-size:13px} .big{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--green)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800;color:var(--ink);background:color-mix(in srgb,var(--T) 14%,#fff);border:1px solid color-mix(in srgb,var(--T) 30%,#fff)}
+.badge.GAME_DAY{border:1.5px solid var(--orange);background:var(--green);color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--T)}
+.badge.GAME_DAY .dot{background:var(--orange)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 20px;border-radius:14px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn.primary{background:var(--orange);color:var(--ink);border:0;box-shadow:0 6px 16px rgba(255,130,0,.25)}
+.btn.green{background:var(--green);color:#fff;border:0}
+.btn.block{width:100%}
+.btn.sm{min-height:42px;padding:0 14px;font-size:14px;border-radius:12px}
+.btn.danger{color:var(--danger)}
+.chip{min-height:44px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px;color:var(--ink)}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.chip.pain.on{background:var(--danger);border-color:var(--danger);color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 12px;box-shadow:var(--shadow)}
+.tile .v{font-size:24px;font-weight:800;letter-spacing:-.5px;color:var(--green);display:flex;align-items:center;gap:4px}
+.tile .k{font-size:11px;color:var(--ink-2);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(140deg,#fff 55%,var(--orange-tint))}
+.hero .swoosh{position:absolute;left:-30px;bottom:-34px;width:260px;opacity:.09;pointer-events:none}
+.hero h2{color:var(--ink)}
+.identity{font-size:15px;color:var(--ink-2);font-style:italic;margin-top:8px}
+.banner{border-radius:14px;padding:14px;margin-bottom:14px;font-size:14px;border:1px solid var(--line);border-left:4px solid;background:#fff;position:relative;z-index:1}
+.banner.warn{background:var(--orange-tint);border-left-color:var(--orange)}
+.banner.bad{background:var(--danger-tint);border-left-color:var(--danger)}
+.banner.info{background:var(--green-tint);border-left-color:var(--green)}
+.banner b{display:block;margin-bottom:4px;font-size:15px;color:var(--ink)}
+.check{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 0;border-bottom:1px solid var(--line);width:100%;text-align:left;color:var(--ink)}
+.check:last-child{border-bottom:0}
+.check .t{width:64px;font-size:12px;color:var(--ink-2);font-weight:700;flex:none}
+.check .lbl{flex:1}
+.box{width:28px;height:28px;border-radius:50%;border:2px solid #cfd5cf;display:grid;place-items:center;flex:none;transition:all .15s}
+.on>.box,.box.on{background:var(--orange);border-color:var(--orange)}
+.box svg{width:15px;height:15px;opacity:0}
+.on>.box svg,.box.on svg{opacity:1}
+.check.on .lbl{color:var(--ink-2);text-decoration:line-through;text-decoration-color:#c9cfc9}
+.pop{animation:pop .15s ease}
+@keyframes pop{50%{transform:scale(1.22)}}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.day{border-radius:14px;padding:8px 2px;text-align:center;background:#fff;border:1.5px solid var(--line);min-height:74px;color:var(--ink)}
+.day .d{font-size:11px;color:var(--ink-2);font-weight:700}
+.day .n{font-size:18px;font-weight:800}
+.day .ty{height:5px;border-radius:3px;margin:6px 8px 0}
+.day .mk{height:14px;margin-top:3px;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--green)}
+.day.sel{border-color:var(--green);box-shadow:0 0 0 2px var(--green-tint)}
+.day.today .n{color:var(--orange-ink)}
+.ex{background:var(--surface);border-radius:16px;padding:14px;margin-bottom:10px;border:1px solid var(--line)}
+.ex .nm{font-weight:800;font-size:16px}
+.ex .meta{font-size:13px;color:var(--ink-2)}
+.sets{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.set{width:52px;height:52px;border-radius:50%;border:2px solid #cfd5cf;font-weight:800;display:grid;place-items:center;background:#fff;color:var(--ink);transition:all .15s}
+.set.on{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.cues{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)}
+.list{margin:0;padding-left:18px}
+.list li{margin:6px 0}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;padding:calc(var(--st) + 10px) 16px calc(var(--sb) + 120px)}
+.hidden{display:none!important}
+.sheet{position:fixed;inset:0;z-index:60}
+.sheet-bg{position:absolute;inset:0;background:rgba(13,18,16,.35)}
+.sheet-panel{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:#fff;border-radius:24px 24px 0 0;padding:10px 16px calc(var(--sb) + 24px);animation:up .25s ease;box-shadow:0 -10px 40px rgba(1,57,25,.12)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.grab{width:42px;height:5px;border-radius:3px;background:#d5dad5;margin:0 auto 12px}
+.sheet-title{display:flex;align-items:center;gap:10px;margin:4px 0 10px}
+.sheet-title img{width:30px;height:30px;border-radius:8px}
+.sheet-title h2{margin:0;font-size:22px;font-weight:800}
+.restbar{position:fixed;left:16px;right:16px;bottom:calc(var(--sb) + 16px);z-index:55;background:var(--green);color:#fff;border-radius:18px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:20px;box-shadow:0 10px 30px rgba(1,57,25,.35)}
+#toast{position:fixed;left:50%;top:calc(var(--st) + 14px);transform:translateX(-50%) translateY(-140px);z-index:80;background:var(--green);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;transition:transform .3s;max-width:90vw;box-shadow:var(--shadow)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+.ring{position:relative;width:110px;height:110px}
+.ring svg{transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:800;font-size:22px;line-height:1.1;color:var(--green)}
+.ring .c small{display:block;font-size:11px;color:var(--ink-2);font-weight:700}
+details{background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:12px;box-shadow:var(--shadow);position:relative;z-index:1}
+details>summary{list-style:none;padding:16px;font-weight:800;font-size:17px;display:flex;justify-content:space-between;align-items:center;min-height:56px}
+details>summary::-webkit-details-marker{display:none}
+details>summary:after{content:"+";color:var(--orange-ink);font-size:22px}
+details[open]>summary:after{content:"\2212"}
+details .in{padding:0 16px 16px}
+details details{box-shadow:none}
+.recipe{border-top:1px solid var(--line);padding:14px 0}
+.macros{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.macros span{font-size:12px;font-weight:700;background:var(--green-tint);color:var(--green);border-radius:8px;padding:4px 8px}
+.menu button{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:0 4px;border-bottom:1px solid var(--line);font-size:17px;font-weight:700;color:var(--ink)}
+.menu button .mi{width:34px;height:34px;border-radius:10px;background:var(--green-tint);color:var(--green);display:grid;place-items:center;flex:none}
+.menu button .mi svg{width:19px;height:19px}
+.menu button .chev{margin-left:auto;color:var(--dim)}
+label.f{display:block;font-size:13px;color:var(--ink-2);font-weight:700;margin:12px 0 6px}
+.xpbar{height:8px;border-radius:4px;background:var(--surface);overflow:hidden;margin-top:8px}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--orange),#ffb15c)}
+.bdg{display:inline-flex;flex-direction:column;align-items:center;gap:6px;width:31%;padding:12px 4px;border-radius:14px;margin:0 1% 8px;text-align:center;font-size:12px;font-weight:800;color:var(--ink)}
+.bdg .e{width:52px;height:52px;border-radius:50%;background:var(--green);display:grid;place-items:center;color:var(--orange)}
+.bdg .e svg{width:26px;height:26px}
+.bdg.off{color:var(--dim)}
+.bdg.off .e{background:#fff;border:2px dashed #d5dad5;color:#c3c9c3}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;min-height:42px;border-radius:10px;font-weight:800;font-size:14px;color:var(--ink-2)}
+.seg button.on{background:#fff;color:var(--green);box-shadow:var(--shadow)}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t td{padding:9px 4px;border-bottom:1px solid var(--line)}
+.ico{display:inline-block;width:1em;height:1em;vertical-align:-.12em}
+.empty{text-align:center;padding:18px 8px;color:var(--ink-2);font-size:14px}
+.empty img{width:72px;height:72px;border-radius:18px;opacity:.12;display:block;margin:0 auto 10px}
+.pill-r{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--surface);color:var(--ink-2)}
+.done-hero{position:relative;text-align:center;padding:18px 0 6px}
+.done-hero:before{content:"";position:absolute;left:50%;top:6px;width:200px;height:200px;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,130,0,.22),rgba(255,130,0,0) 65%)}
+.done-hero img{position:relative;width:96px;height:96px;border-radius:22px;box-shadow:0 10px 30px rgba(1,57,25,.25)}
+.done-hero h2{position:relative;font-size:26px;margin:14px 0 2px}
+.ver{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;color:var(--dim);font-size:12px;font-weight:700}
+.ver img{height:14px}
+#splash{position:fixed;inset:0;z-index:100;background:#fff;display:grid;place-items:center;transition:opacity .45s}
+#splash img{width:120px;height:120px;border-radius:28px;box-shadow:0 14px 40px rgba(1,57,25,.25);animation:splashIn .6s ease both}
+#splash .wm{position:absolute;bottom:calc(var(--sb) + 60px);height:26px;animation:splashIn .6s .15s ease both}
+@keyframes splashIn{from{opacity:0;transform:scale(.88)}}
+#updateBar{position:fixed;left:12px;right:12px;top:calc(var(--st) + 10px);z-index:90;background:var(--green);color:#fff;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 30px rgba(1,57,25,.3)}
+#updateBar img{width:34px;height:34px;border-radius:9px}
+#updateBar .tx{flex:1;font-size:14px;line-height:1.25}
+#updateBar .tx b{display:block;font-size:15px}
+#updateBar button{background:var(--orange);color:var(--ink);font-weight:800;border-radius:11px;min-height:40px;padding:0 14px}
+.wm-bg{position:fixed;right:-80px;bottom:calc(var(--sb) + 64px);width:380px;max-width:90vw;opacity:.07;z-index:0;pointer-events:none;user-select:none}
+.signoff{display:flex;align-items:center;justify-content:center;gap:8px;margin:22px 0 6px;color:var(--dim);font-size:12px;font-weight:700;letter-spacing:.3px;position:relative;z-index:1}
+.signoff img{width:22px;height:22px}
+.card h2.brand{display:flex;align-items:center;gap:8px}
+.card h2.brand:before{content:"";width:20px;height:20px;flex:none;background:url(gs-mark.png) center/contain no-repeat}
+.wo-mark{width:30px;height:30px}
+.hero-top{display:flex;align-items:center;gap:12px;margin-top:10px}
+.hero-top img{width:52px;height:52px;border-radius:13px;box-shadow:0 6px 16px rgba(1,57,25,.22);flex:none}
+.hero-top h2{margin:0!important}
+.cover{position:relative;border-radius:8px 10px 10px 8px;padding:8px 7px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;flex:none;box-shadow:inset 4px 0 0 rgba(0,0,0,.18),0 4px 10px rgba(1,57,25,.14);text-align:left}
+.cover .ct{font-weight:900;line-height:1.08;letter-spacing:-.2px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.cover .ca{font-size:9px;font-weight:700;opacity:.85;line-height:1.1}
+.cover img{position:absolute;right:5px;bottom:5px;width:14px;height:14px;opacity:.9}
+.cover .rib{position:absolute;top:6px;left:6px;background:var(--orange);color:var(--ink);font-size:8px;font-weight:900;padding:1px 5px;border-radius:4px;letter-spacing:.5px}
+.cover.pk .ct{margin-top:14px}
+.carousel{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.carousel .cv{scroll-snap-align:start;flex:none}
+.chiprow{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.chiprow .chip{flex:none;white-space:nowrap;min-height:40px}
+.bk{display:flex;gap:12px;width:100%;text-align:left;padding:12px 0;border-bottom:1px solid var(--line);color:var(--ink);align-items:flex-start}
+.bk:last-child{border-bottom:0}
+.bi{flex:1;min-width:0}
+.bt{font-weight:800;font-size:15px;line-height:1.2}
+.ba{font-size:12px;color:var(--ink-2);margin-top:2px}
+.bw{font-size:13px;color:var(--ink-2);margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bp{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.bp .cat{font-size:11px;font-weight:800;color:var(--green);background:var(--green-tint);border-radius:6px;padding:2px 7px}
+.tg{font-size:11px;font-weight:700;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.tg.spice{color:#7a1f3d;background:#fbeef2;border-color:#f1d2dc}
+.tg.comm{color:var(--green);background:var(--green-tint);border-color:#cfe2d5}
+.tg.shelf{color:var(--orange-ink);background:var(--orange-tint);border-color:#ffd9b0}
+.pbar{height:8px;border-radius:4px;background:var(--surface);overflow:hidden;margin:10px 0 6px}
+.pbar i{display:block;height:100%;background:var(--orange)}
+.stars{display:flex;gap:6px}
+.stars button{font-size:30px;color:#d5dad5;min-width:44px;min-height:44px}
+.stars button.on{color:var(--orange)}
+.sh3{margin:16px 0 8px;font-size:12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.6px}
+a.btn{text-decoration:none}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);width:100%;text-align:left;color:var(--ink);font-weight:700}
+.toggle .sw{width:50px;height:30px;border-radius:15px;background:#d5dad5;position:relative;flex:none;transition:background .2s}
+.toggle .sw:after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s}
+.toggle.on .sw{background:var(--green)}
+.toggle.on .sw:after{left:23px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<img class="wm-bg" src="gs-mark.png" alt="" aria-hidden="true">
+<div id="app">
+  <header class="top">
+    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><div class="cpe-date" id="hdrDate"></div></div></div>
+    <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
+    <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
+  </header>
+  <main id="view"></main>
+  <nav class="tabbar" id="tabbar">
+    <button data-tab="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Today</button>
+    <button data-tab="train"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg>Train</button>
+    <button data-tab="fuel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><path d="M12 7v6M9 10h6"/></svg>Fuel</button>
+    <button data-tab="reads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5z"/><path d="M12 6v13"/></svg>Reads</button>
+    <button data-tab="recover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Recover</button>
+    <button data-tab="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-5 3 3 6-8"/></svg>Progress</button>
+  </nav>
+</div>
+<div id="sheet" class="sheet hidden"><div class="sheet-bg" data-act="closeSheet"></div><div class="sheet-panel"><div class="grab"></div><div id="sheetBody"></div></div></div>
+<div id="workout" class="overlay hidden"></div>
+<div id="restbar" class="restbar hidden"></div>
+<div id="toast"></div>
+<div id="splash" class="hidden"><img src="icon-512.png" alt=""><img class="wm" src="wordmark-on-light.png" alt="Game Shape"></div>
+<div id="updateBar" class="hidden"></div>
+<input type="file" id="importFile" accept="application/json,.json" class="hidden">
+
+<script>
+/* =====================================================================
+   GAME SHAPE v1  |  Brett's fitness and life health portal
+   Modules: SEED, LIBRARY, STORAGE, DATES, ENGINE (day types),
+   PROGRAM (session builder), STATS, RENDER (tabs), SHEETS, WORKOUT, ACTIONS
+   ===================================================================== */
+
+/* ---------------------------- SEED (edit me) ---------------------------- */
+const SEED = {
+  profile: { name: "Brett", age: 37, heightIn: 72, weight: 190, waist: 34,
+    protein: 180, waterBase: 100, waterCourtExtra: 25, calTrain: 2300, calCourt: 2500, fiber: 34 },
+  programStart: "2026-11-23",
+  readsSpicyDefault: true,   // Brett: on. New users: set false in their profile.
+  practice: { weekday: 2, start: "19:00", end: "21:00", location: "" },
+  games: [
+    { id: "g1",  date: "2026-11-19", time: "18:30", opp: "@ WABC - A",       gym: "WABC" },
+    { id: "g2",  date: "2026-12-03", time: "18:30", opp: "vs BCBC - B",      gym: "Mt Pisgah" },
+    { id: "g3",  date: "2026-12-10", time: "18:30", opp: "vs 5-PT - D",      gym: "BCBC" },
+    { id: "g4",  date: "2026-12-14", time: "18:30", opp: "@ WABC - B",       gym: "WABC" },
+    { id: "g5",  date: "2027-01-07", time: "20:30", opp: "@ BCBC - A",       gym: "BCBC" },
+    { id: "g6",  date: "2027-01-14", time: "18:30", opp: "@ Mt. Pisgah - D", gym: "BCBC" },
+    { id: "g7",  date: "2027-01-21", time: "19:30", opp: "vs Mt. Airy - A",  gym: "Mt Pisgah" },
+    { id: "g8",  date: "2027-01-28", time: "19:30", opp: "@ WABC - A",       gym: "BCBC" },
+    { id: "g9",  date: "2027-02-04", time: "18:30", opp: "vs BCBC - B",      gym: "BCBC" },
+    { id: "g10", date: "2027-02-08", time: "20:30", opp: "vs 5-PT - D",      gym: "WABC" }
+  ],
+  supplements: [
+    { id: "iron", name: "Iron", dose: "1 tablet", time: "05:00", note: "With water and a small glass of OJ. No coffee until 6:00, no dairy until 6:30. Ask doctor: daily or every other day?" },
+    { id: "multi", name: "Men's Multivitamin", dose: "1 tablet", time: "06:30", note: "With breakfast, 90 min after iron." },
+    { id: "creatine", name: "Creatine", dose: "5 g", time: "06:30", note: "In your shake or water. Daily, every day." },
+    { id: "fiber", name: "Fiber", dose: "1 serving", time: "12:00", note: "With lunch and 16 oz water. Keep 2+ hours from iron." },
+    { id: "ash", name: "Ashwagandha", dose: "1 capsule", time: "20:00", note: "Starts the wind-down." }
+  ],
+  appointments: [
+    { id: "a1", title: "Dentist: teeth cleaning", date: "", status: "To schedule", notes: "Call Tue 11/24 at 9:00 AM." },
+    { id: "a2", title: "Doctor: physical + bloodwork", date: "", status: "To schedule", notes: "Ask for: ferritin + full iron panel, CBC, vitamin D, B12, lipids, A1c, TSH, testosterone. Ask how to dose iron. Ask for a PT referral for back and sciatica. Mention ashwagandha + creatine." }
+  ],
+  affirmations: [
+    "I am an athlete who takes care of his body.",
+    "I show up for my family by showing up for myself.",
+    "Consistent beats intense. I never miss twice."
+  ]
+};
+
+const IDENTITY = [
+  "I am an athlete who takes care of his body.",
+  "Dads who train show up for their kids.",
+  "Routine over motivation. Show up, check the box.",
+  "Strong glutes, quiet back. Build the base.",
+  "Never miss twice.",
+  "Durable first. Then strong. Then fast.",
+  "Small reps, every day, for years."
+];
+
+
+/* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
+const APP_VERSION = "2.1.0";
+const CHANGELOG = {
+  "2.1.0": ["New Good Reads tab: 90 hand-picked books with buy and review links", "Track what you are reading. Minutes count toward your wind-down and badges", "Recommend books to the whole crew"],
+  "2.0.2": ["Game Shape logo now lives in the background and in small touches across every page"],
+  "2.0.1": ["Copy Paste Empire mark and today's date in the top right of every page"],
+  "2.0.0": ["New clean white look with Game Shape colors and logo", "Auto-updates: new versions install themselves and keep all your data", "Branded badges, workout-complete screen, and daily splash"]
+};
+const G = "#013919", O = "#ff8200";
+const ART = {
+  court: `<svg viewBox="0 0 400 400" fill="none" stroke="${G}" stroke-width="3" opacity=".06"><circle cx="200" cy="400" r="60"/><path d="M40 0v120a160 160 0 0 0 320 0V0"/><rect x="140" y="0" width="120" height="150"/><circle cx="200" cy="150" r="60"/><path d="M175 30h50"/><circle cx="200" cy="45" r="10"/></svg>`,
+  key: `<svg viewBox="0 0 400 220" fill="none" stroke="${G}" stroke-width="3" opacity=".06"><rect x="130" y="-2" width="140" height="170"/><circle cx="200" cy="168" r="62"/><path d="M0 -2h400M60 -2v40a140 140 0 0 0 280 0v-40"/></svg>`,
+  swoosh: `<svg viewBox="0 0 400 200"><path d="M6 196C90 104 230 40 396 8C262 58 148 118 6 196Z" fill="${O}"/></svg>`,
+  bars: `<svg viewBox="0 0 120 120" opacity=".09"><rect x="6" y="80" width="18" height="34" rx="3" fill="${O}"/><rect x="36" y="58" width="18" height="56" rx="3" fill="${O}"/><rect x="66" y="34" width="18" height="80" rx="3" fill="${O}"/><rect x="96" y="8" width="18" height="106" rx="3" fill="${O}"/></svg>`,
+  book: `<svg viewBox="0 0 300 200" fill="none" stroke="${G}" stroke-width="3" opacity=".06"><path d="M150 40c-30-20-80-24-130-14v150c50-10 100-6 130 14 30-20 80-24 130-14V26c-50-10-100-6-130 14z"/><path d="M150 40v150M40 60c30-4 60 0 90 10M40 90c30-4 60 0 90 10M170 70c30-10 60-14 90-10M170 100c30-10 60-14 90-10"/></svg>`,
+  moon: `<svg viewBox="0 0 300 220" opacity=".07"><path d="M170 30a80 80 0 1 0 90 110a66 66 0 1 1-90-110Z" fill="${G}"/><g fill="${G}"><circle cx="60" cy="40" r="4"/><circle cx="96" cy="88" r="3"/><circle cx="40" cy="130" r="3"/><circle cx="120" cy="22" r="2.5"/><path d="M270 40l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g></svg>`
+};
+const sv = p => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const I = {
+  flame: `<svg class="ico" viewBox="0 0 24 24" fill="${O}"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-9.5z"/></svg>`,
+  ball: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="${O}" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6c3 2.5 3 10.3 0 12.8M18.4 5.6c-3 2.5-3 10.3 0 12.8"/></svg>`,
+  flag: sv('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),
+  drop: sv('<path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/>'),
+  shield: sv('<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>'),
+  book: sv('<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/>'),
+  hoop: sv('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18"/>'),
+  moon: sv('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'),
+  fire: sv('<path d="M12 3c1 4 5 6 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/>'),
+  pill: sv('<rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.5 9.5l5 5"/>'),
+  cross: sv('<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/>'),
+  gear: sv('<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>'),
+  save: sv('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>')
+};
+const emptyState = msg => `<div class="empty"><img src="icon-180.png" alt="">${msg}</div>`;
+const sheetTitle = t => `<div class="sheet-title"><img src="icon-180.png" alt=""><h2>${t}</h2></div>`;
+const TAB_ART = { today: ["court", "top:-40px;right:-90px;width:330px"], train: ["key", "top:-6px;left:-20px;right:-20px"], fuel: ["swoosh", "top:70px;left:-40px;width:440px;opacity:.07"], reads: ["book", "top:-14px;right:-40px;width:300px"], recover: ["moon", "top:-10px;right:-30px;width:300px"], progress: ["bars", "top:-8px;right:4px;width:110px"] };
+
+/* ---------------------------- EXERCISE LIBRARY ----------------------------
+   area: body areas loaded (used for pain swaps). swap: pain-free alternative. */
+const X = (name, target, reps, tempo, rest, load, cues, swap, area, tags, track = true) =>
+  ({ name, target, reps, tempo, rest, load, cues, swap, area, tags, track });
+const LIB = {
+  smith_squat: X("Smith Squat to Box", "Quads, glutes", "8", "3 sec down", 90, "Bar + 10 lb/side to start", ["Feet slightly in front of the bar", "Sit back to the box, light touch", "Drive through mid-foot, squeeze glutes at top"], "goblet_box", ["knee", "back"], []),
+  goblet_box: X("KB Goblet Squat to Box", "Quads, glutes", "10", "3 sec down", 75, "20 to 30 lb KB", ["KB at chest, elbows down", "Sit to box, stay tall", "Knees track over toes"], "wall_sit", ["knee"], ["back-safe"]),
+  wall_sit: X("Wall Sit", "Quads (isometric)", "30 sec", "Hold", 60, "Bodyweight", ["Thighs near parallel", "Back flat on wall", "Breathe"], "glute_bridge", ["knee"], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  hip_thrust: X("Smith Hip Thrust", "Glutes", "10", "2 sec squeeze", 90, "Bar + 10 to 25 lb/side, pad the bar", ["Upper back on bench edge", "Chin tucked, ribs down", "Push through heels, lock out with glutes, not low back"], "glute_bridge", ["hip"], ["back-safe", "calf-safe", "sciatica-safe"]),
+  glute_bridge: X("DB Glute Bridge", "Glutes", "12", "2 sec squeeze", 60, "25 to 35 lb DB on hips", ["Heels close to butt", "Ribs down, squeeze glutes", "Pause 2 sec at top"], "clam", ["hip"], ["back-safe", "calf-safe", "sciatica-safe"]),
+  clam: X("Side-Lying Clamshell", "Glute med", "15/side", "1 sec hold", 45, "Bodyweight", ["Hips stacked", "Feet together", "Open knee without rolling back"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  leg_ext: X("Leg Extension", "Quads", "12", "3 sec down", 60, "Light, smooth", ["Pad on low shin", "Full squeeze at top", "Slow lower"], "wall_sit", ["knee"], ["back-safe", "calf-safe", "sciatica-safe"]),
+  leg_curl: X("Leg Curl", "Hamstrings", "12", "3 sec down", 60, "Light, smooth", ["Hips pinned", "Curl to full bend", "Control the return"], "glute_bridge", ["hamstring"], ["back-safe", "calf-safe"]),
+  rdl: X("DB Romanian Deadlift", "Hamstrings, glutes", "10", "3 sec down", 90, "25 to 35 lb DBs to start", ["Soft knees, push hips back", "DBs slide down thighs, flat back", "Stop at mid-shin or first good stretch"], "hip_thrust", ["hamstring", "back"], ["calf-safe"]),
+  split_squat: X("DB Split Squat", "Quads, glutes", "8/side", "3 sec down", 75, "Bodyweight to 15 lb DBs", ["Long stance", "Back knee drops straight down", "Front heel stays heavy"], "step_up", ["knee"], ["back-safe"]),
+  step_up: X("DB Step-Up (low box)", "Glutes, quads", "10/side", "Slow down", 60, "Bodyweight to 15 lb DBs", ["Whole foot on box", "Drive through heel", "Lower under control"], "wall_sit", ["knee"], ["back-safe"]),
+  lat_lunge: X("Lateral Lunge (goblet)", "Adductors, glutes", "6/side", "2 sec down", 60, "Bodyweight to 15 lb KB", ["Sit into one hip", "Other leg straight", "Push the floor away to return"], "clam", ["hip", "knee"], ["back-safe"]),
+  sl_rdl: X("Single-Leg KB RDL", "Hamstrings, balance", "8/side", "Slow", 60, "15 to 25 lb KB, wall for balance OK", ["Hips square to floor", "Reach the back heel long", "Soft standing knee"], "sl_balance", ["hamstring", "ankle"], ["calf-safe"]),
+  calf_iso: X("Calf Raise Isometric Hold", "Calves, Achilles", "30 sec", "Hold mid-height", 45, "Bodyweight. Pain 3/10 or less", ["Rise halfway, hold still", "Pressure on big toe", "Easy breathing"], "ankle_mob", ["calf", "achilles"], ["back-safe"], false),
+  calf_ecc: X("Eccentric Calf Raise (step)", "Calves, Achilles", "10", "2 up, 4 sec down", 60, "Bodyweight. Add a DB only after 3 pain-free weeks", ["Up on both feet", "Lower slowly on one", "Heel just below step"], "calf_iso", ["calf", "achilles"], ["back-safe"]),
+  seated_calf: X("Seated Calf Raise (DB on knees)", "Soleus", "15", "2 sec hold", 45, "25 to 40 lb DB", ["Knees at 90", "Full range", "Pause at top"], "calf_iso", ["calf"], ["back-safe"]),
+  tib_raise: X("Tibialis Raise (wall)", "Shins, ankles", "15", "Controlled", 45, "Bodyweight", ["Back on wall, feet forward", "Toes up high", "Slow down"], "ankle_mob", ["ankle"], ["back-safe", "sciatica-safe"], false),
+  ankle_mob: X("Knee-to-Wall Ankle Rock", "Ankle mobility", "10/side", "Slow", 30, "Bodyweight", ["Heel stays down", "Knee tracks over 2nd toe", "Pain-free range"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  sl_balance: X("Single-Leg Balance (barefoot)", "Ankle, foot", "30 sec/side", "Hold", 30, "Bodyweight. Eyes closed when easy", ["Grip the floor with toes", "Soft knee", "Hips level"], "tandem", ["ankle"], ["back-safe", "sciatica-safe"], false),
+  tandem: X("Tandem Stance Hold", "Balance", "30 sec", "Hold", 30, "Bodyweight", ["Heel to toe", "Tall posture", "Switch front foot"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  snap_down: X("Snap-Down to Soft Landing", "Landing mechanics", "5", "Stick 2 sec", 60, "Bodyweight", ["Arms up, snap to athletic stance", "Land quiet, knees over toes", "Hold 2 sec, hips back"], "box_stepdown", ["knee", "ankle", "calf"], [], false),
+  box_stepdown: X("Box Step-Down (slow)", "Knee control", "6/side", "3 sec down", 45, "Bodyweight, 6 to 8 in step", ["Hips back", "Knee over 2nd toe", "Tap heel, stand back up"], "sl_balance", ["knee"], ["back-safe"], false),
+  lat_shuffle: X("Lateral Shuffle (easy)", "Lateral movement", "3 x 10 yd", "Smooth", 45, "60 percent effort", ["Low hips", "Feet never click", "Push off the outside foot"], "clam", ["ankle", "calf"], [], false),
+  first_step: X("Wall Drive March", "First-step strength", "5/side", "Drive + hold 2 sec", 45, "Bodyweight", ["Lean into wall at 45 degrees", "Drive knee up, stay on ball of foot", "Push the floor away"], "sl_balance", ["calf"], ["back-safe"], false),
+  db_row: X("1-Arm DB Row", "Back", "10/side", "2 sec squeeze", 60, "35 to 50 lb DB", ["Flat back, hand on bench", "Pull elbow to hip", "Slow lower"], null, [], ["calf-safe", "back-safe"]),
+  pushup: X("Push-Up", "Chest, triceps", "10", "2 sec down", 60, "Bodyweight", ["Body straight", "Elbows 45 degrees", "Chest to fist height"], null, [], ["calf-safe", "back-safe"], false),
+  floor_press: X("DB Floor Press", "Chest", "10", "2 sec down", 60, "35 to 45 lb DBs", ["Elbows touch floor softly", "Press straight up", "Ribs down"], null, [], ["calf-safe", "back-safe", "sciatica-safe"]),
+  hk_press: X("Half-Kneeling DB Press", "Shoulders, core", "8/side", "Controlled", 60, "20 to 30 lb DB", ["Squeeze down-knee glute", "Ribs down", "Press up and slightly in"], null, [], ["calf-safe", "back-safe"]),
+  dead_bug: X("Dead Bug", "Deep core", "8/side", "Slow", 45, "Bodyweight", ["Low back pressed down", "Exhale as you reach", "Move slow"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  side_plank: X("Side Plank", "Obliques, hips", "20 sec/side", "Hold", 45, "Bodyweight (knees down OK)", ["Straight line ear to ankle", "Hips high", "Breathe"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  bird_dog: X("Bird Dog", "Core, back", "6/side", "3 sec hold", 45, "Bodyweight", ["Reach long, not high", "Hips level", "No arching"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  mcgill: X("McGill Curl-Up", "Abs, back-friendly", "3 x 8 sec holds", "Hold", 45, "Bodyweight", ["One knee bent, hands under low back", "Lift head and shoulders an inch", "Brace, breathe"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  suitcase: X("KB Suitcase Carry", "Obliques, grip", "30 yd/side", "Walk tall", 45, "35 to 45 lb KB", ["Shoulders level", "Slow steps", "Brace like a plank"], null, [], ["calf-safe"]),
+  plank: X("Front Plank", "Core", "30 sec", "Hold", 45, "Bodyweight", ["Squeeze glutes", "Ribs down", "Push floor away"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  bike_z2: X("Zone 2 Bike", "Aerobic base, fat loss", "20 min", "Steady", 0, "Talk in short sentences", ["Easy gear", "Nose breathing if you can", "Stay conversational"], "walk", [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  bike_easy: X("Easy Bike", "Blood flow", "10 min", "Easy", 0, "Very easy", ["Easy gear", "Loosen up", "No sweat needed"], "walk", [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
+};
+const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
+const AREAS = [["calf", "Calves"], ["achilles", "Achilles"], ["ankle", "Ankle"], ["knee", "Knee"], ["hamstring", "Hamstring"], ["hip", "Hip"], ["back", "Low back"]];
+
+/* ---------------------------- SESSION TEMPLATES ---------------------------- */
+const W_STD = ["Easy bike 4 min", "Cat-cow x10", "90/90 hip switches x8/side", "Ankle circles x10 each way", "Sciatic nerve glide x10/side (gentle, no forcing)", "Glute bridge x12"];
+const W_LEG = ["Easy bike 4 min", "Vibration board calves 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
+const C_STD = ["Child's pose 60 sec", "Knees-to-chest 60 sec", "Figure-4 stretch 45 sec/side", "Strap hamstring stretch 45 sec/side (gentle)", "Wall calf stretch, straight + bent knee, 30 sec each", "90/90 breathing 1 min"];
+const C_LEG = ["Couch stretch 45 sec/side", ...C_STD];
+const TPL = {
+  PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "calf_iso", "tib_raise", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Nothing heavy on quads or calves." },
+  PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "calf_iso", "tib_raise", "sl_balance", "db_row"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
+  PRACTICE_DAY: { focus: "Upper Maintenance + Mobility", min: 35, warm: W_STD, main: ["floor_press", "db_row", "hk_press", "tib_raise", "sl_balance"], core: ["dead_bug", "plank"], cool: C_STD, tub: 10, note: "Court tonight. Keep calves fresh." },
+  GAME_DAY: { focus: "Game Day Activation (15 min)", min: 15, warm: ["Easy bike 5 min", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["glute_bridge", 1], ["calf_iso", 1], ["sl_balance", 1]], core: [], cool: ["Figure-4 stretch 30 sec/side", "Gentle wall calf stretch 30 sec/side"], tub: 10, note: "Game tonight. Activation only. Save your legs." },
+  LEG_A: { focus: "Legs + Glutes A: Squat + Thrust", min: 45, warm: W_LEG, main: ["smith_squat", "hip_thrust", "leg_ext", "lat_lunge", "CALF", "tib_raise"], core: ["mcgill", "side_plank"], cool: C_LEG, tub: 12, note: "Main glute day. Control every rep." },
+  LEG_B: { focus: "Legs + Glutes B: Hinge + Single-Leg", min: 45, warm: W_LEG, main: ["rdl", "split_squat", "leg_curl", "sl_rdl", "AGIL", "CALF", "db_row"], core: ["dead_bug", "suitcase"], cool: C_LEG, tub: 12, note: "Hinge day. Flat back, gentle on hamstrings." },
+  FLEX: { focus: "Flex: Zone 2 + Core + Ankles", min: 40, warm: W_STD.slice(1), main: [["bike_z2", 1], "tib_raise", "sl_balance", "CALF", "clam"], core: ["bird_dog", "dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Easy aerobic day. Fat loss lives here." },
+  RECOVERY: { focus: "Sunday Recovery", min: 40, warm: [], main: [["walk", 1]], core: [], cool: ["Cat-cow x10", "90/90 hip switches x8/side", "World's greatest stretch x4/side", "Sciatic nerve glide x10/side", "Knees-to-chest 60 sec", "Figure-4 60 sec/side", "Child's pose 60 sec", "Wall calf stretch 45 sec each way", "Couch stretch 45 sec/side", "5 min breathing"], tub: 15, note: "Recovery is training. Easy walk, long stretch, hot tub." }
+};
+const TIPS = {
+  GAME_DAY: ["Game day water: 125 oz total. Electrolyte drink 60 min before tip.", "Real meal 3 to 4 hours before: chicken, rice, veg. Small snack 60 to 90 min before: banana + jerky.", "After the game: 40 g protein and 20 oz water before bed."],
+  PRACTICE_DAY: ["Practice night: electrolytes at 6:00 PM, then water through practice.", "Eat a real dinner by 5:30 so it is settled by 7:00.", "Protein shake after practice, then lights out by 10:15."],
+  PRE_COURT: ["Front-load water today. Calves cramp when you are behind on fluids.", "Hit 180 g protein. Glutes grow on recovery days too.", "Caffeine cutoff 1:00 PM. Court tomorrow needs good sleep tonight."],
+  LEG_DAY: ["Biggest protein day: 40 g at breakfast with creatine.", "Leg day carbs go around training: oats or fruit after, rice at lunch.", "Add a pinch of salt or electrolytes to your morning water."],
+  FLEX: ["Fiber check: veg at lunch AND dinner today.", "Swap one snack for an apple + jerky.", "Sparkling water instead of soda. Every time."],
+  RECOVERY: ["Sunday: boil 12 eggs (15 min) for the week.", "Pick 2 prep meals for the week and build the grocery list in Fuel.", "Weigh in and log it. Same scale, same time, after the bathroom."]
+};
+
+/* ---------------------------- MEALS ---------------------------- */
+const BREAKFASTS = [
+  { n: "Greek Yogurt Bowl", p: 35, d: "1.5 cups plain Greek yogurt, berries, 1/4 cup granola, drizzle of honey. 2 min." },
+  { n: "Microwave Mug Eggs", p: 32, d: "3 eggs + 1/2 cup egg whites + spinach + salsa. Microwave 2 min, stir halfway." },
+  { n: "Power Shake", p: 40, d: "1 scoop whey, 1 banana, 1/3 cup oats, milk, creatine. Blend 60 sec." },
+  { n: "Cottage Cheese + Fruit", p: 30, d: "1.5 cups cottage cheese, pineapple, handful of almonds. 1 min." },
+  { n: "Protein Overnight Oats", p: 35, d: "Night before: 1/2 cup oats, 1 scoop protein, milk, chia, berries. Grab and go." },
+  { n: "Egg Muffin Cups (prep)", p: 30, d: "3 cups from the Sunday batch + a piece of fruit. 45 sec in the microwave." }
+];
+const OFFICE = ["Beef or turkey jerky / meat sticks", "Tuna or chicken packets", "Greek yogurt cups (20 g+)", "Hard-boiled eggs (Sunday batch)", "Ready-to-drink protein shakes (30 g)", "Apples and bananas", "Baby carrots", "Almonds (1 handful portions)", "String cheese"];
+const DRINKS = [["Water", "100 oz base. 16 oz the moment you wake up. +25 oz on court days."], ["Electrolytes", "60 min before practice and games. Also on hot or sweaty leg days."], ["Coffee", "Fine before 1:00 PM. Wait until 6:00 AM so it does not block iron."], ["Sparkling water", "Your soda replacement."], ["Alcohol", "2 or fewer drinks a week. Never the night before a game."], ["Sugary drinks", "Out. Juice only the small OJ with iron."]];
+const RECIPES = [
+  { id: "sheet", n: "Sheet-Pan Chicken Thighs + Veggies", p: 45, cal: 520, fib: 8, time: "35 min (10 hands-on)", srv: 4, reheat: "Microwave 2 min or air fryer 5 min at 375.",
+    ing: [["Boneless skinless chicken thighs", "2 lb", "Meat & Fish"], ["Bell peppers", "2", "Produce"], ["Broccoli", "1 lb", "Produce"], ["Red onion", "1", "Produce"], ["Baby potatoes", "1 lb", "Produce"], ["Olive oil", "2 tbsp", "Pantry"], ["Garlic powder + smoked paprika", "1 tsp each", "Pantry"]],
+    steps: ["Oven 425. Chop everything bite size.", "Toss chicken and veg with oil, spices, salt.", "One layer on 2 sheet pans. 25 to 30 min, flip halfway."] },
+  { id: "taco", n: "Turkey Taco Bowls", p: 48, cal: 560, fib: 10, time: "20 min", srv: 4, reheat: "Microwave meat + rice 2 min. Add cold toppings after.",
+    ing: [["93% lean ground turkey", "2 lb", "Meat & Fish"], ["Taco seasoning", "1 packet", "Pantry"], ["Black beans", "1 can", "Pantry"], ["Brown rice pouches", "2", "Pantry"], ["Shredded lettuce", "1 bag", "Produce"], ["Salsa", "1 jar", "Pantry"], ["Plain Greek yogurt", "1 cup", "Dairy & Eggs"], ["Shredded cheese", "1 cup", "Dairy & Eggs"]],
+    steps: ["Brown turkey, add seasoning + 1/2 cup water.", "Stir in drained beans, simmer 3 min.", "Bowl: rice, meat, lettuce, salsa, yogurt (sour cream swap), cheese."] },
+  { id: "chili", n: "Slow-Cooker Beef + Bean Chili", p: 46, cal: 540, fib: 13, time: "15 min hands-on", srv: 6, reheat: "Microwave 2 to 3 min. Freezes great for 3 months.",
+    ing: [["90% lean ground beef", "2 lb", "Meat & Fish"], ["Kidney + pinto beans", "2 cans", "Pantry"], ["Diced tomatoes", "1 can", "Pantry"], ["Tomato sauce", "1 can", "Pantry"], ["Onion", "1", "Produce"], ["Bell peppers", "2", "Produce"], ["Chili seasoning", "1 packet", "Pantry"]],
+    steps: ["Brown beef with onion, drain.", "Everything into the slow cooker.", "Low 6 to 8 hrs or high 4. Top with Greek yogurt."] },
+  { id: "salmon", n: "Salmon, Rice + Broccoli", p: 40, cal: 550, fib: 6, time: "20 min", srv: 4, reheat: "Gentle: 60 to 90 sec, or eat cold over salad.",
+    ing: [["Salmon fillets (6 oz)", "4", "Meat & Fish"], ["Jasmine rice pouches", "2", "Pantry"], ["Broccoli", "1.5 lb", "Produce"], ["Lemon", "1", "Produce"], ["Soy sauce + honey", "2 tbsp each", "Pantry"]],
+    steps: ["Oven 400. Salmon + broccoli on one pan.", "Brush salmon with soy + honey. 12 to 15 min.", "Lemon over everything. Microwave rice."] },
+  { id: "steak", n: "Steak + Sweet Potato + Green Beans", p: 50, cal: 580, fib: 9, time: "25 min", srv: 4, reheat: "Slice steak, microwave 60 sec. Do not overcook.",
+    ing: [["Sirloin steak", "2 lb", "Meat & Fish"], ["Sweet potatoes", "4", "Produce"], ["Green beans", "1.5 lb", "Produce"], ["Butter or olive oil", "1 tbsp", "Pantry"]],
+    steps: ["Poke sweet potatoes, microwave 8 to 10 min.", "Sear steak 4 min/side, rest 5 min.", "Saute or steam green beans 6 min."] },
+  { id: "skillet", n: "Ground Beef + Veggie Skillet", p: 45, cal: 500, fib: 7, time: "20 min", srv: 4, reheat: "Microwave 2 min. Great in a tortilla or over greens.",
+    ing: [["90% lean ground beef", "2 lb", "Meat & Fish"], ["Zucchini", "2", "Produce"], ["Bell peppers", "2", "Produce"], ["Spinach", "5 oz bag", "Produce"], ["Diced tomatoes", "1 can", "Pantry"], ["Italian seasoning", "1 tbsp", "Pantry"], ["Quinoa or rice pouches", "2", "Pantry"]],
+    steps: ["Brown beef, drain.", "Add zucchini + peppers, 5 min.", "Tomatoes, spinach, seasoning. Simmer 5 min. Serve over quinoa."] },
+  { id: "burrito", n: "Rotisserie Chicken Burrito Bowls", p: 50, cal: 600, fib: 12, time: "10 min", srv: 4, reheat: "Microwave chicken + rice + beans 2 min, add cold toppings.",
+    ing: [["Rotisserie chickens", "2", "Meat & Fish"], ["Rice pouches", "2", "Pantry"], ["Black beans", "1 can", "Pantry"], ["Frozen corn", "1 bag", "Frozen"], ["Salsa", "1 jar", "Pantry"], ["Romaine", "1 head", "Produce"], ["Avocados", "2", "Produce"]],
+    steps: ["Shred both chickens.", "Heat rice, beans, corn.", "Build bowls. Avocado added day-of."] },
+  { id: "eggcups", n: "Egg Muffin Cups (breakfast prep)", p: 30, cal: 330, fib: 2, time: "25 min", srv: 4, reheat: "45 sec microwave. 3 cups per serving.",
+    ing: [["Eggs", "12", "Dairy & Eggs"], ["Turkey sausage", "8 oz", "Meat & Fish"], ["Spinach", "2 cups", "Produce"], ["Bell pepper", "1", "Produce"], ["Shredded cheese", "1/2 cup", "Dairy & Eggs"]],
+    steps: ["Oven 350. Grease a 12-cup muffin tin.", "Brown sausage, chop veg, split into cups.", "Pour whisked eggs over, top with cheese. Bake 20 min."] }
+];
+const OFFICE_KIT = [["Jerky / meat sticks", "Meat & Fish"], ["Tuna or chicken packets", "Pantry"], ["Greek yogurt cups", "Dairy & Eggs"], ["Eggs (for hard-boiling)", "Dairy & Eggs"], ["Protein shakes (RTD)", "Pantry"], ["Apples + bananas", "Produce"], ["Baby carrots", "Produce"], ["Almonds", "Pantry"], ["String cheese", "Dairy & Eggs"], ["Orange juice (small, for iron)", "Dairy & Eggs"], ["Electrolyte packets", "Pantry"]];
+
+/* ---------------------------- ROUTINES ---------------------------- */
+const ROUTINES = [
+  { n: "5-Min Morning Unlock", items: ["Cat-cow 60 sec", "90/90 hip switches 60 sec", "World's greatest stretch x3/side", "Ankle circles x10 each way", "Glute bridge x15"] },
+  { n: "10-Min Back + Sciatica Care", note: "Nerve glides: move, do not stretch. Tingling should fade, not build.", items: ["Knees-to-chest 60 sec", "Sciatic nerve glide x10/side", "McGill curl-up 3 x 8 sec", "Bird dog x6/side", "Cat-cow x10", "Figure-4 45 sec/side", "Child's pose 60 sec", "90/90 breathing 60 sec"] },
+  { n: "Calf Care (8 min)", note: "Pain stays 3/10 or below. Soreness that fades by morning is OK.", items: ["Wall calf stretch, straight knee 30 sec x2/side", "Wall calf stretch, bent knee 30 sec x2/side", "Calf raise isometric hold 3 x 30 sec", "Tibialis raise 2 x 15", "Roll arch on a ball 60 sec/side", "Ankle circles x10 each way"] },
+  { n: "20-Min Full Flow", items: ["Easy bike or walk 5 min", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Couch stretch 45 sec/side", "Strap hamstring stretch 45 sec/side", "Figure-4 45 sec/side", "Wall calf stretch 30 sec each way", "Sciatic nerve glide x10/side", "Child's pose 60 sec", "5 min breathing"] }
+];
+const WIND = [["wd_tv", "20:00", "TV off, phone on charger"], ["wd_tub", "20:05", "Hot tub 12 min + 12 oz water"], ["wd_stretch", "20:25", "Back + hip stretch 10 min"], ["wd_read", "20:35", "Read 20 min"], ["wd_breathe", "20:55", "5 min breathing + affirmations"], ["bed", "21:00", "In bed. Lights out by 9:30 to 10:00"]];
+const RED_FLAGS = [
+  ["pop", "Felt or heard a pop", "See a doctor or PT before loading that area again."],
+  ["swelling", "Swelling or bruising", "See a doctor or PT. Skip the hot tub, ice and elevate instead."],
+  ["dvt", "One calf swollen, warm, or red", "Same-day medical check. This can be a blood clot."],
+  ["neuro", "Numbness in groin, bladder or bowel changes, or a leg getting weaker", "Go to the ER now."],
+  ["rest", "Pain at rest or waking you at night", "Book a doctor or PT visit this week."]
+];
+
+/* ---------------------------- STORAGE ---------------------------- */
+const KEY = "gameShape_v1", SCHEMA = 1;
+const clone = o => JSON.parse(JSON.stringify(o));
+function fresh() {
+  return { schemaVersion: SCHEMA, profile: clone(SEED.profile), programStart: SEED.programStart, practice: clone(SEED.practice),
+    practiceSkips: [], games: clone(SEED.games), supplements: clone(SEED.supplements), appointments: clone(SEED.appointments),
+    affirmations: clone(SEED.affirmations), logs: {}, body: [], checkins: [], pain: {}, exHist: {}, midDay: {}, alert: null,
+    reads: { shelf: {}, rating: {}, notes: {}, progress: {}, minutes: {}, current: null, hidden: [], spicy: SEED.readsSpicyDefault !== false, myRecs: [], community: [], adminPin: "", backend: false, lastSync: null },
+    grocery: { sel: {}, kit: false, checked: {} }, meta: { lastBackup: null, badges: [], created: todayStr() } };
+}
+function migrate(d) {
+  const base = fresh();
+  for (const k in base) if (d[k] === undefined) d[k] = base[k];
+  for (const k in base.meta) if (d.meta[k] === undefined) d.meta[k] = base.meta[k];
+  d.schemaVersion = SCHEMA;
+  return d;
+}
+function load() { try { const r = localStorage.getItem(KEY); if (r) return migrate(JSON.parse(r)); } catch (e) {} return fresh(); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast("Could not save. Export a backup."); } }
+
+/* ---------------------------- DATES (local, no UTC drift) ---------------------------- */
+const pad = n => String(n).padStart(2, "0");
+const ds = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+const pd = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const addDays = (s, n) => { const d = pd(s); d.setDate(d.getDate() + n); return ds(d); };
+const dow = s => pd(s).getDay();
+function todayStr() { return ds(new Date()); }
+const between = (a, b) => Math.round((pd(b) - pd(a)) / 864e5);
+const weekStart = s => addDays(s, -((dow(s) + 6) % 7));
+const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtD = s => { const d = pd(s); return DOW[d.getDay()] + ", " + MON[d.getMonth()] + " " + d.getDate(); };
+const fmtShort = s => { const d = pd(s); return (d.getMonth() + 1) + "/" + d.getDate(); };
+const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+const fromMin = m => pad(Math.floor(((m % 1440) + 1440) % 1440 / 60)) + ":" + pad(((m % 60) + 60) % 60);
+const fmtT = t => { if (!t || t.indexOf(":") < 0) return t || ""; let [h, m] = t.split(":").map(Number); const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return h + ":" + pad(m) + " " + ap; };
+const at = (s, t) => { const d = pd(s); const [h, m] = t.split(":").map(Number); d.setHours(h, m, 0, 0); return d; };
+
+/* ---------------------------- ENGINE: day types ----------------------------
+   GAME_DAY > PRACTICE_DAY > RECOVERY (Sunday) > PRE_COURT (day before court)
+   > LEG_DAY / FLEX (resolved per week: no back-to-back legs except Fri+Sat, max 3). */
+let weekCache = {};
+function invalidate() { weekCache = {}; }
+function courtOn(s) {
+  const ev = [];
+  S.games.forEach(g => { if (g.date === s) ev.push({ type: "game", date: s, start: g.time, end: fromMin(toMin(g.time) + 60), label: "Game " + g.opp, gym: g.gym, id: g.id }); });
+  if (dow(s) === S.practice.weekday && !S.practiceSkips.includes(s))
+    ev.push({ type: "practice", date: s, start: S.practice.start, end: S.practice.end, label: "Practice", gym: S.practice.location });
+  return ev.sort((a, b) => toMin(a.start) - toMin(b.start));
+}
+function baseType(s) {
+  const c = courtOn(s);
+  if (c.some(e => e.type === "game")) return "GAME_DAY";
+  if (c.length) return "PRACTICE_DAY";
+  if (dow(s) === 0) return "RECOVERY";
+  if (courtOn(addDays(s, 1)).length) return "PRE_COURT";
+  return null;
+}
+function resolveWeek(ws) {
+  if (weekCache[ws]) return weekCache[ws];
+  const out = {}; let prev = "RECOVERY", prev2 = null, legs = 0, letter = 0;
+  for (let i = 0; i < 7; i++) {
+    const s = addDays(ws, i); let t = baseType(s); const info = { date: s, type: t };
+    if (!t) {
+      const sat = dow(s) === 6;
+      if (legs < 3 && (prev !== "LEG_DAY" || (sat && prev2 !== "LEG_DAY"))) { t = "LEG_DAY"; legs++; info.leg = letter++ % 2 ? "B" : "A"; }
+      else t = "FLEX";
+      info.type = t;
+      if (t === "LEG_DAY") info.moderate = dow(s) === 3 || courtOn(addDays(s, 2)).length > 0;
+    }
+    if (t === "PRE_COURT") info.preFor = courtOn(addDays(s, 1)).some(e => e.type === "game") ? "game" : "practice";
+    out[s] = info; prev2 = prev; prev = t;
+  }
+  // Midday sleep-in flag: day after a court event ending 9:00 PM or later. Max 1 per week, games win.
+  const cands = [];
+  for (let i = 0; i < 7; i++) {
+    const s = addDays(ws, i), y = addDays(s, -1);
+    courtOn(y).forEach(e => { if (toMin(e.end) >= 21 * 60) cands.push({ s, game: e.type === "game" }); });
+  }
+  cands.sort((a, b) => b.game - a.game);
+  if (cands.length && out[cands[0].s].type !== "GAME_DAY") out[cands[0].s].midday = true;
+  for (const s in out) if (S.midDay[s] !== undefined) out[s].midday = S.midDay[s];
+  weekCache[ws] = out;
+  return out;
+}
+function dayInfo(s) { const i = resolveWeek(weekStart(s))[s]; return Object.assign({ court: courtOn(s) }, i); }
+function getDayType(s) { return dayInfo(s).type; }
+const TYPE_NAME = { GAME_DAY: "Game Day", PRE_COURT: "Pre-Court", PRACTICE_DAY: "Practice Day", LEG_DAY: "Leg Day", RECOVERY: "Recovery", FLEX: "Flex" };
+
+/* ---------------------------- PROGRAM: phases + session builder ---------------------------- */
+function weekNum(s) { const d = between(S.programStart, s); return d < 0 ? 0 : Math.floor(d / 7) + 1; }
+function phase(wk) {
+  if (wk <= 1) return { wk, label: "Week 1: Foundation", sets: 2, rpe: "5", calf: "iso", agil: 0, note: "Mostly mobility. Bodyweight or very light. Finish every set with 5+ reps in the tank." };
+  if (wk === 2) return { wk, label: "Week 2: Groove", sets: 3, rpe: "6", calf: "ecc", agil: 1, note: "Add a 3rd set on main lifts. Same light loads, sharper control." };
+  if (wk === 3) return { wk, label: "Week 3: Build", sets: 3, rpe: "6", calf: "ecc", agil: 2, note: "Add 5 to 10 percent load if last week felt easy. Landing drills start." };
+  if (wk === 4) return { wk, label: "Week 4: Build + Check-in", sets: 3, rpe: "6 to 7", calf: "ecc", agil: 2, note: "Small bump. 4-week check-in on Sunday." };
+  const b = ((wk - 5) % 4) + 1, block = Math.floor((wk - 5) / 4) + 2;
+  if (b === 4) return { wk, label: "Block " + block + " Deload", sets: 2, rpe: "5", calf: "ecc", agil: 1, deload: true, note: "Deload week. Fewer sets, same habit. This is how you stay healthy." };
+  return { wk, label: "Block " + block + ", Week " + b, sets: 3, rpe: b === 3 ? "7" : "6 to 7", calf: "ecc", agil: 2, note: "Add 5 percent when a lift feels easy twice in a row." };
+}
+function tplKey(info) {
+  if (info.type === "PRE_COURT") return info.preFor === "game" ? "PRE_GAME" : "PRE_PRACTICE";
+  if (info.type === "LEG_DAY") return info.leg === "B" ? "LEG_B" : "LEG_A";
+  return info.type;
+}
+function painAreas() { return Object.keys(S.pain || {}); }
+function resolveEx(id, wk) {
+  if (wk <= 1 && id === "smith_squat") id = "goblet_box";
+  let from = null, n = 0; const pa = painAreas();
+  while (LIB[id] && LIB[id].area.some(a => pa.includes(a)) && LIB[id].swap && n < 4) { from = from || id; id = LIB[id].swap; n++; }
+  return { id, from };
+}
+function buildSession(s, mvd) {
+  const info = dayInfo(s), ph = phase(weekNum(s)), key = tplKey(info), T = TPL[key];
+  const calfPain = painAreas().some(a => a === "calf" || a === "achilles");
+  let slots = [];
+  T.main.forEach(m => {
+    let id = Array.isArray(m) ? m[0] : m, fixed = Array.isArray(m) ? m[1] : null;
+    if (id === "CALF") id = ph.calf === "ecc" && !calfPain ? "calf_ecc" : "calf_iso";
+    if (id === "AGIL") { const a = ph.agil === 0 ? ["sl_balance"] : ph.agil === 1 ? ["lat_shuffle"] : ["first_step", "snap_down"]; a.forEach(x => slots.push([x, null])); return; }
+    slots.push([id, fixed]);
+  });
+  let main = slots.map(([id, fixed]) => {
+    const r = resolveEx(id, ph.wk), ex = LIB[r.id];
+    let sets = fixed || ph.sets; if (!fixed && info.moderate) sets = Math.max(2, sets - 1);
+    return { id: r.id, from: r.from, ex, sets };
+  });
+  let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
+  if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
+  const tips = TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
+  const time = info.midday ? "12:00 PM (sleep in)" : "5:00 AM";
+  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note };
+}
+
+/* ---------------------------- STATS ---------------------------- */
+const getL = s => S.logs[s] || { checks: {}, sets: {}, weights: {}, water: 0, protein: 0, reading: 0, hottub: 0 };
+function L(s) { if (!S.logs[s]) S.logs[s] = { checks: {}, sets: {}, weights: {}, water: 0, protein: 0, reading: 0, hottub: 0 }; return S.logs[s]; }
+const isCourt = s => courtOn(s).length > 0;
+const waterGoal = s => S.profile.waterBase + (isCourt(s) ? S.profile.waterCourtExtra : 0);
+function isActive(s) { const l = S.logs[s]; return !!(l && (l.done || l.mvdDone || l.checks.court)); }
+function streak() {
+  let s = todayStr(); if (!isActive(s)) s = addDays(s, -1);
+  let n = 0, grace = {}; const first = Object.keys(S.logs).sort()[0];
+  if (!first) return 0;
+  for (let i = 0; i < 1000 && s >= first; i++) {
+    if (isActive(s)) n++;
+    else { const w = weekStart(s); if (grace[w] || !isActive(addDays(s, -1))) break; grace[w] = true; }
+    s = addDays(s, -1);
+  }
+  return n;
+}
+function xp() {
+  let x = 0;
+  for (const s in S.logs) { const l = S.logs[s]; x += Object.values(l.checks).filter(Boolean).length * 5 + (l.done ? 50 : 0) + (l.mvdDone ? 25 : 0) + (l.reading > 0 ? 10 : 0) + (l.sleep ? 10 : 0); }
+  return x;
+}
+function checkBadges() {
+  const logs = Object.entries(S.logs), have = new Set(S.meta.badges), add = id => { if (!have.has(id)) { have.add(id); toast("Badge unlocked: " + BADGES.find(b => b[0] === id)[2]); } };
+  const active = logs.filter(([s]) => isActive(s)).length;
+  if (active >= 7) add("week1");
+  if (streak() >= 7) add("streak7");
+  if (logs.filter(([s, l]) => l.water >= waterGoal(s)).length >= 7) add("hydro");
+  if (logs.filter(([, l]) => l.calf).length >= 20) add("calf");
+  if (logs.filter(([, l]) => l.reading > 0).length >= 10) add("book");
+  if (logs.some(([s, l]) => getDayType(s) === "GAME_DAY" && l.checks.electro && (l.done || l.mvdDone))) add("game");
+  if (logs.filter(([, l]) => l.sleep && l.sleep.bed && toMin(l.sleep.bed) <= 22 * 60 && toMin(l.sleep.bed) > 12 * 60).length >= 7) add("sleep");
+  const fin = Object.values((S.reads || {}).shelf || {}).filter(v => v === "done").length;
+  if (fin >= 1) add("finish1");
+  if (fin >= 5) add("shelf5");
+  if (((S.reads || {}).myRecs || []).some(m => !m.pending)) add("scout");
+  S.meta.badges = [...have];
+}
+const BADGES = [["week1", "flag", "First Week"], ["streak7", "fire", "7-Day Streak"], ["hydro", "drop", "Hydration Hero"], ["calf", "shield", "Calf Armor"], ["book", "book", "Bookworm"], ["game", "hoop", "Game Ready"], ["sleep", "moon", "Sleep Pro"], ["finish1", "book", "First Finish"], ["shelf5", "book", "Shelf Builder"], ["scout", "flag", "Scout"]];
+function sleepHrs(sl) { if (!sl || !sl.bed || !sl.wake) return null; let d = toMin(sl.wake) - toMin(sl.bed); if (d <= 0) d += 1440; return d / 60; }
+function last7Sleep() {
+  const arr = []; for (let i = 0; i < 7; i++) { const l = S.logs[addDays(todayStr(), -i)]; if (l && l.sleep) arr.push(l.sleep); }
+  const h = arr.map(sleepHrs).filter(x => x != null), q = arr.map(x => +x.q).filter(Boolean);
+  return { hrs: h.length ? (h.reduce((a, b) => a + b, 0) / h.length) : null, q: q.length ? q.reduce((a, b) => a + b, 0) / q.length : null };
+}
+function nextCourt() {
+  const now = new Date(), t = todayStr();
+  for (let i = 0; i < 120; i++) { const s = addDays(t, i); for (const e of courtOn(s)) if (at(s, e.end) > now) return Object.assign({ at: at(s, e.start) }, e); }
+  return null;
+}
+function countdown(d) { const ms = d - new Date(); if (ms <= 0) return "Now"; const m = Math.floor(ms / 6e4), h = Math.floor(m / 60), dd = Math.floor(h / 24); return dd ? dd + "d " + (h % 24) + "h" : h ? h + "h " + (m % 60) + "m" : m + "m"; }
+function nextCheckin() { let c = addDays(S.programStart, 27); const t = todayStr(); while (c < t) c = addDays(c, 28); return c; }
+function weekReport(ws) {
+  const t = todayStr(); let days = 0, act = 0, tub = 0, read = 0, water = 0, prot = 0, slp = 0;
+  for (let i = 0; i < 7; i++) { const s = addDays(ws, i); if (s > t) break; days++; const l = getL(s); if (isActive(s)) act++; if (l.checks.hottub || l.checks.wd_tub) tub++; if (l.reading > 0) read++; if (l.water >= waterGoal(s)) water++; if (l.protein >= S.profile.protein) prot++; if (l.sleep) slp++; }
+  return { days, act, tub, read, water, prot, slp, pct: days ? Math.round(act / days * 100) : 0 };
+}
+
+/* ---------------------------- UI helpers ---------------------------- */
+let S = load();
+const UI = { tab: "today", trainOff: 0, trainSel: null, sheet: null, wo: null, mvd: false, fb: null, rest: null };
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const CHK = '<svg viewBox="0 0 24 24" fill="none" stroke="#1a0d00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+const typeBadge = (t, extra) => `<span class="badge ${t}" style="--T:var(--${t})"><span class="dot"></span>${TYPE_NAME[t]}${extra ? " " + extra : ""}</span>`;
+function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
+function buzz() { try { navigator.vibrate && navigator.vibrate(15); } catch (e) {} }
+function ring(val, goal, color, label, unit) {
+  const r = 46, c = 2 * Math.PI * r, p = Math.min(1, goal ? val / goal : 0);
+  return `<div class="ring"><svg width="110" height="110"><circle cx="55" cy="55" r="${r}" stroke="var(--card2)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="${r}" stroke="${color}" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p)}" style="transition:stroke-dashoffset .4s"/></svg><div class="c"><div>${val}<small>/ ${goal} ${unit}</small><small>${label}</small></div></div></div>`;
+}
+function checkRow(s, id, time, label, sub) {
+  const on = !!getL(s).checks[id];
+  return `<button class="check ${on ? "on" : ""}" data-act="toggle" data-id="${id}" data-date="${s}"><span class="t">${esc(time)}</span><span class="lbl">${label}${sub ? `<div class="small muted">${sub}</div>` : ""}</span><span class="box">${CHK}</span></button>`;
+}
+
+/* ---------------------------- TODAY ---------------------------- */
+function dayChecklist(s) {
+  const info = dayInfo(s), l = getL(s), items = [], court = info.court[0];
+  const acute = S.alert && between(S.alert.date, s) <= 3 && S.alert.flags.some(f => ["pop", "swelling", "dvt"].includes(f));
+  items.push(["water_wake", info.midday ? "06:30" : "05:00", "16 oz water on waking"]);
+  S.supplements.forEach(p => items.push(["supp_" + p.id, p.time, esc(p.name) + " <span class='muted small'>" + esc(p.dose) + "</span>"]));
+  items.push(["workout", info.midday ? "12:00" : "05:05", "<b>Workout:</b> " + esc(buildSession(s).focus)]);
+  items.push(["hottub", info.midday ? "12:45" : "05:45", acute ? "Skip hot tub today (possible fresh injury)" : "Hot tub " + TPL[tplKey(info)].tub + " min + 12 oz water"]);
+  items.push(["breakfast", "06:30", "Protein breakfast (35 g+)"]);
+  items.push(["lunch", "12:00", "Protein + veg lunch"]);
+  if (court) { items.push(["electro", fromMin(toMin(court.start) - 60), "Electrolyte drink"]); items.push(["court", court.start, "<b>" + esc(court.label) + "</b>" + (court.gym ? " <span class='muted small'>@ " + esc(court.gym) + "</span>" : "")]); }
+  if (court) { items.push(["wd_tv", fromMin(toMin(court.end) + 15), "Short wind-down: shower, protein, 5 min stretch"]); items.push(["bed", "22:15", "Lights out by 10:15"]); }
+  else { items.push(["wd_tv", "20:00", "Wind-down: TV off, phone on charger"]); items.push(["wd_read", "20:35", esc(readLabel())]); items.push(["bed", "21:00", "In bed by 9:00"]); }
+  return items.sort((a, b) => toMin(a[1]) - toMin(b[1]));
+}
+function renderToday() {
+  const s = todayStr(), info = dayInfo(s), ph = phase(weekNum(s)), sess = buildSession(s), l = getL(s);
+  const h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+  const nc = nextCourt(), st = streak(), x = xp(), lvl = Math.floor(x / 300) + 1;
+  let out = "";
+  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${typeBadge(info.type, info.leg ? info.leg : "")}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc(IDENTITY[pd(s).getDate() % IDENTITY.length])}</div></div>`;
+  // banners
+  if (S.alert) out += `<div class="banner bad"><b>See a doctor or PT</b>${S.alert.msgs.map(esc).join("<br>")}<div style="margin-top:10px"><button class="btn sm" data-act="dismissAlert">Got it</button></div></div>`;
+  const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Backing off: ${pa.map(a => AREAS.find(x => x[0] === a)[1] + " (" + S.pain[a].left + " left)").join(", ")}</b>Exercises that load these areas are swapped for pain-free versions.</div>`;
+  if (info.midday) out += `<div class="banner info"><b>Sleep-in day</b>Late night yesterday. Sleep until 6:30 and train at 12:00.</div>`;
+  const tmr = dayInfo(addDays(s, 1)); if (tmr.midday && !info.midday) out += `<div class="banner info"><b>Heads up: tomorrow is a sleep-in day</b>Turn off the 5:00 alarm tonight. Workout moves to 12:00.</div>`;
+  if (!S.meta.lastBackup || between(S.meta.lastBackup, s) >= 7) out += `<div class="banner info"><b>Back up your data</b>iPhone can clear app storage. Takes 5 seconds. <div style="margin-top:10px"><button class="btn sm" data-act="export">Export backup</button></div></div>`;
+  // workout card
+  const done = l.done || l.mvdDone;
+  out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}. Hot tub ${sess.tub} min.</div>
+  <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
+  // tiles
+  out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
+  // Sunday review
+  if (dow(s) === 0) out += weeklyReview(s);
+  if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
+  // fuel quick
+  out += `<div class="card"><div class="row between"><h2>Fuel</h2><button class="small muted" data-tab="fuel">Open ›</button></div><div class="row" style="justify-content:space-around">${ring(l.protein, S.profile.protein, "var(--accent)", "protein", "g")}${ring(l.water, waterGoal(s), "var(--accent2)", "water", "oz")}</div><div class="row" style="margin-top:12px"><button class="btn sm" style="flex:1" data-act="addP" data-v="25">+25 g</button><button class="btn sm" style="flex:1" data-act="addP" data-v="40">+40 g</button><button class="btn sm" style="flex:1" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" style="flex:1" data-act="addW" data-v="20">+20 oz</button></div></div>`;
+  // checklist
+  out += `<div class="card"><h2 class="brand">Today's checklist</h2>${dayChecklist(s).map(i => checkRow(s, i[0], fmtT(i[1]), i[2])).join("")}</div>`;
+  return out;
+}
+function weeklyReview(s) {
+  const ws = weekStart(s), r = weekReport(ws), nws = addDays(ws, 7), nw = resolveWeek(nws);
+  const cats = [["Water goal", r.water], ["Protein goal", r.prot], ["Reading", r.read], ["Sleep logged", r.slp], ["Hot tub", r.tub]].sort((a, b) => a[1] - b[1]);
+  return `<div class="card"><h2 class="brand">Weekly review</h2><div class="big">${r.pct}%</div><div class="small muted">of days active (${r.act}/${r.days})</div>
+  <h3>Wins</h3><div class="small">${r.act} active days, ${r.tub} hot tubs, ${r.read} reading days, protein goal ${r.prot}x, water goal ${r.water}x.</div>
+  ${(() => { let m = 0; for (let i = 0; i < 7; i++) m += getL(addDays(ws, i)).reading || 0; const cb = R().current && bookById(R().current); return `<h3>Reading</h3><div class="small">${m} min this week${cb ? ". Currently reading " + esc(cb.title) + "." : ". Pick a book in Good Reads."}</div>`; })()}
+  <h3>One thing to improve</h3><div class="small">${cats[0][0]}: only ${cats[0][1]} of ${r.days} days. Make it the first box you check this week.</div>
+  <h3>Next week</h3>${Object.values(nw).map(d => `<div class="row between small" style="padding:4px 0"><span>${fmtD(d.date)}</span><span>${typeBadge(d.type, d.leg || "")}${d.midday ? ' <span class="pill-r">Sleep in</span>' : ""}</span></div>`).join("")}</div>`;
+}
+
+/* ---------------------------- TRAIN ---------------------------- */
+function renderTrain() {
+  const t = todayStr(), ws = addDays(weekStart(t), UI.trainOff * 7), wk = resolveWeek(ws);
+  const sel = UI.trainSel && UI.trainSel >= ws && UI.trainSel <= addDays(ws, 6) ? UI.trainSel : (UI.trainOff === 0 ? t : ws);
+  const ph = phase(weekNum(sel));
+  let out = `<div class="row between" style="margin-bottom:10px"><button class="btn sm" data-act="wkPrev">‹</button><div style="text-align:center"><div style="font-weight:800">${fmtShort(ws)} to ${fmtShort(addDays(ws, 6))}</div><div class="small muted">${weekNum(ws) ? ph.label : "Before program start"}</div></div><button class="btn sm" data-act="wkNext">›</button></div>`;
+  out += `<div class="week">${Object.values(wk).map(d => `<button class="day ${d.date === sel ? "sel" : ""} ${d.date === t ? "today" : ""}" data-act="selDay" data-date="${d.date}"><div class="d">${DOW[dow(d.date)]}</div><div class="n">${pd(d.date).getDate()}</div><div class="ty" style="background:var(--${d.type})"></div><div class="mk">${courtOn(d.date).length ? I.ball : d.midday ? "Zz" : ""}</div></button>`).join("")}</div>`;
+  out += `<div class="banner info"><b>${esc(ph.label)}</b>${esc(ph.note)}</div>`;
+  const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Pain swaps active</b>${pa.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")}</div>`;
+  out += sessionHTML(buildSession(sel), false);
+  return out;
+}
+function sessionHTML(se, live) {
+  const l = getL(se.date), info = se.info;
+  let o = `<div class="card"><div class="row between wrap"><div class="eyebrow">${fmtD(se.date)} • ${se.time}</div>${typeBadge(info.type, info.leg || "")}</div><h2 style="margin-top:8px">${esc(se.focus)}</h2>`;
+  if (info.court.length) o += `<div class="small" style="color:var(--green);font-weight:700">${I.ball} ${info.court.map(e => esc(e.label) + " " + fmtT(e.start)).join(", ")}</div>`;
+  if (info.moderate) o += `<div class="small muted">Moderate day: one less set, RPE capped at 6.</div>`;
+  o += `<div class="small muted" style="margin-top:4px">${esc(se.note)}</div>`;
+  if (!live) o += `<button class="btn primary block" style="margin-top:14px" data-act="openWO" data-date="${se.date}">${se.date === todayStr() ? "Start" : "Open"} workout</button>`;
+  o += `</div>`;
+  if (se.warm.length) o += `<div class="card"><h2>Warmup + stretch</h2>${se.warm.map((w, i) => live ? checkRow(se.date, "w" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;border-bottom:1px solid var(--line)">${esc(w)}</div>`).join("")}</div>`;
+  o += `<div class="card"><h2 class="brand">Main</h2>${se.main.map(m => exHTML(se, m, live)).join("")}</div>`;
+  if (se.core.length) o += `<div class="card"><h2>Core</h2>${se.core.map(m => exHTML(se, m, live)).join("")}</div>`;
+  o += `<div class="card"><h2>Cooldown</h2>${se.cool.map((w, i) => live ? checkRow(se.date, "c" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;border-bottom:1px solid var(--line)">${esc(w)}</div>`).join("")}</div>`;
+  o += `<div class="card"><h2>Hot tub</h2><div>${se.tub} min. Drink 12 to 16 oz water while you are in.</div><h3>Today's tip</h3><div class="small">${esc(se.tip)}</div></div>`;
+  return o;
+}
+function suggestion(id) {
+  const h = S.exHist[id] || []; if (!h.length) return "";
+  const last = h[h.length - 1], p = h[h.length - 2];
+  let s = "Last: " + last.w + " lb (" + fmtShort(last.date) + ")";
+  if (last.r === "easy" && p && p.r === "easy") s += ". Try " + Math.round(last.w * 1.05 / 2.5) * 2.5 + " lb";
+  else if (last.r === "hard") s += ". Hold or drop to " + Math.round(last.w * 0.95 / 2.5) * 2.5 + " lb";
+  return s;
+}
+function exHTML(se, m, live) {
+  const ex = m.ex, l = getL(se.date), sets = (l.sets[m.id] || []), ph = se.ph;
+  let o = `<div class="ex"><div class="row between"><div class="nm">${esc(ex.name)}</div>${ex.rest ? `<button class="btn sm" data-act="rest" data-s="${ex.rest}">⏱ ${ex.rest}s</button>` : ""}</div>`;
+  o += `<div class="meta">${m.sets} x ${esc(ex.reps)} • ${esc(ex.tempo)} • ${esc(ex.target)}</div>`;
+  o += `<div class="meta">Load: ${esc(ex.load)}${ph.wk >= 3 && ex.track ? ". Up to +5 to 10% vs week 2" : ""}${ph.deload ? ". Use 80% of last week" : ""}</div>`;
+  if (m.from) o += `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>`;
+  const sug = ex.track ? suggestion(m.id) : ""; if (sug) o += `<div class="small" style="color:var(--accent2)">${esc(sug)}</div>`;
+  o += `<ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul>`;
+  if (live) {
+    o += `<div class="sets">${Array.from({ length: m.sets }, (_, i) => `<button class="set ${sets[i] ? "on" : ""}" data-act="set" data-id="${m.id}" data-i="${i}" data-rest="${ex.rest}">${sets[i] ? "✓" : i + 1}</button>`).join("")}</div>`;
+    if (ex.track) o += `<div class="row" style="margin-top:10px"><input type="number" inputmode="decimal" placeholder="Weight (lb)" value="${l.weights[m.id] || ""}" data-in="weight" data-id="${m.id}" style="max-width:160px"><span class="small muted">lb</span></div>`;
+  }
+  return o + `</div>`;
+}
+
+/* ---------------------------- WORKOUT MODE ---------------------------- */
+function openWO(s, mvd) { UI.wo = s; UI.mvd = !!mvd || !!getL(s).mvd; if (mvd) L(s).mvd = true; renderWO(); $("workout").classList.remove("hidden"); $("workout").scrollTop = 0; document.body.style.overflow = "hidden"; }
+function closeWO() { UI.wo = null; $("workout").classList.add("hidden"); document.body.style.overflow = ""; stopRest(); render(); }
+function renderWO() {
+  if (!UI.wo) return; const se = buildSession(UI.wo, UI.mvd), l = getL(UI.wo);
+  const sc = $("workout").scrollTop;
+  $("workout").innerHTML = `<div class="row between" style="margin-bottom:12px"><button class="iconbtn" data-act="closeWO" aria-label="Close">✕</button><img class="wo-mark" src="gs-mark.png" alt=""><div class="seg" style="width:200px"><button class="${UI.mvd ? "" : "on"}" data-act="mvd" data-v="0">Full</button><button class="${UI.mvd ? "on" : ""}" data-act="mvd" data-v="1">15 min</button></div></div>`
+    + sessionHTML(se, true)
+    + `<button class="btn primary block" style="min-height:60px;font-size:18px" data-act="finish">${l.done || l.mvdDone ? "Update log" : "Finish workout"}</button>`;
+  $("workout").scrollTop = sc;
+}
+function startRest(sec) {
+  stopRest(); if (!sec) return; UI.rest = { end: Date.now() + sec * 1000 };
+  const bar = $("restbar"); bar.classList.remove("hidden");
+  const tick = () => { const left = Math.ceil((UI.rest.end - Date.now()) / 1000); if (left <= 0) { bar.innerHTML = "Rest done. Go. <button class='btn sm' data-act='stopRest' style='background:rgba(255,255,255,.18);color:#fff;border:0'>OK</button>"; buzz(); clearInterval(UI.rest.h); return; } bar.innerHTML = `<span>Rest ${Math.floor(left / 60)}:${pad(left % 60)}</span><span class="row"><button class="btn sm" data-act="rest15" style="background:rgba(255,255,255,.18);color:#fff;border:0">+15</button><button class="btn sm" data-act="stopRest" style="background:rgba(255,255,255,.18);color:#fff;border:0">Skip</button></span>`; };
+  tick(); UI.rest.h = setInterval(tick, 250);
+}
+function stopRest() { if (UI.rest) clearInterval(UI.rest.h); UI.rest = null; $("restbar").classList.add("hidden"); }
+
+/* ---------------------------- FUEL ---------------------------- */
+function renderFuel() {
+  const s = todayStr(), l = getL(s), court = isCourt(s), p = S.profile;
+  let o = `<div class="card"><div class="row between"><h2 class="brand">Today's targets</h2><span class="small muted">${court ? "Court day" : "Training day"}</span></div><div class="row" style="justify-content:space-around">${ring(l.protein, p.protein, "var(--accent)", "protein", "g")}${ring(l.water, waterGoal(s), "var(--accent2)", "water", "oz")}</div>
+  <div class="grid2" style="margin-top:12px"><button class="btn sm" data-act="addP" data-v="20">+20 g</button><button class="btn sm" data-act="addP" data-v="35">+35 g</button><button class="btn sm" data-act="addW" data-v="8">+8 oz</button><button class="btn sm" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" data-act="addP" data-v="-10">Undo 10 g</button><button class="btn sm" data-act="addW" data-v="-8">Undo 8 oz</button></div>
+  <table class="t" style="margin-top:12px"><tr><td>Calories (approx)</td><td style="text-align:right"><b>${court ? p.calCourt : p.calTrain}</b></td></tr><tr><td>Protein</td><td style="text-align:right"><b>${p.protein} g</b> (4 x 35 to 50 g)</td></tr><tr><td>Fiber</td><td style="text-align:right"><b>30 to 38 g</b></td></tr><tr><td>Water</td><td style="text-align:right"><b>${waterGoal(s)} oz</b></td></tr></table></div>`;
+  o += `<details open><summary>Quick breakfasts (5 min)</summary><div class="in">${BREAKFASTS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div><button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${b.p}">Ate this (+${b.p} g)</button></div>`).join("")}</div></details>`;
+  o += `<details><summary>Office backup kit</summary><div class="in"><div class="banner warn"><b>When work orders food</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></details>`;
+  o += `<details><summary>Drinks</summary><div class="in"><table class="t">${DRINKS.map(d => `<tr><td><b>${d[0]}</b></td><td class="small">${esc(d[1])}</td></tr>`).join("")}</table></div></details>`;
+  o += `<details><summary>Easy prep meals</summary><div class="in"><div class="small muted">Make one on Sunday, one midweek. Leftovers cover lunches.</div>${RECIPES.map(r => { const n = S.grocery.sel[r.id] || 0; return `<div class="recipe"><b>${esc(r.n)}</b><div class="macros"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time)}</span><span>${r.srv} servings</span></div><details style="background:var(--card2);margin:8px 0"><summary style="font-size:14px;min-height:44px;padding:10px 14px">Ingredients + steps</summary><div class="in"><ul class="list small">${r.ing.map(i => `<li>${esc(i[0])}: ${esc(i[1])}</li>`).join("")}</ul><ol class="list small">${r.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><div class="small muted">Reheat: ${esc(r.reheat)}</div></div></details><div class="row"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1">−</button><span style="min-width:90px;text-align:center" class="small">${n ? n + "x on list" : "Not on list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div></div>`; }).join("")}</div></details>`;
+  o += `<details ${Object.keys(S.grocery.sel).length || S.grocery.kit ? "open" : ""}><summary>Grocery list</summary><div class="in">${groceryHTML()}</div></details>`;
+  return o;
+}
+function groceryHTML() {
+  const map = {};
+  const add = (name, qty, cat) => { const k = cat + "|" + name; if (!map[k]) map[k] = { name, cat, q: [] }; if (qty) map[k].q.push(qty); };
+  Object.entries(S.grocery.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => add(i[0], n > 1 ? i[1] + " x" + n : i[1], i[2])); });
+  if (S.grocery.kit) OFFICE_KIT.forEach(i => add(i[0], "", i[1]));
+  const cats = {}; Object.values(map).forEach(i => (cats[i.cat] = cats[i.cat] || []).push(i));
+  let o = `<button class="check ${S.grocery.kit ? "on" : ""}" data-act="kit"><span class="lbl">Add office snack + breakfast kit</span><span class="box">${CHK}</span></button>`;
+  if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.");
+  ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"].forEach(c => { if (!cats[c]) return; o += `<h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:14px 0 4px">${c}</h3>` + cats[c].map(i => { const on = S.grocery.checked[i.name]; return `<button class="check ${on ? "on" : ""}" data-act="gchk" data-n="${esc(i.name)}"><span class="lbl">${esc(i.name)}${i.q.length ? ` <span class="small muted">${esc(i.q.join(" + "))}</span>` : ""}</span><span class="box">${CHK}</span></button>`; }).join(""); });
+  return o + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">Clear list</button>`;
+}
+
+/* ---------------------------- RECOVER ---------------------------- */
+function renderRecover() {
+  const s = todayStr(), l = getL(s), sl = l.sleep || {}, a = last7Sleep();
+  let o = `<div class="card"><h2 class="brand">Last night's sleep</h2><div class="grid2"><div><label class="f">In bed</label><input type="time" value="${sl.bed || ""}" data-in="sleep" data-k="bed"></div><div><label class="f">Woke up</label><input type="time" value="${sl.wake || ""}" data-in="sleep" data-k="wake"></div></div><label class="f">Quality</label><div class="row">${[1, 2, 3, 4, 5].map(n => `<button class="chip ${+sl.q === n ? "on" : ""}" style="flex:1" data-act="sleepQ" data-v="${n}">${n}</button>`).join("")}</div>
+  <div class="grid2" style="margin-top:14px"><div class="tile"><div class="k">7-day avg sleep</div><div class="v">${a.hrs ? a.hrs.toFixed(1) + " h" : "--"}</div></div><div class="tile"><div class="k">7-day quality</div><div class="v">${a.q ? a.q.toFixed(1) + "/5" : "--"}</div></div></div></div>`;
+  o += `<div class="card"><h2>Wind-down (8:00 to 9:00 PM)</h2><div class="small muted">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out by 10:15." : ""}</div>${WIND.map(w => checkRow(s, w[0], fmtT(w[1]), esc(w[0] === "wd_read" ? readLabel() : w[2]))).join("")}
+  <h3>Affirmations</h3><ul class="list">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  o += `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>`;
+  o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
+  o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
+  return o;
+}
+
+/* ---------------------------- PROGRESS ---------------------------- */
+function chart(field, unit, color) {
+  const pts = S.body.filter(b => b[field]).sort((a, b) => a.date < b.date ? -1 : 1);
+  if (pts.length < 2) return emptyState("Log 2+ entries to see your trend.");
+  const vals = pts.map(p => +p[field]), mn = Math.min(...vals), mx = Math.max(...vals), rg = mx - mn || 1, W = 320, H = 120;
+  const xy = pts.map((p, i) => [10 + i * (W - 20) / (pts.length - 1), 10 + (H - 30) * (1 - (p[field] - mn) / rg)]);
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%">${[0, 1, 2].map(i => `<line x1="0" x2="${W}" y1="${10 + i * (H - 30) / 2}" y2="${10 + i * (H - 30) / 2}" stroke="#e6e9e4"/>`).join("")}<polyline fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" points="${xy.map(p => p.join(",")).join(" ")}"/>${xy.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="${i === xy.length - 1 ? 6 : 3.5}" fill="${i === xy.length - 1 ? "#ff8200" : color}"/>`).join("")}<text x="10" y="${H - 4}" fill="#55605a" font-size="11">${fmtShort(pts[0].date)}: ${vals[0]} ${unit}</text><text x="${W - 10}" y="${H - 4}" fill="#55605a" font-size="11" text-anchor="end">${fmtShort(pts[pts.length - 1].date)}: ${vals[vals.length - 1]} ${unit}</text></svg>`;
+}
+function renderProgress() {
+  checkBadges();
+  const r = weekReport(weekStart(todayStr())), st = streak(), x = xp();
+  let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Level</div><div class="v">${Math.floor(x / 300) + 1}</div></div></div>`;
+  o += `<div class="card"><h2 class="brand">Badges</h2>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}<div class="small muted">Never miss twice: 1 grace day per week keeps your streak alive.</div></div>`;
+  o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
+  const lifts = Object.entries(S.exHist).filter(([, h]) => h.length);
+  o += `<div class="card"><h2>Lift progression</h2>${lifts.length ? `<table class="t">${lifts.map(([id, h]) => `<tr><td>${esc(LIB[id] ? LIB[id].name : id)}</td><td style="text-align:right">${h[0].w} → <b>${h[h.length - 1].w}</b> lb</td></tr>`).join("")}</table>` : emptyState("Enter weights during workouts to track progress.")}</div>`;
+  const nc = nextCheckin();
+  o += `<details ${nc === todayStr() ? "open" : ""}><summary>4-week check-in (${fmtD(nc)})</summary><div class="in"><label class="f">Weight</label><input id="ciW" type="number" inputmode="decimal"><label class="f">Waist</label><input id="ciWa" type="number" inputmode="decimal"><label class="f">Soreness / pain notes</label><textarea id="ciS"></textarea><label class="f">Biggest win</label><textarea id="ciWin"></textarea><label class="f">What should change?</label><textarea id="ciC"></textarea><button class="btn primary block" style="margin-top:12px" data-act="checkin">Save check-in</button>${S.checkins.slice().reverse().map(c => `<div class="recipe small"><b>${fmtD(c.date)}</b>: ${c.weight || "-"} lb, ${c.waist || "-"} in<br>${esc(c.win)}<br><span class="muted">${esc(c.change)}</span></div>`).join("")}</div></details>`;
+  const hist = Object.entries(S.logs).filter(([, l]) => l.done || l.mvdDone).sort((a, b) => a[0] < b[0] ? 1 : -1).slice(0, 20);
+  o += `<div class="card"><h2>History</h2>${hist.length ? hist.map(([s, l]) => `<div class="row between small" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${fmtD(s)}</span><span>${typeBadge(getDayType(s))} ${l.mvdDone ? "15m" : ""} ${l.rating ? `<span class="pill-r">${{ easy: "Easy", right: "Right", hard: "Hard" }[l.rating]}</span>` : ""}</span></div>`).join("") : emptyState("Finish your first workout to start your log.")}</div>`;
+  return o;
+}
+
+/* ---------------------------- SHEETS (More menu) ---------------------------- */
+function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
+function closeSheet() { UI.sheet = null; $("sheet").classList.add("hidden"); }
+const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
+function renderSheet() {
+  if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Hoops schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  else if (kind === "whatsnew") o = back + whatsNewHTML();
+  else if (kind === "hoops") {
+    const t = todayStr(), g = S.games.slice().sort((a, b) => a.date < b.date ? -1 : 1);
+    o = back + `${sheetTitle("Hoops")}<div class="card" style="background:var(--card2)"><b>Weekly practice</b><div class="grid2"><div><label class="f">Day</label><select data-in="prac" data-k="weekday">${DOW.map((d, i) => `<option value="${i}" ${S.practice.weekday === i ? "selected" : ""}>${d}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" value="${S.practice.start}" data-in="prac" data-k="start"></div></div><label class="f">End</label><input type="time" value="${S.practice.end}" data-in="prac" data-k="end"><label class="f">Skip practice on a date</label><div class="row"><input type="date" id="skipD"><button class="btn sm" data-act="skipAdd">Skip</button></div>${S.practiceSkips.map(d => `<div class="row between small" style="padding:6px 0">${fmtD(d)}<button class="btn sm" data-act="skipDel" data-d="${d}">Undo</button></div>`).join("")}</div>`;
+    o += `<button class="btn primary block" data-act="sheet" data-k="game" style="margin:6px 0 12px">+ Add game</button>`;
+    o += g.map(x => `<button class="check" data-act="sheet" data-k="game" data-a="${x.id}" style="${x.date < t ? "opacity:.45" : ""}"><span class="t">${fmtShort(x.date)}</span><span class="lbl"><b>${esc(x.opp)}</b><div class="small muted">${DOW[dow(x.date)]} ${fmtT(x.time)} @ ${esc(x.gym)}</div></span><span class="muted">›</span></button>`).join("");
+    o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Game-day protocol</b><ol class="list small"><li>Water: 125 oz total. 16 oz on waking.</li><li>AM: 15-min activation only, hot tub 10 min.</li><li>Real meal 3 to 4 hrs before: chicken, rice, veg.</li><li>Snack 60 to 90 min before: banana + jerky or yogurt.</li><li>Electrolyte drink 60 min before tip.</li><li>Extra 5 min calf + ankle warmup at the gym.</li><li>After: 40 g protein + 20 oz water, shower, 5 min stretch.</li><li>Lights out by 10:15. No hot tub after 9:30 PM.</li><li>Late game? Tomorrow auto-moves to a midday session.</li></ol></div>`;
+  } else if (kind === "game") {
+    const g = S.games.find(x => x.id === arg) || { id: "", date: todayStr(), time: "18:30", opp: "", gym: "" };
+    o = `<button class="btn sm" data-act="sheet" data-k="hoops" style="margin-bottom:10px">‹ Hoops</button><h2>${arg ? "Edit game" : "Add game"}</h2><label class="f">Date</label><input type="date" id="gD" value="${g.date}"><label class="f">Time</label><input type="time" id="gT" value="${g.time}"><label class="f">Opponent</label><input id="gO" value="${esc(g.opp)}" placeholder="vs Team"><label class="f">Gym</label><input id="gG" value="${esc(g.gym)}"><button class="btn primary block" style="margin-top:14px" data-act="gameSave" data-a="${g.id}">Save</button>${arg ? `<button class="btn block danger" style="margin-top:10px" data-act="gameDel" data-a="${g.id}">Delete game</button>` : ""}`;
+  } else if (kind === "supps") {
+    const s = todayStr();
+    o = back + `${sheetTitle("Supplements")}<div class="small muted" style="margin-bottom:10px">Split across the day so nothing blocks iron absorption.</div>` + S.supplements.map((p, i) => `<div class="card" style="background:var(--card2)">${checkRow(s, "supp_" + p.id, fmtT(p.time), "<b>" + esc(p.name) + "</b>")}<div class="grid2"><div><label class="f">Dose</label><input value="${esc(p.dose)}" data-in="supp" data-i="${i}" data-k="dose"></div><div><label class="f">Time</label><input type="time" value="${p.time}" data-in="supp" data-i="${i}" data-k="time"></div></div><div class="small muted" style="margin-top:8px">${esc(p.note)}</div></div>`).join("");
+  } else if (kind === "appts") {
+    o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
+  } else if (kind === "settings") {
+    const p = S.profile;
+    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><label class="f">Affirmations (one per line)</label><textarea data-in="affirm">${esc(S.affirmations.join("\n"))}</textarea><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+  } else if (kind === "backup") {
+    o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
+  } else if (kind === "book") o = bookSheet(arg);
+  else if (kind === "recommend") o = recommendSheet();
+  else if (kind === "feedback") o = feedbackHTML();
+  else if (kind === "result") o = arg;
+  $("sheetBody").innerHTML = o;
+}
+function feedbackHTML() {
+  const f = UI.fb;
+  return `<h2>How did it go?</h2><div class="row">${[["easy", "Too easy"], ["right", "Just right"], ["hard", "Too hard"]].map(r => `<button class="chip ${f.rating === r[0] ? "on" : ""}" style="flex:1" data-act="fbR" data-v="${r[0]}">${r[1]}</button>`).join("")}</div>
+  <h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:18px 0 6px">Anything bothering you?</h3><div class="small muted" style="margin-bottom:8px">Tap once = soreness. Tap twice = pain. Tap again to clear.</div><div class="row wrap">${AREAS.map(a => { const v = f.areas[a[0]]; return `<button class="chip ${v ? "on" : ""} ${v === "pain" ? "pain" : ""}" data-act="fbA" data-v="${a[0]}">${a[1]}${v ? " (" + v + ")" : ""}</button>`; }).join("")}</div>
+  ${Object.values(f.areas).includes("pain") ? `<label class="f">Worst pain (0 to 10): <b>${f.level}</b></label><input type="range" min="0" max="10" value="${f.level}" data-in="fbL" style="padding:0">` : ""}
+  <h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:18px 0 6px">Red flags</h3>${RED_FLAGS.map(r => `<button class="check ${f.flags[r[0]] ? "on" : ""}" data-act="fbF" data-v="${r[0]}"><span class="lbl small">${esc(r[1])}</span><span class="box">${CHK}</span></button>`).join("")}
+  <button class="btn primary block" style="margin-top:16px;min-height:58px" data-act="fbSave">Save + log workout</button>`;
+}
+function submitFeedback() {
+  const s = UI.wo, f = UI.fb, l = L(s), se = buildSession(s, UI.mvd);
+  if (!f.rating) { toast("Pick how it felt first"); return; }
+  l.rating = f.rating; l.soreness = Object.entries(f.areas).map(([area, type]) => ({ area, type }));
+  l.done = !UI.mvd; l.mvdDone = UI.mvd; l.checks.workout = true; l.calf = se.main.some(m => CALF_IDS.includes(m.id));
+  se.main.forEach(m => { if (m.ex.track && l.weights[m.id]) { const h = S.exHist[m.id] = S.exHist[m.id] || [], rec = { date: s, w: +l.weights[m.id], r: f.rating }, i = h.findIndex(x => x.date === s); i >= 0 ? h[i] = rec : h.push(rec); } });
+  const prevPain = clone(S.pain || {});
+  Object.keys(S.pain).forEach(a => { S.pain[a].left--; if (S.pain[a].left <= 0) delete S.pain[a]; });
+  const msgs = [];
+  Object.entries(f.areas).forEach(([a, t]) => { if (t !== "pain") return; const since = prevPain[a] ? prevPain[a].since : s; S.pain[a] = { left: 3, level: f.level, since }; if (between(since, s) >= 7) msgs.push(AREAS.find(x => x[0] === a)[1] + " pain for 7+ days: book a doctor or PT visit."); });
+  if (f.level > 5 && Object.values(f.areas).includes("pain")) msgs.push("Pain above 5/10: get it checked by a doctor or PT.");
+  const flags = Object.keys(f.flags).filter(k => f.flags[k]);
+  flags.forEach(k => { const r = RED_FLAGS.find(x => x[0] === k); msgs.push(r[1] + ": " + r[2]); });
+  S.alert = msgs.length ? { date: s, flags, msgs } : S.alert;
+  checkBadges(); save(); buzz();
+  $("workout").classList.add("hidden"); document.body.style.overflow = ""; stopRest(); UI.wo = null;
+  const painNow = Object.keys(S.pain);
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Session logged</h2><div class="muted"><b style="color:var(--orange-ink)">${UI.mvd ? "+25" : "+50"} XP</b> \u2022 Streak ${streak()} ${I.flame}</div><div class="swoosh-under"></div></div>${msgs.length ? `<div class="banner bad"><b>See a doctor or PT</b>${msgs.map(esc).join("<br>")}</div>` : ""}${painNow.length ? `<div class="banner warn"><b>Backing off next 3 sessions</b>${painNow.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")} exercises will be swapped.</div>` : ""}<div class="small muted">${f.rating === "easy" ? "Felt easy. If it is easy again next time, the app will suggest +5 percent." : f.rating === "hard" ? "Felt hard. Hold weights steady next time. Recovery is part of the plan." : "Right where we want it. Consistency wins."}</div><div class="card" style="background:var(--card2);margin-top:14px"><b>Now:</b> hot tub, water, shower. Streak: ${streak()} ${I.flame}</div><button class="btn primary block" data-act="closeSheet">Done</button>`);
+  render();
+}
+
+/* ---------------------------- RENDER ROOT ---------------------------- */
+const TITLES = { today: "Today", train: "Train", fuel: "Fuel", reads: "Good Reads", recover: "Recover", progress: "Progress" };
+function render() {
+  const s = todayStr();
+  $("hdrTitle").textContent = TITLES[UI.tab];
+  $("hdrSub").textContent = weekNum(s) ? "Week " + weekNum(s) : "Starts " + fmtD(S.programStart);
+  const nd = new Date(); $("hdrDate").textContent = nd.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+  const ta = TAB_ART[UI.tab];
+  $("view").innerHTML = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]();
+  $("view").insertAdjacentHTML("beforeend", `<div class="signoff"><img src="gs-mark.png" alt="">Game Shape \u2022 Train. Fuel. Recover. Hoop.</div>`);
+  document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
+}
+function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSheet(); }
+
+/* ---------------------------- ACTIONS ---------------------------- */
+function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
+const ACT = {
+  tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
+  more: () => openSheet("menu"),
+  sheet: el => openSheet(el.dataset.k, el.dataset.a),
+  closeSheet: () => closeSheet(),
+  toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
+  addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
+  addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
+  read: el => { const l = L(todayStr()); l.reading += +el.dataset.v; l.checks.wd_read = true; save(); buzz(); render(); },
+  tub: el => { const l = L(todayStr()); l.hottub += +el.dataset.v; l.checks.hottub = true; save(); buzz(); render(); },
+  sleepQ: el => { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { q: +el.dataset.v }); save(); render(); },
+  openWO: el => openWO(el.dataset.date, el.dataset.mvd === "1"),
+  closeWO: () => closeWO(),
+  mvd: el => { UI.mvd = el.dataset.v === "1"; L(UI.wo).mvd = UI.mvd; save(); renderWO(); },
+  set: el => { const l = L(UI.wo), id = el.dataset.id, i = +el.dataset.i; l.sets[id] = l.sets[id] || []; l.sets[id][i] = !l.sets[id][i]; save(); buzz(); if (l.sets[id][i]) startRest(+el.dataset.rest); renderWO(); },
+  rest: el => startRest(+el.dataset.s),
+  rest15: () => { if (UI.rest) UI.rest.end += 15000; },
+  stopRest: () => stopRest(),
+  finish: () => { const old = getL(UI.wo); UI.fb = { rating: old.rating || null, areas: {}, level: 3, flags: {} }; (old.soreness || []).forEach(x => UI.fb.areas[x.area] = x.type); openSheet("feedback"); },
+  fbR: el => { UI.fb.rating = el.dataset.v; renderSheet(); },
+  fbA: el => { const a = el.dataset.v, v = UI.fb.areas[a]; if (!v) UI.fb.areas[a] = "soreness"; else if (v === "soreness") UI.fb.areas[a] = "pain"; else delete UI.fb.areas[a]; renderSheet(); },
+  fbF: el => { UI.fb.flags[el.dataset.v] = !UI.fb.flags[el.dataset.v]; renderSheet(); },
+  fbSave: () => submitFeedback(),
+  dismissAlert: () => { S.alert = null; save(); render(); },
+  wkPrev: () => { UI.trainOff--; UI.trainSel = null; render(); },
+  wkNext: () => { UI.trainOff++; UI.trainSel = null; render(); },
+  selDay: el => { UI.trainSel = el.dataset.date; render(); },
+  groc: el => { const id = el.dataset.id, n = Math.max(0, (S.grocery.sel[id] || 0) + +el.dataset.v); if (n) S.grocery.sel[id] = n; else delete S.grocery.sel[id]; save(); render(); },
+  kit: () => { S.grocery.kit = !S.grocery.kit; save(); render(); },
+  gchk: el => { const n = el.dataset.n; S.grocery.checked[n] = !S.grocery.checked[n]; save(); buzz(); render(); },
+  gclear: () => { S.grocery = { sel: {}, kit: false, checked: {} }; save(); render(); },
+  logBody: () => { const w = parseFloat($("bW").value), wa = parseFloat($("bWa").value); if (!w && !wa) return toast("Enter weight or waist"); const s = todayStr(), e = S.body.find(b => b.date === s) || (S.body.push({ date: s }), S.body[S.body.length - 1]); if (w) { e.weight = w; S.profile.weight = w; } if (wa) { e.waist = wa; S.profile.waist = wa; } save(); toast("Logged"); render(); },
+  checkin: () => { const c = { date: todayStr(), weight: parseFloat($("ciW").value) || null, waist: parseFloat($("ciWa").value) || null, sore: $("ciS").value, win: $("ciWin").value, change: $("ciC").value }; S.checkins.push(c); if (c.weight || c.waist) { const e = S.body.find(b => b.date === c.date) || (S.body.push({ date: c.date }), S.body[S.body.length - 1]); if (c.weight) e.weight = c.weight; if (c.waist) e.waist = c.waist; } save(); toast("Check-in saved"); render(); },
+  gameSave: el => { const id = el.dataset.a, g = { id: id || "g" + Date.now(), date: $("gD").value, time: $("gT").value || "18:30", opp: $("gO").value || "Game", gym: $("gG").value }; if (!g.date) return toast("Pick a date"); const i = S.games.findIndex(x => x.id === id); i >= 0 ? S.games[i] = g : S.games.push(g); invalidate(); save(); toast("Saved. Plan updated."); openSheet("hoops"); render(); },
+  gameDel: el => { S.games = S.games.filter(x => x.id !== el.dataset.a); invalidate(); save(); toast("Game removed"); openSheet("hoops"); render(); },
+  skipAdd: () => { const d = $("skipD").value; if (d && !S.practiceSkips.includes(d)) S.practiceSkips.push(d); invalidate(); save(); renderSheet(); render(); },
+  skipDel: el => { S.practiceSkips = S.practiceSkips.filter(d => d !== el.dataset.d); invalidate(); save(); renderSheet(); render(); },
+  apptAdd: () => { S.appointments.push({ id: "a" + Date.now(), title: "New appointment", date: "", status: "To schedule", notes: "" }); save(); renderSheet(); },
+  apptDel: el => { S.appointments.splice(+el.dataset.i, 1); save(); renderSheet(); },
+  midday: el => { const d = $("mdD").value; if (!d) return toast("Pick a date"); S.midDay[d] = el.dataset.v === "1"; invalidate(); save(); toast("Updated"); render(); },
+  reset: el => { if (!UI.resetArm) { UI.resetArm = true; el.textContent = "Tap again to erase everything"; setTimeout(() => { UI.resetArm = false; }, 4000); return; } UI.resetArm = false; S = fresh(); invalidate(); save(); closeSheet(); render(); toast("Reset done"); },
+  export: () => { S.meta.lastBackup = todayStr(); save(); download("game-shape-backup-" + todayStr() + ".json", JSON.stringify(S)); toast("Backup saved"); rerenderAll(); },
+  copyBk: () => { S.meta.lastBackup = todayStr(); save(); try { navigator.clipboard.writeText(JSON.stringify(S)).then(() => toast("Copied. Paste it in Notes.")); } catch (e) { toast("Copy not supported"); } renderSheet(); },
+  importF: () => $("importFile").click(),
+  importP: () => restore($("pasteBk").value)
+};
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]"); if (t && !t.dataset.act) { ACT.tab(t); return; }
+  const el = e.target.closest("[data-act]"); if (el && ACT[el.dataset.act]) ACT[el.dataset.act](el, e);
+});
+document.addEventListener("change", e => {
+  const el = e.target, k = el.dataset.in; if (!k) return;
+  if (k === "weight") { L(UI.wo).weights[el.dataset.id] = el.value; save(); }
+  else if (k === "sleep") { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); save(); render(); }
+  else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
+  else if (k === "supp") { S.supplements[+el.dataset.i][el.dataset.k] = el.value; save(); render(); }
+  else if (k === "appt") { S.appointments[+el.dataset.i][el.dataset.k] = el.value; save(); }
+  else if (k === "prof") { S.profile[el.dataset.k] = el.type === "number" ? +el.value : el.value; save(); render(); }
+  else if (k === "start") { S.programStart = el.value; invalidate(); save(); render(); }
+  else if (k === "affirm") { S.affirmations = el.value.split("\n").map(x => x.trim()).filter(Boolean); save(); }
+});
+document.addEventListener("input", e => { if (e.target.dataset.in === "fbL") { UI.fb.level = +e.target.value; const lb = e.target.previousElementSibling; if (lb) lb.querySelector("b").textContent = UI.fb.level; } });
+$("importFile").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => restore(r.result); r.readAsText(f); e.target.value = ""; });
+
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { invalidate(); rerenderAll(); } });
+
+/* ---------------------------- GOOD READS (v2.1) ----------------------------
+   Curated list: books.json (edit it to change Brett's list, no code changes).
+   Community list: Netlify Function /.netlify/functions/books (shared by everyone).
+   Personal shelf, ratings, notes: S.reads in this user's localStorage. */
+const READS_API = "/.netlify/functions/books", READS_ADMIN = "/.netlify/functions/books-admin";
+const CAT_COLOR = { mindset: ["#ff8200", "#1a0d00"], discipline: ["#013919", "#fff"], masculinity: ["#0e5a2e", "#fff"], sales: ["#1d3b5c", "#fff"], money: ["#2f7a4f", "#fff"], training: ["#b85c00", "#fff"], body: ["#6ba37e", "#0d1210"], nutrition: ["#d9a21b", "#1a0d00"], sleep: ["#2f3e5c", "#fff"], biography: ["#5b3a29", "#fff"], history: ["#4a5240", "#fff"], strategy: ["#1f2326", "#fff"], romance: ["#7a1f3d", "#fff"], community: ["#e8f1eb", "#013919"] };
+let BOOKDATA = { categories: {}, books: [] };
+try { const c = localStorage.getItem("gs_books_cache"); if (c) BOOKDATA = JSON.parse(c); } catch (e) {}
+const RUI = { q: "", chip: "all", shelf: "all", limit: 30 };
+function readLabel() { const b = S.reads && S.reads.current && bookById(S.reads.current); return "Read 20 min" + (b ? ": " + b.title : ""); }
+function R() { if (!S.reads) S.reads = clone(fresh().reads); return S.reads; }
+async function loadBooks() {
+  try { const r = await fetch("books.json", { cache: "no-cache" }); if (r.ok) { BOOKDATA = await r.json(); try { localStorage.setItem("gs_books_cache", JSON.stringify(BOOKDATA)); } catch (e) {} if (UI.tab === "reads") render(); } } catch (e) {}
+}
+async function syncCommunity() {
+  try {
+    const admin = R().adminPin ? "?pin=" + encodeURIComponent(R().adminPin) : "";
+    const r = await fetch(READS_API + admin, { cache: "no-store" }); if (!r.ok) throw 0;
+    const d = await r.json(); R().community = d.items || []; R().backend = true; R().lastSync = new Date().toISOString(); save();
+    if (UI.tab === "reads") renderReadList();
+  } catch (e) { R().backend = false; }
+}
+const qlink = (t, a) => { const e = encodeURIComponent(t + " " + a).replace(/%20/g, "+"); return { amazon: "https://www.amazon.com/s?k=" + e + "&i=stripbooks", bookshop: "https://bookshop.org/search?keywords=" + e, goodreads: "https://www.goodreads.com/search?q=" + e, audible: "https://www.audible.com/search?keywords=" + e }; };
+function communityBooks() {
+  const mine = (R().myRecs || []).filter(m => !(R().community || []).some(c => c.id === m.id));
+  return [...(R().community || []), ...mine].map(c => ({ id: "c-" + c.id, cid: c.id, title: c.title, author: c.author, year: (c.date || "").slice(0, 4), category: c.promoted ? (c.category || "mindset") : "community", realCat: c.category || "", tags: ["community"], why: c.why || "Recommended by " + (c.recommendedBy || "the crew") + ".", readIf: "", audiobook: false, spice: c.category === "romance" ? 1 : 0, series: null, links: Object.assign(qlink(c.title, c.author), c.link ? { link: c.link } : {}), source: "community", pick: !!c.promoted, by: c.recommendedBy, date: c.date, hidden: !!c.hidden, pending: !!c.pending }));
+}
+function allBooks() {
+  const rd = R(), list = [...(BOOKDATA.books || []), ...communityBooks()];
+  return list.filter(b => !(rd.hidden || []).includes(b.id) && (rd.spicy || b.category !== "romance") && (!b.hidden || rd.adminPin));
+}
+const bookById = id => [...(BOOKDATA.books || []), ...communityBooks()].find(b => b.id === id);
+function coverHTML(b, w) {
+  const [bg, fg] = CAT_COLOR[b.category] || CAT_COLOR.mindset, h = Math.round(w * 1.45);
+  return `<div class="cover ${b.pick && b.source === "brett" ? "pk" : ""}" style="width:${w}px;height:${h}px;background:${bg};color:${fg}"><div class="ct" style="font-size:${w > 90 ? 14 : 11}px">${esc(b.title)}</div><div class="ca">${esc(b.author.split(" and ")[0])}</div><img src="gs-mark.png" alt="">${b.pick && b.source === "brett" ? '<span class="rib">PICK</span>' : ""}</div>`;
+}
+function catName(c) { return c === "community" ? "Community" : (BOOKDATA.categories || {})[c] || c; }
+function shelfOf(id) { return (R().shelf || {})[id] || ""; }
+function filterBooks() {
+  const q = RUI.q.trim().toLowerCase(), rd = R();
+  return allBooks().filter(b => {
+    if (RUI.shelf !== "all" && shelfOf(b.id) !== RUI.shelf) return false;
+    if (RUI.chip === "picks" && !(b.pick && b.source === "brett")) return false;
+    if (RUI.chip === "audio" && !b.audiobook) return false;
+    if (RUI.chip === "community" && b.source !== "community") return false;
+    if (!["all", "picks", "audio", "community"].includes(RUI.chip) && b.category !== RUI.chip) return false;
+    if (q && !(b.title + " " + b.author + " " + (b.tags || []).join(" ")).toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a, b) => (b.pick - a.pick) || (a.source === "community") - (b.source === "community"));
+}
+function bookRow(b) {
+  const sh = shelfOf(b.id), rate = (R().rating || {})[b.id];
+  return `<button class="bk" data-act="book" data-id="${b.id}">${coverHTML(b, 58)}<div class="bi"><div class="bt">${esc(b.title)}</div><div class="ba">${esc(b.author)}${b.year ? " • " + esc(b.year) : ""}</div>
+  <div class="bp"><span class="cat">${esc(catName(b.category))}</span>${b.audiobook ? '<span class="tg">Audio</span>' : ""}${b.series ? `<span class="tg">${esc(b.series)} #${b.seriesOrder}</span>` : ""}${b.category === "romance" ? `<span class="tg spice">${"\u{1F336}".repeat(Math.max(1, b.spice))}</span>` : ""}${b.source === "community" ? `<span class="tg comm">Community${b.by ? ": " + esc(b.by) : ""}${b.pending ? " (pending)" : ""}</span>` : ""}${sh ? `<span class="tg shelf">${{ want: "Want", reading: "Reading", done: "Finished" }[sh]}</span>` : ""}${rate ? `<span class="tg">${"★".repeat(rate)}</span>` : ""}${b.hidden ? '<span class="tg spice">Hidden</span>' : ""}</div>
+  <div class="bw">${esc(b.why)}</div></div></button>`;
+}
+function renderReadList() {
+  const el = document.getElementById("readList"); if (!el) return;
+  const list = filterBooks(), shown = list.slice(0, RUI.limit);
+  el.innerHTML = (shown.length ? shown.map(bookRow).join("") : emptyState("No books match. Try another filter.")) + (list.length > shown.length ? `<button class="btn block" data-act="moreBooks" style="margin-top:8px">Show ${Math.min(30, list.length - shown.length)} more</button>` : "");
+  const c = document.getElementById("readCount"); if (c) c.textContent = list.length + " books";
+}
+function renderReads() {
+  const rd = R(), cur = rd.current && bookById(rd.current);
+  const counts = { want: 0, reading: 0, done: 0 }; Object.entries(rd.shelf || {}).forEach(([id, v]) => { if (counts[v] != null && bookById(id)) counts[v]++; });
+  let o = "";
+  if (cur) {
+    const pct = (rd.progress || {})[cur.id] || 0, mins = (rd.minutes || {})[cur.id] || 0;
+    o += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading</div><div class="row" style="align-items:flex-start;margin-top:10px;gap:14px">${coverHTML(cur, 74)}<div style="flex:1"><div style="font-weight:800;font-size:18px;line-height:1.2">${esc(cur.title)}</div><div class="small muted">${esc(cur.author)}</div><div class="pbar"><i style="width:${pct}%"></i></div><div class="small muted">${pct}% • ${mins} min logged</div></div></div>
+    <div class="grid2" style="margin-top:12px"><button class="btn primary sm" data-act="readMin" data-v="10">+10 min</button><button class="btn sm" data-act="readPct" data-v="10">+10% progress</button><button class="btn sm" data-act="book" data-id="${cur.id}">Notes + rate</button><button class="btn sm" data-act="finishBook">Finished it</button></div></div>`;
+  } else o += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading</div><h2 style="margin-top:8px">Pick your next read</h2><div class="small muted">Tap any book, then "Start reading." Minutes you log here count toward your 9:00 PM wind-down and the Bookworm badge.</div></div>`;
+  const picks = (BOOKDATA.books || []).filter(b => b.pick && (rd.spicy || b.category !== "romance") && !(rd.hidden || []).includes(b.id));
+  o += `<div class="card"><h2 class="brand">Brett's Picks</h2><div class="carousel">${picks.map(b => `<button class="cv" data-act="book" data-id="${b.id}">${coverHTML(b, 96)}</button>`).join("")}</div></div>`;
+  const chips = [["all", "All"], ["picks", "Brett's Picks"], ["audio", "Audiobooks"], ["community", "Community"], ...Object.entries(BOOKDATA.categories || {}).filter(([k]) => rd.spicy || k !== "romance")];
+  o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Library</h2><span class="small muted" id="readCount"></span></div>
+  <input type="search" id="readSearch" placeholder="Search title, author, or topic" value="${esc(RUI.q)}" style="margin:12px 0 10px">
+  <div class="chiprow">${chips.map(c => `<button class="chip ${RUI.chip === c[0] ? "on" : ""}" data-act="rchip" data-v="${c[0]}">${esc(c[1])}</button>`).join("")}</div>
+  <div class="seg" style="margin:12px 0">${[["all", "All"], ["want", "Want " + counts.want], ["reading", "Reading " + counts.reading], ["done", "Done " + counts.done]].map(s => `<button class="${RUI.shelf === s[0] ? "on" : ""}" data-act="rshelf" data-v="${s[0]}">${s[1]}</button>`).join("")}</div>
+  <div id="readList"></div></div>`;
+  o += `<button class="btn primary block" data-act="sheet" data-k="recommend">+ Recommend a book</button>`;
+  o += `<div class="small muted" style="text-align:center;margin-top:8px">${rd.backend ? "Community list is live. Last synced " + new Date(rd.lastSync).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) + "." : "Community sharing turns on after the one-time GitHub setup."}</div>`;
+  setTimeout(renderReadList, 0);
+  return o;
+}
+function bookSheet(id) {
+  const b = bookById(id); if (!b) return "Book not found.";
+  const rd = R(), sh = shelfOf(id), rate = (rd.rating || {})[id] || 0;
+  const L = b.links || qlink(b.title, b.author);
+  const lk = (u, t) => u ? `<a class="btn sm" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>` : "";
+  return `<div class="row" style="gap:14px;align-items:flex-start">${coverHTML(b, 92)}<div style="flex:1"><div class="eyebrow">${esc(catName(b.category))}</div><h2 style="margin:4px 0 2px;font-size:22px;line-height:1.15">${esc(b.title)}</h2><div class="muted">${esc(b.author)}${b.year ? " • " + esc(b.year) : ""}</div>${b.series ? `<div class="small" style="margin-top:4px;color:var(--orange-ink);font-weight:700">${esc(b.series)}, book ${b.seriesOrder}</div>` : ""}${b.source === "community" ? `<div class="small" style="margin-top:4px;color:var(--green);font-weight:700">Community pick${b.by ? " from " + esc(b.by) : ""}</div>` : ""}</div></div>
+  <p style="margin:14px 0 6px">${esc(b.why)}</p>${b.readIf ? `<p class="small muted" style="margin:0 0 10px">${esc(b.readIf)}</p>` : ""}
+  <div class="bp" style="margin-bottom:12px">${(b.tags || []).map(t => `<span class="tg">${esc(t)}</span>`).join("")}${b.category === "romance" ? `<span class="tg spice">Spice ${b.spice}/3</span>` : ""}${b.similarTo ? `<span class="tg shelf">Like ${esc(b.similarTo)}</span>` : ""}</div>
+  <div class="grid2">${lk(L.amazon, "Amazon")}${lk(L.bookshop, "Bookshop")}${lk(L.goodreads, "Reviews (Goodreads)")}${lk(L.audible, "Audible")}${lk(L.link, "Their link")}</div>
+  <h3 class="sh3">My shelf</h3><div class="seg">${[["want", "Want to read"], ["reading", "Reading"], ["done", "Finished"]].map(s => `<button class="${sh === s[0] ? "on" : ""}" data-act="setShelf" data-id="${id}" data-v="${s[0]}">${s[1]}</button>`).join("")}</div>
+  <h3 class="sh3">My rating</h3><div class="stars">${[1, 2, 3, 4, 5].map(n => `<button class="${n <= rate ? "on" : ""}" data-act="rateBook" data-id="${id}" data-v="${n}">★</button>`).join("")}</div>
+  <h3 class="sh3">Private notes</h3><textarea data-in="bookNote" data-id="${id}" placeholder="Takeaways, quotes in your own words, what to apply">${esc((rd.notes || {})[id] || "")}</textarea>
+  <div class="row" style="margin-top:12px"><button class="btn sm" style="flex:1" data-act="hideBook" data-id="${id}">Hide from my list</button>${rd.adminPin && b.source === "community" ? `<button class="btn sm" style="flex:1" data-act="adminBook" data-id="${b.cid}" data-v="${b.hidden ? "unhide" : "hide"}">${b.hidden ? "Unhide" : "Hide for all"}</button><button class="btn sm" style="flex:1" data-act="adminBook" data-id="${b.cid}" data-v="promote">Make Brett's Pick</button>` : ""}</div>`;
+}
+function recommendSheet() {
+  return `${sheetTitle("Recommend a book")}<div class="small muted">It goes live for the whole crew${R().backend ? "" : " once sharing is set up"}.</div>
+  <label class="f">Title *</label><input id="rcT" maxlength="120"><label class="f">Author *</label><input id="rcA" maxlength="80">
+  <label class="f">Category</label><select id="rcC">${Object.entries(BOOKDATA.categories || {}).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("")}</select>
+  <label class="f">Why should someone read it?</label><textarea id="rcW" maxlength="280" placeholder="One or two lines"></textarea>
+  <label class="f">Link (optional)</label><input id="rcL" type="url" placeholder="https://" maxlength="300">
+  <button class="btn primary block" style="margin-top:14px" data-act="sendRec">Share with the crew</button>`;
+}
+async function sendRec() {
+  const v = id => (document.getElementById(id).value || "").trim();
+  const rec = { title: v("rcT"), author: v("rcA"), category: v("rcC"), why: v("rcW"), link: v("rcL"), recommendedBy: S.profile.name || "Friend", device: deviceId() };
+  if (!rec.title || !rec.author) return toast("Title and author please");
+  if (rec.link && !/^https?:\/\//i.test(rec.link)) return toast("Link must start with https://");
+  try {
+    const r = await fetch(READS_API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) });
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || "fail");
+    R().myRecs = (R().myRecs || []).concat([Object.assign({ id: (await r.clone().json().catch(() => ({}))).id || "m" + Date.now(), date: todayStr() }, rec)]);
+    save(); await syncCommunity(); checkBadges();
+    openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Thanks, it's live for the crew</h2><div class="muted">${esc(rec.title)} by ${esc(rec.author)}</div></div><button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Done</button>`);
+  } catch (e) {
+    R().myRecs = (R().myRecs || []).concat([Object.assign({ id: "m" + Date.now(), date: todayStr(), pending: true }, rec)]); save();
+    const body = encodeURIComponent("Book rec for Game Shape: " + rec.title + " by " + rec.author + (rec.why ? ". " + rec.why : ""));
+    openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Saved on your phone</h2><div class="muted">${String(e.message || "").length > 4 && e.message !== "fail" ? esc(e.message) : "The shared list is not connected yet."}</div></div><a class="btn green block" href="sms:&body=${body}">Text it to Brett instead</a><button class="btn block" style="margin-top:10px" data-act="closeSheet">Done</button>`);
+  }
+  render();
+}
+function deviceId() { try { let d = localStorage.getItem("gs_device"); if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("gs_device", d); } return d; } catch (e) { return "anon"; } }
+function logReading(min) {
+  const rd = R(), l = L(todayStr()); l.reading += min; l.checks.wd_read = true;
+  if (rd.current) { rd.minutes = rd.minutes || {}; rd.minutes[rd.current] = (rd.minutes[rd.current] || 0) + min; }
+  save(); buzz(); checkBadges();
+}
+Object.assign(ACT, {
+  book: el => openSheet("book", el.dataset.id),
+  rchip: el => { RUI.chip = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rchip"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
+  rshelf: el => { RUI.shelf = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rshelf"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
+  moreBooks: () => { RUI.limit += 30; renderReadList(); },
+  setShelf: el => { const rd = R(), id = el.dataset.id, v = el.dataset.v; rd.shelf = rd.shelf || {}; rd.shelf[id] = rd.shelf[id] === v ? "" : v; if (rd.shelf[id] === "reading") rd.current = id; if (rd.shelf[id] === "done") { rd.progress = rd.progress || {}; rd.progress[id] = 100; if (rd.current === id) rd.current = null; toast("Finished. Nice work."); } save(); checkBadges(); renderSheet(); render(); },
+  rateBook: el => { const rd = R(); rd.rating = rd.rating || {}; rd.rating[el.dataset.id] = +el.dataset.v; save(); renderSheet(); },
+  hideBook: el => { const rd = R(); rd.hidden = (rd.hidden || []).concat([el.dataset.id]); save(); closeSheet(); render(); toast("Hidden. Undo in Settings."); },
+  readMin: el => { logReading(+el.dataset.v); toast("+" + el.dataset.v + " min logged"); render(); },
+  readPct: el => { const rd = R(); rd.progress = rd.progress || {}; rd.progress[rd.current] = Math.min(100, (rd.progress[rd.current] || 0) + +el.dataset.v); save(); render(); },
+  finishBook: () => { const rd = R(), id = rd.current; if (!id) return; rd.shelf[id] = "done"; rd.progress = rd.progress || {}; rd.progress[id] = 100; rd.current = null; save(); checkBadges(); openSheet("book", id); toast("Finished. Rate it while it's fresh."); render(); },
+  sendRec: () => sendRec(),
+  spicy: () => { R().spicy = !R().spicy; save(); renderSheet(); render(); },
+  unhideAll: () => { R().hidden = []; save(); toast("All books visible again"); render(); },
+  adminUnlock: () => { const p = (document.getElementById("adPin").value || "").trim(); if (!p) return; R().adminPin = p; save(); syncCommunity().then(() => toast(R().backend ? "Admin mode on" : "Saved. Works once sharing is live.")); renderSheet(); },
+  adminLock: () => { R().adminPin = ""; save(); renderSheet(); syncCommunity(); },
+  adminBook: async el => { try { const r = await fetch(READS_ADMIN, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin: R().adminPin, id: el.dataset.id, action: el.dataset.v }) }); if (!r.ok) throw 0; toast("Updated for everyone"); await syncCommunity(); closeSheet(); render(); } catch (e) { toast("Admin action failed. Check your PIN."); } }
+});
+document.addEventListener("input", e => { if (e.target.id === "readSearch") { RUI.q = e.target.value; RUI.limit = 30; renderReadList(); } });
+
+/* ---------------------------- UPDATES: auto-update, update bar, What's new ----------------------------
+   Release steps: bump APP_VERSION + CHANGELOG here, "version" in version.json, and VERSION in sw.js. Deploy.
+   Data lives in localStorage under the same key, so updates never touch anyone's logs. */
+const cmpVer = (a, b) => { const x = String(a).split(".").map(Number), y = String(b).split(".").map(Number); for (let i = 0; i < 3; i++) if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) - (y[i] || 0); return 0; };
+function whatsNewHTML() {
+  return sheetTitle("What's new") + Object.keys(CHANGELOG).sort((a, b) => cmpVer(b, a)).map(v => `<div class="card"><div class="eyebrow">Version ${v}</div><ul class="list">${CHANGELOG[v].map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("") + `<div class="small muted">Updates install on their own. Your workouts, logs, and settings stay saved on your phone.</div>`;
+}
+function showWhatsNew() {
+  const seen = S.meta.seenVersion; if (seen === APP_VERSION) return;
+  S.meta.seenVersion = APP_VERSION; save();
+  if (!seen && !Object.keys(S.logs).length) return;   // brand new user: nothing to announce
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Updated to v${APP_VERSION}</h2><div class="muted">All your data is still here.</div></div><ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul><button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`);
+}
+async function applyUpdate() {
+  save();
+  try {
+    if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) for (const r of await navigator.serviceWorker.getRegistrations()) { await r.update(); if (r.waiting) r.waiting.postMessage("SKIP_WAITING"); }
+    if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
+  } catch (e) {}
+  location.reload();
+}
+async function checkUpdate(auto) {
+  if (!/^https?:$/.test(location.protocol)) return;
+  try {
+    const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
+    const v = await r.json(); if (!v.version || cmpVer(v.version, APP_VERSION) <= 0) return;
+    let tried = null; try { tried = sessionStorage.getItem("gs_upd_try"); } catch (e) {}
+    if (auto && tried !== v.version) { try { sessionStorage.setItem("gs_upd_try", v.version); } catch (e) {} return applyUpdate(); }
+    const b = $("updateBar");
+    b.innerHTML = `<img src="icon-180.png" alt=""><div class="tx"><b>Update ready: v${esc(v.version)}</b>${esc((v.notes || [])[0] || "New features and fixes")}</div><button data-act="doUpdate">Update</button>`;
+    b.classList.remove("hidden");
+  } catch (e) {}
+}
+ACT.doUpdate = () => applyUpdate();
+if (navigator.serviceWorker) navigator.serviceWorker.addEventListener("controllerchange", () => { if (!window.__gsReloaded) { window.__gsReloaded = true; location.reload(); } });
+setInterval(() => checkUpdate(false), 30 * 60 * 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) checkUpdate(false); });
+
+/* Daily splash: GS icon on white, first open of the day only. */
+(function splash() {
+  let day = null; try { day = localStorage.getItem("gs_splash_day"); localStorage.setItem("gs_splash_day", todayStr()); } catch (e) { return; }
+  if (day === todayStr()) return;
+  const sp = $("splash"); sp.classList.remove("hidden");
+  setTimeout(() => { sp.style.opacity = "0"; setTimeout(() => sp.classList.add("hidden"), 450); }, 950);
+})();
+render();
+showWhatsNew();
+checkUpdate(true);
+loadBooks();
+syncCommunity();
+</script>
+</body>
+</html>

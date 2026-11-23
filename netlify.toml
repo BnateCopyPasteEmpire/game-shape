@@ -1,0 +1,8 @@
+# Game Shape: Netlify config (used when deploying from GitHub)
+[build]
+  publish = "."
+  command = ""
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

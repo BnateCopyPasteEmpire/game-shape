@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Game Shape: Build Your Plan</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+<meta name="description" content="10-minute profile that builds your custom training, food, and recovery app.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Game Shape">
+<meta property="og:title" content="Game Shape: Build Your Plan">
+<meta property="og:description" content="10-minute profile that builds your custom training, food, and recovery app.">
+<meta property="og:url" content="https://game-shape-os1.netlify.app/intake.html">
+<meta property="og:image" content="https://game-shape-os1.netlify.app/og-intake.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Game Shape logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Game Shape: Build Your Plan">
+<meta name="twitter:description" content="10-minute profile that builds your custom training, food, and recovery app.">
+<meta name="twitter:image" content="https://game-shape-os1.netlify.app/og-intake.png?v=2">
+<style>
+/* BRAND tokens: identical to the app so every Game Shape page looks like one product */
+:root{--bg:#fff;--surface:#f7f8f6;--line:#e6e9e4;--ink:#0d1210;--ink-2:#55605a;--dim:#9aa39e;--green:#013919;--green-2:#0e5a2e;--green-tint:#e8f1eb;--orange:#ff8200;--orange-ink:#b85c00;--orange-tint:#fff1e2;--shadow:0 1px 2px rgba(1,57,25,.04),0 8px 24px rgba(1,57,25,.06);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;line-height:1.4;overflow-x:hidden}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:calc(var(--st) + 12px) 16px 10px;border-bottom:1px solid var(--line)}
+.topbar .row{display:flex;align-items:center;justify-content:space-between}
+.topbar img{height:20px}
+.cpe{text-align:right;line-height:1.15}
+.cpe-mark{font-size:10.5px;font-weight:900;letter-spacing:.9px;text-transform:uppercase;color:var(--green);white-space:nowrap}
+.cpe-mark i{display:inline-block;width:6px;height:6px;border-radius:1.5px;background:var(--orange);margin-right:5px;vertical-align:1px}
+.cpe-mark sup{font-size:7px;letter-spacing:0;margin-left:1px;vertical-align:5px}
+.topbar .cpe-logo{height:28px;width:auto;display:block;margin-left:auto;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.cpe-date{font-size:11px;font-weight:700;color:var(--ink-2);margin-top:3px;white-space:nowrap}
+.topbar .row{align-items:flex-start}
+.topbar .cnt{display:block;margin-top:10px;font-size:12px;font-weight:800;color:var(--ink-2);letter-spacing:.4px}
+.prog{height:6px;border-radius:3px;background:var(--surface);margin-top:10px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--orange);border-radius:3px;transition:width .3s}
+main{position:relative;max-width:640px;margin:0 auto;padding:16px 16px calc(var(--sb) + 110px)}
+.art{position:absolute;pointer-events:none;z-index:0}
+.step,.hero,.finish{display:none;position:relative;z-index:1}
+.step.on,.hero.on,.finish.on{display:block;animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateX(16px)}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 16px;box-shadow:var(--shadow)}
+.card h2{margin:4px 0 4px;font-size:24px;font-weight:800;letter-spacing:-.5px}
+.eyebrow{font-size:12px;font-weight:800;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.6px}
+.coach{margin:0 0 6px;padding:10px 12px;background:var(--green-tint);border-left:4px solid var(--green);border-radius:10px;font-size:14px;color:var(--green);font-weight:600}
+.hint{color:var(--ink-2);font-size:13px;margin:8px 0 4px}
+label{display:block;font-size:13px;color:var(--ink-2);font-weight:700;margin:14px 0 6px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;width:100%;min-height:48px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--green);outline-offset:0}
+textarea{min-height:80px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g3:has(select[name=practiceDay]){grid-template-columns:1fr 1.25fr 1.25fr}
+.g3 input[type=time]{padding:12px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{margin:0;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:700}
+.chips input{display:none}
+.chips label:has(input:checked){background:var(--green);color:#fff;border-color:var(--green)}
+.rank{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.rank span{font-weight:700;font-size:15px}
+.rank select{width:110px}
+.hero{text-align:center;padding:28px 8px 8px}
+.hero .icon{width:104px;height:104px;border-radius:24px;box-shadow:0 14px 36px rgba(1,57,25,.25)}
+.hero .wm{display:block;height:30px;margin:18px auto 14px}
+.hero h1{font-size:28px;line-height:1.15;letter-spacing:-.6px;margin:0 0 10px}
+.hero p{color:var(--ink-2);margin:0 0 16px;font-size:16px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:var(--green);color:#fff;font-size:13px;font-weight:800}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.facts{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.facts span{font-size:13px;font-weight:700;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.finish{text-align:center;padding-top:10px}
+.burst{position:relative;display:inline-block}
+.burst:before{content:"";position:absolute;left:50%;top:50%;width:240px;height:240px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,130,0,.25),rgba(255,130,0,0) 65%)}
+.burst img{position:relative;width:110px;height:110px;border-radius:26px;box-shadow:0 14px 36px rgba(1,57,25,.25)}
+.finish h1{font-size:30px;margin:18px 0 6px;letter-spacing:-.6px}
+.finish p{color:var(--ink-2);margin:0 0 18px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;border-radius:14px;font:inherit;font-weight:800;border:0;cursor:pointer;text-decoration:none;margin-top:10px}
+.primary{background:var(--orange);color:var(--ink);box-shadow:0 6px 16px rgba(255,130,0,.25)}
+.green{background:var(--green);color:#fff}
+.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+details{text-align:left;margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+details textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:12px;margin-top:8px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:12px 16px calc(var(--sb) + 12px);background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:flex;gap:10px}
+.bar button{flex:1;min-height:54px;border-radius:14px;font:inherit;font-weight:800;border:0;cursor:pointer}
+.bar .back{flex:0 0 34%;background:#fff;border:1px solid var(--line);color:var(--ink)}
+.bar .next{background:var(--orange);color:var(--ink)}
+.toast{position:fixed;left:50%;top:calc(var(--st) + 16px);transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;display:none;z-index:50}
+.wm-bg{position:fixed;right:-80px;bottom:calc(var(--sb) + 64px);width:380px;max-width:90vw;opacity:.07;z-index:0;pointer-events:none;user-select:none}
+.signoff{display:flex;align-items:center;justify-content:center;gap:8px;margin:22px 0 6px;color:#9aa39e;font-size:12px;font-weight:700;letter-spacing:.3px;position:relative;z-index:1}
+.signoff img{width:22px;height:22px}
+.step .eyebrow{display:flex;align-items:center;gap:7px}
+.step .eyebrow:before{content:"";width:16px;height:16px;background:url(gs-mark.png) center/contain no-repeat}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<img class="wm-bg" src="gs-mark.png" alt="" aria-hidden="true">
+<header class="topbar"><div class="row"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><div class="cpe-date" id="hdrDate"></div></div></div><span class="cnt" id="cnt">Welcome</span><div class="prog"><i id="prog"></i></div></header>
+<main>
+<div class="art" style="top:-10px;right:-80px;width:320px"><svg viewBox="0 0 400 400" fill="none" stroke="#013919" stroke-width="3" opacity=".06"><circle cx="200" cy="400" r="60"/><path d="M40 0v120a160 160 0 0 0 320 0V0"/><rect x="140" y="0" width="120" height="150"/><circle cx="200" cy="150" r="60"/><path d="M175 30h50"/><circle cx="200" cy="45" r="10"/></svg></div>
+<div class="art" style="bottom:120px;left:-50px;width:420px;opacity:.07"><svg viewBox="0 0 400 200"><path d="M6 196C90 104 230 40 396 8C262 58 148 118 6 196Z" fill="#ff8200"/></svg></div>
+
+<section class="hero on" data-step="0">
+  <img class="icon" src="icon-512.png" alt="">
+  <img class="wm" src="wordmark-on-light.png" alt="Game Shape">
+  <h1 id="greet">Let's build your plan.</h1>
+  <p id="greetSub">Answer 10 quick sections and get a training, food, and recovery app built just for you.</p>
+  <div id="teamPill"></div>
+  <div class="facts"><span>About 10 min</span><span>Saves as you go</span><span>Private</span></div>
+</section>
+
+<form id="f" autocomplete="off" onsubmit="return false">
+
+<div class="card step" data-step="1"><div class="eyebrow">Step 1 of 10</div><h2>About you</h2><p class="coach">Numbers are just a starting line. Only you and {from} see these.</p>
+<div class="g2"><div><label>First name</label><input name="name" placeholder="Mark"></div><div><label>Age</label><input name="age" type="number" inputmode="numeric"></div></div>
+<div class="g3"><div><label>Height (ft)</label><input name="heightFt" type="number" inputmode="numeric" placeholder="6"></div><div><label>Height (in)</label><input name="heightIn" type="number" inputmode="numeric" placeholder="0"></div><div><label>Weight (lb)</label><input name="weight" type="number" inputmode="decimal"></div></div>
+<div class="g2"><div><label>Waist (in, at belly button)</label><input name="waist" type="number" inputmode="decimal"></div><div><label>Goal weight (lb)</label><input name="goalWeight" type="number" inputmode="decimal"></div></div>
+<label>Phone</label><select name="phone"><option>iPhone</option><option>Android</option></select>
+</div>
+
+<div class="card step" data-step="2"><div class="eyebrow">Step 2 of 10</div><h2>Your daily schedule</h2><p class="coach">The best plan is the one that fits your real week.</p>
+<div class="g2"><div><label>Wake-up time</label><input name="wake" type="time" value="05:30"></div><div><label>Leave for work</label><input name="leave" type="time" value="07:30"></div></div>
+<div class="g2"><div><label>Best workout time</label><select name="workoutWhen"><option>Early morning</option><option>Lunch</option><option>After work</option><option>Evening</option><option>It changes</option></select></div><div><label>Minutes per workout</label><select name="workoutMin"><option>20</option><option>30</option><option selected>45</option><option>60</option></select></div></div>
+<label>Days you CANNOT train (regularly)</label>
+<div class="chips" data-group="blockedDays"></div>
+<div class="g2"><div><label>Goal bedtime</label><input name="bedtime" type="time" value="22:00"></div><div><label>Sleep most nights (hrs)</label><input name="sleepNow" type="number" inputmode="decimal" placeholder="6.5"></div></div>
+<label>Work travel</label><select name="travel"><option>Rarely</option><option>A few days a month</option><option>Most weeks</option></select>
+<label>Recurring evening commitments (kids, church, etc.)</label><textarea name="evenings" placeholder="Wed nights: kids practice"></textarea>
+</div>
+
+<div class="card step" data-step="3"><div class="eyebrow">Step 3 of 10</div><h2>Basketball</h2><p class="coach">We plan around the court so your legs are fresh for game night.</p>
+<label>Team</label><select name="team"><option>Easley Pres - Mens II - B (same as Brett)</option><option>Different team</option><option>No team right now</option></select>
+<div class="g3"><div><label>Practice day</label><select name="practiceDay"><option>Tue</option><option>Mon</option><option>Wed</option><option>Thu</option><option>Fri</option><option>Sat</option><option>Sun</option><option>None</option></select></div><div><label>Start</label><input name="practiceStart" type="time" value="19:00"></div><div><label>End</label><input name="practiceEnd" type="time" value="21:00"></div></div>
+<label>Position</label><select name="position"><option>Guard</option><option>Wing</option><option>Big</option><option>Anywhere</option></select>
+<label>Other pickup or rec games per week</label><input name="pickup" type="number" inputmode="numeric" value="0">
+<label>What do you want to improve on the court?</label>
+<div class="chips" data-group="courtGoals"><label><input type="checkbox" value="Vertical jump">Vertical jump</label><label><input type="checkbox" value="First step / speed">First step / speed</label><label><input type="checkbox" value="Conditioning">Conditioning</label><label><input type="checkbox" value="Lateral defense">Lateral defense</label><label><input type="checkbox" value="Strength in the post">Strength in the post</label><label><input type="checkbox" value="Stay healthy">Stay healthy</label></div>
+</div>
+
+<div class="card step" data-step="4"><div class="eyebrow">Step 4 of 10</div><h2>Goals</h2><p class="coach">Rank what matters most. Your plan follows your top two.</p><div class="hint">Rank each: 1 = top priority, 5 = does not matter.</div>
+<div id="ranks"></div>
+<label>In your own words: what would make the next 3 months a win?</label><textarea name="winDef" placeholder="Lose 15 lb, feel good in games, see abs"></textarea>
+<label>Training experience</label><select name="experience"><option>New / coming back after a long break</option><option>Some lifting experience</option><option>Lift regularly now</option><option>Very experienced</option></select>
+<label>Current activity besides basketball</label><input name="currentActivity" placeholder="Walk 2x a week">
+</div>
+
+<div class="card step" data-step="5"><div class="eyebrow">Step 5 of 10</div><h2>Equipment</h2><p class="coach">Only check what you can actually use. Every workout is built from this.</p><div class="hint">Check everything you can use regularly.</div>
+<div class="chips" data-group="equipment"></div>
+<label>Heaviest dumbbells you have (lb)</label><input name="maxDB" type="number" inputmode="numeric">
+</div>
+
+<div class="card step" data-step="6"><div class="eyebrow">Step 6 of 10</div><h2>Injuries and health</h2><p class="coach">Be honest here. This is how we keep you healthy.</p>
+<label>Areas that give you trouble</label>
+<div class="chips" data-group="trouble"></div>
+<label>Details: what happened, which side, what makes it worse</label><textarea name="injuryNotes"></textarea>
+<label>Anything hurting RIGHT NOW (pain, not soreness)?</label><input name="painNow" placeholder="No">
+<label>Doctor restrictions, conditions, or meds that matter for training (optional)</label><textarea name="conditions" placeholder="Optional"></textarea>
+<label>Last bloodwork / anything flagged (optional)</label><input name="bloodwork" placeholder="Optional">
+</div>
+
+<div class="card step" data-step="7"><div class="eyebrow">Step 7 of 10</div><h2>Food and drinks</h2><p class="coach">No diet. Just real food that fills you up and builds you up.</p>
+<label>Eating style</label><select name="dietStyle"><option>Eat everything</option><option>Mostly whole foods</option><option>Low carb</option><option>Pescatarian</option><option>Vegetarian</option></select>
+<label>Allergies or foods you will NOT eat</label><input name="noFoods" placeholder="Fish, mushrooms">
+<label>Favorite proteins</label>
+<div class="chips" data-group="proteins"><label><input type="checkbox" value="Chicken">Chicken</label><label><input type="checkbox" value="Beef">Beef</label><label><input type="checkbox" value="Turkey">Turkey</label><label><input type="checkbox" value="Pork">Pork</label><label><input type="checkbox" value="Salmon">Salmon</label><label><input type="checkbox" value="Shrimp">Shrimp</label><label><input type="checkbox" value="Eggs">Eggs</label><label><input type="checkbox" value="Greek yogurt">Greek yogurt</label><label><input type="checkbox" value="Protein shakes">Protein shakes</label></div>
+<label>Typical breakfast</label><input name="breakfast" placeholder="Coffee only">
+<label>Typical lunch</label><input name="lunch" placeholder="Fast food / work lunch / packed">
+<label>Typical dinner</label><input name="dinner">
+<label>Snacks / late-night habits</label><input name="snacks">
+<label>How much do you cook?</label><select name="cooking"><option>Barely. Keep it 10 min or less</option><option>Simple meals, 20 to 30 min</option><option>I like to cook</option><option>Someone else cooks for me</option></select>
+<div class="g2"><div><label>Coffee (cups/day)</label><input name="coffee" type="number" inputmode="numeric"></div><div><label>Soda / energy drinks (per day)</label><input name="soda" type="number" inputmode="numeric"></div></div>
+<div class="g2"><div><label>Alcohol (drinks/week)</label><input name="alcohol" type="number" inputmode="numeric"></div><div><label>Water now (oz/day, guess)</label><input name="water" type="number" inputmode="numeric"></div></div>
+</div>
+
+<div class="card step" data-step="8"><div class="eyebrow">Step 8 of 10</div><h2>Supplements</h2><p class="coach">We will time these so they actually work.</p><div class="hint">Name and dose, one per line. Leave blank if none.</div>
+<textarea name="supplements" placeholder="Creatine 5 g&#10;Fish oil 2 caps"></textarea>
+</div>
+
+<div class="card step" data-step="9"><div class="eyebrow">Step 9 of 10</div><h2>Recovery and wind-down</h2><p class="coach">Recovery is where the gains show up.</p>
+<label>Recovery tools you have</label>
+<div class="chips" data-group="recovery"><label><input type="checkbox" value="Hot tub">Hot tub</label><label><input type="checkbox" value="Sauna">Sauna</label><label><input type="checkbox" value="Cold plunge">Cold plunge</label><label><input type="checkbox" value="Foam roller">Foam roller</label><label><input type="checkbox" value="Massage gun">Massage gun</label><label><input type="checkbox" value="Epsom bath">Epsom bath</label></div>
+<label>Evening wind-down you would actually do</label>
+<div class="chips" data-group="winddown"><label><input type="checkbox" value="Reading">Reading</label><label><input type="checkbox" value="Stretching">Stretching</label><label><input type="checkbox" value="Meditation / breathing">Meditation / breathing</label><label><input type="checkbox" value="Prayer / devotional">Prayer / devotional</label><label><input type="checkbox" value="Journaling">Journaling</label><label><input type="checkbox" value="Affirmations">Affirmations</label><label><input type="checkbox" value="No screens">No screens</label></div>
+</div>
+
+<div class="card step" data-step="10"><div class="eyebrow">Step 10 of 10</div><h2>What keeps you going</h2><p class="coach">Last one. This is how the app keeps you coming back.</p>
+<label>What made you fall off in the past?</label><textarea name="pastQuit"></textarea>
+<label>Coaching style you want</label><select name="tone"><option>Supportive coach</option><option>Straight shooter, no fluff</option><option>Push me hard</option></select>
+<label>Motivators (pick any)</label>
+<div class="chips" data-group="motivators"><label><input type="checkbox" value="Streaks">Streaks</label><label><input type="checkbox" value="Badges and levels">Badges and levels</label><label><input type="checkbox" value="Progress charts">Progress charts</label><label><input type="checkbox" value="Friendly competition with Brett">Friendly competition with Brett</label><label><input type="checkbox" value="Daily quotes / affirmations">Daily quotes</label></div>
+<label>3 lines you want to see on tough mornings</label><textarea name="affirmations" placeholder="One per line"></textarea>
+<label>Favorite app color</label><select name="accent"><option value="#ff8200">Tennessee orange</option><option value="#3ecf7a">Green</option><option value="#4cc9f0">Ice blue</option><option value="#a78bfa">Purple</option><option value="#ff3b5c">Red</option><option value="#facc15">Gold</option></select>
+</div>
+
+</form>
+
+<section class="finish" data-step="11">
+  <div class="burst"><img src="icon-512.png" alt=""></div>
+  <h1 id="doneH">You're in.</h1>
+  <p id="doneP">Send your answers and your custom app link comes back to you.</p>
+  <a class="btn primary" id="sms" href="#">Text it to Brett</a>
+  <button class="btn green" id="copy" type="button">Copy my answers</button>
+  <button class="btn sec" id="edit" type="button">Go back and edit</button>
+  <details><summary>Show my answers</summary><textarea id="json" readonly></textarea></details>
+</section>
+<div class="signoff"><img src="gs-mark.png" alt="">Game Shape • Train. Fuel. Recover. Hoop.</div>
+</main>
+<div class="bar"><button class="back" id="back" type="button">Back</button><button class="next" id="next" type="button">Let's go</button></div>
+<div class="toast" id="toast"></div>
+<script>
+
+/* Fillable profile for Game Shape. Output: a profile JSON Brett pastes into Claude to build the person's app. */
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const EQUIP = ["Gym membership", "Barbell + rack", "Smith machine", "Dumbbells", "Kettlebells", "Adjustable bench", "Leg curl / extension", "Cable machine", "Resistance bands", "Pull-up bar", "Medicine ball", "Plyo box / step", "Bike", "Treadmill", "Rower", "Vibration board", "Nothing (bodyweight only)"];
+const TROUBLE = ["Calves", "Achilles", "Ankles", "Knees", "Hamstrings", "Hips", "Groin", "Low back", "Upper back / neck", "Shoulders", "Elbows / wrists", "Plantar fascia / feet"];
+const GOALS = [["injury", "Stay healthy + flexible"], ["legs", "Bigger, stronger legs + glutes"], ["fatloss", "Lose belly fat / abs"], ["upper", "Bigger chest + arms"], ["hoops", "Basketball performance"], ["conditioning", "Conditioning / endurance"], ["strength", "Overall strength"]];
+const chip = (g, v) => `<label><input type="checkbox" value="${v}">${v}</label>`;
+document.querySelector('[data-group=blockedDays]').innerHTML = DAYS.map(d => chip("b", d)).join("");
+document.querySelector('[data-group=equipment]').innerHTML = EQUIP.map(d => chip("e", d)).join("");
+document.querySelector('[data-group=trouble]').innerHTML = TROUBLE.map(d => chip("t", d)).join("");
+document.getElementById("ranks").innerHTML = GOALS.map(g => `<div class="rank"><span>${g[1]}</span><select name="goal_${g[0]}">${[1, 2, 3, 4, 5].map(n => `<option ${n === 3 ? "selected" : ""}>${n}</option>`).join("")}</select></div>`).join("");
+const F = document.getElementById("f"), DK = "gameShapeIntakeDraft";
+function collect() {
+  const o = {};
+  F.querySelectorAll("input[name],select[name],textarea[name]").forEach(el => o[el.name] = el.value);
+  F.querySelectorAll("[data-group]").forEach(g => o[g.dataset.group] = [...g.querySelectorAll("input:checked")].map(i => i.value));
+  return o;
+}
+function restore(o) {
+  F.querySelectorAll("input[name],select[name],textarea[name]").forEach(el => { if (o[el.name] != null) el.value = o[el.name]; });
+  F.querySelectorAll("[data-group]").forEach(g => g.querySelectorAll("input").forEach(i => i.checked = (o[g.dataset.group] || []).includes(i.value)));
+}
+try { const d = localStorage.getItem(DK); if (d) restore(JSON.parse(d)); } catch (e) {}
+F.addEventListener("input", () => { try { localStorage.setItem(DK, JSON.stringify(collect())); } catch (e) {} });
+function toast(m) { const t = document.getElementById("toast"); t.textContent = m; t.style.display = "block"; setTimeout(() => t.style.display = "none", 2200); }
+function build() {
+  const r = collect(), n = (x) => x === "" ? null : +x;
+  const slug = (r.name || "friend").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const goals = GOALS.map(g => ({ id: g[0], rank: +r["goal_" + g[0]] })).sort((a, b) => a.rank - b.rank);
+  return {
+    profileSchema: 1, id: slug, createdAt: new Date().toISOString().slice(0, 10),
+    person: { name: r.name, age: n(r.age), heightIn: (n(r.heightFt) || 0) * 12 + (n(r.heightIn) || 0), weight: n(r.weight), waist: n(r.waist), goalWeight: n(r.goalWeight), phone: r.phone },
+    schedule: { wake: r.wake, leave: r.leave, workoutWhen: r.workoutWhen, workoutMin: n(r.workoutMin), blockedDays: r.blockedDays, bedtime: r.bedtime, sleepNow: n(r.sleepNow), travel: r.travel, evenings: r.evenings },
+    basketball: { team: r.team, practice: r.practiceDay === "None" ? null : { day: r.practiceDay, start: r.practiceStart, end: r.practiceEnd }, position: r.position, pickupPerWeek: n(r.pickup), courtGoals: r.courtGoals },
+    goals: { ranked: goals, win: r.winDef, experience: r.experience, currentActivity: r.currentActivity },
+    equipment: { items: r.equipment, maxDB: n(r.maxDB) },
+    health: { troubleAreas: r.trouble, injuryNotes: r.injuryNotes, painNow: r.painNow, conditions: r.conditions, bloodwork: r.bloodwork },
+    nutrition: { style: r.dietStyle, noFoods: r.noFoods, proteins: r.proteins, breakfast: r.breakfast, lunch: r.lunch, dinner: r.dinner, snacks: r.snacks, cooking: r.cooking, coffee: n(r.coffee), soda: n(r.soda), alcohol: n(r.alcohol), water: n(r.water) },
+    supplements: (r.supplements || "").split("\n").map(s => s.trim()).filter(Boolean),
+    recovery: { tools: r.recovery, winddown: r.winddown },
+    motivation: { pastQuit: r.pastQuit, tone: r.tone, motivators: r.motivators, affirmations: (r.affirmations || "").split("\n").map(s => s.trim()).filter(Boolean) },
+    theme: { accent: r.accent }
+  };
+}
+
+/* ---------- Personalization from the link: intake.html?name=Mark&from=Brett&team=easley&phone=8645550000 ---------- */
+const Q = new URLSearchParams(location.search);
+const P = { name: Q.get("name") || "", from: Q.get("from") || "Brett", team: (Q.get("team") || "").toLowerCase(), phone: (Q.get("phone") || "").replace(/[^0-9+]/g, "") };
+const TEAMS = { easley: { label: "Easley Pres \u2022 Mens II \u2022 B", option: 0, practice: ["Tue", "19:00", "21:00"] } };
+const escH = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+document.querySelectorAll(".coach").forEach(c => c.textContent = c.textContent.replace("{from}", P.from));
+if (P.name) {
+  document.getElementById("greet").textContent = "Hey " + P.name + ", " + P.from + " built you a spot on the team.";
+  document.getElementById("greetSub").textContent = "10 quick sections. Your answers build a training, food, and recovery app made just for you.";
+}
+const tm = TEAMS[P.team];
+if (tm) document.getElementById("teamPill").innerHTML = `<span class="pill"><i></i>${escH(tm.label)}</span>`;
+document.getElementById("sms").textContent = "Text it to " + P.from;
+
+/* ---------- Draft restore, then link prefills (only into empty fields) ---------- */
+let draft = null; try { draft = JSON.parse(localStorage.getItem(DK) || "null"); } catch (e) {}
+if (P.name && !(draft && draft.name)) F.elements.name.value = P.name;
+if (tm && !(draft && draft.team)) { F.elements.team.selectedIndex = tm.option; F.elements.practiceDay.value = tm.practice[0]; F.elements.practiceStart.value = tm.practice[1]; F.elements.practiceEnd.value = tm.practice[2]; }
+
+/* ---------- Step flow ---------- */
+const STEPS = [document.querySelector(".hero"), ...document.querySelectorAll(".step"), document.querySelector(".finish")];
+let cur = 0; try { cur = Math.min(+(localStorage.getItem(DK + "_step") || 0), 10); } catch (e) {}
+function show(i) {
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => s.classList.toggle("on", k === cur));
+  document.getElementById("prog").style.width = (cur === 0 ? 0 : Math.min(100, cur * 10)) + "%";
+  document.getElementById("cnt").textContent = cur === 0 ? "Welcome" : cur === 11 ? "Done" : "Step " + cur + " of 10";
+  document.getElementById("back").style.visibility = cur === 0 ? "hidden" : "visible";
+  document.querySelector(".bar").style.display = cur === 11 ? "none" : "flex";
+  document.getElementById("next").textContent = cur === 0 ? "Let's go" : cur === 10 ? "Finish" : "Next";
+  try { localStorage.setItem(DK + "_step", cur < 11 ? cur : 10); } catch (e) {}
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  if (cur === 11) finish();
+}
+function finish() {
+  const data = build(), j = JSON.stringify(data, null, 1), nm = data.person.name || P.name;
+  document.getElementById("json").value = j;
+  document.getElementById("doneH").textContent = nm ? "You're in, " + nm + "." : "You're in.";
+  document.getElementById("doneP").textContent = "Send your answers to " + P.from + " and your custom app link comes back to you.";
+  const body = "Game Shape profile for " + (nm || "me") + ":\n" + JSON.stringify(data);
+  document.getElementById("sms").href = "sms:" + P.phone + "&body=" + encodeURIComponent(body);
+}
+document.getElementById("next").addEventListener("click", () => show(cur + 1));
+document.getElementById("back").addEventListener("click", () => show(cur - 1));
+document.getElementById("edit").addEventListener("click", () => show(10));
+document.getElementById("copy").addEventListener("click", () => {
+  const j = document.getElementById("json").value;
+  try { navigator.clipboard.writeText(j).then(() => toast("Copied. Paste it in a text to " + P.from + "."), () => toast("Open Show my answers, then Select All, Copy")); } catch (e) { toast("Open Show my answers, then Select All, Copy"); }
+});
+/* Swipe left or right between steps (ignores sideways scrolls on inputs) */
+let tx = null, ty = null;
+document.addEventListener("touchstart", e => { if (e.target.closest("input,textarea,select")) return; tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+document.addEventListener("touchend", e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null; if (Math.abs(dx) > 70 && Math.abs(dy) < 50 && cur < 11) show(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+document.getElementById("hdrDate").textContent = new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+show(cur);
+</script>
+</body>
+</html>
