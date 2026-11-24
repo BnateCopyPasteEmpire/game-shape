@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>/* Person links like /mark/ load this same app: point every file path back to the site root. */(function(){var p=location.pathname;if(/^\/[a-z0-9-]+\/?$/i.test(p)&&!/\.html?$/i.test(p)){document.write('<base href="/">');window.__GS_PID=p.replace(/\//g,"").toLowerCase();}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -18,7 +19,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Game Shape</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json" id="mfLink">
+<script>if(window.__GS_PID){document.getElementById("mfLink").href="manifest-"+window.__GS_PID+".json";}</script>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
@@ -326,6 +328,7 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
 <div id="splash" class="hidden"><img src="icon-512.png" alt=""><img class="wm" src="wordmark-on-light.png" alt="Game Shape"></div>
 <div id="updateBar" class="hidden"></div>
 <script src="schedule-lib.js"></script>
+<script src="profiles.js"></script>
 <input type="file" id="importFile" accept="application/json,.json" class="hidden">
 
 <script>
@@ -384,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.3.2";
+const APP_VERSION = "2.4.0";
 const CHANGELOG = {
+  "2.4.0": ["Weekly Scoreboard: friendly competition with your crew, resets every Monday", "Game Shape now supports more than one person, each with their own link, plan, and saved data", "Hot tub mentions hide when hot tub is off in Customize"],
   "2.3.2": ["Bottom tabs now glow with a breathing green and orange gradient"],
   "2.3.1": ["New sign-off: Train. Fuel. Read. Recover. BALL out your Life."],
   "2.3.0": ["Edit, add, remove, and reorder your affirmations right on Recover", "New Customize screen: daily times, checklist items, your own habits, wind-down steps, quotes, hot tub on or off, and targets", "Add or remove supplements"],
@@ -422,7 +426,7 @@ const I = {
   save: sv('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>')
 };
 /* "How to" links: a YouTube search for the exact exercise, so every exercise (any user, any future swap) always has a working demo. */
-const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits" };
+const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits", lat_pulldown: "lat pulldown proper form", cable_row: "seated cable row form", db_shoulder_press: "seated dumbbell shoulder press form", db_curl: "dumbbell bicep curl form", hammer_curl: "dumbbell hammer curl form", face_pull: "face pull form", db_incline_press: "incline dumbbell press form", lateral_raise: "dumbbell lateral raise form", tri_pushdown: "tricep pushdown form", oh_tri_ext: "overhead dumbbell tricep extension form", leg_press: "leg press proper form beginner", goblet_squat: "goblet squat form", calf_raise: "standing calf raise form", knee_raise: "lying knee raise abs" };
 const howUrl = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " how to proper form");
 const howFor = (id, name) => howUrl(HOWQ[id] || name);
 const howText = t => howUrl(String(t).replace(/\(.*?\)/g, "").replace(/\s+x\d.*$/i, "").replace(/\s+\d+(\s*(sec|min)).*$/i, "").replace(/,.*$/, "").trim());
@@ -471,6 +475,20 @@ const LIB = {
   plank: X("Front Plank", "Core", "30 sec", "Hold", 45, "Bodyweight", ["Squeeze glutes", "Ribs down", "Push floor away"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false),
   bike_z2: X("Zone 2 Bike", "Aerobic base, fat loss", "20 min", "Steady", 0, "Talk in short sentences", ["Easy gear", "Nose breathing if you can", "Stay conversational"], "walk", [], ["back-safe", "calf-safe", "sciatica-safe"], false),
   bike_easy: X("Easy Bike", "Blood flow", "10 min", "Easy", 0, "Very easy", ["Easy gear", "Loosen up", "No sweat needed"], "walk", [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  lat_pulldown: X("Lat Pulldown", "Back (lats)", "10", "2 sec down", 75, "Light: 50 to 70 lb to start", ["Chest up, slight lean back", "Pull bar to upper chest", "Elbows drive down to ribs"], "db_row", ["back"], ["calf-safe"]),
+  cable_row: X("Seated Cable Row", "Mid back", "10", "2 sec squeeze", 75, "Light: 50 to 70 lb to start", ["Sit tall, no rocking", "Pull handle to belly button", "Squeeze shoulder blades"], "db_row", ["back"], ["calf-safe"]),
+  db_shoulder_press: X("Seated DB Shoulder Press", "Shoulders", "10", "2 sec down", 75, "15 to 25 lb DBs", ["Back flat on bench", "Press up, slightly in front", "Lower to ear level"], "lateral_raise", [], ["calf-safe"]),
+  db_curl: X("DB Biceps Curl", "Biceps", "12", "2 sec down", 60, "15 to 25 lb DBs", ["Elbows pinned at sides", "Squeeze at the top", "No swinging"], "hammer_curl", [], ["calf-safe", "back-safe"]),
+  hammer_curl: X("DB Hammer Curl", "Biceps, forearms", "12", "2 sec down", 60, "15 to 25 lb DBs", ["Palms face each other", "Elbows still", "Slow on the way down"], "db_curl", [], ["calf-safe", "back-safe"]),
+  face_pull: X("Face Pull (band or cable)", "Rear delts, upper back", "15", "1 sec squeeze", 45, "Light", ["Rope at eye level", "Pull to forehead, elbows high", "Squeeze back of shoulders"], null, [], ["calf-safe", "back-safe"]),
+  db_incline_press: X("Incline DB Press", "Upper chest, shoulders", "10", "2 sec down", 75, "25 to 40 lb DBs", ["Bench at 30 degrees", "Elbows 45 degrees", "Press up and together"], "pushup", [], ["calf-safe", "back-safe"]),
+  lateral_raise: X("DB Lateral Raise", "Side delts (wide shoulders)", "12", "2 sec down", 45, "8 to 15 lb DBs", ["Slight bend in elbows", "Raise to shoulder height", "Lead with elbows, no shrug"], null, [], ["calf-safe", "back-safe"]),
+  tri_pushdown: X("Triceps Pushdown (cable or band)", "Triceps", "12", "2 sec up", 60, "Light", ["Elbows pinned at sides", "Push to full lockout", "Slow return"], "oh_tri_ext", [], ["calf-safe", "back-safe"]),
+  oh_tri_ext: X("Overhead DB Triceps Extension", "Triceps", "12", "2 sec down", 60, "15 to 30 lb DB", ["Hold one DB with both hands", "Elbows point forward", "Lower behind head, press up"], "tri_pushdown", [], ["calf-safe"]),
+  leg_press: X("Leg Press (or Smith Squat)", "Quads, glutes", "10", "3 sec down", 90, "Light: learn the move first", ["Feet shoulder width", "Lower until knees near 90", "Push through whole foot, no lockout"], "goblet_squat", ["knee", "back"], ["calf-safe"]),
+  goblet_squat: X("DB or KB Goblet Squat", "Quads, glutes", "10", "3 sec down", 75, "20 to 35 lb", ["Weight at chest", "Sit between your heels", "Chest up, knees over toes"], "wall_sit", ["knee"], ["back-safe"]),
+  calf_raise: X("Standing Calf Raise", "Calves", "15", "2 sec down", 45, "Bodyweight or hold a DB", ["Full stretch at bottom", "Pause at top", "Slow lower"], "calf_iso", ["calf", "achilles"], ["back-safe"]),
+  knee_raise: X("Lying Knee Raise", "Lower abs", "12", "Slow", 45, "Bodyweight", ["Low back pressed down", "Knees to chest", "Lower slow"], "dead_bug", [], ["calf-safe", "back-safe"], false),
   walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
 };
 const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
@@ -481,7 +499,18 @@ const W_STD = ["Easy bike 4 min", "Cat-cow x10", "90/90 hip switches x8/side", "
 const W_LEG = ["Easy bike 4 min", "Vibration board calves 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
 const C_STD = ["Child's pose 60 sec", "Knees-to-chest 60 sec", "Figure-4 stretch 45 sec/side", "Strap hamstring stretch 45 sec/side (gentle)", "Wall calf stretch, straight + bent knee, 30 sec each", "90/90 breathing 1 min"];
 const C_LEG = ["Couch stretch 45 sec/side", ...C_STD];
+const W_M_UP = ["Brisk walk or easy bike 4 min", "Arm circles x10 each way", "Band pull-aparts x15 (or arm swings)", "Cat-cow x10", "Push-up to downward dog x6", "1 light warm-up set of the first exercise"];
+const W_M_LEG = ["Brisk walk or easy bike 4 min", "Leg swings x10 each direction", "World's greatest stretch x4/side", "Ankle circles x10 each way", "Bodyweight squat x10", "Glute bridge x12"];
+const C_M_UP = ["Doorway chest stretch 45 sec/side", "Cross-body shoulder stretch 30 sec/side", "Lat stretch on bench 45 sec", "Biceps wall stretch 30 sec/side", "Child's pose 60 sec", "Foam roll upper back 2 min"];
+const C_M_LEG = ["Couch stretch 45 sec/side", "Figure-4 stretch 45 sec/side", "Hamstring stretch 45 sec/side", "Wall calf stretch 30 sec/side", "Foam roll quads + calves 3 min"];
 const TPL = {
+  M_UPPER_A: { short: "Back + Arms", focus: "Upper A: Back, Shoulders, Biceps", min: 45, warm: W_M_UP, main: ["lat_pulldown", "cable_row", "db_shoulder_press", "db_curl", "hammer_curl", "face_pull"], core: ["dead_bug"], cool: C_M_UP, tub: 0, note: "Learn the form. Light weight, slow reps. Leave 3 reps in the tank." },
+  M_UPPER_B: { short: "Chest + Arms", focus: "Upper B: Chest, Shoulders, Triceps, Biceps", min: 45, warm: W_M_UP, main: ["db_incline_press", "lateral_raise", "pushup", "tri_pushdown", "db_curl", "oh_tri_ext"], core: ["plank"], cool: C_M_UP, tub: 0, note: "Wide shoulders and big arms day. Squeeze every rep." },
+  M_LEGS: { short: "Legs", focus: "Legs: Quads, Hamstrings, Glutes, Calves", min: 45, warm: W_M_LEG, main: ["leg_press", "goblet_squat", "rdl", "leg_curl", "leg_ext", "calf_raise"], core: ["knee_raise", "side_plank"], cool: C_M_LEG, tub: 0, note: "Big legs need patience. Smooth reps, no grinding." },
+  M_FULL: { short: "Full Body", focus: "Full Body: Squat, Row, Press, Arms", min: 40, warm: W_M_UP, main: ["goblet_squat", "db_row", "pushup", "db_shoulder_press", "db_curl", "tri_pushdown"], core: ["dead_bug"], cool: C_M_LEG, tub: 0, note: "Saturday full body. Finish the week strong, not wrecked." },
+  M_PRACTICE: { short: "Court Day", focus: "Court Day: 15-Min Loosen Up", min: 15, warm: W_M_LEG.slice(0, 3), main: [["calf_raise", 2], ["pushup", 2], ["face_pull", 2]], core: ["dead_bug"], cool: C_M_LEG.slice(0, 3), tub: 0, note: "Court tonight. Stay fresh. Bring water." },
+  M_EASY: { short: "Easy Day", focus: "Easy Day: Walk + Mobility + Abs", min: 30, warm: [], main: [["walk", 1]], core: ["dead_bug", "plank"], cool: ["Cat-cow x10", "World's greatest stretch x4/side", "Hip flexor stretch 45 sec/side", "Doorway chest stretch 45 sec", "Foam roll 5 min"], tub: 0, note: "Muscle grows on rest days. Move easy, eat your protein." },
+  M_REST: { short: "Rest Day", focus: "Sunday Off: Rest + Optional Walk", min: 20, warm: [], main: [["walk", 1]], core: [], cool: ["Foam roll 5 min", "Child's pose 60 sec", "Couch stretch 45 sec/side"], tub: 0, note: "No training today. A walk and a stretch if you feel like it. Recharge." },
   PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "calf_iso", "tib_raise", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Nothing heavy on quads or calves." },
   PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "calf_iso", "tib_raise", "sl_balance", "db_row"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
   PRACTICE_DAY: { focus: "Upper Maintenance + Mobility", min: 35, warm: W_STD, main: ["floor_press", "db_row", "hk_press", "tib_raise", "sl_balance"], core: ["dead_bug", "plank"], cool: C_STD, tub: 10, note: "Court tonight. Keep calves fresh." },
@@ -494,7 +523,7 @@ const TPL = {
 const TIPS = {
   GAME_DAY: ["Game day water: 125 oz total. Electrolyte drink 60 min before tip.", "Real meal 3 to 4 hours before: chicken, rice, veg. Small snack 60 to 90 min before: banana + jerky.", "After the game: 40 g protein and 20 oz water before bed."],
   PRACTICE_DAY: ["Practice night: electrolytes at 6:00 PM, then water through practice.", "Eat a real dinner by 5:30 so it is settled by 7:00.", "Protein shake after practice, then lights out by 10:15."],
-  PRE_COURT: ["Front-load water today. Calves cramp when you are behind on fluids.", "Hit 180 g protein. Glutes grow on recovery days too.", "Caffeine cutoff 1:00 PM. Court tomorrow needs good sleep tonight."],
+  PRE_COURT: ["Front-load water today. Calves cramp when you are behind on fluids.", "Hit your protein target. Muscle grows on recovery days too.", "Caffeine cutoff 1:00 PM. Court tomorrow needs good sleep tonight."],
   LEG_DAY: ["Biggest protein day: 40 g at breakfast with creatine.", "Leg day carbs go around training: oats or fruit after, rice at lunch.", "Add a pinch of salt or electrolytes to your morning water."],
   FLEX: ["Fiber check: veg at lunch AND dinner today.", "Swap one snack for an apple + jerky.", "Sparkling water instead of soda. Every time."],
   RECOVERY: ["Sunday: boil 12 eggs (15 min) for the week.", "Pick 2 prep meals for the week and build the grocery list in Fuel.", "Weigh in and log it. Same scale, same time, after the bathroom."]
@@ -556,7 +585,8 @@ const RED_FLAGS = [
 ];
 
 /* ---------------------------- STORAGE ---------------------------- */
-const KEY = "gameShape_v1", SCHEMA = 1;
+const PERSON = window.GS_PERSON || null, PID = PERSON ? PERSON.id : "brett";
+const KEY = PID === "brett" ? "gameShape_v1" : "gameShape_" + PID + "_v1", SCHEMA = 1;   // each person saves separately
 const clone = o => JSON.parse(JSON.stringify(o));
 function gamesToEvents(games) {
   return (games || []).map(g => { const [h, m] = g.time.split(":").map(Number), e = h * 60 + m + 60;
@@ -569,6 +599,17 @@ function fresh() {
     reads: { shelf: {}, rating: {}, notes: {}, progress: {}, minutes: {}, current: null, hidden: [], spicy: SEED.readsSpicyDefault !== false, myRecs: [], community: [], adminPin: "", backend: false, lastSync: null },
     grocery: { sel: {}, kit: false, checked: {} }, meta: { lastBackup: null, badges: [], created: todayStr() } };
 }
+function applyPerson(d) {
+  if (!PERSON) return d;
+  Object.assign(d.profile, clone(PERSON.profile || {}));
+  if (PERSON.programStart) d.programStart = PERSON.programStart;
+  if (PERSON.supplements) d.supplements = clone(PERSON.supplements);
+  if (PERSON.appointments) d.appointments = clone(PERSON.appointments);
+  if (PERSON.affirmations) d.affirmations = clone(PERSON.affirmations);
+  if (PERSON.readsSpicy !== undefined) d.reads.spicy = !!PERSON.readsSpicy;
+  if (PERSON.custom) d.custom = clone(PERSON.custom);
+  return d;
+}
 function migrate(d) {
   if (d.events === undefined) d.events = gamesToEvents(d.games || SEED.games);   // v2.2: games become events
   if (d.profile && d.profile.sport === undefined) { d.profile.sport = SEED.profile.sport; d.profile.team = SEED.profile.team; }
@@ -578,8 +619,8 @@ function migrate(d) {
   d.schemaVersion = SCHEMA;
   return d;
 }
-function load() { try { const r = localStorage.getItem(KEY); if (r) return migrate(JSON.parse(r)); } catch (e) {} return fresh(); }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast("Could not save. Export a backup."); } }
+function load() { try { const r = localStorage.getItem(KEY); if (r) return migrate(JSON.parse(r)); } catch (e) {} return applyPerson(fresh()); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); if (typeof queueScore === "function") queueScore(); } catch (e) { toast("Could not save. Export a backup."); } }
 
 /* ---------------------------- DATES (local, no UTC drift) ---------------------------- */
 const pad = n => String(n).padStart(2, "0");
@@ -668,6 +709,13 @@ function phase(wk) {
   return { wk, label: "Block " + block + ", Week " + b, sets: 3, rpe: b === 3 ? "7" : "6 to 7", calf: "ecc", agil: 2, note: "Add 5 percent when a lift feels easy twice in a row." };
 }
 function tplKey(info) {
+  if (PERSON && PERSON.weekPlan) {
+    if (info.type === "GAME_DAY") return "GAME_DAY";
+    if (info.type === "PRACTICE_DAY") return PERSON.practiceTpl || "M_PRACTICE";
+    let k = PERSON.weekPlan[dow(info.date)] || "M_EASY";
+    if (info.type === "PRE_COURT" && (PERSON.heavyLegs || []).includes(k)) k = PERSON.preCourtSwap || "M_UPPER_A";
+    return k;
+  }
   if (info.type === "PRE_COURT") return info.preFor === "game" ? "PRE_GAME" : "PRE_PRACTICE";
   if (info.type === "LEG_DAY") return info.leg === "B" ? "LEG_B" : "LEG_A";
   return info.type;
@@ -697,7 +745,7 @@ function buildSession(s, mvd) {
   let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
   if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
   const tips = TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
-  const time = info.midday ? "12:00 PM (sleep in)" : "5:00 AM";
+  const wt = (C().times && C().times.workout) || "05:00", wh = +wt.split(":")[0], time = info.midday ? "12:00 PM (sleep in)" : ((wh % 12) || 12) + ":" + wt.split(":")[1] + (wh < 12 ? " AM" : " PM");
   return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note };
 }
 
@@ -706,7 +754,7 @@ const getL = s => S.logs[s] || { checks: {}, sets: {}, weights: {}, water: 0, pr
 function L(s) { if (!S.logs[s]) S.logs[s] = { checks: {}, sets: {}, weights: {}, water: 0, protein: 0, reading: 0, hottub: 0 }; return S.logs[s]; }
 const isCourt = s => courtOn(s).length > 0;
 const waterGoal = s => S.profile.waterBase + (isCourt(s) ? S.profile.waterCourtExtra : 0);
-function isActive(s) { const l = S.logs[s]; return !!(l && (l.done || l.mvdDone || l.checks.court)); }
+function isActive(s) { if (PERSON && (PERSON.restDays || []).includes(dow(s)) && s <= todayStr()) return true; const l = S.logs[s]; return !!(l && (l.done || l.mvdDone || l.checks.court)); }
 function streak() {
   let s = todayStr(); if (!isActive(s)) s = addDays(s, -1);
   let n = 0, grace = {}; const first = Object.keys(S.logs).sort()[0];
@@ -759,13 +807,56 @@ function weekReport(ws) {
   return { days, act, tub, read, water, prot, slp, pct: days ? Math.round(act / days * 100) : 0 };
 }
 
+/* ---------------------------- WEEKLY SCOREBOARD (friendly competition) ---------------------------- */
+function myWeekScore(ws) {
+  const t = todayStr(); const st = { workouts: 0, quick: 0, active: 0, water: 0, protein: 0, readMin: 0, sleep: 0 };
+  for (let i = 0; i < 7; i++) {
+    const s = addDays(ws, i); if (s > t) break; const l = S.logs[s]; if (!l) continue;
+    if (l.done) st.workouts++; else if (l.mvdDone) st.quick++;
+    if (l.done || l.mvdDone || (l.checks && l.checks.court) || l.reading > 0) st.active++;
+    if (l.water >= waterGoal(s)) st.water++;
+    if (l.protein >= S.profile.protein) st.protein++;
+    st.readMin += Math.min(60, l.reading || 0);
+    if (l.sleep) st.sleep++;
+  }
+  const score = Math.round(st.workouts * 20 + st.quick * 10 + st.active * 5 + st.water * 3 + st.protein * 3 + st.readMin * 0.5 + st.sleep * 2);
+  return { score, stats: st };
+}
+const SB = { week: null, players: null, err: false, last: 0 };
+let sbTimer = null;
+function syncScore(force) {
+  if (location.protocol === "file:") return;
+  const ws = weekStart(todayStr()), me = myWeekScore(ws);
+  if (!force && Date.now() - SB.last < 20000 && SB.week === ws) return;
+  SB.last = Date.now();
+  fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: S.profile.name || PID, week: ws, score: me.score, stats: me.stats }) })
+    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
+    .catch(() => { SB.err = true; });
+}
+function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncScore(true), 4000); }
+function scoreboardHTML(compact) {
+  const ws = weekStart(todayStr()), me = myWeekScore(ws);
+  let list = (SB.players && SB.week === ws ? SB.players.slice() : []);
+  list = list.filter(p => p.id !== PID); list.push({ id: PID, name: S.profile.name || PID, score: me.score, stats: me.stats });
+  list.sort((a, b) => b.score - a.score);
+  const lead = list[0], rows = list.map((p, i) => `<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${i + 1}.</b> ${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && list.length > 1 && p.score > 0 ? " " + I.flame : ""}</span><b class="brand">${p.score}</b></div>`).join("");
+  const others = list.length > 1;
+  const gap = others ? (lead.id === PID ? "You lead by " + (lead.score - list[1].score) + " pts." : "You are " + (lead.score - me.score) + " pts behind " + esc(lead.name) + ".") : "Waiting on your friend to log in.";
+  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">This week's scoreboard</h3><button class="btn sm" data-tab="progress">Details</button></div>${rows}<div class="small muted" style="margin-top:6px">${gap}</div></div>`;
+  const s = me.stats;
+  return `<div class="card"><h2 class="brand">Weekly Scoreboard</h2><div class="small muted">Friendly competition. Resets every Monday.</div>${rows}<div class="small" style="margin-top:8px"><b>${gap}</b></div>
+  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Workouts</div><div class="v">${s.workouts}${s.quick ? " +" + s.quick : ""}</div></div><div class="tile"><div class="k">Water days</div><div class="v">${s.water}</div></div><div class="tile"><div class="k">Protein days</div><div class="v">${s.protein}</div></div></div>
+  <div class="small muted" style="margin-top:8px">Points: workout 20, quick 15-min 10, active day 5, water goal 3, protein goal 3, sleep log 2, reading 1 per 2 min (60 max a day).${SB.err ? " Offline right now; your score syncs when you are back online." : ""}</div></div>`;
+}
+
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
 const UI = { tab: "today", trainOff: 0, trainSel: null, sheet: null, wo: null, mvd: false, fb: null, rest: null };
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const CHK = '<svg viewBox="0 0 24 24" fill="none" stroke="#1a0d00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
-const typeBadge = (t, extra) => `<span class="badge ${t}" style="--T:var(--${t})"><span class="dot"></span>${TYPE_NAME[t]}${extra ? " " + extra : ""}</span>`;
+const typeBadge = (t, extra, label) => `<span class="badge ${t}" style="--T:var(--${t})"><span class="dot"></span>${label || TYPE_NAME[t]}${extra ? " " + extra : ""}</span>`;
+const badgeFor = info => PERSON && PERSON.weekPlan ? typeBadge(info.type, "", (TPL[tplKey(info)] || {}).short) : typeBadge(info.type, info.leg || "");
 function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
 function buzz() { try { navigator.vibrate && navigator.vibrate(15); } catch (e) {} }
 function ring(val, goal, color, label, unit) {
@@ -799,21 +890,23 @@ function renderToday() {
   const h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
   const nc = nextCourt(), st = streak(), x = xp(), lvl = Math.floor(x / 300) + 1;
   let out = "";
-  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${typeBadge(info.type, info.leg ? info.leg : "")}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
+  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${badgeFor(info)}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
   // banners
   if (S.schedAlert) out += `<div class="banner info"><b>Your schedule changed</b>${S.schedAlert.msgs.map(esc).join("<br>")}<br>Your plan was updated.<div style="margin-top:10px" class="row"><button class="btn sm" data-act="sheet" data-k="hoops">View schedule</button><button class="btn sm" data-act="dismissSched">Got it</button></div></div>`;
   if (!upcomingEvents().length) out += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
   if (S.alert) out += `<div class="banner bad"><b>See a doctor or PT</b>${S.alert.msgs.map(esc).join("<br>")}<div style="margin-top:10px"><button class="btn sm" data-act="dismissAlert">Got it</button></div></div>`;
   const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Backing off: ${pa.map(a => AREAS.find(x => x[0] === a)[1] + " (" + S.pain[a].left + " left)").join(", ")}</b>Exercises that load these areas are swapped for pain-free versions.</div>`;
   if (info.midday) out += `<div class="banner info"><b>Sleep-in day</b>Late night yesterday. Sleep until 6:30 and train at 12:00.</div>`;
-  const tmr = dayInfo(addDays(s, 1)); if (tmr.midday && !info.midday) out += `<div class="banner info"><b>Heads up: tomorrow is a sleep-in day</b>Turn off the 5:00 alarm tonight. Workout moves to 12:00.</div>`;
+  const tmr = dayInfo(addDays(s, 1)); if (tmr.midday && !info.midday) out += `<div class="banner info"><b>Heads up: tomorrow is a sleep-in day</b>Turn off the ${fmtT((C().times && C().times.wake) || "05:00").replace(" AM", "")} alarm tonight. Workout moves to 12:00.</div>`;
   if (!S.meta.lastBackup || between(S.meta.lastBackup, s) >= 7) out += `<div class="banner info"><b>Back up your data</b>iPhone can clear app storage. Takes 5 seconds. <div style="margin-top:10px"><button class="btn sm" data-act="export">Export backup</button></div></div>`;
   // workout card
   const done = l.done || l.mvdDone;
-  out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}. Hot tub ${sess.tub} min.</div>
+  out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
   // tiles
   out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
+  // weekly scoreboard (compact)
+  out += scoreboardHTML(true);
   // Sunday review
   if (dow(s) === 0) out += weeklyReview(s);
   if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
@@ -827,10 +920,10 @@ function weeklyReview(s) {
   const ws = weekStart(s), r = weekReport(ws), nws = addDays(ws, 7), nw = resolveWeek(nws);
   const cats = [["Water goal", r.water], ["Protein goal", r.prot], ["Reading", r.read], ["Sleep logged", r.slp], ["Hot tub", r.tub]].sort((a, b) => a[1] - b[1]);
   return `<div class="card"><h2 class="brand">Weekly review</h2><div class="big">${r.pct}%</div><div class="small muted">of days active (${r.act}/${r.days})</div>
-  <h3>Wins</h3><div class="small">${r.act} active days, ${r.tub} hot tubs, ${r.read} reading days, protein goal ${r.prot}x, water goal ${r.water}x.</div>
+  <h3>Wins</h3><div class="small">${r.act} active days, ${C().features.hotTub ? r.tub + " hot tubs, " : ""}${r.read} reading days, protein goal ${r.prot}x, water goal ${r.water}x.</div>
   ${(() => { let m = 0; for (let i = 0; i < 7; i++) m += getL(addDays(ws, i)).reading || 0; const cb = R().current && bookById(R().current); return `<h3>Reading</h3><div class="small">${m} min this week${cb ? ". Currently reading " + esc(cb.title) + "." : ". Pick a book in Good Reads."}</div>`; })()}
   <h3>One thing to improve</h3><div class="small">${cats[0][0]}: only ${cats[0][1]} of ${r.days} days. Make it the first box you check this week.</div>
-  <h3>Next week</h3>${Object.values(nw).map(d => `<div class="row between small" style="padding:4px 0"><span>${fmtD(d.date)}</span><span>${typeBadge(d.type, d.leg || "")}${d.midday ? ' <span class="pill-r">Sleep in</span>' : ""}</span></div>`).join("")}</div>`;
+  <h3>Next week</h3>${Object.values(nw).map(d => `<div class="row between small" style="padding:4px 0"><span>${fmtD(d.date)}</span><span>${badgeFor(dayInfo(d.date))}${d.midday ? ' <span class="pill-r">Sleep in</span>' : ""}</span></div>`).join("")}</div>`;
 }
 
 /* ---------------------------- TRAIN ---------------------------- */
@@ -847,7 +940,7 @@ function renderTrain() {
 }
 function sessionHTML(se, live) {
   const l = getL(se.date), info = se.info;
-  let o = `<div class="card"><div class="row between wrap"><div class="eyebrow">${fmtD(se.date)} • ${se.time}</div>${typeBadge(info.type, info.leg || "")}</div><h2 style="margin-top:8px">${esc(se.focus)}</h2>`;
+  let o = `<div class="card"><div class="row between wrap"><div class="eyebrow">${fmtD(se.date)} • ${se.time}</div>${badgeFor(info)}</div><h2 style="margin-top:8px">${esc(se.focus)}</h2>`;
   if (info.court.length) o += `<div class="small" style="color:var(--green);font-weight:700">${I.ball} ${info.court.map(e => esc(e.label) + " " + fmtT(e.start)).join(", ")}</div>`;
   if (info.moderate) o += `<div class="small muted">Moderate day: one less set, RPE capped at 6.</div>`;
   o += `<div class="small muted" style="margin-top:4px">${esc(se.note)}</div>`;
@@ -935,7 +1028,7 @@ function renderRecover() {
   const cw = C(), wind = cw.wind.filter(w => cw.features.hotTub || !/hot tub/i.test(w.label));
   o += `<div class="card"><div class="row between"><h2 style="margin:0">Wind-down (${fmtT(cw.times.windDown)} to ${fmtT(cw.times.bed)})</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div><div class="small muted" style="margin-top:6px">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out late is OK." : ""}</div>${UI.windEdit ? timedEditor("wind", cw.wind, "New step") : wind.map(w => checkRow(s, w.id, fmtT(w.time), esc(w.id === "wd_read" ? readLabel() : w.label))).join("")}</div>`;
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
-  o += `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>`;
+  o += `${C().features.hotTub ? `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>` : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div></div>`}`;
   o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
   o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
   return o;
@@ -953,6 +1046,7 @@ function renderProgress() {
   checkBadges();
   const r = weekReport(weekStart(todayStr())), st = streak(), x = xp();
   let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Level</div><div class="v">${Math.floor(x / 300) + 1}</div></div></div>`;
+  o += scoreboardHTML(false);
   o += `<div class="card"><h2 class="brand">Badges</h2>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}<div class="small muted">Never miss twice: 1 grace day per week keeps your streak alive.</div></div>`;
   o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
   const lifts = Object.entries(S.exHist).filter(([, h]) => h.length);
@@ -960,7 +1054,7 @@ function renderProgress() {
   const nc = nextCheckin();
   o += `<details ${nc === todayStr() ? "open" : ""}><summary>4-week check-in (${fmtD(nc)})</summary><div class="in"><label class="f">Weight</label><input id="ciW" type="number" inputmode="decimal"><label class="f">Waist</label><input id="ciWa" type="number" inputmode="decimal"><label class="f">Soreness / pain notes</label><textarea id="ciS"></textarea><label class="f">Biggest win</label><textarea id="ciWin"></textarea><label class="f">What should change?</label><textarea id="ciC"></textarea><button class="btn primary block" style="margin-top:12px" data-act="checkin">Save check-in</button>${S.checkins.slice().reverse().map(c => `<div class="recipe small"><b>${fmtD(c.date)}</b>: ${c.weight || "-"} lb, ${c.waist || "-"} in<br>${esc(c.win)}<br><span class="muted">${esc(c.change)}</span></div>`).join("")}</div></details>`;
   const hist = Object.entries(S.logs).filter(([, l]) => l.done || l.mvdDone).sort((a, b) => a[0] < b[0] ? 1 : -1).slice(0, 20);
-  o += `<div class="card"><h2>History</h2>${hist.length ? hist.map(([s, l]) => `<div class="row between small" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${fmtD(s)}</span><span>${typeBadge(getDayType(s))} ${l.mvdDone ? "15m" : ""} ${l.rating ? `<span class="pill-r">${{ easy: "Easy", right: "Right", hard: "Hard" }[l.rating]}</span>` : ""}</span></div>`).join("") : emptyState("Finish your first workout to start your log.")}</div>`;
+  o += `<div class="card"><h2>History</h2>${hist.length ? hist.map(([s, l]) => `<div class="row between small" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${fmtD(s)}</span><span>${badgeFor(dayInfo(s))} ${l.mvdDone ? "15m" : ""} ${l.rating ? `<span class="pill-r">${{ easy: "Easy", right: "Right", hard: "Hard" }[l.rating]}</span>` : ""}</span></div>`).join("") : emptyState("Finish your first workout to start your log.")}</div>`;
   return o;
 }
 
@@ -1562,7 +1656,7 @@ function scheduleHTML() {
   o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Weekly practice</b><div class="grid2"><div><label class="f">Day</label><select data-in="prac" data-k="weekday"><option value="-1" ${S.practice.weekday < 0 ? "selected" : ""}>None</option>${DOW.map((d, i) => `<option value="${i}" ${S.practice.weekday === i ? "selected" : ""}>${d}</option>`).join("")}</select></div><div><label class="f">Start</label><input type="time" value="${S.practice.start}" data-in="prac" data-k="start"></div></div><label class="f">End</label><input type="time" value="${S.practice.end}" data-in="prac" data-k="end"><label class="f">Skip practice on a date</label><div class="row"><input type="date" id="skipD"><button class="btn sm" data-act="skipAdd">Skip</button></div>${S.practiceSkips.map(d => `<div class="row between small" style="padding:6px 0">${fmtD(d)}<button class="btn sm" data-act="skipDel" data-d="${d}">Undo</button></div>`).join("")}</div>`;
   if ((S.feeds || []).length) o += `<h3 class="sh3">Synced calendars</h3>` + S.feeds.map(f => `<div class="evrow"><span class="lbl" style="flex:1"><b>${esc(f.name)}</b><div class="small muted">${f.autoSync ? "Auto-sync on" : "Paused"} • last synced ${f.lastSync ? new Date(f.lastSync).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "never"}</div></span><button class="btn sm" data-act="feedSync">Sync</button><button class="btn sm" data-act="feedPause" data-id="${f.id}">${f.autoSync ? "Pause" : "Resume"}</button><button class="btn sm danger" data-act="feedDel" data-id="${f.id}">${UI.feedDelArm === f.id ? "Tap: keep events" : "Remove"}</button></div>${UI.feedDelArm === f.id ? `<button class="btn sm danger block" data-act="feedDelAll" data-id="${f.id}">Remove and delete its events</button>` : ""}`).join("");
   if ((S.imports || []).length) o += `<h3 class="sh3">Recent imports</h3>` + S.imports.slice(0, 6).map(im => `<div class="row between small" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${fmtShort(im.date)} • ${esc(im.label || im.kind)} (${im.count})</span><button class="btn sm" data-act="undoImport" data-id="${im.id}">Undo</button></div>`).join("");
-  o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Game-day protocol</b><ol class="list small"><li>Water: 125 oz total. 16 oz on waking.</li><li>AM: 15-min activation only, hot tub 10 min.</li><li>Real meal 3 to 4 hrs before: chicken, rice, veg.</li><li>Snack 60 to 90 min before: banana + jerky or yogurt.</li><li>Electrolyte drink 60 min before.</li><li>Extra 5 min calf + ankle warmup.</li><li>After: 40 g protein + 20 oz water, shower, 5 min stretch.</li><li>Lights out by 10:15. No hot tub after 9:30 PM.</li><li>Late game? Tomorrow auto-moves to a midday session.</li></ol></div>`;
+  o += `<div class="card" style="background:var(--card2);margin-top:14px"><b>Game-day protocol</b><ol class="list small"><li>Water: ${S.profile.waterBase + (S.profile.waterCourtExtra || 0)} oz total. 16 oz on waking.</li><li>AM: 15-min activation only${C().features.hotTub ? ", hot tub 10 min" : ", foam roll 5 min"}.</li><li>Real meal 3 to 4 hrs before: chicken, rice, veg.</li><li>Snack 60 to 90 min before: banana + jerky or yogurt.</li><li>Electrolyte drink 60 min before.</li><li>Extra 5 min calf + ankle warmup.</li><li>After: 40 g protein + 20 oz water, shower, 5 min stretch.</li><li>Lights out by 10:15.${C().features.hotTub ? " No hot tub after 9:30 PM." : ""}</li><li>Late game? Tomorrow auto-moves to a midday session.</li></ol></div>`;
   return o;
 }
 function eventFormHTML(id) {
@@ -1646,6 +1740,8 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) chec
   setTimeout(() => { sp.style.opacity = "0"; setTimeout(() => sp.classList.add("hidden"), 450); }, 950);
 })();
 render();
+setTimeout(() => syncScore(true), 1500);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) syncScore(false); });
 showWhatsNew();
 checkUpdate(true);
 loadBooks();
