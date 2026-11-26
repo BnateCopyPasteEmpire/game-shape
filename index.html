@@ -546,6 +546,17 @@ img,svg,video{max-width:100%}
 .exmore summary::-webkit-details-marker{display:none}
 .exmore summary:before{content:"+ "}
 .exmore[open] summary:before{content:"− "}
+.sb-seg{margin:12px 0 8px;width:100%}
+.sb-rank{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;margin-bottom:6px;background:var(--surface)}
+.sb-rank.me{outline:2px solid var(--orange)}
+.sb-rank .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.sb-pos{font-weight:900;width:16px;color:var(--dim)}
+.sb-pts{font-weight:900;font-size:22px;margin-left:auto}
+.sb-svg{display:block;margin-top:10px}
+.sb-legend{display:flex;gap:14px;justify-content:center;font-size:12px;font-weight:800;margin-top:4px}
+.sb-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.sb-empty{display:grid;gap:4px;text-align:center;padding:18px 10px;margin:6px 0 10px;border:2px dashed var(--line);border-radius:14px}
+.sb-empty span{font-size:13px;color:var(--dim)}
 .hc-scale{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:6px}
 .hc-scale button{height:40px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:900;font-size:15px;color:var(--ink)}
 .hc-scale button.on{background:#2f9e5b;border-color:#2f9e5b;color:#fff;transform:scale(1.08)}
@@ -647,8 +658,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.6";
+const APP_VERSION = "2.9.7";
 const CHANGELOG = {
+  "2.9.7": ["Good Reads now has 220 books, all picked by Game Shape: new Faith, Health + Happiness, Sports, and Comeback sections, plus more money, mindset, and romance. Anyone can still suggest a book", "Fuel got a deep dive: 16 quick breakfasts, 10 no-cook lunches, 12 smart snacks, 18 prep meals, and a Fuel playbook for workouts, court nights, recovery, mood, and sleep"],
   "2.9.6": ["Book buys now earn 2 points for every $1 you paid. A $20 book = 40 points. Books you already logged were updated"],
   "2.9.5": ["New quick health check: tell Brett about any injuries, soreness, or nagging issues and rate each one 1 to 10. Anything 4 or higher gets backed off in your first 3 workouts"],
   "2.9.4": ["Live scoreboard on Today: see Mark, Will, and Brett's points and checks for today, updated about every 30 seconds while the app is open", "Every check-off now splashes in your colors with a click, and the points float up. Finish a workout for the big one", "Cleaner workout mode: a progress bar for your sets, the next exercise highlighted, cues tucked under one tap", "New Golden Tropics badge: a bigger jersey logo in a gold frame", "Turn the click sound off in More, then Settings"],
@@ -881,7 +893,56 @@ const BREAKFASTS = [
   { n: "Power Shake", p: 40, d: "1 scoop whey, 1 banana, 1/3 cup oats, milk, creatine. Blend 60 sec." },
   { n: "Cottage Cheese + Fruit", p: 30, d: "1.5 cups cottage cheese, pineapple, handful of almonds. 1 min." },
   { n: "Protein Overnight Oats", p: 35, d: "Night before: 1/2 cup oats, 1 scoop protein, milk, chia, berries. Grab and go." },
-  { n: "Egg Muffin Cups (prep)", p: 30, d: "3 cups from the Sunday batch + a piece of fruit. 45 sec in the microwave." }
+  { n: "Egg Muffin Cups (prep)", p: 30, d: "3 cups from the Sunday batch + a piece of fruit. 45 sec in the microwave." },
+  { n: "Breakfast Burrito (freezer)", p: 32, d: "From the freezer batch: microwave 2 min, flip halfway. Salsa on top. Grab a banana." },
+  { n: "Peanut Butter Protein Toast", p: 30, d: "2 slices whole-grain toast, 2 tbsp peanut butter, sliced banana. Plus a 20 g protein milk or shake." },
+  { n: "Smoked Salmon Bagel", p: 30, d: "Thin bagel, light cream cheese, 3 oz smoked salmon, cucumber. Omega-3s for joints and mood." },
+  { n: "Turkey + Egg White Wrap", p: 34, d: "Tortilla, 1 cup egg whites (microwave 90 sec), 3 slices deli turkey, cheese, hot sauce." },
+  { n: "Skyr + Cereal Cup", p: 30, d: "Two 5 oz skyr cups, 1/2 cup high-protein cereal, berries. Zero cooking." },
+  { n: "Chocolate Cherry Recovery Shake", p: 42, d: "Whey, 1 cup frozen tart cherries, 1 tbsp cocoa, spinach, milk. Great after leg day." },
+  { n: "Hard-Boiled Eggs + Fruit + Milk", p: 31, d: "3 eggs from the Sunday batch, an orange, 12 oz milk. Eat it in the car." },
+  { n: "Cottage Cheese Toast", p: 28, d: "2 slices toast, 1 cup cottage cheese, sliced tomato, salt and pepper, everything seasoning." },
+  { n: "Grab-and-Go Protein Shake + Oats Cup", p: 37, d: "Ready-to-drink 30 g shake + an instant oatmeal cup with hot water. 3 min." },
+  { n: "Ham + Cheese Egg Bites", p: 30, d: "Store-bought egg bites (2 packs) + an apple. Microwave 60 sec." }
+];
+/* v2.9.7 Fuel deep dive: quick lunches, smart snacks, and a fueling playbook for workouts, court nights, recovery, mood, and sleep. */
+const LUNCHES = [
+  { n: "Rotisserie Chicken Wrap", p: 40, d: "Big tortilla, 5 oz rotisserie chicken, spinach, hummus, feta. 3 min." },
+  { n: "Tuna Salad Power Plate", p: 38, d: "2 tuna packets, Greek yogurt instead of mayo, mustard, pickles. Eat with crackers + baby carrots." },
+  { n: "Chicken Caesar Bowl", p: 42, d: "Bagged Caesar kit + 6 oz precooked grilled chicken strips. Half the dressing." },
+  { n: "Leftover Bowl Formula", p: 40, d: "Any prep meal protein + rice pouch + frozen veg steamer bag. 4 min in the microwave." },
+  { n: "Deli Turkey Bistro Box", p: 35, d: "5 oz deli turkey, cheese stick, grapes, almonds, whole-grain crackers. Like a lunchable for grown-ups." },
+  { n: "Greek Chicken Pita", p: 38, d: "Pita, chicken, cucumber, tomato, tzatziki. Add a side of fruit." },
+  { n: "Steak + Rice Leftover Bowl", p: 45, d: "Sliced steak from dinner, rice, salsa, avocado. 2 min reheat." },
+  { n: "Chili Cup + Cheese", p: 36, d: "2 cups frozen chili from the batch, shredded cheese, Greek yogurt on top." },
+  { n: "Salmon Salad Kit", p: 34, d: "Pouch salmon over a bagged salad kit with a squeeze of lemon. Healthy fats for joints." },
+  { n: "Cottage Cheese Pasta Cup", p: 35, d: "Leftover pasta stirred with 1 cup cottage cheese and marinara. Microwave 2 min. Creamy and high protein." }
+];
+const SNACKS = [
+  { n: "Greek yogurt cup + berries", p: 18, why: "Protein + antioxidants. Easy afternoon win." },
+  { n: "Beef stick + apple", p: 10, why: "Salty, sweet, and filling. Great desk snack." },
+  { n: "2 hard-boiled eggs", p: 12, why: "Cheap protein and choline for focus." },
+  { n: "Ready-to-drink protein shake", p: 30, why: "The fastest way to close a protein gap." },
+  { n: "Cottage cheese + pineapple", p: 24, why: "Slow-digesting protein. Good before bed too." },
+  { n: "Edamame (1 cup, microwave)", p: 18, why: "Plant protein + fiber. Keeps you full." },
+  { n: "Banana + peanut butter", p: 8, why: "Best pre-court snack. Quick carbs + potassium for cramps." },
+  { n: "Trail mix (small handful)", p: 6, why: "Healthy fats for long days. Watch the portion." },
+  { n: "Tart cherry juice (8 oz)", p: 0, why: "May help muscle soreness and sleep. Try it on game nights." },
+  { n: "Dark chocolate (2 squares, 70%+)", p: 2, why: "A small mood lift with less sugar. Beats the candy jar." },
+  { n: "Roasted chickpeas", p: 7, why: "Crunchy chip swap with fiber." },
+  { n: "Protein bar (20 g+, under 10 g sugar)", p: 20, why: "Keep 2 in the car for busy days." }
+];
+const PLAYBOOK = [
+  { n: "The Game Shape plate", items: ["Protein: 1 to 2 palms (30 to 50 g). Every meal.", "Veggies: 2 fists. Color matters: green, red, orange.", "Carbs: 1 to 2 cupped hands. More on training and court days, less on rest days.", "Fats: 1 thumb. Olive oil, avocado, nuts, cheese.", "Water first: 16 oz before you eat."] },
+  { n: "Before a 5 AM workout", items: ["Feel good training empty? Water + electrolytes + coffee is fine for 30 to 45 min.", "Feel weak or dizzy? Half a banana or a small yogurt 15 to 30 min before.", "Leg day: a little carb before (banana, rice cake, toast) helps you push.", "Creatine 5 g any time of day. Consistency matters more than timing."] },
+  { n: "After you train", items: ["30 to 40 g protein within about 2 hours. The shake or breakfast counts.", "Add carbs after leg day: oats, fruit, toast, or rice.", "Hot tub? Drink 12 to 16 oz of water with it.", "Sore calves? Tart cherries or tart cherry juice, plus salt in your water."] },
+  { n: "Court night (practice or game)", items: ["Real meal 2 to 3 hours before tip: chicken, rice, veggies.", "60 min before: electrolytes + a banana or applesauce pouch.", "During: sip water at every break. Cramps usually mean low fluid or salt.", "After: protein shake or chocolate milk on the drive home, then a light meal.", "Skip heavy, greasy food after 8 PM. It wrecks sleep."] },
+  { n: "Foods that help recovery", items: ["Salmon, sardines, and walnuts: omega-3s for joints and soreness.", "Berries and tart cherries: antioxidants for muscle recovery.", "Eggs and Greek yogurt: high-quality protein and nutrients for muscle.", "Sweet potatoes and oats: refill energy after hard days.", "Leafy greens and beans: magnesium and potassium help prevent cramps.", "Ginger and turmeric: easy to add to shakes, tea, or stir-fries."] },
+  { n: "Feed your mind (mood + focus)", items: ["Omega-3 fish 2 times a week supports brain health.", "Fermented foods (yogurt, kefir, sauerkraut, kimchi) support your gut, which talks to your brain.", "Eat protein at breakfast: steadier energy and fewer cravings by 3 PM.", "Do not skip lunch. Low blood sugar shows up as a bad mood.", "Caffeine before 1 PM only. Afternoon coffee steals deep sleep."] },
+  { n: "Eat for better sleep", items: ["Last big meal 2 to 3 hours before bed.", "Wind-down snack if hungry: cottage cheese, Greek yogurt, a kiwi, or tart cherry juice.", "Magnesium foods: pumpkin seeds, almonds, spinach, black beans.", "Limit alcohol. Even 2 drinks cut into deep sleep and recovery.", "Big water early in the day so you are not up at 2 AM."] },
+  { n: "Lose the belly, keep the legs", items: ["Hit protein every day. It protects muscle while you lose fat.", "Fiber 30 g+: veggies, beans, berries, oats. Keeps you full.", "Liquid calories are the sneaky ones: soda, juice, fancy coffee, beer.", "Plan the weekend. Most progress is lost Friday night to Sunday.", "Slow and steady: about 0.5 to 1 lb a week keeps strength up for the court."] },
+  { n: "Eating out smart", items: ["Grilled chicken sandwich or nuggets + side salad or fruit.", "Burrito bowl: double protein, fajita veggies, light rice, salsa.", "Burger joint: single patty, lettuce wrap or one bun, skip the fries or split them.", "Sub shop: double meat on wheat, load the veggies, skip the chips.", "Pizza night: 2 slices + a big salad first. Thin crust beats deep dish.", "Mexican: fajitas or carne asada plate, go easy on chips."] },
+  { n: "Supplements worth it (and not)", items: ["Worth it for most: creatine (5 g), protein powder, electrolytes on sweaty days.", "Ask your doctor about vitamin D and fish oil, especially in winter.", "Magnesium glycinate at night can help sleep for some people.", "Skip: fat burners, testosterone boosters, and anything with a proprietary blend.", "Supplements fill gaps. Real food does the heavy lifting."] }
 ];
 const OFFICE = ["Beef or turkey jerky / meat sticks", "Tuna or chicken packets", "Greek yogurt cups (20 g+)", "Hard-boiled eggs (Sunday batch)", "Ready-to-drink protein shakes (30 g)", "Apples and bananas", "Baby carrots", "Almonds (1 handful portions)", "String cheese"];
 const DRINKS = [["Water", "100 oz base. 16 oz the moment you wake up. +25 oz on court days."], ["Electrolytes", "60 min before practice and games. Also on hot or sweaty leg days."], ["Coffee", "Fine before 1:00 PM. Wait until 6:00 AM so it does not block iron."], ["Sparkling water", "Your soda replacement."], ["Alcohol", "2 or fewer drinks a week. Never the night before a game."], ["Sugary drinks", "Out. Juice only the small OJ with iron."]];
@@ -909,7 +970,37 @@ const RECIPES = [
     steps: ["Shred both chickens.", "Heat rice, beans, corn.", "Build bowls. Avocado added day-of."] },
   { id: "eggcups", n: "Egg Muffin Cups (breakfast prep)", p: 30, cal: 330, fib: 2, time: "25 min", srv: 4, reheat: "45 sec microwave. 3 cups per serving.",
     ing: [["Eggs", "12", "Dairy & Eggs"], ["Turkey sausage", "8 oz", "Meat & Fish"], ["Spinach", "2 cups", "Produce"], ["Bell pepper", "1", "Produce"], ["Shredded cheese", "1/2 cup", "Dairy & Eggs"]],
-    steps: ["Oven 350. Grease a 12-cup muffin tin.", "Brown sausage, chop veg, split into cups.", "Pour whisked eggs over, top with cheese. Bake 20 min."] }
+    steps: ["Oven 350. Grease a 12-cup muffin tin.", "Brown sausage, chop veg, split into cups.", "Pour whisked eggs over, top with cheese. Bake 20 min."] },
+  { id: "teriyaki", n: "Chicken Teriyaki Rice Bowls", p: 46, cal: 560, fib: 6, time: "25 min", srv: 4, reheat: "Microwave 2 min. Add a splash of water to the rice.",
+    ing: [["Chicken breast", "2 lb", "Meat & Fish"], ["Teriyaki sauce (low sugar)", "1 bottle", "Pantry"], ["Jasmine rice pouches", "2", "Pantry"], ["Frozen stir-fry veggies", "2 bags", "Frozen"], ["Green onions", "1 bunch", "Produce"], ["Sesame seeds", "1 tbsp", "Pantry"]],
+    steps: ["Cube chicken, brown in a hot pan 6 to 8 min.", "Add stir-fry veg, cook 5 min, pour in 1/2 cup teriyaki.", "Serve over rice. Green onions and sesame on top."] },
+  { id: "pasta", n: "Protein Pasta + Turkey Meat Sauce", p: 48, cal: 610, fib: 9, time: "25 min", srv: 5, reheat: "Microwave 2 min with a splash of water.",
+    ing: [["Protein pasta (chickpea or lentil)", "1 box", "Pantry"], ["93% lean ground turkey", "2 lb", "Meat & Fish"], ["Marinara", "1 jar", "Pantry"], ["Spinach", "5 oz bag", "Produce"], ["Onion", "1", "Produce"], ["Parmesan", "1/2 cup", "Dairy & Eggs"]],
+    steps: ["Boil pasta per the box.", "Brown turkey with diced onion, add marinara + spinach, simmer 5 min.", "Toss with pasta, parmesan on top."] },
+  { id: "breakfastburrito", n: "Freezer Breakfast Burritos", p: 32, cal: 450, fib: 5, time: "30 min (makes 10)", srv: 10, reheat: "From frozen: microwave 2 min in a paper towel, flip halfway.",
+    ing: [["Eggs", "12", "Dairy & Eggs"], ["Turkey sausage", "1 lb", "Meat & Fish"], ["Large tortillas", "10", "Pantry"], ["Black beans", "1 can", "Pantry"], ["Shredded cheese", "1.5 cups", "Dairy & Eggs"], ["Salsa", "1 jar", "Pantry"]],
+    steps: ["Brown sausage, scramble eggs, drain beans.", "Fill tortillas, roll tight, wrap each in foil.", "Freeze in a gallon bag. Breakfast for two weeks."] },
+  { id: "greek", n: "Greek Chicken Sheet Pan + Tzatziki", p: 47, cal: 540, fib: 7, time: "35 min (10 hands-on)", srv: 4, reheat: "Microwave 90 sec. Tzatziki cold on top.",
+    ing: [["Chicken thighs", "2 lb", "Meat & Fish"], ["Red onion", "1", "Produce"], ["Cherry tomatoes", "1 pint", "Produce"], ["Zucchini", "2", "Produce"], ["Lemon", "1", "Produce"], ["Greek seasoning", "1 tbsp", "Pantry"], ["Tzatziki", "1 tub", "Dairy & Eggs"], ["Pita or rice pouches", "4 / 2", "Pantry"]],
+    steps: ["Oven 425. Chicken + veg with oil, lemon, Greek seasoning.", "One layer, 25 to 30 min.", "Serve with pita or rice and tzatziki."] },
+  { id: "shrimp", n: "15-Minute Garlic Shrimp + Quinoa", p: 38, cal: 480, fib: 7, time: "15 min", srv: 4, reheat: "Best fresh. Reheat gently 60 sec.",
+    ing: [["Frozen raw shrimp, peeled", "2 lb", "Frozen"], ["Quinoa pouches", "2", "Pantry"], ["Garlic", "4 cloves", "Produce"], ["Asparagus or green beans", "1 lb", "Produce"], ["Butter", "2 tbsp", "Dairy & Eggs"], ["Lemon", "1", "Produce"]],
+    steps: ["Thaw shrimp under cold water 5 min.", "Butter + garlic in a hot pan, shrimp 2 min a side.", "Saute asparagus 5 min, lemon on everything, serve over quinoa."] },
+  { id: "porkloin", n: "Slow-Cooker Pork Tenderloin + Potatoes", p: 44, cal: 520, fib: 6, time: "10 min hands-on", srv: 5, reheat: "Microwave 2 min. Great on salads too.",
+    ing: [["Pork tenderloin", "2 lb", "Meat & Fish"], ["Baby potatoes", "1.5 lb", "Produce"], ["Carrots", "1 lb", "Produce"], ["Chicken broth", "1 cup", "Pantry"], ["Ranch or onion soup mix", "1 packet", "Pantry"]],
+    steps: ["Potatoes and carrots on the bottom.", "Pork on top, sprinkle seasoning packet, pour broth.", "Low 6 hrs. Slice and serve."] },
+  { id: "meatballs", n: "Sheet-Pan Turkey Meatballs", p: 42, cal: 500, fib: 6, time: "30 min", srv: 5, reheat: "Microwave 90 sec. Sub roll or over pasta.",
+    ing: [["93% lean ground turkey", "2 lb", "Meat & Fish"], ["Eggs", "2", "Dairy & Eggs"], ["Breadcrumbs", "1/2 cup", "Pantry"], ["Parmesan", "1/2 cup", "Dairy & Eggs"], ["Italian seasoning", "1 tbsp", "Pantry"], ["Marinara", "1 jar", "Pantry"], ["Broccoli", "1.5 lb", "Produce"]],
+    steps: ["Oven 400. Mix turkey, eggs, crumbs, cheese, seasoning.", "Roll 30 meatballs, broccoli on the second pan. 18 to 20 min.", "Warm marinara, pour over. Freeze half."] },
+  { id: "fajita", n: "Steak Fajita Sheet Pan", p: 44, cal: 540, fib: 7, time: "25 min", srv: 4, reheat: "Microwave 90 sec, add toppings after.",
+    ing: [["Flank or sirloin steak", "2 lb", "Meat & Fish"], ["Bell peppers", "3", "Produce"], ["Onion", "1", "Produce"], ["Fajita seasoning", "1 packet", "Pantry"], ["Tortillas", "8", "Pantry"], ["Greek yogurt + salsa", "1 cup / 1 jar", "Dairy & Eggs"]],
+    steps: ["Oven 425. Slice steak and veg thin.", "Toss with oil + seasoning, one layer, 12 to 15 min.", "Tortillas, Greek yogurt for sour cream, salsa."] },
+  { id: "lentil", n: "Hearty Lentil + Sausage Soup", p: 36, cal: 480, fib: 16, time: "35 min", srv: 6, reheat: "Microwave 2 to 3 min. Freezes great.",
+    ing: [["Chicken sausage", "1 lb", "Meat & Fish"], ["Dry lentils", "1.5 cups", "Pantry"], ["Chicken broth", "6 cups", "Pantry"], ["Diced tomatoes", "1 can", "Pantry"], ["Carrots + celery + onion (mirepoix)", "1 tray", "Produce"], ["Spinach", "5 oz bag", "Produce"]],
+    steps: ["Brown sliced sausage with mirepoix 6 min.", "Add lentils, broth, tomatoes. Simmer 25 min.", "Stir in spinach. Fiber monster for belly fat."] },
+  { id: "salmonbites", n: "Air-Fryer Salmon Bites + Potatoes", p: 40, cal: 520, fib: 5, time: "20 min", srv: 4, reheat: "Air fryer 3 min at 375.",
+    ing: [["Salmon fillets", "2 lb", "Meat & Fish"], ["Baby potatoes", "1.5 lb", "Produce"], ["Cajun or lemon pepper seasoning", "1 tbsp", "Pantry"], ["Bagged salad kit", "2", "Produce"]],
+    steps: ["Halve potatoes, microwave 5 min, then air fry 10 min at 400.", "Cube salmon, season, air fry 7 to 8 min.", "Serve over salad kit. Omega-3 night."] }
 ];
 const OFFICE_KIT = [["Jerky / meat sticks", "Meat & Fish"], ["Tuna or chicken packets", "Pantry"], ["Greek yogurt cups", "Dairy & Eggs"], ["Eggs (for hard-boiling)", "Dairy & Eggs"], ["Protein shakes (RTD)", "Pantry"], ["Apples + bananas", "Produce"], ["Baby carrots", "Produce"], ["Almonds", "Pantry"], ["String cheese", "Dairy & Eggs"], ["Orange juice (small, for iron)", "Dairy & Eggs"], ["Electrolyte packets", "Pantry"]];
 
@@ -1493,15 +1584,59 @@ function allInCardHTML(onScore) {
 }
 function medalCounts(weeks) { const c = { gold: 0, silver: 0, bronze: 0, poop: 0 }; Object.values(weeks || {}).forEach(w => { if (w.tier && c[w.tier] != null) c[w.tier]++; }); return c; }
 function medalsInline(c, size) { return `<span class="medal-row">${["gold", "silver", "bronze", "poop"].map(t => `<span class="mc" title="${TIERS[t].name}">${medalSVG(t, size || 22)}${c[t] || 0}</span>`).join("")}</span>`; }
+function myDays() { const sz = seasonOf(todayStr()), t = todayStr(), out = {}; if (t < sz.start) return out; for (let d = sz.start; d <= t && d <= sz.end; d = addDays(d, 1)) { const v = Object.values(dayPoints(d)).reduce((a, x) => a + x, 0); if (v) out[d] = v; } return out; }
 function myExtras() {
-  const t = todayStr(), p = dayPoints(t), c = dayChecks(t);
-  return { today: { date: t, pts: Object.values(p).reduce((a, v) => a + v, 0), cats: p, checks: c }, weekPts: myWeekScore(weekStart(t)).score, weekHits: weekHits(weekStart(t)).hits, weeks: seasonWeeks(seasonOf(t)), badgesToday: [], lifetime: 0, allInEver: allInEver() };
+  const t = todayStr(), sz = seasonOf(t);
+  if (t < sz.start) return { today: { date: t, pts: 0, cats: {}, checks: {} }, weekPts: 0, weekHits: 0, weeks: {}, days: {}, badgesToday: [], lifetime: 0, allInEver: 0 };   // pre-season: everyone shows 0 until Opening Day
+  const p = dayPoints(t), c = dayChecks(t);
+  return { days: myDays(), today: { date: t, pts: Object.values(p).reduce((a, v) => a + v, 0), cats: p, checks: c }, weekPts: myWeekScore(weekStart(t)).score, weekHits: weekHits(weekStart(t)).hits, weeks: seasonWeeks(seasonOf(t)), badgesToday: [], lifetime: 0, allInEver: allInEver() };
 }
 function standingsList() {
   const sz = seasonOf(todayStr()), pre = todayStr() < sz.start, st = pre ? null : seasonStats(sz);
   const mine = Object.assign({ id: PID, name: myName(), accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0, allInDays: st ? st.allInDays : 0 }, myExtras());
   let list = (SB.standings && SB.season === sz.id ? SB.standings.slice() : []).filter(p => p.id !== PID); list.push(mine);
   return { sz, pre, st, list: list.sort((a, b) => b.points - a.points || (b.weekPts || 0) - (a.weekPts || 0) || ((b.today && b.today.pts) || 0) - ((a.today && a.today.pts) || 0)) };
+}
+
+/* ---------------------------- SCORE GRAPHS (v2.9.7) ----------------------------
+   Day / Week / Month / Season views of everyone's points, with who leads and by how much. */
+function sbSeries() {
+  const { sz, pre, list } = standingsList(), t = todayStr(), end = t < sz.end ? t : sz.end;
+  const ppl = list.map(p => ({ id: p.id, name: p.id === PID ? myName() : p.name, c: p.accent || "#ff8200", days: p.id === PID ? myDays() : (p.days || {}), points: p.points || 0 }));
+  const dayV = (p, d) => +(p.days[d] || 0);
+  const view = UI.sbView || "day"; let labels = [], vals = [], line = false;
+  if (pre) return { sz, pre, ppl, labels, vals, view, line };
+  if (view === "day") { const ds = []; for (let i = 6; i >= 0; i--) { const d = addDays(end, -i); if (d >= sz.start) ds.push(d); } labels = ds.map(d => d === t ? "Today" : DOW[new Date(d + "T12:00").getDay()]); vals = ppl.map(p => ds.map(d => dayV(p, d))); }
+  else if (view === "week") { const ws = []; for (let w = sz.start; w <= end; w = addDays(w, 7)) ws.push(w); labels = ws.map((w, i) => "W" + (i + 1)); vals = ppl.map(p => ws.map(w => { let a = 0; for (let k = 0; k < 7; k++) a += dayV(p, addDays(w, k)); return a; })); }
+  else if (view === "month") { const ms = []; for (let d = sz.start; d <= end; d = addDays(d, 1)) { const m = d < addDays(sz.start, 2) && d.slice(8) > "27" ? addDays(sz.start, 2).slice(0, 7) : d.slice(0, 7); if (!ms.includes(m)) ms.push(m); } labels = ms.map(m => new Date(m + "-15T12:00").toLocaleDateString("en-US", { month: "short" })); vals = ppl.map(p => ms.map(m => Object.entries(p.days).filter(([d]) => d >= sz.start && d <= end && (d.slice(0, 7) === m || (m === ms[0] && d < m + "-01"))).reduce((a, [, v]) => a + v, 0))); }
+  else { line = true; const ds = []; for (let d = sz.start; d <= end; d = addDays(d, 1)) ds.push(d); labels = ds.map(d => d.slice(5).replace("-", "/")); vals = ppl.map(p => { let a = 0; return ds.map(d => (a += dayV(p, d))); }); }
+  return { sz, pre, ppl, labels, vals, view, line };
+}
+function sbTotal(view, p, v) { return view === "season" ? p.points : (v.length ? v[v.length - 1] : 0); }
+function scoreChartHTML() {
+  const { sz, pre, ppl, labels, vals, view, line } = sbSeries();
+  const tabs = [["day", "Day"], ["week", "Week"], ["month", "Month"], ["season", "Season"]];
+  const seg = `<div class="seg sb-seg">${tabs.map(([k, n]) => `<button class="${view === k ? "on" : ""}" data-act="sbView" data-v="${k}">${n}</button>`).join("")}</div>`;
+  const per = { day: "today", week: "this week", month: "this month", season: "this season" }[view];
+  if (pre) return `<div class="card sb-card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Head to head</h2>${livePill()}</div>${seg}<div class="sb-empty"><b>Everyone starts at 0</b><span>Scoring starts ${fmtD(sz.start)}. Graphs fill in after the first day.</span></div>${ppl.map(p => `<div class="sb-rank"><span class="dot" style="background:${esc(p.c)}"></span><b>${esc(p.name)}</b><span class="sb-pts">0</span></div>`).join("")}</div>`;
+  const ranked = ppl.map((p, i) => ({ p, tot: sbTotal(view, p, vals[i]) })).sort((a, b) => b.tot - a.tot), meT = (ranked.find(r => r.p.id === PID) || { tot: 0 }).tot, top = ranked[0].tot;
+  const rows = ranked.map((r, i) => { const gap = r.p.id === PID ? (i === 0 ? (ranked[1] ? `Leading by ${r.tot - ranked[1].tot}` : "Leading") : `${top - r.tot} behind 1st`) : (r.tot > meT ? `${r.tot - meT} ahead of you` : r.tot < meT ? `${meT - r.tot} behind you` : "Tied with you");
+    return `<div class="sb-rank ${r.p.id === PID ? "me" : ""}"><span class="sb-pos">${i + 1}</span><span class="dot" style="background:${esc(r.p.c)}"></span><div style="min-width:0;flex:1"><b>${esc(r.p.name)}</b>${r.p.id === PID ? ' <span class="small muted">(you)</span>' : ""}<div class="small muted">${gap}</div></div><span class="sb-pts">${r.tot.toLocaleString()}</span></div>`; }).join("");
+  const W = 340, H = 190, L = 34, B = 24, T = 10, cw = W - L - 6, chh = H - B - T;
+  const mx = Math.max(10, ...vals.flat()), nice = (() => { const st = Math.pow(10, Math.floor(Math.log10(mx))), m = Math.ceil(mx / st * 2) / 2 * st; return m; })();
+  const y = v => T + chh - v / nice * chh;
+  let g = [0, .5, 1].map(f => `<line x1="${L}" x2="${W - 4}" y1="${y(nice * f)}" y2="${y(nice * f)}" stroke="var(--line)"/><text x="${L - 5}" y="${y(nice * f) + 4}" text-anchor="end" font-size="10" fill="var(--dim)">${Math.round(nice * f).toLocaleString()}</text>`).join("");
+  const n = labels.length;
+  if (line) {
+    const x = i => L + (n < 2 ? cw / 2 : i * cw / (n - 1));
+    g += vals.map((v, pi) => `<polyline fill="none" stroke="${esc(ppl[pi].c)}" stroke-width="${ppl[pi].id === PID ? 4 : 3}" stroke-linejoin="round" stroke-linecap="round" points="${v.map((a, i) => x(i) + "," + y(a)).join(" ")}"/><circle cx="${x(n - 1)}" cy="${y(v[n - 1] || 0)}" r="5" fill="${esc(ppl[pi].c)}"/>`).join("");
+    const step = Math.max(1, Math.ceil(n / 6)); g += labels.map((lb, i) => (i % step === 0 && (n - 1 - i >= step / 2 || i === 0)) || i === n - 1 ? `<text x="${x(i)}" y="${H - 6}" text-anchor="${i === n - 1 && n > 1 ? "end" : i === 0 ? "start" : "middle"}" font-size="10" fill="var(--dim)">${lb}</text>` : "").join("");
+  } else {
+    const gw = cw / Math.max(1, n), bw = Math.min(22, (gw - 6) / ppl.length);
+    g += labels.map((lb, i) => { const x0 = L + i * gw + (gw - bw * ppl.length) / 2; return ppl.map((p, pi) => { const v = vals[pi][i] || 0, h = Math.max(v ? 2 : 0, chh - (y(v) - T)); return `<rect x="${x0 + pi * bw}" y="${T + chh - h}" width="${bw - 2}" height="${h}" rx="3" fill="${esc(p.c)}"><title>${esc(p.name)}: ${v}</title></rect>`; }).join("") + `<text x="${L + i * gw + gw / 2}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--dim)">${lb}</text>`; }).join("");
+  }
+  const legend = `<div class="sb-legend">${ppl.map(p => `<span><i style="background:${esc(p.c)}"></i>${esc(p.name.split(" ")[0])}</span>`).join("")}</div>`;
+  return `<div class="card sb-card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Head to head</h2>${livePill()}</div>${seg}<div class="small muted" style="margin:2px 0 6px">Points ${per}${view === "season" ? " (graph shows daily points added up; totals include books and Golden bonuses)" : ""}</div>${rows}<svg class="sb-svg" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Points ${per} by player">${g}</svg>${legend}</div>`;
 }
 function seasonHTML(compact) {
   const { sz, pre, st, list } = standingsList(), t = todayStr();
@@ -1533,7 +1668,7 @@ function seasonHTML(compact) {
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
     <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
     <li>Buy a book: 2 points for every $1 you paid, the day you buy it. Season-end Book Test: +${PTS.quiz} per book read and passed</li><li>Weekly medals: Gold ${TIERS.gold.min}+ hits, Silver ${TIERS.silver.min}+, Bronze ${TIERS.bronze.min}+, Poop under ${TIERS.bronze.min} (5 goals a day, ${WK_MAX} a week)</li><li>Golden Tropics: best medal record each month (then most points) wins +${PTS.golden}</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
-  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="row between" style="margin:6px 0 0;gap:8px;align-items:center"><div class="small muted">${head}</div>${livePill()}</div>${LIVE.feed.length ? `<div class="rv-feed">${LIVE.feed.slice(0, 4).map(f => `<div><b style="color:${esc(f.accent || "#ff8200")}">${esc(f.name)}</b> ${esc(f.msg)}${f.pts ? ` <b>+${f.pts}</b>` : ""}<span class="ago" data-at="${f.at}">${agoTxt(f.at)}</span></div>`).join("")}</div>` : ""}<button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="row between" style="margin:6px 0 0;gap:8px;align-items:center"><div class="small muted">${head}</div>${livePill()}</div>${LIVE.feed.length ? `<div class="rv-feed">${LIVE.feed.slice(0, 4).map(f => `<div><b style="color:${esc(f.accent || "#ff8200")}">${esc(f.name)}</b> ${esc(f.msg)}${f.pts ? ` <b>+${f.pts}</b>` : ""}<span class="ago" data-at="${f.at}">${agoTxt(f.at)}</span></div>`).join("")}</div>` : ""}<button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Everyone shows 0 until then. Practice taps before then do not count.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
 
@@ -2143,6 +2278,11 @@ function renderFuel() {
   <div class="grid2" style="margin-top:12px"><button class="btn sm" data-act="addP" data-v="20">+20 g</button><button class="btn sm" data-act="addP" data-v="35">+35 g</button><button class="btn sm" data-act="addW" data-v="8">+8 oz</button><button class="btn sm" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" data-act="addP" data-v="-10">Undo 10 g</button><button class="btn sm" data-act="addW" data-v="-8">Undo 8 oz</button></div>
   <table class="t" style="margin-top:12px"><tr><td>Protein (scores at ${PTS.proteinG} g)</td><td style="text-align:right"><b>${PTS.proteinG} g+</b> (aim for ${p.protein} g)</td></tr><tr><td>Fiber</td><td style="text-align:right"><b>30 to 38 g</b></td></tr><tr><td>Water</td><td style="text-align:right"><b>${waterGoal(s)} oz</b></td></tr></table></div>`;
   o += `<details open><summary>Quick breakfasts (5 min)</summary><div class="in">${BREAKFASTS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div><button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${b.p}">Ate this (+${b.p} g)</button></div>`).join("")}</div></details>`;
+  const ateBtn = x => `<button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${x.p}">Ate this (+${x.p} g)</button>`;
+  o += `<details><summary>Quick lunches (no cooking)</summary><div class="in">${LUNCHES.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div>${ateBtn(b)}</div>`).join("")}</div></details>`;
+  o += `<details><summary>Snacks that fuel you</summary><div class="in">${SNACKS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b>${b.p ? `<span class="macros"><span>${b.p} g protein</span></span>` : ""}</div><div class="small muted">${esc(b.why)}</div>${b.p ? ateBtn(b) : ""}</div>`).join("")}</div></details>`;
+  o += `<div class="card"><h2 class="brand" style="margin:0 0 4px">Fuel playbook</h2><div class="small muted">How to eat for strong workouts, fresh legs on the court, a clear head, and better sleep.</div></div>`;
+  o += PLAYBOOK.map(pb => `<details><summary>${esc(pb.n)}</summary><div class="in"><ul class="list">${pb.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div></details>`).join("");
   o += `<details><summary>Office backup kit</summary><div class="in"><div class="banner warn"><b>When work orders food</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></details>`;
   o += `<details><summary>Drinks</summary><div class="in"><table class="t">${DRINKS.map(d => `<tr><td><b>${d[0]}</b></td><td class="small">${esc(d[1])}</td></tr>`).join("")}</table></div></details>`;
   o += `<details><summary>Easy prep meals</summary><div class="in"><div class="small muted">Make one on Sunday, one midweek. Leftovers cover lunches.</div>${RECIPES.map(r => { const n = S.grocery.sel[r.id] || 0; return `<div class="recipe"><b>${esc(r.n)}</b><div class="macros"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time)}</span><span>${r.srv} servings</span></div><details style="background:var(--card2);margin:8px 0"><summary style="font-size:14px;min-height:44px;padding:10px 14px">Ingredients + steps</summary><div class="in"><ul class="list small">${r.ing.map(i => `<li>${esc(i[0])}: ${esc(i[1])}</li>`).join("")}</ul><ol class="list small">${r.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><div class="small muted">Reheat: ${esc(r.reheat)}</div></div></details><div class="row"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1">−</button><span style="min-width:90px;text-align:center" class="small">${n ? n + "x on list" : "Not on list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div></div>`; }).join("")}</div></details>`;
@@ -2190,7 +2330,7 @@ function renderProgress() {
   const r = weekReport(weekStart(todayStr())), st = streak(), x = xp();
   let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Medal hits</div><div class="v">${weekHits(weekStart(todayStr())).hits}<span class="small muted">/${WK_MAX}</span></div></div></div>`;
   checkSeasonBadges();
-  o = seasonHTML(false) + o;
+  o = scoreChartHTML() + seasonHTML(false) + o;
   o += `<div class="small muted" style="text-align:center;margin:4px 0 12px">Never miss twice: 1 grace day per week keeps your streak alive.</div>`;
   o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
   const lifts = Object.entries(S.exHist).filter(([, h]) => h.length);
@@ -2372,6 +2512,7 @@ const ACT = {
   fbA: el => { const a = el.dataset.v, v = UI.fb.areas[a]; if (!v) UI.fb.areas[a] = "soreness"; else if (v === "soreness") UI.fb.areas[a] = "pain"; else delete UI.fb.areas[a]; renderSheet(); },
   fbF: el => { UI.fb.flags[el.dataset.v] = !UI.fb.flags[el.dataset.v]; renderSheet(); },
   fbSave: () => submitFeedback(),
+  sbView: el => { UI.sbView = el.dataset.v; const y = window.scrollY; render(); window.scrollTo(0, y); },
   hcHurt: el => { HC().hurt = el.dataset.v === "1"; hcRerender(); },
   hcArea: el => { const h = HC(), k = el.dataset.v; if (h.issues[k]) delete h.issues[k]; else h.issues[k] = { note: "", r: 0 }; hcRerender(); },
   hcRate: el => { const it = HC().issues[el.dataset.k]; if (it) { it.r = +el.dataset.v; buzz(); } hcRerender(); },
@@ -2506,7 +2647,7 @@ document.addEventListener("change", e => {
 });
 
 /* ---------------------------- GOOD READS (v2.1) ----------------------------
-   Curated list: books.json (edit it to change Brett's list, no code changes).
+   Curated list: books.json (edit it to change the Game Shape list, no code changes).
    Community list: Netlify Function /.netlify/functions/books (shared by everyone).
    Personal shelf, ratings, notes: S.reads in this user's localStorage. */
 const READS_API = "/.netlify/functions/books", READS_ADMIN = "/.netlify/functions/books-admin";
@@ -2539,7 +2680,7 @@ function allBooks() {
 const bookById = id => [...(BOOKDATA.books || []), ...communityBooks()].find(b => b.id === id);
 function coverHTML(b, w) {
   const [bg, fg] = CAT_COLOR[b.category] || CAT_COLOR.mindset, h = Math.round(w * 1.45);
-  return `<div class="cover ${b.pick && b.source === "brett" ? "pk" : ""}" style="width:${w}px;height:${h}px;background:${bg};color:${fg}"><div class="ct" style="font-size:${w > 90 ? 14 : 11}px">${esc(b.title)}</div><div class="ca">${esc(b.author.split(" and ")[0])}</div><img src="gs-mark.png" alt="">${b.pick && b.source === "brett" ? '<span class="rib">PICK</span>' : ""}</div>`;
+  return `<div class="cover ${b.pick && (b.source === "gameshape" || b.source === "brett") ? "pk" : ""}" style="width:${w}px;height:${h}px;background:${bg};color:${fg}"><div class="ct" style="font-size:${w > 90 ? 14 : 11}px">${esc(b.title)}</div><div class="ca">${esc(b.author.split(" and ")[0])}</div><img src="gs-mark.png" alt="">${b.pick && (b.source === "gameshape" || b.source === "brett") ? '<span class="rib">PICK</span>' : ""}</div>`;
 }
 function catName(c) { return c === "community" ? "Community" : (BOOKDATA.categories || {})[c] || c; }
 function shelfOf(id) { return (R().shelf || {})[id] || ""; }
@@ -2547,7 +2688,7 @@ function filterBooks() {
   const q = RUI.q.trim().toLowerCase(), rd = R();
   return allBooks().filter(b => {
     if (RUI.shelf !== "all" && shelfOf(b.id) !== RUI.shelf) return false;
-    if (RUI.chip === "picks" && !(b.pick && b.source === "brett")) return false;
+    if (RUI.chip === "picks" && !(b.pick && (b.source === "gameshape" || b.source === "brett"))) return false;
     if (RUI.chip === "audio" && !b.audiobook) return false;
     if (RUI.chip === "community" && b.source !== "community") return false;
     if (!["all", "picks", "audio", "community"].includes(RUI.chip) && b.category !== RUI.chip) return false;
@@ -2577,8 +2718,8 @@ function renderReads() {
     <div class="grid2" style="margin-top:12px"><button class="btn primary sm" data-act="readMin" data-v="10">+10 min</button><button class="btn sm" data-act="readPct" data-v="10">+10% progress</button><button class="btn sm" data-act="book" data-id="${cur.id}">Notes + rate</button><button class="btn sm" data-act="finishBook">Finished it</button></div></div>`;
   } else o += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading</div><h2 style="margin-top:8px">Pick your next read</h2><div class="small muted">Tap any book, then "Start reading." Minutes you log here count toward your 9:00 PM wind-down and the Bookworm badge.</div></div>`;
   const picks = (BOOKDATA.books || []).filter(b => b.pick && (rd.spicy || b.category !== "romance") && !(rd.hidden || []).includes(b.id));
-  o += `<div class="card"><h2 class="brand">Brett's Picks</h2><div class="carousel">${picks.map(b => `<button class="cv" data-act="book" data-id="${b.id}">${coverHTML(b, 96)}</button>`).join("")}</div></div>`;
-  const chips = [["all", "All"], ["picks", "Brett's Picks"], ["audio", "Audiobooks"], ["community", "Community"], ...Object.entries(BOOKDATA.categories || {}).filter(([k]) => rd.spicy || k !== "romance")];
+  o += `<div class="card"><h2 class="brand">Game Shape Picks</h2><div class="carousel">${picks.map(b => `<button class="cv" data-act="book" data-id="${b.id}">${coverHTML(b, 96)}</button>`).join("")}</div></div>`;
+  const chips = [["all", "All"], ["picks", "Game Shape Picks"], ["audio", "Audiobooks"], ["community", "Community"], ...Object.entries(BOOKDATA.categories || {}).filter(([k]) => rd.spicy || k !== "romance")];
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Library</h2><span class="small muted" id="readCount"></span></div>
   <input type="search" id="readSearch" placeholder="Search title, author, or topic" value="${esc(RUI.q)}" style="margin:12px 0 10px">
   <div class="chiprow">${chips.map(c => `<button class="chip ${RUI.chip === c[0] ? "on" : ""}" data-act="rchip" data-v="${c[0]}">${esc(c[1])}</button>`).join("")}</div>

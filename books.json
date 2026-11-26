@@ -1,11 +1,15 @@
 {
- "version": "2026-11-23",
+ "version": "2026-11-26",
  "categories": {
   "mindset": "Mindset + Motivation",
   "discipline": "Discipline + Mental Toughness",
+  "faith": "Faith + Christian Living",
+  "happiness": "Health + Happiness",
+  "sports": "Sports + Winning Mindset",
+  "comeback": "Comebacks + Overcoming Adversity",
   "masculinity": "Masculinity, Purpose + Relationships",
-  "sales": "Sales, Business + Leadership",
   "money": "Money, Wealth + Investing",
+  "sales": "Sales, Business + Leadership",
   "training": "Training, Muscle + Performance",
   "body": "Understand Your Body",
   "nutrition": "Nutrition + Fat Loss",
@@ -43,7 +47,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Miracle+Morning+Hal+Elrod",
     "audible": "https://www.audible.com/search?keywords=The+Miracle+Morning+Hal+Elrod"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -73,7 +77,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Atomic+Habits+James+Clear",
     "audible": "https://www.audible.com/search?keywords=Atomic+Habits+James+Clear"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -103,7 +107,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+5+AM+Club+Robin+Sharma",
     "audible": "https://www.audible.com/search?keywords=The+5+AM+Club+Robin+Sharma"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -133,7 +137,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Power+of+Habit+Charles+Duhigg",
     "audible": "https://www.audible.com/search?keywords=The+Power+of+Habit+Charles+Duhigg"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -163,7 +167,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Man%27s+Search+for+Meaning+Viktor+E.+Frankl",
     "audible": "https://www.audible.com/search?keywords=Man%27s+Search+for+Meaning+Viktor+E.+Frankl"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -193,7 +197,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Can%27t+Hurt+Me+David+Goggins",
     "audible": "https://www.audible.com/search?keywords=Can%27t+Hurt+Me+David+Goggins"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -223,7 +227,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Never+Finished+David+Goggins",
     "audible": "https://www.audible.com/search?keywords=Never+Finished+David+Goggins"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -253,7 +257,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Extreme+Ownership+Jocko+Willink+and+Leif+Babin",
     "audible": "https://www.audible.com/search?keywords=Extreme+Ownership+Jocko+Willink+and+Leif+Babin"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -283,7 +287,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Obstacle+Is+the+Way+Ryan+Holiday",
     "audible": "https://www.audible.com/search?keywords=The+Obstacle+Is+the+Way+Ryan+Holiday"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -313,7 +317,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Discipline+Is+Destiny+Ryan+Holiday",
     "audible": "https://www.audible.com/search?keywords=Discipline+Is+Destiny+Ryan+Holiday"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -343,7 +347,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Relentless+Tim+S.+Grover",
     "audible": "https://www.audible.com/search?keywords=Relentless+Tim+S.+Grover"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -372,7 +376,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+War+of+Art+Steven+Pressfield",
     "audible": "https://www.audible.com/search?keywords=The+War+of+Art+Steven+Pressfield"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -402,7 +406,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Make+Your+Bed+William+H.+McRaven",
     "audible": "https://www.audible.com/search?keywords=Make+Your+Bed+William+H.+McRaven"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -432,7 +436,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Way+of+the+Superior+Man+David+Deida",
     "audible": "https://www.audible.com/search?keywords=The+Way+of+the+Superior+Man+David+Deida"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -462,7 +466,7 @@
     "goodreads": "https://www.goodreads.com/search?q=King%2C+Warrior%2C+Magician%2C+Lover+Robert+Moore+and+Douglas+Gillette",
     "audible": "https://www.audible.com/search?keywords=King%2C+Warrior%2C+Magician%2C+Lover+Robert+Moore+and+Douglas+Gillette"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -492,7 +496,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Masculine+in+Relationship+GS+Youngblood",
     "audible": "https://www.audible.com/search?keywords=The+Masculine+in+Relationship+GS+Youngblood"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -522,7 +526,7 @@
     "goodreads": "https://www.goodreads.com/search?q=No+More+Mr.+Nice+Guy+Robert+A.+Glover",
     "audible": "https://www.audible.com/search?keywords=No+More+Mr.+Nice+Guy+Robert+A.+Glover"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -552,7 +556,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Wild+at+Heart+John+Eldredge",
     "audible": "https://www.audible.com/search?keywords=Wild+at+Heart+John+Eldredge"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -582,7 +586,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Seven+Principles+for+Making+Marriage+Work+John+M.+Gottman+and+Nan+Silver",
     "audible": "https://www.audible.com/search?keywords=The+Seven+Principles+for+Making+Marriage+Work+John+M.+Gottman+and+Nan+Silver"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -612,7 +616,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Hold+Me+Tight+Sue+Johnson",
     "audible": "https://www.audible.com/search?keywords=Hold+Me+Tight+Sue+Johnson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -642,7 +646,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Strong+Fathers%2C+Strong+Daughters+Meg+Meeker",
     "audible": "https://www.audible.com/search?keywords=Strong+Fathers%2C+Strong+Daughters+Meg+Meeker"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -672,7 +676,7 @@
     "goodreads": "https://www.goodreads.com/search?q=SPIN+Selling+Neil+Rackham",
     "audible": "https://www.audible.com/search?keywords=SPIN+Selling+Neil+Rackham"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -702,7 +706,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Challenger+Sale+Matthew+Dixon+and+Brent+Adamson",
     "audible": "https://www.audible.com/search?keywords=The+Challenger+Sale+Matthew+Dixon+and+Brent+Adamson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -732,7 +736,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Gap+Selling+Keenan",
     "audible": "https://www.audible.com/search?keywords=Gap+Selling+Keenan"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -762,7 +766,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Never+Split+the+Difference+Chris+Voss",
     "audible": "https://www.audible.com/search?keywords=Never+Split+the+Difference+Chris+Voss"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -792,7 +796,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Fanatical+Prospecting+Jeb+Blount",
     "audible": "https://www.audible.com/search?keywords=Fanatical+Prospecting+Jeb+Blount"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -822,7 +826,7 @@
     "goodreads": "https://www.goodreads.com/search?q=How+to+Win+Friends+and+Influence+People+Dale+Carnegie",
     "audible": "https://www.audible.com/search?keywords=How+to+Win+Friends+and+Influence+People+Dale+Carnegie"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -852,7 +856,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Influence+Robert+B.+Cialdini",
     "audible": "https://www.audible.com/search?keywords=Influence+Robert+B.+Cialdini"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -882,7 +886,7 @@
     "goodreads": "https://www.goodreads.com/search?q=%24100M+Offers+Alex+Hormozi",
     "audible": "https://www.audible.com/search?keywords=%24100M+Offers+Alex+Hormozi"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -912,7 +916,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Good+to+Great+Jim+Collins",
     "audible": "https://www.audible.com/search?keywords=Good+to+Great+Jim+Collins"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -942,7 +946,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Simple+Path+to+Wealth+JL+Collins",
     "audible": "https://www.audible.com/search?keywords=The+Simple+Path+to+Wealth+JL+Collins"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -972,7 +976,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Psychology+of+Money+Morgan+Housel",
     "audible": "https://www.audible.com/search?keywords=The+Psychology+of+Money+Morgan+Housel"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1002,7 +1006,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Millionaire+Next+Door+Thomas+J.+Stanley+and+William+D.+Danko",
     "audible": "https://www.audible.com/search?keywords=The+Millionaire+Next+Door+Thomas+J.+Stanley+and+William+D.+Danko"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1032,7 +1036,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Little+Book+of+Common+Sense+Investing+John+C.+Bogle",
     "audible": "https://www.audible.com/search?keywords=The+Little+Book+of+Common+Sense+Investing+John+C.+Bogle"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1062,7 +1066,7 @@
     "goodreads": "https://www.goodreads.com/search?q=I+Will+Teach+You+to+Be+Rich+Ramit+Sethi",
     "audible": "https://www.audible.com/search?keywords=I+Will+Teach+You+to+Be+Rich+Ramit+Sethi"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1092,7 +1096,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Die+With+Zero+Bill+Perkins",
     "audible": "https://www.audible.com/search?keywords=Die+With+Zero+Bill+Perkins"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1122,7 +1126,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Rich+Dad+Poor+Dad+Robert+T.+Kiyosaki",
     "audible": "https://www.audible.com/search?keywords=Rich+Dad+Poor+Dad+Robert+T.+Kiyosaki"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1151,7 +1155,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Intelligent+Investor+Benjamin+Graham",
     "audible": "https://www.audible.com/search?keywords=The+Intelligent+Investor+Benjamin+Graham"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1181,7 +1185,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Total+Money+Makeover+Dave+Ramsey",
     "audible": "https://www.audible.com/search?keywords=The+Total+Money+Makeover+Dave+Ramsey"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1211,7 +1215,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Richest+Man+in+Babylon+George+S.+Clason",
     "audible": "https://www.audible.com/search?keywords=The+Richest+Man+in+Babylon+George+S.+Clason"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1240,7 +1244,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Starting+Strength+Mark+Rippetoe",
     "audible": "https://www.audible.com/search?keywords=Starting+Strength+Mark+Rippetoe"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1270,7 +1274,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Bigger+Leaner+Stronger+Michael+Matthews",
     "audible": "https://www.audible.com/search?keywords=Bigger+Leaner+Stronger+Michael+Matthews"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1299,7 +1303,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Becoming+a+Supple+Leopard+Kelly+Starrett",
     "audible": "https://www.audible.com/search?keywords=Becoming+a+Supple+Leopard+Kelly+Starrett"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1329,7 +1333,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Built+to+Move+Kelly+Starrett+and+Juliet+Starrett",
     "audible": "https://www.audible.com/search?keywords=Built+to+Move+Kelly+Starrett+and+Juliet+Starrett"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1359,7 +1363,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Born+to+Run+Christopher+McDougall",
     "audible": "https://www.audible.com/search?keywords=Born+to+Run+Christopher+McDougall"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1389,7 +1393,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Outlive+Peter+Attia",
     "audible": "https://www.audible.com/search?keywords=Outlive+Peter+Attia"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1418,7 +1422,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Back+Mechanic+Stuart+McGill",
     "audible": "https://www.audible.com/search?keywords=Back+Mechanic+Stuart+McGill"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1448,7 +1452,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Healing+Back+Pain+John+E.+Sarno",
     "audible": "https://www.audible.com/search?keywords=Healing+Back+Pain+John+E.+Sarno"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1478,7 +1482,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Breath+James+Nestor",
     "audible": "https://www.audible.com/search?keywords=Breath+James+Nestor"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1508,7 +1512,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Body%3A+A+Guide+for+Occupants+Bill+Bryson",
     "audible": "https://www.audible.com/search?keywords=The+Body%3A+A+Guide+for+Occupants+Bill+Bryson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1538,7 +1542,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Why+We+Get+Sick+Benjamin+Bikman",
     "audible": "https://www.audible.com/search?keywords=Why+We+Get+Sick+Benjamin+Bikman"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1568,7 +1572,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Good+Energy+Casey+Means",
     "audible": "https://www.audible.com/search?keywords=Good+Energy+Casey+Means"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1598,7 +1602,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Burn+Herman+Pontzer",
     "audible": "https://www.audible.com/search?keywords=Burn+Herman+Pontzer"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1627,7 +1631,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Fat+Loss+Forever+Layne+Norton+and+Peter+Baker",
     "audible": "https://www.audible.com/search?keywords=Fat+Loss+Forever+Layne+Norton+and+Peter+Baker"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1657,7 +1661,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Ultra-Processed+People+Chris+van+Tulleken",
     "audible": "https://www.audible.com/search?keywords=Ultra-Processed+People+Chris+van+Tulleken"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1687,7 +1691,7 @@
     "goodreads": "https://www.goodreads.com/search?q=In+Defense+of+Food+Michael+Pollan",
     "audible": "https://www.audible.com/search?keywords=In+Defense+of+Food+Michael+Pollan"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1717,7 +1721,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Glucose+Revolution+Jessie+Inchausp%C3%A9",
     "audible": "https://www.audible.com/search?keywords=Glucose+Revolution+Jessie+Inchausp%C3%A9"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1746,7 +1750,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Why+We+Sleep+Matthew+Walker",
     "audible": "https://www.audible.com/search?keywords=Why+We+Sleep+Matthew+Walker"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1776,7 +1780,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Sleep+Smarter+Shawn+Stevenson",
     "audible": "https://www.audible.com/search?keywords=Sleep+Smarter+Shawn+Stevenson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1806,7 +1810,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Stillness+Is+the+Key+Ryan+Holiday",
     "audible": "https://www.audible.com/search?keywords=Stillness+Is+the+Key+Ryan+Holiday"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1836,7 +1840,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Body+Keeps+the+Score+Bessel+van+der+Kolk",
     "audible": "https://www.audible.com/search?keywords=The+Body+Keeps+the+Score+Bessel+van+der+Kolk"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1866,7 +1870,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Shoe+Dog+Phil+Knight",
     "audible": "https://www.audible.com/search?keywords=Shoe+Dog+Phil+Knight"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -1895,7 +1899,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Mamba+Mentality+Kobe+Bryant",
     "audible": "https://www.audible.com/search?keywords=The+Mamba+Mentality+Kobe+Bryant"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1925,7 +1929,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Eleven+Rings+Phil+Jackson",
     "audible": "https://www.audible.com/search?keywords=Eleven+Rings+Phil+Jackson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1955,7 +1959,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Open+Andre+Agassi",
     "audible": "https://www.audible.com/search?keywords=Open+Andre+Agassi"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -1985,7 +1989,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Steve+Jobs+Walter+Isaacson",
     "audible": "https://www.audible.com/search?keywords=Steve+Jobs+Walter+Isaacson"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2015,7 +2019,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Greenlights+Matthew+McConaughey",
     "audible": "https://www.audible.com/search?keywords=Greenlights+Matthew+McConaughey"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2045,7 +2049,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Ride+of+a+Lifetime+Robert+Iger",
     "audible": "https://www.audible.com/search?keywords=The+Ride+of+a+Lifetime+Robert+Iger"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2075,7 +2079,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Band+of+Brothers+Stephen+E.+Ambrose",
     "audible": "https://www.audible.com/search?keywords=Band+of+Brothers+Stephen+E.+Ambrose"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2105,7 +2109,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Unbroken+Laura+Hillenbrand",
     "audible": "https://www.audible.com/search?keywords=Unbroken+Laura+Hillenbrand"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2135,7 +2139,7 @@
     "goodreads": "https://www.goodreads.com/search?q=With+the+Old+Breed+E.B.+Sledge",
     "audible": "https://www.audible.com/search?keywords=With+the+Old+Breed+E.B.+Sledge"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2165,7 +2169,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Endurance+Alfred+Lansing",
     "audible": "https://www.audible.com/search?keywords=Endurance+Alfred+Lansing"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2195,7 +2199,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Boys+in+the+Boat+Daniel+James+Brown",
     "audible": "https://www.audible.com/search?keywords=The+Boys+in+the+Boat+Daniel+James+Brown"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2225,7 +2229,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Lone+Survivor+Marcus+Luttrell",
     "audible": "https://www.audible.com/search?keywords=Lone+Survivor+Marcus+Luttrell"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2255,7 +2259,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Gates+of+Fire+Steven+Pressfield",
     "audible": "https://www.audible.com/search?keywords=Gates+of+Fire+Steven+Pressfield"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2285,7 +2289,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Art+of+War+Sun+Tzu",
     "audible": "https://www.audible.com/search?keywords=The+Art+of+War+Sun+Tzu"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2315,7 +2319,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Meditations+Marcus+Aurelius",
     "audible": "https://www.audible.com/search?keywords=Meditations+Marcus+Aurelius"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2345,7 +2349,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+48+Laws+of+Power+Robert+Greene",
     "audible": "https://www.audible.com/search?keywords=The+48+Laws+of+Power+Robert+Greene"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2375,7 +2379,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Ego+Is+the+Enemy+Ryan+Holiday",
     "audible": "https://www.audible.com/search?keywords=Ego+Is+the+Enemy+Ryan+Holiday"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2405,7 +2409,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Fourth+Wing+Rebecca+Yarros",
     "audible": "https://www.audible.com/search?keywords=Fourth+Wing+Rebecca+Yarros"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2435,7 +2439,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Iron+Flame+Rebecca+Yarros",
     "audible": "https://www.audible.com/search?keywords=Iron+Flame+Rebecca+Yarros"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2465,7 +2469,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Onyx+Storm+Rebecca+Yarros",
     "audible": "https://www.audible.com/search?keywords=Onyx+Storm+Rebecca+Yarros"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2495,7 +2499,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Threshing+Day+Rebecca+Yarros",
     "audible": "https://www.audible.com/search?keywords=Threshing+Day+Rebecca+Yarros"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": true
   },
   {
@@ -2525,7 +2529,7 @@
     "goodreads": "https://www.goodreads.com/search?q=A+Court+of+Thorns+and+Roses+Sarah+J.+Maas",
     "audible": "https://www.audible.com/search?keywords=A+Court+of+Thorns+and+Roses+Sarah+J.+Maas"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2555,7 +2559,7 @@
     "goodreads": "https://www.goodreads.com/search?q=A+Court+of+Mist+and+Fury+Sarah+J.+Maas",
     "audible": "https://www.audible.com/search?keywords=A+Court+of+Mist+and+Fury+Sarah+J.+Maas"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2585,7 +2589,7 @@
     "goodreads": "https://www.goodreads.com/search?q=House+of+Earth+and+Blood+Sarah+J.+Maas",
     "audible": "https://www.audible.com/search?keywords=House+of+Earth+and+Blood+Sarah+J.+Maas"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2615,7 +2619,7 @@
     "goodreads": "https://www.goodreads.com/search?q=The+Serpent+and+the+Wings+of+Night+Carissa+Broadbent",
     "audible": "https://www.audible.com/search?keywords=The+Serpent+and+the+Wings+of+Night+Carissa+Broadbent"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2645,7 +2649,7 @@
     "goodreads": "https://www.goodreads.com/search?q=From+Blood+and+Ash+Jennifer+L.+Armentrout",
     "audible": "https://www.audible.com/search?keywords=From+Blood+and+Ash+Jennifer+L.+Armentrout"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2675,7 +2679,7 @@
     "goodreads": "https://www.goodreads.com/search?q=Powerless+Lauren+Roberts",
     "audible": "https://www.audible.com/search?keywords=Powerless+Lauren+Roberts"
    },
-   "source": "brett",
+   "source": "gameshape",
    "pick": false
   },
   {
@@ -2705,7 +2709,3904 @@
     "goodreads": "https://www.goodreads.com/search?q=Quicksilver+Callie+Hart",
     "audible": "https://www.audible.com/search?keywords=Quicksilver+Callie+Hart"
    },
-   "source": "brett",
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-purpose-driven-life",
+   "title": "The Purpose Driven Life",
+   "author": "Rick Warren",
+   "year": 2002,
+   "category": "faith",
+   "tags": [
+    "purpose",
+    "40 days",
+    "audiobook"
+   ],
+   "why": "Forty short daily readings on what you were made for. One chapter a day fits a morning routine.",
+   "readIf": "Read this if you want a daily faith habit that sticks.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Purpose+Driven+Life+Rick+Warren&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Purpose+Driven+Life+Rick+Warren",
+    "goodreads": "https://www.goodreads.com/search?q=The+Purpose+Driven+Life+Rick+Warren",
+    "audible": "https://www.audible.com/search?keywords=The+Purpose+Driven+Life+Rick+Warren"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "mere-christianity",
+   "title": "Mere Christianity",
+   "author": "C.S. Lewis",
+   "year": 1952,
+   "category": "faith",
+   "tags": [
+    "classic",
+    "apologetics",
+    "audiobook"
+   ],
+   "why": "A clear, logical case for the core of the Christian faith from one of the sharpest writers ever.",
+   "readIf": "Read this if you like to think your faith all the way through.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Mere+Christianity+C.S.+Lewis&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Mere+Christianity+C.S.+Lewis",
+    "goodreads": "https://www.goodreads.com/search?q=Mere+Christianity+C.S.+Lewis",
+    "audible": "https://www.audible.com/search?keywords=Mere+Christianity+C.S.+Lewis"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "the-screwtape-letters",
+   "title": "The Screwtape Letters",
+   "author": "C.S. Lewis",
+   "year": 1942,
+   "category": "faith",
+   "tags": [
+    "classic",
+    "temptation",
+    "audiobook"
+   ],
+   "why": "Letters from a senior demon coaching a junior one. Funny, sharp, and convicting about everyday temptation.",
+   "readIf": "Read this if you want faith lessons that read like a story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mere Christianity",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Screwtape+Letters+C.S.+Lewis&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Screwtape+Letters+C.S.+Lewis",
+    "goodreads": "https://www.goodreads.com/search?q=The+Screwtape+Letters+C.S.+Lewis",
+    "audible": "https://www.audible.com/search?keywords=The+Screwtape+Letters+C.S.+Lewis"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-ruthless-elimination-of-hurry",
+   "title": "The Ruthless Elimination of Hurry",
+   "author": "John Mark Comer",
+   "year": 2019,
+   "category": "faith",
+   "tags": [
+    "rest",
+    "busy life",
+    "audiobook"
+   ],
+   "why": "Why a hurried life crowds out peace, and simple practices to slow down and stay present.",
+   "readIf": "Read this if work, kids, and ball have you running nonstop.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Ruthless+Elimination+of+Hurry+John+Mark+Comer&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Ruthless+Elimination+of+Hurry+John+Mark+Comer",
+    "goodreads": "https://www.goodreads.com/search?q=The+Ruthless+Elimination+of+Hurry+John+Mark+Comer",
+    "audible": "https://www.audible.com/search?keywords=The+Ruthless+Elimination+of+Hurry+John+Mark+Comer"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "crazy-love",
+   "title": "Crazy Love",
+   "author": "Francis Chan",
+   "year": 2008,
+   "category": "faith",
+   "tags": [
+    "devotion",
+    "challenge",
+    "audiobook"
+   ],
+   "why": "A direct challenge to stop living a lukewarm faith and go all in.",
+   "readIf": "Read this if you want a gut-check on how you live it out.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Crazy+Love+Francis+Chan&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Crazy+Love+Francis+Chan",
+    "goodreads": "https://www.goodreads.com/search?q=Crazy+Love+Francis+Chan",
+    "audible": "https://www.audible.com/search?keywords=Crazy+Love+Francis+Chan"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "gentle-and-lowly",
+   "title": "Gentle and Lowly",
+   "author": "Dane Ortlund",
+   "year": 2020,
+   "category": "faith",
+   "tags": [
+    "grace",
+    "encouragement",
+    "audiobook"
+   ],
+   "why": "A short, warm look at the heart of Jesus toward people who are struggling.",
+   "readIf": "Read this if you are hard on yourself and need grace.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Gentle+and+Lowly+Dane+Ortlund&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Gentle+and+Lowly+Dane+Ortlund",
+    "goodreads": "https://www.goodreads.com/search?q=Gentle+and+Lowly+Dane+Ortlund",
+    "audible": "https://www.audible.com/search?keywords=Gentle+and+Lowly+Dane+Ortlund"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-case-for-christ",
+   "title": "The Case for Christ",
+   "author": "Lee Strobel",
+   "year": 1998,
+   "category": "faith",
+   "tags": [
+    "evidence",
+    "journalist",
+    "audiobook"
+   ],
+   "why": "An atheist legal journalist investigates the evidence for Jesus like a court case.",
+   "readIf": "Read this if you or a buddy have real questions.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mere Christianity",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Case+for+Christ+Lee+Strobel&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Case+for+Christ+Lee+Strobel",
+    "goodreads": "https://www.goodreads.com/search?q=The+Case+for+Christ+Lee+Strobel",
+    "audible": "https://www.audible.com/search?keywords=The+Case+for+Christ+Lee+Strobel"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-reason-for-god",
+   "title": "The Reason for God",
+   "author": "Timothy Keller",
+   "year": 2008,
+   "category": "faith",
+   "tags": [
+    "apologetics",
+    "doubt",
+    "audiobook"
+   ],
+   "why": "Thoughtful answers to the biggest objections people raise about faith.",
+   "readIf": "Read this if you want to talk faith with skeptics.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mere Christianity",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Reason+for+God+Timothy+Keller&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Reason+for+God+Timothy+Keller",
+    "goodreads": "https://www.goodreads.com/search?q=The+Reason+for+God+Timothy+Keller",
+    "audible": "https://www.audible.com/search?keywords=The+Reason+for+God+Timothy+Keller"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-prodigal-god",
+   "title": "The Prodigal God",
+   "author": "Timothy Keller",
+   "year": 2008,
+   "category": "faith",
+   "tags": [
+    "grace",
+    "short read",
+    "audiobook"
+   ],
+   "why": "A fresh take on the prodigal son story. Short enough to finish in a weekend.",
+   "readIf": "Read this if you want a quick read that hits deep.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Prodigal+God+Timothy+Keller&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Prodigal+God+Timothy+Keller",
+    "goodreads": "https://www.goodreads.com/search?q=The+Prodigal+God+Timothy+Keller",
+    "audible": "https://www.audible.com/search?keywords=The+Prodigal+God+Timothy+Keller"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "winning-the-war-in-your-mind",
+   "title": "Winning the War in Your Mind",
+   "author": "Craig Groeschel",
+   "year": 2021,
+   "category": "faith",
+   "tags": [
+    "thoughts",
+    "anxiety",
+    "audiobook"
+   ],
+   "why": "Practical, faith-based tools to change the thought loops that hold you back.",
+   "readIf": "Read this if negative self-talk follows you around.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Winning+the+War+in+Your+Mind+Craig+Groeschel&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Winning+the+War+in+Your+Mind+Craig+Groeschel",
+    "goodreads": "https://www.goodreads.com/search?q=Winning+the+War+in+Your+Mind+Craig+Groeschel",
+    "audible": "https://www.audible.com/search?keywords=Winning+the+War+in+Your+Mind+Craig+Groeschel"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "the-circle-maker",
+   "title": "The Circle Maker",
+   "author": "Mark Batterson",
+   "year": 2011,
+   "category": "faith",
+   "tags": [
+    "prayer",
+    "big goals",
+    "audiobook"
+   ],
+   "why": "How to pray bold, specific prayers and keep at it.",
+   "readIf": "Read this if you want a stronger prayer life.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Circle+Maker+Mark+Batterson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Circle+Maker+Mark+Batterson",
+    "goodreads": "https://www.goodreads.com/search?q=The+Circle+Maker+Mark+Batterson",
+    "audible": "https://www.audible.com/search?keywords=The+Circle+Maker+Mark+Batterson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "win-the-day",
+   "title": "Win the Day",
+   "author": "Mark Batterson",
+   "year": 2020,
+   "category": "faith",
+   "tags": [
+    "habits",
+    "daily",
+    "audiobook"
+   ],
+   "why": "Seven daily habits to stop worrying about tomorrow and win today.",
+   "readIf": "Read this if you like the Game Shape idea of winning each day.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Circle Maker",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Win+the+Day+Mark+Batterson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Win+the+Day+Mark+Batterson",
+    "goodreads": "https://www.goodreads.com/search?q=Win+the+Day+Mark+Batterson",
+    "audible": "https://www.audible.com/search?keywords=Win+the+Day+Mark+Batterson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "boundaries",
+   "title": "Boundaries",
+   "author": "Henry Cloud and John Townsend",
+   "year": 1992,
+   "category": "faith",
+   "tags": [
+    "relationships",
+    "saying no",
+    "audiobook"
+   ],
+   "why": "When to say yes and how to say no, from a faith perspective.",
+   "readIf": "Read this if you overcommit and burn out.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Boundaries+Henry+Cloud+and+John+Townsend&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Boundaries+Henry+Cloud+and+John+Townsend",
+    "goodreads": "https://www.goodreads.com/search?q=Boundaries+Henry+Cloud+and+John+Townsend",
+    "audible": "https://www.audible.com/search?keywords=Boundaries+Henry+Cloud+and+John+Townsend"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "celebration-of-discipline",
+   "title": "Celebration of Discipline",
+   "author": "Richard J. Foster",
+   "year": 1978,
+   "category": "faith",
+   "tags": [
+    "spiritual disciplines",
+    "classic"
+   ],
+   "why": "The classic guide to prayer, fasting, solitude, and other habits that grow your faith.",
+   "readIf": "Read this if you want spiritual training like you train your body.",
+   "bestFor": [],
+   "audiobook": false,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Celebration+of+Discipline+Richard+J.+Foster&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Celebration+of+Discipline+Richard+J.+Foster",
+    "goodreads": "https://www.goodreads.com/search?q=Celebration+of+Discipline+Richard+J.+Foster",
+    "audible": "https://www.audible.com/search?keywords=Celebration+of+Discipline+Richard+J.+Foster"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-pursuit-of-god",
+   "title": "The Pursuit of God",
+   "author": "A.W. Tozer",
+   "year": 1948,
+   "category": "faith",
+   "tags": [
+    "classic",
+    "devotion",
+    "audiobook"
+   ],
+   "why": "A short, fiery classic about chasing God first.",
+   "readIf": "Read this if you want old-school depth in few pages.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Pursuit+of+God+A.W.+Tozer&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Pursuit+of+God+A.W.+Tozer",
+    "goodreads": "https://www.goodreads.com/search?q=The+Pursuit+of+God+A.W.+Tozer",
+    "audible": "https://www.audible.com/search?keywords=The+Pursuit+of+God+A.W.+Tozer"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "point-man",
+   "title": "Point Man",
+   "author": "Steve Farrar",
+   "year": 1990,
+   "category": "faith",
+   "tags": [
+    "fatherhood",
+    "leadership",
+    "audiobook"
+   ],
+   "why": "How a husband and dad leads his family well through tough terrain.",
+   "readIf": "Read this if you want to lead at home with faith.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Wild at Heart",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Point+Man+Steve+Farrar&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Point+Man+Steve+Farrar",
+    "goodreads": "https://www.goodreads.com/search?q=Point+Man+Steve+Farrar",
+    "audible": "https://www.audible.com/search?keywords=Point+Man+Steve+Farrar"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "love-does",
+   "title": "Love Does",
+   "author": "Bob Goff",
+   "year": 2012,
+   "category": "faith",
+   "tags": [
+    "stories",
+    "joy",
+    "audiobook"
+   ],
+   "why": "Funny, wild true stories about faith that shows up as action.",
+   "readIf": "Read this if you want faith that feels fun and alive.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Love+Does+Bob+Goff&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Love+Does+Bob+Goff",
+    "goodreads": "https://www.goodreads.com/search?q=Love+Does+Bob+Goff",
+    "audible": "https://www.audible.com/search?keywords=Love+Does+Bob+Goff"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-bible-recap",
+   "title": "The Bible Recap",
+   "author": "Tara-Leigh Cobble",
+   "year": 2020,
+   "category": "faith",
+   "tags": [
+    "Bible in a year",
+    "daily",
+    "audiobook"
+   ],
+   "why": "A one-year companion that walks you through the Bible with a short recap each day.",
+   "readIf": "Read this if you want to finally read the whole Bible.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Bible+Recap+Tara-Leigh+Cobble&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Bible+Recap+Tara-Leigh+Cobble",
+    "goodreads": "https://www.goodreads.com/search?q=The+Bible+Recap+Tara-Leigh+Cobble",
+    "audible": "https://www.audible.com/search?keywords=The+Bible+Recap+Tara-Leigh+Cobble"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "uncommon",
+   "title": "Uncommon",
+   "author": "Tony Dungy",
+   "year": 2009,
+   "category": "faith",
+   "tags": [
+    "character",
+    "men",
+    "audiobook"
+   ],
+   "why": "A Super Bowl coach on integrity, faith, and living a life that matters.",
+   "readIf": "Read this if you want manhood lessons from a coach.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Quiet Strength",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Uncommon+Tony+Dungy&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Uncommon+Tony+Dungy",
+    "goodreads": "https://www.goodreads.com/search?q=Uncommon+Tony+Dungy",
+    "audible": "https://www.audible.com/search?keywords=Uncommon+Tony+Dungy"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "jesus-calling",
+   "title": "Jesus Calling",
+   "author": "Sarah Young",
+   "year": 2004,
+   "category": "faith",
+   "tags": [
+    "devotional",
+    "daily",
+    "audiobook"
+   ],
+   "why": "A one-page daily devotional for every day of the year.",
+   "readIf": "Read this if you only have two minutes before you leave.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Jesus+Calling+Sarah+Young&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Jesus+Calling+Sarah+Young",
+    "goodreads": "https://www.goodreads.com/search?q=Jesus+Calling+Sarah+Young",
+    "audible": "https://www.audible.com/search?keywords=Jesus+Calling+Sarah+Young"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "every-man-s-battle",
+   "title": "Every Man's Battle",
+   "author": "Stephen Arterburn and Fred Stoeker",
+   "year": 2000,
+   "category": "faith",
+   "tags": [
+    "purity",
+    "men",
+    "audiobook"
+   ],
+   "why": "An honest guide for men fighting temptation and staying faithful.",
+   "readIf": "Read this if you want straight talk on a real fight.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Wild at Heart",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Every+Man%27s+Battle+Stephen+Arterburn+and+Fred+Stoeker&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Every+Man%27s+Battle+Stephen+Arterburn+and+Fred+Stoeker",
+    "goodreads": "https://www.goodreads.com/search?q=Every+Man%27s+Battle+Stephen+Arterburn+and+Fred+Stoeker",
+    "audible": "https://www.audible.com/search?keywords=Every+Man%27s+Battle+Stephen+Arterburn+and+Fred+Stoeker"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "soul-keeping",
+   "title": "Soul Keeping",
+   "author": "John Ortberg",
+   "year": 2014,
+   "category": "faith",
+   "tags": [
+    "inner life",
+    "rest",
+    "audiobook"
+   ],
+   "why": "How to care for the part of you that a busy life wears down.",
+   "readIf": "Read this if you feel worn out on the inside.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Soul+Keeping+John+Ortberg&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Soul+Keeping+John+Ortberg",
+    "goodreads": "https://www.goodreads.com/search?q=Soul+Keeping+John+Ortberg",
+    "audible": "https://www.audible.com/search?keywords=Soul+Keeping+John+Ortberg"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-happiness-advantage",
+   "title": "The Happiness Advantage",
+   "author": "Shawn Achor",
+   "year": 2010,
+   "category": "happiness",
+   "tags": [
+    "positive psychology",
+    "work",
+    "audiobook"
+   ],
+   "why": "Research showing that happiness fuels success, not the other way around, plus easy daily habits.",
+   "readIf": "Read this if you want to feel better and perform better.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Happiness+Advantage+Shawn+Achor&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Happiness+Advantage+Shawn+Achor",
+    "goodreads": "https://www.goodreads.com/search?q=The+Happiness+Advantage+Shawn+Achor",
+    "audible": "https://www.audible.com/search?keywords=The+Happiness+Advantage+Shawn+Achor"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "the-comfort-crisis",
+   "title": "The Comfort Crisis",
+   "author": "Michael Easter",
+   "year": 2021,
+   "category": "happiness",
+   "tags": [
+    "discomfort",
+    "outdoors",
+    "audiobook"
+   ],
+   "why": "Why a little hardship, like cold, hunger, and long walks, makes modern people happier and tougher.",
+   "readIf": "Read this if you suspect easy living is making you soft.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Comfort+Crisis+Michael+Easter&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Comfort+Crisis+Michael+Easter",
+    "goodreads": "https://www.goodreads.com/search?q=The+Comfort+Crisis+Michael+Easter",
+    "audible": "https://www.audible.com/search?keywords=The+Comfort+Crisis+Michael+Easter"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "the-good-life",
+   "title": "The Good Life",
+   "author": "Robert Waldinger and Marc Schulz",
+   "year": 2023,
+   "category": "happiness",
+   "tags": [
+    "relationships",
+    "research",
+    "audiobook"
+   ],
+   "why": "Lessons from the longest study on happiness: relationships matter most.",
+   "readIf": "Read this if you want proof on what actually makes life good.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Good+Life+Robert+Waldinger+and+Marc+Schulz&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Good+Life+Robert+Waldinger+and+Marc+Schulz",
+    "goodreads": "https://www.goodreads.com/search?q=The+Good+Life+Robert+Waldinger+and+Marc+Schulz",
+    "audible": "https://www.audible.com/search?keywords=The+Good+Life+Robert+Waldinger+and+Marc+Schulz"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "10-happier",
+   "title": "10% Happier",
+   "author": "Dan Harris",
+   "year": 2014,
+   "category": "happiness",
+   "tags": [
+    "meditation",
+    "skeptic",
+    "audiobook"
+   ],
+   "why": "A news anchor's panic attack on live TV leads him to a no-nonsense take on meditation.",
+   "readIf": "Read this if you are skeptical of meditation but curious.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=10%25+Happier+Dan+Harris&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=10%25+Happier+Dan+Harris",
+    "goodreads": "https://www.goodreads.com/search?q=10%25+Happier+Dan+Harris",
+    "audible": "https://www.audible.com/search?keywords=10%25+Happier+Dan+Harris"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "spark",
+   "title": "Spark",
+   "author": "John J. Ratey",
+   "year": 2008,
+   "category": "happiness",
+   "tags": [
+    "exercise",
+    "brain",
+    "audiobook"
+   ],
+   "why": "How exercise boosts mood, focus, and memory. The why behind every workout.",
+   "readIf": "Read this if you want to know what training does for your mind.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Spark+John+J.+Ratey&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Spark+John+J.+Ratey",
+    "goodreads": "https://www.goodreads.com/search?q=Spark+John+J.+Ratey",
+    "audible": "https://www.audible.com/search?keywords=Spark+John+J.+Ratey"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "dopamine-nation",
+   "title": "Dopamine Nation",
+   "author": "Anna Lembke",
+   "year": 2021,
+   "category": "happiness",
+   "tags": [
+    "phones",
+    "balance",
+    "audiobook"
+   ],
+   "why": "Why the constant hits from phones, food, and screens leave us feeling worse, and how to reset.",
+   "readIf": "Read this if you cannot put the phone down.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Dopamine+Nation+Anna+Lembke&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Dopamine+Nation+Anna+Lembke",
+    "goodreads": "https://www.goodreads.com/search?q=Dopamine+Nation+Anna+Lembke",
+    "audible": "https://www.audible.com/search?keywords=Dopamine+Nation+Anna+Lembke"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-anxious-generation",
+   "title": "The Anxious Generation",
+   "author": "Jonathan Haidt",
+   "year": 2024,
+   "category": "happiness",
+   "tags": [
+    "parenting",
+    "phones",
+    "audiobook"
+   ],
+   "why": "How smartphones rewired childhood and what parents can do about it.",
+   "readIf": "Read this if you are raising kids in the phone era.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Anxious+Generation+Jonathan+Haidt&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Anxious+Generation+Jonathan+Haidt",
+    "goodreads": "https://www.goodreads.com/search?q=The+Anxious+Generation+Jonathan+Haidt",
+    "audible": "https://www.audible.com/search?keywords=The+Anxious+Generation+Jonathan+Haidt"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "four-thousand-weeks",
+   "title": "Four Thousand Weeks",
+   "author": "Oliver Burkeman",
+   "year": 2021,
+   "category": "happiness",
+   "tags": [
+    "time",
+    "perspective",
+    "audiobook"
+   ],
+   "why": "Life is about four thousand weeks long. A refreshing take on time that kills the guilt.",
+   "readIf": "Read this if your to-do list never ends.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Four+Thousand+Weeks+Oliver+Burkeman&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Four+Thousand+Weeks+Oliver+Burkeman",
+    "goodreads": "https://www.goodreads.com/search?q=Four+Thousand+Weeks+Oliver+Burkeman",
+    "audible": "https://www.audible.com/search?keywords=Four+Thousand+Weeks+Oliver+Burkeman"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "essentialism",
+   "title": "Essentialism",
+   "author": "Greg McKeown",
+   "year": 2014,
+   "category": "happiness",
+   "tags": [
+    "focus",
+    "priorities",
+    "audiobook"
+   ],
+   "why": "Do less, but better. A system for cutting what does not matter.",
+   "readIf": "Read this if you are spread too thin.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Essentialism+Greg+McKeown&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Essentialism+Greg+McKeown",
+    "goodreads": "https://www.goodreads.com/search?q=Essentialism+Greg+McKeown",
+    "audible": "https://www.audible.com/search?keywords=Essentialism+Greg+McKeown"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-four-agreements",
+   "title": "The Four Agreements",
+   "author": "Don Miguel Ruiz",
+   "year": 1997,
+   "category": "happiness",
+   "tags": [
+    "peace",
+    "short read",
+    "audiobook"
+   ],
+   "why": "Four simple rules for less drama and more peace.",
+   "readIf": "Read this if you want a quick, practical reset.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Four+Agreements+Don+Miguel+Ruiz&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Four+Agreements+Don+Miguel+Ruiz",
+    "goodreads": "https://www.goodreads.com/search?q=The+Four+Agreements+Don+Miguel+Ruiz",
+    "audible": "https://www.audible.com/search?keywords=The+Four+Agreements+Don+Miguel+Ruiz"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-gifts-of-imperfection",
+   "title": "The Gifts of Imperfection",
+   "author": "Brene Brown",
+   "year": 2010,
+   "category": "happiness",
+   "tags": [
+    "self-worth",
+    "courage",
+    "audiobook"
+   ],
+   "why": "Letting go of who you think you should be and living wholeheartedly.",
+   "readIf": "Read this if you chase approval more than you would like.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Gifts+of+Imperfection+Brene+Brown&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Gifts+of+Imperfection+Brene+Brown",
+    "goodreads": "https://www.goodreads.com/search?q=The+Gifts+of+Imperfection+Brene+Brown",
+    "audible": "https://www.audible.com/search?keywords=The+Gifts+of+Imperfection+Brene+Brown"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "digital-minimalism",
+   "title": "Digital Minimalism",
+   "author": "Cal Newport",
+   "year": 2019,
+   "category": "happiness",
+   "tags": [
+    "phones",
+    "focus",
+    "audiobook"
+   ],
+   "why": "A plan to take your time and attention back from screens.",
+   "readIf": "Read this if screen time is eating your evenings.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Dopamine Nation",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Digital+Minimalism+Cal+Newport&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Digital+Minimalism+Cal+Newport",
+    "goodreads": "https://www.goodreads.com/search?q=Digital+Minimalism+Cal+Newport",
+    "audible": "https://www.audible.com/search?keywords=Digital+Minimalism+Cal+Newport"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-blue-zones",
+   "title": "The Blue Zones",
+   "author": "Dan Buettner",
+   "year": 2008,
+   "category": "happiness",
+   "tags": [
+    "longevity",
+    "lifestyle",
+    "audiobook"
+   ],
+   "why": "What the longest-living people on earth eat, move, and believe.",
+   "readIf": "Read this if you want to stay strong for the long haul.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Outlive",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Blue+Zones+Dan+Buettner&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Blue+Zones+Dan+Buettner",
+    "goodreads": "https://www.goodreads.com/search?q=The+Blue+Zones+Dan+Buettner",
+    "audible": "https://www.audible.com/search?keywords=The+Blue+Zones+Dan+Buettner"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "ikigai",
+   "title": "Ikigai",
+   "author": "Hector Garcia and Francesc Miralles",
+   "year": 2016,
+   "category": "happiness",
+   "tags": [
+    "purpose",
+    "short read",
+    "audiobook"
+   ],
+   "why": "The Japanese idea of a reason to get up in the morning, and how to find yours.",
+   "readIf": "Read this if you want purpose in a small, easy read.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Blue Zones",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Ikigai+Hector+Garcia+and+Francesc+Miralles&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Ikigai+Hector+Garcia+and+Francesc+Miralles",
+    "goodreads": "https://www.goodreads.com/search?q=Ikigai+Hector+Garcia+and+Francesc+Miralles",
+    "audible": "https://www.audible.com/search?keywords=Ikigai+Hector+Garcia+and+Francesc+Miralles"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-let-them-theory",
+   "title": "The Let Them Theory",
+   "author": "Mel Robbins",
+   "year": 2024,
+   "category": "happiness",
+   "tags": [
+    "peace",
+    "relationships",
+    "audiobook"
+   ],
+   "why": "Stop trying to control other people and put that energy back into your own life.",
+   "readIf": "Read this if other people's choices live in your head.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Let+Them+Theory+Mel+Robbins&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Let+Them+Theory+Mel+Robbins",
+    "goodreads": "https://www.goodreads.com/search?q=The+Let+Them+Theory+Mel+Robbins",
+    "audible": "https://www.audible.com/search?keywords=The+Let+Them+Theory+Mel+Robbins"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-subtle-art-of-not-giving-a-f-ck",
+   "title": "The Subtle Art of Not Giving a F*ck",
+   "author": "Mark Manson",
+   "year": 2016,
+   "category": "happiness",
+   "tags": [
+    "perspective",
+    "blunt",
+    "audiobook"
+   ],
+   "why": "A blunt, funny guide to caring about fewer things that actually matter.",
+   "readIf": "Read this if you want self-help without the fluff.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Subtle+Art+of+Not+Giving+a+F%2Ack+Mark+Manson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Subtle+Art+of+Not+Giving+a+F%2Ack+Mark+Manson",
+    "goodreads": "https://www.goodreads.com/search?q=The+Subtle+Art+of+Not+Giving+a+F%2Ack+Mark+Manson",
+    "audible": "https://www.audible.com/search?keywords=The+Subtle+Art+of+Not+Giving+a+F%2Ack+Mark+Manson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-7-habits-of-highly-effective-people",
+   "title": "The 7 Habits of Highly Effective People",
+   "author": "Stephen R. Covey",
+   "year": 1989,
+   "category": "mindset",
+   "tags": [
+    "classic",
+    "effectiveness",
+    "audiobook"
+   ],
+   "why": "The classic framework for taking control of your life, work, and relationships.",
+   "readIf": "Read this if you want the foundation most other books build on.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+7+Habits+of+Highly+Effective+People+Stephen+R.+Covey&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+7+Habits+of+Highly+Effective+People+Stephen+R.+Covey",
+    "goodreads": "https://www.goodreads.com/search?q=The+7+Habits+of+Highly+Effective+People+Stephen+R.+Covey",
+    "audible": "https://www.audible.com/search?keywords=The+7+Habits+of+Highly+Effective+People+Stephen+R.+Covey"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "grit",
+   "title": "Grit",
+   "author": "Angela Duckworth",
+   "year": 2016,
+   "category": "mindset",
+   "tags": [
+    "perseverance",
+    "research",
+    "audiobook"
+   ],
+   "why": "Passion plus long-term persistence beats raw talent.",
+   "readIf": "Read this if you want proof that sticking with it pays.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Grit+Angela+Duckworth&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Grit+Angela+Duckworth",
+    "goodreads": "https://www.goodreads.com/search?q=Grit+Angela+Duckworth",
+    "audible": "https://www.audible.com/search?keywords=Grit+Angela+Duckworth"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "mindset",
+   "title": "Mindset",
+   "author": "Carol S. Dweck",
+   "year": 2006,
+   "category": "mindset",
+   "tags": [
+    "growth mindset",
+    "coaching",
+    "audiobook"
+   ],
+   "why": "The research behind fixed versus growth mindset.",
+   "readIf": "Read this if you coach kids, teams, or yourself.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Mindset+Carol+S.+Dweck&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Mindset+Carol+S.+Dweck",
+    "goodreads": "https://www.goodreads.com/search?q=Mindset+Carol+S.+Dweck",
+    "audible": "https://www.audible.com/search?keywords=Mindset+Carol+S.+Dweck"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-compound-effect",
+   "title": "The Compound Effect",
+   "author": "Darren Hardy",
+   "year": 2010,
+   "category": "mindset",
+   "tags": [
+    "consistency",
+    "small wins",
+    "audiobook"
+   ],
+   "why": "Small, smart choices repeated daily add up to huge results.",
+   "readIf": "Read this if you want the math behind checking the boxes daily.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Atomic Habits",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Compound+Effect+Darren+Hardy&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Compound+Effect+Darren+Hardy",
+    "goodreads": "https://www.goodreads.com/search?q=The+Compound+Effect+Darren+Hardy",
+    "audible": "https://www.audible.com/search?keywords=The+Compound+Effect+Darren+Hardy"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "tiny-habits",
+   "title": "Tiny Habits",
+   "author": "BJ Fogg",
+   "year": 2019,
+   "category": "mindset",
+   "tags": [
+    "habits",
+    "easy start",
+    "audiobook"
+   ],
+   "why": "A Stanford researcher's method for starting habits so small they cannot fail.",
+   "readIf": "Read this if big plans keep fizzling.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Atomic Habits",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Tiny+Habits+BJ+Fogg&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Tiny+Habits+BJ+Fogg",
+    "goodreads": "https://www.goodreads.com/search?q=Tiny+Habits+BJ+Fogg",
+    "audible": "https://www.audible.com/search?keywords=Tiny+Habits+BJ+Fogg"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-slight-edge",
+   "title": "The Slight Edge",
+   "author": "Jeff Olson",
+   "year": 2005,
+   "category": "mindset",
+   "tags": [
+    "consistency",
+    "daily",
+    "audiobook"
+   ],
+   "why": "Simple daily disciplines that look like nothing until they change everything.",
+   "readIf": "Read this if you want motivation to keep the streak alive.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Compound Effect",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Slight+Edge+Jeff+Olson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Slight+Edge+Jeff+Olson",
+    "goodreads": "https://www.goodreads.com/search?q=The+Slight+Edge+Jeff+Olson",
+    "audible": "https://www.audible.com/search?keywords=The+Slight+Edge+Jeff+Olson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-alchemist",
+   "title": "The Alchemist",
+   "author": "Paulo Coelho",
+   "year": 1988,
+   "category": "mindset",
+   "tags": [
+    "fable",
+    "dreams",
+    "audiobook"
+   ],
+   "why": "A short fable about chasing your dream and listening to your heart.",
+   "readIf": "Read this if you want inspiration in a story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Alchemist+Paulo+Coelho&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Alchemist+Paulo+Coelho",
+    "goodreads": "https://www.goodreads.com/search?q=The+Alchemist+Paulo+Coelho",
+    "audible": "https://www.audible.com/search?keywords=The+Alchemist+Paulo+Coelho"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "hidden-potential",
+   "title": "Hidden Potential",
+   "author": "Adam Grant",
+   "year": 2023,
+   "category": "mindset",
+   "tags": [
+    "growth",
+    "research",
+    "audiobook"
+   ],
+   "why": "How ordinary people achieve extraordinary things by building character skills.",
+   "readIf": "Read this if you think you are not naturally talented.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mindset",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Hidden+Potential+Adam+Grant&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Hidden+Potential+Adam+Grant",
+    "goodreads": "https://www.goodreads.com/search?q=Hidden+Potential+Adam+Grant",
+    "audible": "https://www.audible.com/search?keywords=Hidden+Potential+Adam+Grant"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "be-useful",
+   "title": "Be Useful",
+   "author": "Arnold Schwarzenegger",
+   "year": 2023,
+   "category": "mindset",
+   "tags": [
+    "vision",
+    "hard work",
+    "audiobook"
+   ],
+   "why": "Seven tools for life from a bodybuilder, movie star, and builder of goals.",
+   "readIf": "Read this if you want blunt advice from a legend of the gym.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Be+Useful+Arnold+Schwarzenegger&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Be+Useful+Arnold+Schwarzenegger",
+    "goodreads": "https://www.goodreads.com/search?q=Be+Useful+Arnold+Schwarzenegger",
+    "audible": "https://www.audible.com/search?keywords=Be+Useful+Arnold+Schwarzenegger"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-one-thing",
+   "title": "The ONE Thing",
+   "author": "Gary Keller and Jay Papasan",
+   "year": 2013,
+   "category": "mindset",
+   "tags": [
+    "focus",
+    "priorities",
+    "audiobook"
+   ],
+   "why": "Find the one thing that makes everything else easier or unnecessary.",
+   "readIf": "Read this if you are busy but not moving forward.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Essentialism",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+ONE+Thing+Gary+Keller+and+Jay+Papasan&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+ONE+Thing+Gary+Keller+and+Jay+Papasan",
+    "goodreads": "https://www.goodreads.com/search?q=The+ONE+Thing+Gary+Keller+and+Jay+Papasan",
+    "audible": "https://www.audible.com/search?keywords=The+ONE+Thing+Gary+Keller+and+Jay+Papasan"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "do-hard-things",
+   "title": "Do Hard Things",
+   "author": "Steve Magness",
+   "year": 2022,
+   "category": "mindset",
+   "tags": [
+    "toughness",
+    "science",
+    "audiobook"
+   ],
+   "why": "A smarter take on toughness: calm, flexible, and based on science, not yelling.",
+   "readIf": "Read this if you want toughness that lasts.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Can't Hurt Me",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Do+Hard+Things+Steve+Magness&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Do+Hard+Things+Steve+Magness",
+    "goodreads": "https://www.goodreads.com/search?q=Do+Hard+Things+Steve+Magness",
+    "audible": "https://www.audible.com/search?keywords=Do+Hard+Things+Steve+Magness"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "courage-is-calling",
+   "title": "Courage Is Calling",
+   "author": "Ryan Holiday",
+   "year": 2021,
+   "category": "mindset",
+   "tags": [
+    "stoicism",
+    "courage",
+    "audiobook"
+   ],
+   "why": "Stories of courage, and how to beat the fear that holds you back.",
+   "readIf": "Read this if you are on the edge of a big decision.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Obstacle Is the Way",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Courage+Is+Calling+Ryan+Holiday&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Courage+Is+Calling+Ryan+Holiday",
+    "goodreads": "https://www.goodreads.com/search?q=Courage+Is+Calling+Ryan+Holiday",
+    "audible": "https://www.audible.com/search?keywords=Courage+Is+Calling+Ryan+Holiday"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-energy-bus",
+   "title": "The Energy Bus",
+   "author": "Jon Gordon",
+   "year": 2007,
+   "category": "mindset",
+   "tags": [
+    "positivity",
+    "fable",
+    "audiobook"
+   ],
+   "why": "A quick fable with ten rules for bringing positive energy to work and home.",
+   "readIf": "Read this if you want a one-sitting boost.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Energy+Bus+Jon+Gordon&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Energy+Bus+Jon+Gordon",
+    "goodreads": "https://www.goodreads.com/search?q=The+Energy+Bus+Jon+Gordon",
+    "audible": "https://www.audible.com/search?keywords=The+Energy+Bus+Jon+Gordon"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "psycho-cybernetics",
+   "title": "Psycho-Cybernetics",
+   "author": "Maxwell Maltz",
+   "year": 1960,
+   "category": "mindset",
+   "tags": [
+    "self-image",
+    "classic",
+    "audiobook"
+   ],
+   "why": "How your self-image controls your results, and how to change it.",
+   "readIf": "Read this if you want the classic athletes and coaches quote.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Psycho-Cybernetics+Maxwell+Maltz&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Psycho-Cybernetics+Maxwell+Maltz",
+    "goodreads": "https://www.goodreads.com/search?q=Psycho-Cybernetics+Maxwell+Maltz",
+    "audible": "https://www.audible.com/search?keywords=Psycho-Cybernetics+Maxwell+Maltz"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "12-rules-for-life",
+   "title": "12 Rules for Life",
+   "author": "Jordan B. Peterson",
+   "year": 2018,
+   "category": "mindset",
+   "tags": [
+    "responsibility",
+    "meaning",
+    "audiobook"
+   ],
+   "why": "Rules for bringing order and meaning to your life, starting with standing up straight.",
+   "readIf": "Read this if you want a heavier, deeper read.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=12+Rules+for+Life+Jordan+B.+Peterson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=12+Rules+for+Life+Jordan+B.+Peterson",
+    "goodreads": "https://www.goodreads.com/search?q=12+Rules+for+Life+Jordan+B.+Peterson",
+    "audible": "https://www.audible.com/search?keywords=12+Rules+for+Life+Jordan+B.+Peterson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "mind-gym",
+   "title": "Mind Gym",
+   "author": "Gary Mack",
+   "year": 2001,
+   "category": "sports",
+   "tags": [
+    "mental game",
+    "short chapters",
+    "audiobook"
+   ],
+   "why": "Short chapters on the mental side of sports: confidence, focus, and pressure.",
+   "readIf": "Read this if you want a sharper head on the court.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Mind+Gym+Gary+Mack&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Mind+Gym+Gary+Mack",
+    "goodreads": "https://www.goodreads.com/search?q=Mind+Gym+Gary+Mack",
+    "audible": "https://www.audible.com/search?keywords=Mind+Gym+Gary+Mack"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "legacy",
+   "title": "Legacy",
+   "author": "James Kerr",
+   "year": 2013,
+   "category": "sports",
+   "tags": [
+    "team culture",
+    "All Blacks",
+    "audiobook"
+   ],
+   "why": "Fifteen leadership lessons from the All Blacks, the winningest team in sports.",
+   "readIf": "Read this if you lead a team or want to be a better teammate.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Legacy+James+Kerr&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Legacy+James+Kerr",
+    "goodreads": "https://www.goodreads.com/search?q=Legacy+James+Kerr",
+    "audible": "https://www.audible.com/search?keywords=Legacy+James+Kerr"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "wooden",
+   "title": "Wooden",
+   "author": "John Wooden and Steve Jamison",
+   "year": 1997,
+   "category": "sports",
+   "tags": [
+    "basketball",
+    "coaching",
+    "audiobook"
+   ],
+   "why": "Short reflections from the greatest college basketball coach on character and success.",
+   "readIf": "Read this if you love hoops and want timeless lessons.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Eleven Rings",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Wooden+John+Wooden+and+Steve+Jamison&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Wooden+John+Wooden+and+Steve+Jamison",
+    "goodreads": "https://www.goodreads.com/search?q=Wooden+John+Wooden+and+Steve+Jamison",
+    "audible": "https://www.audible.com/search?keywords=Wooden+John+Wooden+and+Steve+Jamison"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-inner-game-of-tennis",
+   "title": "The Inner Game of Tennis",
+   "author": "W. Timothy Gallwey",
+   "year": 1974,
+   "category": "sports",
+   "tags": [
+    "focus",
+    "flow",
+    "audiobook"
+   ],
+   "why": "The classic on getting out of your own head so your body can perform.",
+   "readIf": "Read this if you play tight when it matters.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mind Gym",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Inner+Game+of+Tennis+W.+Timothy+Gallwey&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Inner+Game+of+Tennis+W.+Timothy+Gallwey",
+    "goodreads": "https://www.goodreads.com/search?q=The+Inner+Game+of+Tennis+W.+Timothy+Gallwey",
+    "audible": "https://www.audible.com/search?keywords=The+Inner+Game+of+Tennis+W.+Timothy+Gallwey"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "chop-wood-carry-water",
+   "title": "Chop Wood Carry Water",
+   "author": "Joshua Medcalf",
+   "year": 2015,
+   "category": "sports",
+   "tags": [
+    "process",
+    "fable",
+    "audiobook"
+   ],
+   "why": "A story about loving the daily process instead of chasing results.",
+   "readIf": "Read this if you want the why behind daily boxes.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Legacy",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Chop+Wood+Carry+Water+Joshua+Medcalf&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Chop+Wood+Carry+Water+Joshua+Medcalf",
+    "goodreads": "https://www.goodreads.com/search?q=Chop+Wood+Carry+Water+Joshua+Medcalf",
+    "audible": "https://www.audible.com/search?keywords=Chop+Wood+Carry+Water+Joshua+Medcalf"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "quiet-strength",
+   "title": "Quiet Strength",
+   "author": "Tony Dungy",
+   "year": 2007,
+   "category": "sports",
+   "tags": [
+    "faith",
+    "coaching",
+    "audiobook"
+   ],
+   "why": "A Super Bowl winning coach on faith, family, loss, and leading with calm.",
+   "readIf": "Read this if you want faith and football together.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Uncommon",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Quiet+Strength+Tony+Dungy&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Quiet+Strength+Tony+Dungy",
+    "goodreads": "https://www.goodreads.com/search?q=Quiet+Strength+Tony+Dungy",
+    "audible": "https://www.audible.com/search?keywords=Quiet+Strength+Tony+Dungy"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "sacred-hoops",
+   "title": "Sacred Hoops",
+   "author": "Phil Jackson",
+   "year": 1995,
+   "category": "sports",
+   "tags": [
+    "basketball",
+    "team",
+    "audiobook"
+   ],
+   "why": "How the Bulls turned stars into a team. Zen meets the triangle.",
+   "readIf": "Read this if you want the 90s Bulls from the inside.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Eleven Rings",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Sacred+Hoops+Phil+Jackson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Sacred+Hoops+Phil+Jackson",
+    "goodreads": "https://www.goodreads.com/search?q=Sacred+Hoops+Phil+Jackson",
+    "audible": "https://www.audible.com/search?keywords=Sacred+Hoops+Phil+Jackson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "playing-for-keeps",
+   "title": "Playing for Keeps",
+   "author": "David Halberstam",
+   "year": 1999,
+   "category": "sports",
+   "tags": [
+    "Jordan",
+    "basketball",
+    "audiobook"
+   ],
+   "why": "The deep story of Michael Jordan and the world he built.",
+   "readIf": "Read this if you want the full MJ story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Relentless",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Playing+for+Keeps+David+Halberstam&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Playing+for+Keeps+David+Halberstam",
+    "goodreads": "https://www.goodreads.com/search?q=Playing+for+Keeps+David+Halberstam",
+    "audible": "https://www.audible.com/search?keywords=Playing+for+Keeps+David+Halberstam"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "moneyball",
+   "title": "Moneyball",
+   "author": "Michael Lewis",
+   "year": 2003,
+   "category": "sports",
+   "tags": [
+    "underdog",
+    "strategy",
+    "audiobook"
+   ],
+   "why": "A broke baseball team beats the rich ones by thinking differently.",
+   "readIf": "Read this if you love smart underdogs.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Moneyball+Michael+Lewis&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Moneyball+Michael+Lewis",
+    "goodreads": "https://www.goodreads.com/search?q=Moneyball+Michael+Lewis",
+    "audible": "https://www.audible.com/search?keywords=Moneyball+Michael+Lewis"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "friday-night-lights",
+   "title": "Friday Night Lights",
+   "author": "H.G. Bissinger",
+   "year": 1990,
+   "category": "sports",
+   "tags": [
+    "football",
+    "small town",
+    "audiobook"
+   ],
+   "why": "A Texas town that lives and dies with its high school football team.",
+   "readIf": "Read this if you played ball growing up.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Friday+Night+Lights+H.G.+Bissinger&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Friday+Night+Lights+H.G.+Bissinger",
+    "goodreads": "https://www.goodreads.com/search?q=Friday+Night+Lights+H.G.+Bissinger",
+    "audible": "https://www.audible.com/search?keywords=Friday+Night+Lights+H.G.+Bissinger"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-captain-class",
+   "title": "The Captain Class",
+   "author": "Sam Walker",
+   "year": 2017,
+   "category": "sports",
+   "tags": [
+    "leadership",
+    "dynasties",
+    "audiobook"
+   ],
+   "why": "What the greatest teams in history had in common: the captain.",
+   "readIf": "Read this if you lead from the middle of the pack.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Legacy",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Captain+Class+Sam+Walker&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Captain+Class+Sam+Walker",
+    "goodreads": "https://www.goodreads.com/search?q=The+Captain+Class+Sam+Walker",
+    "audible": "https://www.audible.com/search?keywords=The+Captain+Class+Sam+Walker"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-champion-s-mind",
+   "title": "The Champion's Mind",
+   "author": "Jim Afremow",
+   "year": 2014,
+   "category": "sports",
+   "tags": [
+    "mental game",
+    "routines",
+    "audiobook"
+   ],
+   "why": "How great athletes think, train, and bounce back.",
+   "readIf": "Read this if you want game-day mental routines.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Mind Gym",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Champion%27s+Mind+Jim+Afremow&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Champion%27s+Mind+Jim+Afremow",
+    "goodreads": "https://www.goodreads.com/search?q=The+Champion%27s+Mind+Jim+Afremow",
+    "audible": "https://www.audible.com/search?keywords=The+Champion%27s+Mind+Jim+Afremow"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "training-camp",
+   "title": "Training Camp",
+   "author": "Jon Gordon",
+   "year": 2009,
+   "category": "sports",
+   "tags": [
+    "fable",
+    "excellence",
+    "audiobook"
+   ],
+   "why": "A short fable about what separates the best from everyone else.",
+   "readIf": "Read this if you want a fast motivational read.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Energy Bus",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Training+Camp+Jon+Gordon&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Training+Camp+Jon+Gordon",
+    "goodreads": "https://www.goodreads.com/search?q=Training+Camp+Jon+Gordon",
+    "audible": "https://www.audible.com/search?keywords=Training+Camp+Jon+Gordon"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "seabiscuit",
+   "title": "Seabiscuit",
+   "author": "Laura Hillenbrand",
+   "year": 2001,
+   "category": "sports",
+   "tags": [
+    "underdog",
+    "history",
+    "audiobook"
+   ],
+   "why": "A broken-down racehorse and three long shots capture a nation.",
+   "readIf": "Read this if you love an underdog comeback.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Unbroken",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Seabiscuit+Laura+Hillenbrand&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Seabiscuit+Laura+Hillenbrand",
+    "goodreads": "https://www.goodreads.com/search?q=Seabiscuit+Laura+Hillenbrand",
+    "audible": "https://www.audible.com/search?keywords=Seabiscuit+Laura+Hillenbrand"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-book-of-basketball",
+   "title": "The Book of Basketball",
+   "author": "Bill Simmons",
+   "year": 2009,
+   "category": "sports",
+   "tags": [
+    "NBA history",
+    "fun",
+    "audiobook"
+   ],
+   "why": "A huge, funny, opinionated tour of NBA history and its greatest players.",
+   "readIf": "Read this if you love arguing about the GOAT.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Book+of+Basketball+Bill+Simmons&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Book+of+Basketball+Bill+Simmons",
+    "goodreads": "https://www.goodreads.com/search?q=The+Book+of+Basketball+Bill+Simmons",
+    "audible": "https://www.audible.com/search?keywords=The+Book+of+Basketball+Bill+Simmons"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "boys-among-men",
+   "title": "Boys Among Men",
+   "author": "Jonathan Abrams",
+   "year": 2016,
+   "category": "sports",
+   "tags": [
+    "NBA",
+    "high school stars",
+    "audiobook"
+   ],
+   "why": "The players who jumped from high school straight to the NBA, and what happened next.",
+   "readIf": "Read this if you grew up on KG, Kobe, and LeBron.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Boys+Among+Men+Jonathan+Abrams&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Boys+Among+Men+Jonathan+Abrams",
+    "goodreads": "https://www.goodreads.com/search?q=Boys+Among+Men+Jonathan+Abrams",
+    "audible": "https://www.audible.com/search?keywords=Boys+Among+Men+Jonathan+Abrams"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "becoming-kareem",
+   "title": "Becoming Kareem",
+   "author": "Kareem Abdul-Jabbar and Raymond Obstfeld",
+   "year": 2017,
+   "category": "sports",
+   "tags": [
+    "basketball",
+    "memoir",
+    "audiobook"
+   ],
+   "why": "How a shy kid became one of the greatest players and voices in sports.",
+   "readIf": "Read this if you want a hoops legend's life story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Becoming+Kareem+Kareem+Abdul-Jabbar+and+Raymond+Obstfeld&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Becoming+Kareem+Kareem+Abdul-Jabbar+and+Raymond+Obstfeld",
+    "goodreads": "https://www.goodreads.com/search?q=Becoming+Kareem+Kareem+Abdul-Jabbar+and+Raymond+Obstfeld",
+    "audible": "https://www.audible.com/search?keywords=Becoming+Kareem+Kareem+Abdul-Jabbar+and+Raymond+Obstfeld"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "educated",
+   "title": "Educated",
+   "author": "Tara Westover",
+   "year": 2018,
+   "category": "comeback",
+   "tags": [
+    "memoir",
+    "resilience",
+    "audiobook"
+   ],
+   "why": "Raised off the grid with no school, she teaches herself enough to earn a PhD from Cambridge.",
+   "readIf": "Read this if you want proof you can rewrite your story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Educated+Tara+Westover&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Educated+Tara+Westover",
+    "goodreads": "https://www.goodreads.com/search?q=Educated+Tara+Westover",
+    "audible": "https://www.audible.com/search?keywords=Educated+Tara+Westover"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "the-pursuit-of-happyness",
+   "title": "The Pursuit of Happyness",
+   "author": "Chris Gardner",
+   "year": 2006,
+   "category": "comeback",
+   "tags": [
+    "dad",
+    "grit",
+    "audiobook"
+   ],
+   "why": "A homeless single father fights his way to Wall Street success with his son by his side.",
+   "readIf": "Read this if you are a dad who needs a fire lit.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Pursuit+of+Happyness+Chris+Gardner&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Pursuit+of+Happyness+Chris+Gardner",
+    "goodreads": "https://www.goodreads.com/search?q=The+Pursuit+of+Happyness+Chris+Gardner",
+    "audible": "https://www.audible.com/search?keywords=The+Pursuit+of+Happyness+Chris+Gardner"
+   },
+   "source": "gameshape",
+   "pick": true
+  },
+  {
+   "id": "long-walk-to-freedom",
+   "title": "Long Walk to Freedom",
+   "author": "Nelson Mandela",
+   "year": 1994,
+   "category": "comeback",
+   "tags": [
+    "leadership",
+    "perseverance",
+    "audiobook"
+   ],
+   "why": "Twenty-seven years in prison, then leading a nation with forgiveness.",
+   "readIf": "Read this if you want the ultimate story of patience and purpose.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Long+Walk+to+Freedom+Nelson+Mandela&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Long+Walk+to+Freedom+Nelson+Mandela",
+    "goodreads": "https://www.goodreads.com/search?q=Long+Walk+to+Freedom+Nelson+Mandela",
+    "audible": "https://www.audible.com/search?keywords=Long+Walk+to+Freedom+Nelson+Mandela"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-boy-who-harnessed-the-wind",
+   "title": "The Boy Who Harnessed the Wind",
+   "author": "William Kamkwamba and Bryan Mealer",
+   "year": 2009,
+   "category": "comeback",
+   "tags": [
+    "ingenuity",
+    "young hero",
+    "audiobook"
+   ],
+   "why": "A teenager in Malawi builds a windmill from scraps to save his village from famine.",
+   "readIf": "Read this if you want an inspiring story to share with your kids.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Boy+Who+Harnessed+the+Wind+William+Kamkwamba+and+Bryan+Mealer&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Boy+Who+Harnessed+the+Wind+William+Kamkwamba+and+Bryan+Mealer",
+    "goodreads": "https://www.goodreads.com/search?q=The+Boy+Who+Harnessed+the+Wind+William+Kamkwamba+and+Bryan+Mealer",
+    "audible": "https://www.audible.com/search?keywords=The+Boy+Who+Harnessed+the+Wind+William+Kamkwamba+and+Bryan+Mealer"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "tuesdays-with-morrie",
+   "title": "Tuesdays with Morrie",
+   "author": "Mitch Albom",
+   "year": 1997,
+   "category": "comeback",
+   "tags": [
+    "life lessons",
+    "short read",
+    "audiobook"
+   ],
+   "why": "A sportswriter's weekly visits with his dying old professor about what matters.",
+   "readIf": "Read this if you need perspective in a few hours.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Tuesdays+with+Morrie+Mitch+Albom&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Tuesdays+with+Morrie+Mitch+Albom",
+    "goodreads": "https://www.goodreads.com/search?q=Tuesdays+with+Morrie+Mitch+Albom",
+    "audible": "https://www.audible.com/search?keywords=Tuesdays+with+Morrie+Mitch+Albom"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "night",
+   "title": "Night",
+   "author": "Elie Wiesel",
+   "year": 1956,
+   "category": "comeback",
+   "tags": [
+    "Holocaust",
+    "survival",
+    "audiobook"
+   ],
+   "why": "A short, powerful survivor's account of the Holocaust.",
+   "readIf": "Read this if you want to understand true endurance.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Man's Search for Meaning",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Night+Elie+Wiesel&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Night+Elie+Wiesel",
+    "goodreads": "https://www.goodreads.com/search?q=Night+Elie+Wiesel",
+    "audible": "https://www.audible.com/search?keywords=Night+Elie+Wiesel"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-hiding-place",
+   "title": "The Hiding Place",
+   "author": "Corrie ten Boom",
+   "year": 1971,
+   "category": "comeback",
+   "tags": [
+    "faith",
+    "WWII",
+    "audiobook"
+   ],
+   "why": "A Dutch family hides Jews from the Nazis, and one woman's faith survives a concentration camp.",
+   "readIf": "Read this if you want faith tested in the hardest place.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Hiding+Place+Corrie+ten+Boom&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Hiding+Place+Corrie+ten+Boom",
+    "goodreads": "https://www.goodreads.com/search?q=The+Hiding+Place+Corrie+ten+Boom",
+    "audible": "https://www.audible.com/search?keywords=The+Hiding+Place+Corrie+ten+Boom"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "soul-surfer",
+   "title": "Soul Surfer",
+   "author": "Bethany Hamilton",
+   "year": 2004,
+   "category": "comeback",
+   "tags": [
+    "faith",
+    "athlete",
+    "audiobook"
+   ],
+   "why": "A teen surfer loses her arm to a shark and gets back on the board.",
+   "readIf": "Read this if you are coming back from an injury.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Soul+Surfer+Bethany+Hamilton&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Soul+Surfer+Bethany+Hamilton",
+    "goodreads": "https://www.goodreads.com/search?q=Soul+Surfer+Bethany+Hamilton",
+    "audible": "https://www.audible.com/search?keywords=Soul+Surfer+Bethany+Hamilton"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "life-without-limits",
+   "title": "Life Without Limits",
+   "author": "Nick Vujicic",
+   "year": 2010,
+   "category": "comeback",
+   "tags": [
+    "faith",
+    "joy",
+    "audiobook"
+   ],
+   "why": "Born without arms or legs, he builds a life full of purpose and joy.",
+   "readIf": "Read this if you need to stop making excuses.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Life+Without+Limits+Nick+Vujicic&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Life+Without+Limits+Nick+Vujicic",
+    "goodreads": "https://www.goodreads.com/search?q=Life+Without+Limits+Nick+Vujicic",
+    "audible": "https://www.audible.com/search?keywords=Life+Without+Limits+Nick+Vujicic"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "between-a-rock-and-a-hard-place",
+   "title": "Between a Rock and a Hard Place",
+   "author": "Aron Ralston",
+   "year": 2004,
+   "category": "comeback",
+   "tags": [
+    "survival",
+    "will",
+    "audiobook"
+   ],
+   "why": "Trapped by a boulder for five days, a climber makes an impossible choice to live.",
+   "readIf": "Read this if you want raw will to survive.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Endurance",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Between+a+Rock+and+a+Hard+Place+Aron+Ralston&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Between+a+Rock+and+a+Hard+Place+Aron+Ralston",
+    "goodreads": "https://www.goodreads.com/search?q=Between+a+Rock+and+a+Hard+Place+Aron+Ralston",
+    "audible": "https://www.audible.com/search?keywords=Between+a+Rock+and+a+Hard+Place+Aron+Ralston"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "into-thin-air",
+   "title": "Into Thin Air",
+   "author": "Jon Krakauer",
+   "year": 1997,
+   "category": "comeback",
+   "tags": [
+    "Everest",
+    "survival",
+    "audiobook"
+   ],
+   "why": "A firsthand account of the 1996 Everest disaster.",
+   "readIf": "Read this if you want a page-turning true story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Endurance",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Into+Thin+Air+Jon+Krakauer&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Into+Thin+Air+Jon+Krakauer",
+    "goodreads": "https://www.goodreads.com/search?q=Into+Thin+Air+Jon+Krakauer",
+    "audible": "https://www.audible.com/search?keywords=Into+Thin+Air+Jon+Krakauer"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "born-a-crime",
+   "title": "Born a Crime",
+   "author": "Trevor Noah",
+   "year": 2016,
+   "category": "comeback",
+   "tags": [
+    "memoir",
+    "humor",
+    "audiobook"
+   ],
+   "why": "Growing up mixed-race under apartheid, told with humor and a lot of heart.",
+   "readIf": "Read this if you want inspiring and funny at the same time.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Born+a+Crime+Trevor+Noah&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Born+a+Crime+Trevor+Noah",
+    "goodreads": "https://www.goodreads.com/search?q=Born+a+Crime+Trevor+Noah",
+    "audible": "https://www.audible.com/search?keywords=Born+a+Crime+Trevor+Noah"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-glass-castle",
+   "title": "The Glass Castle",
+   "author": "Jeannette Walls",
+   "year": 2005,
+   "category": "comeback",
+   "tags": [
+    "memoir",
+    "family",
+    "audiobook"
+   ],
+   "why": "A chaotic, poor childhood with brilliant but broken parents, and how she rose above it.",
+   "readIf": "Read this if you came up the hard way.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Educated",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Glass+Castle+Jeannette+Walls&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Glass+Castle+Jeannette+Walls",
+    "goodreads": "https://www.goodreads.com/search?q=The+Glass+Castle+Jeannette+Walls",
+    "audible": "https://www.audible.com/search?keywords=The+Glass+Castle+Jeannette+Walls"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "hidden-figures",
+   "title": "Hidden Figures",
+   "author": "Margot Lee Shetterly",
+   "year": 2016,
+   "category": "comeback",
+   "tags": [
+    "NASA",
+    "history",
+    "audiobook"
+   ],
+   "why": "The Black women mathematicians who helped win the space race.",
+   "readIf": "Read this if you love unsung heroes.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Hidden+Figures+Margot+Lee+Shetterly&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Hidden+Figures+Margot+Lee+Shetterly",
+    "goodreads": "https://www.goodreads.com/search?q=Hidden+Figures+Margot+Lee+Shetterly",
+    "audible": "https://www.audible.com/search?keywords=Hidden+Figures+Margot+Lee+Shetterly"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "i-am-malala",
+   "title": "I Am Malala",
+   "author": "Malala Yousafzai and Christina Lamb",
+   "year": 2013,
+   "category": "comeback",
+   "tags": [
+    "courage",
+    "education",
+    "audiobook"
+   ],
+   "why": "A girl shot for going to school survives and keeps fighting.",
+   "readIf": "Read this if you want courage in its purest form.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=I+Am+Malala+Malala+Yousafzai+and+Christina+Lamb&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=I+Am+Malala+Malala+Yousafzai+and+Christina+Lamb",
+    "goodreads": "https://www.goodreads.com/search?q=I+Am+Malala+Malala+Yousafzai+and+Christina+Lamb",
+    "audible": "https://www.audible.com/search?keywords=I+Am+Malala+Malala+Yousafzai+and+Christina+Lamb"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-last-lecture",
+   "title": "The Last Lecture",
+   "author": "Randy Pausch",
+   "year": 2008,
+   "category": "comeback",
+   "tags": [
+    "dad",
+    "life lessons",
+    "audiobook"
+   ],
+   "why": "A dad with terminal cancer gives one last talk about chasing childhood dreams.",
+   "readIf": "Read this if you want to think about what you leave your kids.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Tuesdays with Morrie",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Last+Lecture+Randy+Pausch&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Last+Lecture+Randy+Pausch",
+    "goodreads": "https://www.goodreads.com/search?q=The+Last+Lecture+Randy+Pausch",
+    "audible": "https://www.audible.com/search?keywords=The+Last+Lecture+Randy+Pausch"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "will",
+   "title": "Will",
+   "author": "Will Smith and Mark Manson",
+   "year": 2021,
+   "category": "comeback",
+   "tags": [
+    "memoir",
+    "fear",
+    "audiobook"
+   ],
+   "why": "From a fearful kid in Philly to a global star, and what it really cost.",
+   "readIf": "Read this if you want an honest celebrity memoir.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Greenlights",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Will+Will+Smith+and+Mark+Manson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Will+Will+Smith+and+Mark+Manson",
+    "goodreads": "https://www.goodreads.com/search?q=Will+Will+Smith+and+Mark+Manson",
+    "audible": "https://www.audible.com/search?keywords=Will+Will+Smith+and+Mark+Manson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "made-in-america",
+   "title": "Made in America",
+   "author": "Sam Walton",
+   "year": 1992,
+   "category": "comeback",
+   "tags": [
+    "founder story",
+    "Walmart",
+    "audiobook"
+   ],
+   "why": "Walmart's founder on building from one small store with hustle and thrift.",
+   "readIf": "Read this if you sell for a living.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Shoe Dog",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Made+in+America+Sam+Walton&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Made+in+America+Sam+Walton",
+    "goodreads": "https://www.goodreads.com/search?q=Made+in+America+Sam+Walton",
+    "audible": "https://www.audible.com/search?keywords=Made+in+America+Sam+Walton"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "losing-my-virginity",
+   "title": "Losing My Virginity",
+   "author": "Richard Branson",
+   "year": 1998,
+   "category": "comeback",
+   "tags": [
+    "founder story",
+    "risk",
+    "audiobook"
+   ],
+   "why": "The wild life of a high school dropout who built Virgin into hundreds of companies.",
+   "readIf": "Read this if you want fun, fearless business stories.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Shoe Dog",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Losing+My+Virginity+Richard+Branson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Losing+My+Virginity+Richard+Branson",
+    "goodreads": "https://www.goodreads.com/search?q=Losing+My+Virginity+Richard+Branson",
+    "audible": "https://www.audible.com/search?keywords=Losing+My+Virginity+Richard+Branson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "titan",
+   "title": "Titan",
+   "author": "Ron Chernow",
+   "year": 1998,
+   "category": "comeback",
+   "tags": [
+    "Rockefeller",
+    "wealth",
+    "audiobook"
+   ],
+   "why": "The life of John D. Rockefeller, the richest man of his era.",
+   "readIf": "Read this if you want a deep dive on building wealth.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Titan+Ron+Chernow&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Titan+Ron+Chernow",
+    "goodreads": "https://www.goodreads.com/search?q=Titan+Ron+Chernow",
+    "audible": "https://www.audible.com/search?keywords=Titan+Ron+Chernow"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "think-and-grow-rich",
+   "title": "Think and Grow Rich",
+   "author": "Napoleon Hill",
+   "year": 1937,
+   "category": "money",
+   "tags": [
+    "classic",
+    "mindset",
+    "audiobook"
+   ],
+   "why": "The classic on desire, persistence, and the mindset behind building wealth.",
+   "readIf": "Read this if you want the book every money book quotes.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Think+and+Grow+Rich+Napoleon+Hill&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Think+and+Grow+Rich+Napoleon+Hill",
+    "goodreads": "https://www.goodreads.com/search?q=Think+and+Grow+Rich+Napoleon+Hill",
+    "audible": "https://www.audible.com/search?keywords=Think+and+Grow+Rich+Napoleon+Hill"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-automatic-millionaire",
+   "title": "The Automatic Millionaire",
+   "author": "David Bach",
+   "year": 2003,
+   "category": "money",
+   "tags": [
+    "autopilot",
+    "saving",
+    "audiobook"
+   ],
+   "why": "Set your savings and investing on autopilot so you get rich without willpower.",
+   "readIf": "Read this if you want money habits that run themselves.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Total Money Makeover",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Automatic+Millionaire+David+Bach&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Automatic+Millionaire+David+Bach",
+    "goodreads": "https://www.goodreads.com/search?q=The+Automatic+Millionaire+David+Bach",
+    "audible": "https://www.audible.com/search?keywords=The+Automatic+Millionaire+David+Bach"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "baby-steps-millionaires",
+   "title": "Baby Steps Millionaires",
+   "author": "Dave Ramsey",
+   "year": 2022,
+   "category": "money",
+   "tags": [
+    "debt-free",
+    "investing",
+    "audiobook"
+   ],
+   "why": "How regular people became millionaires with simple, steady steps.",
+   "readIf": "Read this if you finished Total Money Makeover and want the next level.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Total Money Makeover",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Baby+Steps+Millionaires+Dave+Ramsey&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Baby+Steps+Millionaires+Dave+Ramsey",
+    "goodreads": "https://www.goodreads.com/search?q=Baby+Steps+Millionaires+Dave+Ramsey",
+    "audible": "https://www.audible.com/search?keywords=Baby+Steps+Millionaires+Dave+Ramsey"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "everyday-millionaires",
+   "title": "Everyday Millionaires",
+   "author": "Chris Hogan",
+   "year": 2019,
+   "category": "money",
+   "tags": [
+    "research",
+    "ordinary people",
+    "audiobook"
+   ],
+   "why": "A study of 10,000 millionaires shows most built it with regular jobs and discipline.",
+   "readIf": "Read this if you think wealth is only for the lucky.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Millionaire Next Door",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Everyday+Millionaires+Chris+Hogan&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Everyday+Millionaires+Chris+Hogan",
+    "goodreads": "https://www.goodreads.com/search?q=Everyday+Millionaires+Chris+Hogan",
+    "audible": "https://www.audible.com/search?keywords=Everyday+Millionaires+Chris+Hogan"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "same-as-ever",
+   "title": "Same as Ever",
+   "author": "Morgan Housel",
+   "year": 2023,
+   "category": "money",
+   "tags": [
+    "behavior",
+    "timeless",
+    "audiobook"
+   ],
+   "why": "Short stories about what never changes in money, risk, and people.",
+   "readIf": "Read this if you loved The Psychology of Money.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Psychology of Money",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Same+as+Ever+Morgan+Housel&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Same+as+Ever+Morgan+Housel",
+    "goodreads": "https://www.goodreads.com/search?q=Same+as+Ever+Morgan+Housel",
+    "audible": "https://www.audible.com/search?keywords=Same+as+Ever+Morgan+Housel"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "a-random-walk-down-wall-street",
+   "title": "A Random Walk Down Wall Street",
+   "author": "Burton G. Malkiel",
+   "year": 1973,
+   "category": "money",
+   "tags": [
+    "index funds",
+    "classic",
+    "audiobook"
+   ],
+   "why": "The classic case for simple, low-cost index investing.",
+   "readIf": "Read this if you want to understand the stock market.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Little Book of Common Sense Investing",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=A+Random+Walk+Down+Wall+Street+Burton+G.+Malkiel&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=A+Random+Walk+Down+Wall+Street+Burton+G.+Malkiel",
+    "goodreads": "https://www.goodreads.com/search?q=A+Random+Walk+Down+Wall+Street+Burton+G.+Malkiel",
+    "audible": "https://www.audible.com/search?keywords=A+Random+Walk+Down+Wall+Street+Burton+G.+Malkiel"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "one-up-on-wall-street",
+   "title": "One Up On Wall Street",
+   "author": "Peter Lynch",
+   "year": 1989,
+   "category": "money",
+   "tags": [
+    "stock picking",
+    "classic",
+    "audiobook"
+   ],
+   "why": "A legendary fund manager on spotting great companies in everyday life.",
+   "readIf": "Read this if you want to pick a few stocks wisely.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Intelligent Investor",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=One+Up+On+Wall+Street+Peter+Lynch&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=One+Up+On+Wall+Street+Peter+Lynch",
+    "goodreads": "https://www.goodreads.com/search?q=One+Up+On+Wall+Street+Peter+Lynch",
+    "audible": "https://www.audible.com/search?keywords=One+Up+On+Wall+Street+Peter+Lynch"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "money-master-the-game",
+   "title": "Money: Master the Game",
+   "author": "Tony Robbins",
+   "year": 2014,
+   "category": "money",
+   "tags": [
+    "investing",
+    "interviews",
+    "audiobook"
+   ],
+   "why": "Lessons from top investors turned into a plan for financial freedom.",
+   "readIf": "Read this if you want big-picture motivation plus a plan.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Money%3A+Master+the+Game+Tony+Robbins&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Money%3A+Master+the+Game+Tony+Robbins",
+    "goodreads": "https://www.goodreads.com/search?q=Money%3A+Master+the+Game+Tony+Robbins",
+    "audible": "https://www.audible.com/search?keywords=Money%3A+Master+the+Game+Tony+Robbins"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "your-money-or-your-life",
+   "title": "Your Money or Your Life",
+   "author": "Vicki Robin and Joe Dominguez",
+   "year": 1992,
+   "category": "money",
+   "tags": [
+    "values",
+    "spending",
+    "audiobook"
+   ],
+   "why": "See money as life energy and spend it on what matters most.",
+   "readIf": "Read this if you want your spending to match your values.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Your+Money+or+Your+Life+Vicki+Robin+and+Joe+Dominguez&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Your+Money+or+Your+Life+Vicki+Robin+and+Joe+Dominguez",
+    "goodreads": "https://www.goodreads.com/search?q=Your+Money+or+Your+Life+Vicki+Robin+and+Joe+Dominguez",
+    "audible": "https://www.audible.com/search?keywords=Your+Money+or+Your+Life+Vicki+Robin+and+Joe+Dominguez"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "set-for-life",
+   "title": "Set for Life",
+   "author": "Scott Trench",
+   "year": 2017,
+   "category": "money",
+   "tags": [
+    "early freedom",
+    "real estate",
+    "audiobook"
+   ],
+   "why": "A plan for going from zero to financial freedom with saving, earning more, and investing.",
+   "readIf": "Read this if you are early in building wealth.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Simple Path to Wealth",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Set+for+Life+Scott+Trench&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Set+for+Life+Scott+Trench",
+    "goodreads": "https://www.goodreads.com/search?q=Set+for+Life+Scott+Trench",
+    "audible": "https://www.audible.com/search?keywords=Set+for+Life+Scott+Trench"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "profit-first",
+   "title": "Profit First",
+   "author": "Mike Michalowicz",
+   "year": 2014,
+   "category": "money",
+   "tags": [
+    "small business",
+    "cash flow",
+    "audiobook"
+   ],
+   "why": "A simple system to make any small business profitable from the next deposit.",
+   "readIf": "Read this if you run a side hustle or business.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Profit+First+Mike+Michalowicz&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Profit+First+Mike+Michalowicz",
+    "goodreads": "https://www.goodreads.com/search?q=Profit+First+Mike+Michalowicz",
+    "audible": "https://www.audible.com/search?keywords=Profit+First+Mike+Michalowicz"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-bogleheads-guide-to-investing",
+   "title": "The Bogleheads' Guide to Investing",
+   "author": "Taylor Larimore, Mel Lindauer, and Michael LeBoeuf",
+   "year": 2006,
+   "category": "money",
+   "tags": [
+    "index funds",
+    "how-to",
+    "audiobook"
+   ],
+   "why": "A plain step-by-step guide to low-cost, long-term investing.",
+   "readIf": "Read this if you want to set up your investing right.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Little Book of Common Sense Investing",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Bogleheads%27+Guide+to+Investing+Taylor+Larimore%2C+Mel+Lindauer%2C+and+Michael+LeBoeuf&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Bogleheads%27+Guide+to+Investing+Taylor+Larimore%2C+Mel+Lindauer%2C+and+Michael+LeBoeuf",
+    "goodreads": "https://www.goodreads.com/search?q=The+Bogleheads%27+Guide+to+Investing+Taylor+Larimore%2C+Mel+Lindauer%2C+and+Michael+LeBoeuf",
+    "audible": "https://www.audible.com/search?keywords=The+Bogleheads%27+Guide+to+Investing+Taylor+Larimore%2C+Mel+Lindauer%2C+and+Michael+LeBoeuf"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "rich-dad-s-cashflow-quadrant",
+   "title": "Rich Dad's Cashflow Quadrant",
+   "author": "Robert T. Kiyosaki",
+   "year": 1998,
+   "category": "money",
+   "tags": [
+    "business",
+    "income",
+    "audiobook"
+   ],
+   "why": "The four ways people earn money and how to move toward owning assets.",
+   "readIf": "Read this if you finished Rich Dad Poor Dad.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Rich Dad Poor Dad",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Rich+Dad%27s+Cashflow+Quadrant+Robert+T.+Kiyosaki&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Rich+Dad%27s+Cashflow+Quadrant+Robert+T.+Kiyosaki",
+    "goodreads": "https://www.goodreads.com/search?q=Rich+Dad%27s+Cashflow+Quadrant+Robert+T.+Kiyosaki",
+    "audible": "https://www.audible.com/search?keywords=Rich+Dad%27s+Cashflow+Quadrant+Robert+T.+Kiyosaki"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "it-ends-with-us",
+   "title": "It Ends with Us",
+   "author": "Colleen Hoover",
+   "year": 2016,
+   "category": "romance",
+   "tags": [
+    "contemporary",
+    "emotional",
+    "audiobook"
+   ],
+   "why": "A love story that turns into a hard, honest look at cycles in relationships.",
+   "readIf": "Read this if you want an emotional gut-punch.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 2,
+   "series": "It Ends with Us",
+   "seriesOrder": 1,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=It+Ends+with+Us+Colleen+Hoover&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=It+Ends+with+Us+Colleen+Hoover",
+    "goodreads": "https://www.goodreads.com/search?q=It+Ends+with+Us+Colleen+Hoover",
+    "audible": "https://www.audible.com/search?keywords=It+Ends+with+Us+Colleen+Hoover"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "verity",
+   "title": "Verity",
+   "author": "Colleen Hoover",
+   "year": 2018,
+   "category": "romance",
+   "tags": [
+    "thriller",
+    "twist",
+    "audiobook"
+   ],
+   "why": "A writer finds a disturbing manuscript in a famous author's house. Dark romance meets thriller.",
+   "readIf": "Read this if you want a twist you will argue about.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 2,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Verity+Colleen+Hoover&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Verity+Colleen+Hoover",
+    "goodreads": "https://www.goodreads.com/search?q=Verity+Colleen+Hoover",
+    "audible": "https://www.audible.com/search?keywords=Verity+Colleen+Hoover"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "beach-read",
+   "title": "Beach Read",
+   "author": "Emily Henry",
+   "year": 2020,
+   "category": "romance",
+   "tags": [
+    "rom-com",
+    "writers",
+    "audiobook"
+   ],
+   "why": "Two rival writers swap genres for a summer. Funny and full of heart.",
+   "readIf": "Read this if you want light, smart romance.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 1,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Beach+Read+Emily+Henry&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Beach+Read+Emily+Henry",
+    "goodreads": "https://www.goodreads.com/search?q=Beach+Read+Emily+Henry",
+    "audible": "https://www.audible.com/search?keywords=Beach+Read+Emily+Henry"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "book-lovers",
+   "title": "Book Lovers",
+   "author": "Emily Henry",
+   "year": 2022,
+   "category": "romance",
+   "tags": [
+    "rom-com",
+    "small town",
+    "audiobook"
+   ],
+   "why": "A New York book agent keeps running into her rival editor in a small town.",
+   "readIf": "Read this if you liked Beach Read.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 1,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Beach Read",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Book+Lovers+Emily+Henry&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Book+Lovers+Emily+Henry",
+    "goodreads": "https://www.goodreads.com/search?q=Book+Lovers+Emily+Henry",
+    "audible": "https://www.audible.com/search?keywords=Book+Lovers+Emily+Henry"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "people-we-meet-on-vacation",
+   "title": "People We Meet on Vacation",
+   "author": "Emily Henry",
+   "year": 2021,
+   "category": "romance",
+   "tags": [
+    "friends to lovers",
+    "travel",
+    "audiobook"
+   ],
+   "why": "Two best friends, one last summer trip, and years of almost.",
+   "readIf": "Read this if you love friends-to-lovers.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 1,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Beach Read",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=People+We+Meet+on+Vacation+Emily+Henry&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=People+We+Meet+on+Vacation+Emily+Henry",
+    "goodreads": "https://www.goodreads.com/search?q=People+We+Meet+on+Vacation+Emily+Henry",
+    "audible": "https://www.audible.com/search?keywords=People+We+Meet+on+Vacation+Emily+Henry"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "funny-story",
+   "title": "Funny Story",
+   "author": "Emily Henry",
+   "year": 2024,
+   "category": "romance",
+   "tags": [
+    "rom-com",
+    "fake dating",
+    "audiobook"
+   ],
+   "why": "Two people dumped by partners who left them for each other team up for a fake relationship.",
+   "readIf": "Read this if you want a feel-good summer read.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 1,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Beach Read",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Funny+Story+Emily+Henry&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Funny+Story+Emily+Henry",
+    "goodreads": "https://www.goodreads.com/search?q=Funny+Story+Emily+Henry",
+    "audible": "https://www.audible.com/search?keywords=Funny+Story+Emily+Henry"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-love-hypothesis",
+   "title": "The Love Hypothesis",
+   "author": "Ali Hazelwood",
+   "year": 2021,
+   "category": "romance",
+   "tags": [
+    "rom-com",
+    "fake dating",
+    "audiobook"
+   ],
+   "why": "A grad student fake dates a grumpy professor. Nerdy and sweet with heat.",
+   "readIf": "Read this if you want a fun fake-dating story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 2,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Love+Hypothesis+Ali+Hazelwood&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Love+Hypothesis+Ali+Hazelwood",
+    "goodreads": "https://www.goodreads.com/search?q=The+Love+Hypothesis+Ali+Hazelwood",
+    "audible": "https://www.audible.com/search?keywords=The+Love+Hypothesis+Ali+Hazelwood"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "things-we-never-got-over",
+   "title": "Things We Never Got Over",
+   "author": "Lucy Score",
+   "year": 2022,
+   "category": "romance",
+   "tags": [
+    "small town",
+    "grumpy sunshine",
+    "audiobook"
+   ],
+   "why": "A runaway bride lands in a small town with a grumpy barber.",
+   "readIf": "Read this if you want small-town romance with spice.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "Knockemout",
+   "seriesOrder": 1,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Things+We+Never+Got+Over+Lucy+Score&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Things+We+Never+Got+Over+Lucy+Score",
+    "goodreads": "https://www.goodreads.com/search?q=Things+We+Never+Got+Over+Lucy+Score",
+    "audible": "https://www.audible.com/search?keywords=Things+We+Never+Got+Over+Lucy+Score"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "icebreaker",
+   "title": "Icebreaker",
+   "author": "Hannah Grace",
+   "year": 2022,
+   "category": "romance",
+   "tags": [
+    "sports romance",
+    "hockey",
+    "audiobook"
+   ],
+   "why": "A figure skater and a hockey captain forced to share a rink.",
+   "readIf": "Read this if you want sports and romance together.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "Maple Hills",
+   "seriesOrder": 1,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Icebreaker+Hannah+Grace&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Icebreaker+Hannah+Grace",
+    "goodreads": "https://www.goodreads.com/search?q=Icebreaker+Hannah+Grace",
+    "audible": "https://www.audible.com/search?keywords=Icebreaker+Hannah+Grace"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-deal",
+   "title": "The Deal",
+   "author": "Elle Kennedy",
+   "year": 2015,
+   "category": "romance",
+   "tags": [
+    "sports romance",
+    "college",
+    "audiobook"
+   ],
+   "why": "A college hockey star makes a deal with a girl who needs a fake boyfriend.",
+   "readIf": "Read this if you liked Icebreaker.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "Off-Campus",
+   "seriesOrder": 1,
+   "similarTo": "Icebreaker",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Deal+Elle+Kennedy&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Deal+Elle+Kennedy",
+    "goodreads": "https://www.goodreads.com/search?q=The+Deal+Elle+Kennedy",
+    "audible": "https://www.audible.com/search?keywords=The+Deal+Elle+Kennedy"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "twisted-love",
+   "title": "Twisted Love",
+   "author": "Ana Huang",
+   "year": 2021,
+   "category": "romance",
+   "tags": [
+    "dark",
+    "brother's best friend",
+    "audiobook"
+   ],
+   "why": "A cold, dangerous guy agrees to watch over his best friend's sister.",
+   "readIf": "Read this if you want high heat and drama.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "Twisted",
+   "seriesOrder": 1,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Twisted+Love+Ana+Huang&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Twisted+Love+Ana+Huang",
+    "goodreads": "https://www.goodreads.com/search?q=Twisted+Love+Ana+Huang",
+    "audible": "https://www.audible.com/search?keywords=Twisted+Love+Ana+Huang"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "a-court-of-wings-and-ruin",
+   "title": "A Court of Wings and Ruin",
+   "author": "Sarah J. Maas",
+   "year": 2017,
+   "category": "romance",
+   "tags": [
+    "romantasy",
+    "fae",
+    "audiobook"
+   ],
+   "why": "War comes to Prythian in the third ACOTAR book.",
+   "readIf": "Read this if you finished A Court of Mist and Fury.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "A Court of Thorns and Roses",
+   "seriesOrder": 3,
+   "similarTo": "Fourth Wing",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=A+Court+of+Wings+and+Ruin+Sarah+J.+Maas&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=A+Court+of+Wings+and+Ruin+Sarah+J.+Maas",
+    "goodreads": "https://www.goodreads.com/search?q=A+Court+of+Wings+and+Ruin+Sarah+J.+Maas",
+    "audible": "https://www.audible.com/search?keywords=A+Court+of+Wings+and+Ruin+Sarah+J.+Maas"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "a-court-of-silver-flames",
+   "title": "A Court of Silver Flames",
+   "author": "Sarah J. Maas",
+   "year": 2021,
+   "category": "romance",
+   "tags": [
+    "romantasy",
+    "fae",
+    "audiobook"
+   ],
+   "why": "Nesta and Cassian's story. The spiciest book in the series.",
+   "readIf": "Read this if you are all in on ACOTAR.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "A Court of Thorns and Roses",
+   "seriesOrder": 5,
+   "similarTo": "Fourth Wing",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=A+Court+of+Silver+Flames+Sarah+J.+Maas&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=A+Court+of+Silver+Flames+Sarah+J.+Maas",
+    "goodreads": "https://www.goodreads.com/search?q=A+Court+of+Silver+Flames+Sarah+J.+Maas",
+    "audible": "https://www.audible.com/search?keywords=A+Court+of+Silver+Flames+Sarah+J.+Maas"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "house-of-sky-and-breath",
+   "title": "House of Sky and Breath",
+   "author": "Sarah J. Maas",
+   "year": 2022,
+   "category": "romance",
+   "tags": [
+    "urban fantasy",
+    "romance",
+    "audiobook"
+   ],
+   "why": "The second Crescent City book raises the stakes and the heat.",
+   "readIf": "Read this if you finished House of Earth and Blood.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": "Crescent City",
+   "seriesOrder": 2,
+   "similarTo": "Fourth Wing",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=House+of+Sky+and+Breath+Sarah+J.+Maas&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=House+of+Sky+and+Breath+Sarah+J.+Maas",
+    "goodreads": "https://www.goodreads.com/search?q=House+of+Sky+and+Breath+Sarah+J.+Maas",
+    "audible": "https://www.audible.com/search?keywords=House+of+Sky+and+Breath+Sarah+J.+Maas"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "outlander",
+   "title": "Outlander",
+   "author": "Diana Gabaldon",
+   "year": 1991,
+   "category": "romance",
+   "tags": [
+    "historical",
+    "time travel",
+    "audiobook"
+   ],
+   "why": "A WWII nurse falls through time into 1700s Scotland and a Highland warrior.",
+   "readIf": "Read this if you want a long, epic love story.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 2,
+   "series": "Outlander",
+   "seriesOrder": 1,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Outlander+Diana+Gabaldon&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Outlander+Diana+Gabaldon",
+    "goodreads": "https://www.goodreads.com/search?q=Outlander+Diana+Gabaldon",
+    "audible": "https://www.audible.com/search?keywords=Outlander+Diana+Gabaldon"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-kiss-quotient",
+   "title": "The Kiss Quotient",
+   "author": "Helen Hoang",
+   "year": 2018,
+   "category": "romance",
+   "tags": [
+    "contemporary",
+    "sweet and spicy",
+    "audiobook"
+   ],
+   "why": "An economist with autism hires an escort to practice dating. Sweet and steamy.",
+   "readIf": "Read this if you want heart with heat.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Kiss+Quotient+Helen+Hoang&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Kiss+Quotient+Helen+Hoang",
+    "goodreads": "https://www.goodreads.com/search?q=The+Kiss+Quotient+Helen+Hoang",
+    "audible": "https://www.audible.com/search?keywords=The+Kiss+Quotient+Helen+Hoang"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "bride",
+   "title": "Bride",
+   "author": "Ali Hazelwood",
+   "year": 2024,
+   "category": "romance",
+   "tags": [
+    "paranormal",
+    "arranged marriage",
+    "audiobook"
+   ],
+   "why": "A vampire and a werewolf alpha in an arranged marriage. Fun paranormal romance.",
+   "readIf": "Read this if you want something different and spicy.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 3,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Love Hypothesis",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Bride+Ali+Hazelwood&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Bride+Ali+Hazelwood",
+    "goodreads": "https://www.goodreads.com/search?q=Bride+Ali+Hazelwood",
+    "audible": "https://www.audible.com/search?keywords=Bride+Ali+Hazelwood"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "endure",
+   "title": "Endure",
+   "author": "Alex Hutchinson",
+   "year": 2018,
+   "category": "training",
+   "tags": [
+    "endurance",
+    "science",
+    "audiobook"
+   ],
+   "why": "The science of how the brain sets your limits, and how to push them.",
+   "readIf": "Read this if you want to understand fatigue.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Endure+Alex+Hutchinson&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Endure+Alex+Hutchinson",
+    "goodreads": "https://www.goodreads.com/search?q=Endure+Alex+Hutchinson",
+    "audible": "https://www.audible.com/search?keywords=Endure+Alex+Hutchinson"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "peak-performance",
+   "title": "Peak Performance",
+   "author": "Brad Stulberg and Steve Magness",
+   "year": 2017,
+   "category": "training",
+   "tags": [
+    "stress plus rest",
+    "performance",
+    "audiobook"
+   ],
+   "why": "Stress plus rest equals growth. A simple formula for training and life.",
+   "readIf": "Read this if you push hard and forget to recover.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Peak+Performance+Brad+Stulberg+and+Steve+Magness&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Peak+Performance+Brad+Stulberg+and+Steve+Magness",
+    "goodreads": "https://www.goodreads.com/search?q=Peak+Performance+Brad+Stulberg+and+Steve+Magness",
+    "audible": "https://www.audible.com/search?keywords=Peak+Performance+Brad+Stulberg+and+Steve+Magness"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-sports-gene",
+   "title": "The Sports Gene",
+   "author": "David Epstein",
+   "year": 2013,
+   "category": "training",
+   "tags": [
+    "genetics",
+    "athletes",
+    "audiobook"
+   ],
+   "why": "What really separates elite athletes: genes, training, or both.",
+   "readIf": "Read this if you love the science of athletes.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Sports+Gene+David+Epstein&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Sports+Gene+David+Epstein",
+    "goodreads": "https://www.goodreads.com/search?q=The+Sports+Gene+David+Epstein",
+    "audible": "https://www.audible.com/search?keywords=The+Sports+Gene+David+Epstein"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "range",
+   "title": "Range",
+   "author": "David Epstein",
+   "year": 2019,
+   "category": "mindset",
+   "tags": [
+    "generalists",
+    "learning",
+    "audiobook"
+   ],
+   "why": "Why people with wide experience often beat early specialists.",
+   "readIf": "Read this if you are not sure where your path leads.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "The Sports Gene",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Range+David+Epstein&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Range+David+Epstein",
+    "goodreads": "https://www.goodreads.com/search?q=Range+David+Epstein",
+    "audible": "https://www.audible.com/search?keywords=Range+David+Epstein"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "lifespan",
+   "title": "Lifespan",
+   "author": "David A. Sinclair",
+   "year": 2019,
+   "category": "body",
+   "tags": [
+    "aging",
+    "science",
+    "audiobook"
+   ],
+   "why": "A Harvard researcher on why we age and what might slow it down.",
+   "readIf": "Read this if you want the science side of longevity.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "Outlive",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Lifespan+David+A.+Sinclair&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Lifespan+David+A.+Sinclair",
+    "goodreads": "https://www.goodreads.com/search?q=Lifespan+David+A.+Sinclair",
+    "audible": "https://www.audible.com/search?keywords=Lifespan+David+A.+Sinclair"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "eat-to-beat-disease",
+   "title": "Eat to Beat Disease",
+   "author": "William W. Li",
+   "year": 2019,
+   "category": "nutrition",
+   "tags": [
+    "food as medicine",
+    "whole foods",
+    "audiobook"
+   ],
+   "why": "How everyday foods help your body heal and defend itself.",
+   "readIf": "Read this if you want food to work for your health.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Eat+to+Beat+Disease+William+W.+Li&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Eat+to+Beat+Disease+William+W.+Li",
+    "goodreads": "https://www.goodreads.com/search?q=Eat+to+Beat+Disease+William+W.+Li",
+    "audible": "https://www.audible.com/search?keywords=Eat+to+Beat+Disease+William+W.+Li"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "the-obesity-code",
+   "title": "The Obesity Code",
+   "author": "Jason Fung",
+   "year": 2016,
+   "category": "nutrition",
+   "tags": [
+    "insulin",
+    "fat loss",
+    "audiobook"
+   ],
+   "why": "Why insulin, not just calories, drives weight gain, and how timing meals helps.",
+   "readIf": "Read this if belly fat will not budge.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=The+Obesity+Code+Jason+Fung&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=The+Obesity+Code+Jason+Fung",
+    "goodreads": "https://www.goodreads.com/search?q=The+Obesity+Code+Jason+Fung",
+    "audible": "https://www.audible.com/search?keywords=The+Obesity+Code+Jason+Fung"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "how-not-to-die",
+   "title": "How Not to Die",
+   "author": "Michael Greger",
+   "year": 2015,
+   "category": "nutrition",
+   "tags": [
+    "plants",
+    "disease",
+    "audiobook"
+   ],
+   "why": "Research on how diet affects the top causes of early death.",
+   "readIf": "Read this if you want to eat more plants with purpose.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=How+Not+to+Die+Michael+Greger&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=How+Not+to+Die+Michael+Greger",
+    "goodreads": "https://www.goodreads.com/search?q=How+Not+to+Die+Michael+Greger",
+    "audible": "https://www.audible.com/search?keywords=How+Not+to+Die+Michael+Greger"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "food-rules",
+   "title": "Food Rules",
+   "author": "Michael Pollan",
+   "year": 2009,
+   "category": "nutrition",
+   "tags": [
+    "simple rules",
+    "quick read",
+    "audiobook"
+   ],
+   "why": "Sixty-four short rules for eating well. Read it in an hour.",
+   "readIf": "Read this if you want the simplest food advice possible.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": "In Defense of Food",
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Food+Rules+Michael+Pollan&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Food+Rules+Michael+Pollan",
+    "goodreads": "https://www.goodreads.com/search?q=Food+Rules+Michael+Pollan",
+    "audible": "https://www.audible.com/search?keywords=Food+Rules+Michael+Pollan"
+   },
+   "source": "gameshape",
+   "pick": false
+  },
+  {
+   "id": "brain-energy",
+   "title": "Brain Energy",
+   "author": "Christopher M. Palmer",
+   "year": 2022,
+   "category": "happiness",
+   "tags": [
+    "mental health",
+    "metabolism",
+    "audiobook"
+   ],
+   "why": "A psychiatrist links mental health to metabolism, diet, sleep, and exercise.",
+   "readIf": "Read this if you want the mind and body connection.",
+   "bestFor": [
+    "commute"
+   ],
+   "audiobook": true,
+   "spice": 0,
+   "series": null,
+   "seriesOrder": null,
+   "similarTo": null,
+   "links": {
+    "amazon": "https://www.amazon.com/s?k=Brain+Energy+Christopher+M.+Palmer&i=stripbooks",
+    "bookshop": "https://bookshop.org/search?keywords=Brain+Energy+Christopher+M.+Palmer",
+    "goodreads": "https://www.goodreads.com/search?q=Brain+Energy+Christopher+M.+Palmer",
+    "audible": "https://www.audible.com/search?keywords=Brain+Energy+Christopher+M.+Palmer"
+   },
+   "source": "gameshape",
    "pick": false
   }
  ]

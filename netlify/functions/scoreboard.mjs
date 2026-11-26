@@ -47,6 +47,9 @@ async function read(store, week, season) {
   return out;
 }
 
+// Daily points for the score graphs: { "YYYY-MM-DD": pts }, last 120 days only.
+function days(d) { const out = {}; if (!d || typeof d !== "object") return out; Object.keys(d).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)).sort().slice(-120).forEach(k => { const v = num(d[k], 2000); if (v) out[k] = v; }); return out; }
+
 export default async (req) => {
   const store = getStore("scoreboard");
   const url = new URL(req.url);
@@ -81,7 +84,7 @@ export default async (req) => {
     const sk = "season-" + se.id, sdata = (await store.get(sk, { type: "json" })) || {};
     sdata[id] = { id, name, accent, points: num(se.points, 60000), tot, badges: (Array.isArray(se.badges) ? se.badges : []).slice(0, 40).map(x => String(x).slice(0, 12)),
       miles: Math.max(0, Math.min(3000, Math.round((+se.miles || 0) * 10) / 10)), books: num(se.books, 100), allInDays: num(se.allInDays, 400),
-      today: today(se.today), weekPts: num(se.weekPts, 5000), weekHits: num(se.weekHits, 35), weeks: weeks(se.weeks), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
+      days: days(se.days), today: today(se.today), weekPts: num(se.weekPts, 5000), weekHits: num(se.weekHits, 35), weeks: weeks(se.weeks), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
       lifetime: num(se.lifetime, 5000), allInEver: num(se.allInEver, 5000), updated: rec.updated };
     await store.setJSON(sk, sdata);
   }
