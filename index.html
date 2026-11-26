@@ -372,6 +372,45 @@ img,svg,video{max-width:100%}
 /* tap blur in EPC Tropics purple + teal */
 .tapfx{background:radial-gradient(circle,rgba(var(--epc-teal-rgb),.55) 0%,rgba(var(--epc-teal-rgb),.22) 32%,rgba(var(--epc-purple-rgb),.28) 52%,rgba(var(--epc-purple-rgb),0) 72%)}
 .btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{box-shadow:0 0 0 4px rgba(var(--epc-teal-rgb),.25),0 6px 18px rgba(var(--epc-purple-rgb),.30)}
+/* weekly medals */
+.mburst{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:24px;animation:wIn .3s ease;overflow:hidden}
+.mburst.out{opacity:0;transition:opacity .3s}
+.m-gold{background:radial-gradient(circle at 50% 40%,rgba(255,215,94,.55),rgba(1,57,25,0) 62%),linear-gradient(160deg,#1c3a12,#00230f)}
+.m-silver{background:radial-gradient(circle at 50% 40%,rgba(210,218,226,.28),rgba(30,36,44,0) 60%),linear-gradient(160deg,#2a313a,#14181d)}
+.m-bronze{background:linear-gradient(160deg,#3a2a1e,#1d1510)}
+.m-poop{background:radial-gradient(circle at 50% 42%,rgba(122,74,34,.5),rgba(0,0,0,0) 60%),linear-gradient(160deg,#2b1a0c,#120a04)}
+.m-golden{background:radial-gradient(circle at 50% 40%,rgba(255,215,94,.75),rgba(74,45,118,.3) 45%,rgba(0,0,0,0) 70%),linear-gradient(160deg,#2f1b50,#0d0618)}
+.mb-rays{position:absolute;top:40%;left:50%;width:700px;height:700px;margin:-350px 0 0 -350px;background:repeating-conic-gradient(from 0deg,rgba(255,226,140,.22) 0 7deg,rgba(255,255,255,0) 7deg 20deg);border-radius:50%;animation:bbSpin 7s linear infinite;-webkit-mask:radial-gradient(circle,#000 25%,transparent 70%);mask:radial-gradient(circle,#000 25%,transparent 70%)}
+.m-golden .mb-rays{background:repeating-conic-gradient(from 0deg,rgba(255,226,140,.35) 0 6deg,rgba(78,176,214,.12) 6deg 12deg,rgba(255,255,255,0) 12deg 20deg);animation-duration:4s}
+.mb-medal{position:relative;z-index:1}
+.m-gold .mb-medal{animation:bbPop .8s cubic-bezier(.2,1.6,.4,1),goldGlow 1.6s ease-in-out infinite .8s}
+.m-silver .mb-medal{animation:bbPop .7s ease,sway 2.4s ease-in-out infinite .7s}
+.m-bronze .mb-medal{animation:wIn .9s ease;filter:saturate(.7)}
+.m-poop .mb-medal{animation:poopDrop .9s cubic-bezier(.3,1.5,.5,1),poopShake .5s ease-in-out 1s 3}
+.m-golden .mb-medal{animation:goldenIn 1.2s cubic-bezier(.2,1.5,.4,1),goldGlow 1.2s ease-in-out infinite 1.2s}
+.mb-eyebrow{margin-top:20px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;opacity:.8;position:relative}
+.mb-name{font-size:32px;font-weight:900;letter-spacing:-.5px;margin-top:4px;position:relative;animation:bbUp .5s .2s both}
+.m-golden .mb-name{font-size:30px;background:linear-gradient(90deg,#fff4c2,#ffd75e,#f6a800,#fff4c2);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:bbUp .5s .2s both,shine 2.5s linear infinite}
+.m-gold .mb-name{color:#ffd75e}.m-silver .mb-name{color:#dfe5ea}.m-bronze .mb-name{color:#d39a6a;opacity:.85}.m-poop .mb-name{color:#e0b07a;font-size:36px}
+.mb-sub{margin-top:8px;font-size:16px;opacity:.9;max-width:320px;position:relative;animation:bbUp .5s .35s both}
+.m-bronze .mb-sub,.m-silver .mb-sub{opacity:.7}
+.mini-poop{position:absolute;top:-60px;animation:fall linear forwards;opacity:.9}
+.gtb{position:relative;display:inline-grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff7cf,#ffd75e 28%,#e3a20b 60%,#8a5a00);box-shadow:0 0 0 4px rgba(255,236,170,.5),0 0 40px rgba(255,200,60,.8),inset 0 -8px 18px rgba(120,70,0,.5);overflow:hidden}
+.gtb:before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(90deg,transparent 48.5%,rgba(110,60,0,.55) 48.5% 51.5%,transparent 51.5%),radial-gradient(circle at 50% -40%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%),radial-gradient(circle at 50% 140%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%)}
+.gtb:after{content:"";position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.65) 50%,transparent 60%);animation:pbShine 3s ease-in-out infinite}
+.gtb img{position:relative;z-index:1;width:72%;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.medal-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.medal-row .mc{display:inline-flex;align-items:center;gap:3px;font-weight:900}
+.wkdots{display:flex;gap:6px;margin-top:10px}
+.wkdots span{flex:1;height:34px;border-radius:9px;background:var(--line);display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink-2)}
+.wkdots span.h4{background:var(--green);color:#fff}.wkdots span.h3{background:#2f7a4f;color:#fff}.wkdots span.h2{background:#8bb89a;color:#fff}.wkdots span.h1{background:#d9e6dd}
+@keyframes goldGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,215,94,.6))}50%{filter:drop-shadow(0 0 28px rgba(255,215,94,1))}}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes poopDrop{0%{transform:translateY(-120vh) scale(1.4)}70%{transform:translateY(20px) scale(1.1,.85)}100%{transform:none}}
+@keyframes poopShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@keyframes goldenIn{0%{transform:scale(.1) rotate(-540deg);opacity:0}70%{transform:scale(1.15) rotate(10deg);opacity:1}100%{transform:none}}
+@keyframes shine{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.mburst *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -460,8 +499,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.7.4";
+const APP_VERSION = "2.8.0";
 const CHANGELOG = {
+  "2.8.0": ["Simpler badges: every week ends in a Gold, Silver, Bronze, or Poop medal. 4 goals a day, 28 a week. Streaks win weeks", "New Golden Tropics Basketball badge: the best medal record each month (Dec, Jan, Feb) wins +900 points", "Books now score 1 point for every $2 you paid", "New This week's medal card on Today shows your 7 days and what you need for the next medal"],
   "2.7.4": ["Setup answers now show a summary after you save, go to Brett automatically, and can be texted with one tap", "Brett's app now gets the same tour, setup questions, and welcome badge as everyone else"],
   "2.7.3": ["EPC Tropics logo on every screen, top right", "Cleaner Copy Paste Empire badge", "Tap effect now glows EPC Tropics purple and teal"],
   "2.7.2": ["Fixed: the update screen flashing and disappearing. It now stays open until you tap the button", "New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)"],
@@ -966,7 +1006,7 @@ function xp() {
   return x;
 }
 function checkBadges() {
-  const logs = Object.entries(S.logs), have = new Set(S.meta.badges), add = id => { if (!have.has(id)) { have.add(id); toast("Badge unlocked: " + BADGES.find(b => b[0] === id)[2]); } };
+  const logs = Object.entries(S.logs), have = new Set(S.meta.badges), add = id => { have.add(id); };   // v2.8: old badges retired from view; weekly medals replace them
   const active = logs.filter(([s]) => isActive(s)).length;
   if (active >= 7) add("week1");
   if (streak() >= 7) add("streak7");
@@ -1022,7 +1062,7 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 /* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
    Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
-const PTS = { allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+const PTS = { golden: 900, perDollar: 0.5, allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
 function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
 /* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
 function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
@@ -1076,13 +1116,7 @@ function dayPoints(s) {
   return b;
 }
 const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY"];
-const SEASON_BADGES = [
-  ["run1", "flag", "First Run", 25], ["mi10", "flag", "10 Miles", 50], ["mi25", "flag", "25 Miles", 100], ["mi50", "flag", "50 Miles", 150], ["mi100", "flag", "100 Miles", 250], ["run5wk", "flame", "5-Mile Week", 50],
-  ["water3", "drop", "Hydrated x3", 25], ["water7", "drop", "Hydration Hero", 75], ["water28", "drop", "Water Week x4", 150], ["sleep7", "moon", "Sleep 7 Nights", 75],
-  ["wo10", "fire", "10 Workouts", 50], ["wo25", "fire", "25 Workouts", 100], ["wo50", "fire", "50 Workouts", 200], ["perfect", "shield", "Perfect Week", 100], ["streak7", "flame", "7-Day Streak", 50],
-  ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["buy1", "book", "Book Buyer", 25], ["buy3", "book", "Library Builder", 50], ["ironman", "hoop", "Iron Man", 100],
-  ["allin3", "shield", "All In x3", 50], ["allin7", "shield", "All In x7", 100], ["allin30", "shield", "All In x30", 300]
-];
+const SEASON_BADGES = [];   // v2.8: replaced by weekly Gold / Silver / Bronze / Poop + the monthly Golden Tropics badge
 const ALLIN_BADGE = ["allin", "shield", "All In (daily)", 50];
 const BADGE_HOW = {
   run1: ["Log your first run or ride", st => [st.miles > 0 ? 1 : 0, 1]], mi10: ["Log 10 cardio miles this season", st => [st.miles, 10]], mi25: ["25 cardio miles", st => [st.miles, 25]], mi50: ["50 cardio miles", st => [st.miles, 50]], mi100: ["100 cardio miles", st => [st.miles, 100]],
@@ -1104,11 +1138,12 @@ function seasonStats(sz) {
   }
   const ss = SSN(), inS = d => d >= sz.start && d <= sz.end;
   const bought = Object.values(ss.bought).filter(x => inS(x.date)), passed = Object.values(ss.quiz).filter(x => x.pass && inS(x.date));
-  st.tot.books = bought.reduce((a, x) => a + (x.pts || 0), 0) + passed.length * PTS.quiz; st.booksPassed = passed.length; st.booksBought = bought.length;
+  st.tot.books = bought.reduce((a, x) => a + (x.price != null ? Math.floor((+x.price || 0) * PTS.perDollar) : (x.pts || 0)), 0) + passed.length * PTS.quiz; st.booksPassed = passed.length; st.booksBought = bought.length;
   st.miles = Math.round(st.miles * 10) / 10;
   st.waterRun = runOf(st.days, p => p.water === PTS.water); st.activeRun = runOf(st.days, (p, l) => !!(l && (l.done || l.mvdDone || (l.checks && l.checks.court) || l.miles > 0 || l.bike > 0)));
   const wkm = {}; st.days.forEach(([dt, , l]) => { if (l) { const w = weekStart(dt); wkm[w] = (wkm[w] || 0) + (+l.miles || 0); } }); st.bestWeekMi = Math.round(Math.max(0, ...Object.values(wkm)) * 10) / 10;
-  const earned = seasonBadges(sz, st); st.badges = earned; st.tot.badges = earned.reduce((a, id) => a + SEASON_BADGES.find(b => b[0] === id)[3], 0);
+  st.weeks = seasonWeeks(sz); st.badges = [];
+  st.goldens = myGoldens(sz); st.tot.badges = st.goldens.length * PTS.golden;
   st.points = Object.values(st.tot).reduce((a, v) => a + v, 0);
   return st;
 }
@@ -1139,17 +1174,60 @@ function seasonBadges(sz, st) {
 function isOffDay(s) { const su = C().setup; return !!(su && (su.offDays || []).includes(dow(s))); }
 function checkSeasonBadges() {
   const sz = seasonOf(todayStr()), t = todayStr(); if (t < sz.start) return;
-  const st = seasonStats(sz), ss = SSN(), seen = ss.seen[sz.id] || [];
-  ss.when = ss.when || {}; ss.when[sz.id] = ss.when[sz.id] || {};
-  st.badges.filter(id => !seen.includes(id)).forEach(id => { ss.when[sz.id][id] = t; badgeBurst(id); });
-  if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; badgeBurst("allin"); }
-  ss.seen[sz.id] = st.badges.slice();
+  const ss = SSN();
+  checkWeekly();
+  if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; toast("ALL IN today! +" + PTS.allIn + " bonus"); }
 }
+/* ---------------------------- WEEKLY MEDALS + GOLDEN TROPICS ----------------------------
+   Each Mon to Sun week scores 4 goals a day (workout or court, water goal, sleep 6 to 9 hrs, read 10+ min) = 28 possible.
+   Gold 24+, Silver 18+, Bronze 11+, Poop under 11. Planned rest days count the workout goal as done.
+   Golden Tropics Basketball badge: each month (Dec, Jan, Feb) the best medal average wins +900 points. Ties share it. */
+const TIERS = { gold: { name: "Gold", v: 3, min: 24, c: "#f6c445" }, silver: { name: "Silver", v: 2, min: 18, c: "#c7ced6" }, bronze: { name: "Bronze", v: 1, min: 11, c: "#c27a3c" }, poop: { name: "Poop", v: 0, min: 0, c: "#7a4a22" } };
+const tierOf = h => h >= 24 ? "gold" : h >= 18 ? "silver" : h >= 11 ? "bronze" : "poop";
+function isPlannedRest(d) { const info = dayInfo(d), k = tplKey(info); return REST_KEYS.includes(k) && info.type !== "GAME_DAY" || isOffDay(d); }
+function dayHits(d) {
+  const l = S.logs[d] || null, h = l ? sleepHrs(l.sleep) : null;
+  const g = { workout: !!(l && (l.done || l.mvdDone || l.runDone || (l.checks && l.checks.court))) || isPlannedRest(d), water: !!(l && l.water >= waterGoal(d)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10) };
+  g.n = (g.workout ? 1 : 0) + (g.water ? 1 : 0) + (g.sleep ? 1 : 0) + (g.read ? 1 : 0); return g;
+}
+function weekHits(ws) { const t = todayStr(); let hits = 0, days = 0; const per = []; for (let i = 0; i < 7; i++) { const d = addDays(ws, i); if (d > t) { per.push(null); continue; } const g = dayHits(d); hits += g.n; days++; per.push(g); } return { ws, hits, days, per }; }
+function seasonWeeks(sz) {
+  const out = {}, t = todayStr(); if (t < sz.start) return out;
+  for (let ws = weekStart(sz.start); ws <= sz.end && ws <= t; ws = addDays(ws, 7)) { const w = weekHits(ws), done = addDays(ws, 6) < t; out[ws] = { hits: w.hits, tier: done ? tierOf(w.hits) : null, live: !done }; }
+  return out;
+}
+const monthOfWeek = ws => addDays(ws, 3).slice(0, 7);   // the week belongs to the month its Thursday is in
+function myGoldens(sz) { const g = SB.goldens || {}; return Object.keys(g).filter(m => (g[m] || []).includes(PID) && m >= sz.start.slice(0, 7) && m <= sz.end.slice(0, 7)); }
+const MONTH_NAME = m => new Date(+m.slice(0, 4), +m.slice(5, 7) - 1, 1).toLocaleDateString("en-US", { month: "long" });
+function checkWeekly() {
+  const sz = seasonOf(todayStr()), ss = SSN(); ss.weekAwards = ss.weekAwards || {}; ss.goldenSeen = ss.goldenSeen || {};
+  const wk = seasonWeeks(sz), fresh = Object.keys(wk).filter(ws => wk[ws].tier && !ss.weekAwards[ws]).sort();
+  fresh.forEach(ws => { ss.weekAwards[ws] = wk[ws].tier; });
+  if (fresh.length) { const last = fresh[fresh.length - 1]; medalBurst(wk[last].tier, wk[last].hits); }
+  myGoldens(sz).filter(m => !ss.goldenSeen[m]).forEach(m => { ss.goldenSeen[m] = 1; medalBurst("golden", 0, m); });
+  if (fresh.length) save();
+}
+function medalSVG(t, size) {
+  size = size || 44;
+  if (t === "poop") return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 8c6 8 2 14-4 16 12 0 20 8 16 18 12 2 18 12 14 22 10 4 14 14 8 22-4 6-12 8-20 8H30c-10 0-18-4-20-12-2-8 4-16 12-18-4-10 2-20 14-22-4-10 4-18 14-18-2-6 0-12 0-16z" fill="#7a4a22" stroke="#4a2a10" stroke-width="3"/><circle cx="38" cy="62" r="6" fill="#fff"/><circle cx="62" cy="62" r="6" fill="#fff"/><circle cx="38" cy="64" r="3" fill="#222"/><circle cx="62" cy="64" r="3" fill="#222"/><path d="M38 84q12-10 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M29 57l14-6M71 57l-14-6" stroke="#222" stroke-width="3" stroke-linecap="round"/><path d="M33 72q-3 6 0 9q3-3 0-9z" fill="#6ec6ff"/></svg>`;
+  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-logo.png" alt=""></span>`;
+  const c = TIERS[t].c, d = t === "gold" ? "#a87a12" : t === "silver" ? "#7d8792" : "#7a4518";
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M30 4h14l8 26H38zM70 4H56l-8 26h14z" fill="${t === "gold" ? "#0e5a2e" : t === "silver" ? "#4a2d76" : "#555"}"/><circle cx="50" cy="60" r="34" fill="${c}" stroke="${d}" stroke-width="5"/><circle cx="50" cy="60" r="24" fill="none" stroke="${d}" stroke-width="2" opacity=".6"/><text x="50" y="70" text-anchor="middle" font-size="28" font-weight="900" fill="${d}" font-family="Arial">${t === "gold" ? "1" : t === "silver" ? "2" : "3"}</text></svg>`;
+}
+/* Medal animations: Gold = bright and cool. Silver = okay, a little sad. Bronze = blah. Poop = huge and sad. Golden Tropics = the biggest. */
+function medalBurst(t, hits, month) {
+  const MSG = { golden: ["Golden Tropics Basketball", "Best of " + (month ? MONTH_NAME(month) : "the month") + ". +" + PTS.golden + " points. The jersey earned it."],
+    gold: ["Gold week!", hits + " of 28. Streak locked in. Keep it rolling."], silver: ["Silver week", hits + " of 28. So close. Gold was right there."],
+    bronze: ["Bronze week", hits + " of 28. It counts... barely. Let's go."], poop: ["Poop week", hits + " of 28. Oof. Fresh week, fresh start."] };
+  BURST.q.push({ medal: t, title: MSG[t][0], sub: MSG[t][1] }); if (!BURST.on) nextBurst();
+}
+
 /* Badge unlock animation: a pop, rays, sparks in your color, and the points it's worth. Queued so several play one after another. */
 const BURST = { q: [], on: false };
 function badgeBurst(id) { BURST.q.push(id); if (!BURST.on) nextBurst(); }
 function nextBurst() {
   const id = BURST.q.shift(); if (!id) { BURST.on = false; return; } BURST.on = true;
+  if (typeof id === "object") return medalOverlay(id);
   const b = badgeInfo(id), w = document.createElement("div"); w.className = "bburst";
   w.innerHTML = `<div class="bb-rays"></div><div class="bb-medal"><span>${I[b[1]] || I.flag}</span></div><div class="bb-eyebrow">Badge unlocked</div><div class="bb-name">${esc(b[2])}</div><div class="bb-pts">+${b[3]} points</div><div class="bb-tap">Tap to keep going</div>`;
   document.body.appendChild(w);
@@ -1157,6 +1235,20 @@ function nextBurst() {
   try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch (e) {}
   let gone = false; const close = () => { if (gone) return; gone = true; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
   w.onclick = close; setTimeout(close, 2800);
+}
+function medalOverlay(m) {
+  const t = m.medal, w = document.createElement("div"); w.className = "mburst m-" + t;
+  const big = t === "golden" || t === "poop";
+  w.innerHTML = `${t === "gold" || t === "golden" ? `<div class="mb-rays"></div>` : ""}<div class="mb-medal">${medalSVG(t, big ? 220 : 170)}</div><div class="mb-eyebrow">${t === "golden" ? "Monthly award" : "End of week"}</div><div class="mb-name">${esc(m.title)}</div><div class="mb-sub">${esc(m.sub)}</div><div class="bb-tap">Tap to keep going</div>`;
+  document.body.appendChild(w);
+  const spark = (n, cols, cls) => { for (let i = 0; i < n; i++) { const c = document.createElement("i"); c.className = cls; const a = Math.random() * 6.283, r = 140 + Math.random() * 160; c.style.cssText = `--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r}px;background:${cols[i % cols.length]};animation-delay:${.1 + Math.random() * .3}s`; w.appendChild(c); } };
+  if (t === "golden") { spark(70, ["#ffd75e", "#fff4c2", "#f6a800", "#4eb0d6", "#4a2d76"], "bb-spark"); for (let i = 0; i < 60; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${["#ffd75e", "#4eb0d6", "#4a2d76", "#fff"][i % 4]};animation-duration:${2.4 + Math.random() * 2}s;animation-delay:${Math.random() * .6}s`; w.appendChild(c); } }
+  if (t === "gold") spark(40, ["#ffd75e", "#fff4c2", "#f6a800"], "bb-spark");
+  if (t === "silver") spark(12, ["#e5e9ee", "#aab3bd"], "bb-spark");
+  if (t === "poop") for (let i = 0; i < 18; i++) { const c = document.createElement("div"); c.className = "mini-poop"; c.style.cssText = `left:${Math.random() * 100}vw;animation-duration:${2.6 + Math.random() * 2}s;animation-delay:${Math.random() * .8}s`; c.innerHTML = medalSVG("poop", 26 + Math.random() * 18); w.appendChild(c); }
+  try { navigator.vibrate && navigator.vibrate(t === "golden" ? [40, 60, 40, 60, 120] : t === "poop" ? [200] : t === "gold" ? [30, 40, 60] : [20]); } catch (e) {}
+  let gone = false; const close = () => { if (gone) return; gone = true; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
+  w.onclick = close; setTimeout(close, t === "golden" ? 6500 : t === "poop" ? 4500 : t === "gold" ? 4000 : 3200);
 }
 function badgesToday() { const sz = seasonOf(todayStr()), t = todayStr(), w = ((SSN().when || {})[sz.id]) || {}; const ids = Object.keys(w).filter(id => w[id] === t); if (dayChecks(t).allIn) ids.unshift("allin"); return ids; }
 function allInEver() { let n = 0; for (const d in S.logs) if (dayChecks(d).allIn) n++; return n; }
@@ -1169,7 +1261,7 @@ function rulebookHTML() {
   const sz = seasonOf(todayStr()), st = todayStr() >= sz.start ? seasonStats(sz) : seasonStats({ id: "PRE", n: 0, start: todayStr(), end: todayStr() });
   const row = (a, b, c) => `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${a}${c ? `<div class="muted" style="font-size:12px">${c}</div>` : ""}</span><b class="brand">${b}</b></div>`;
   const perfect = PTS.workout + PTS.practice + PTS.water + PTS.readCap + PTS.sleepBest + PTS.protein + PTS.allIn;
-  const q = UI.rq || {}, qs = [["What's worth the most on a normal day?", ["Reading", "A full workout", "Affirmations"], 1], ["How do badges turn into points?", ["You cash them in with Brett", "Automatically, the moment you earn them", "Only at the end of the season"], 1], ["You ran yesterday and got cardio points. You run again today. Points?", ["Yes, 40 more", "No, cardio counts every other day", "Only if it's 5+ miles"], 1]];
+  const q = UI.rq || {}, qs = [["What's worth the most on a normal day?", ["Reading", "A full workout", "Affirmations"], 1], ["What wins the monthly Golden Tropics badge (+900)?", ["Most points that month", "Best weekly medal record that month", "Most miles run"], 1], ["You ran yesterday and got cardio points. You run again today. Points?", ["Yes, 40 more", "No, cardio counts every other day", "Only if it's 5+ miles"], 1]];
   return `${sheetTitle("How to win Season " + sz.n)}<div class="rb">
   <div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape merch</h2><div>Matching Game Shape T-shirt and beanie. One winner.</div><div class="small muted" style="margin-top:6px">Season ${sz.n}: ${fmtD(sz.start)} to ${fmtD(sz.end)}. Most points wins.</div></div>
   <details open><summary>1. How the game works</summary><ul class="list small"><li>Every day you log your plan, you stack points.</li><li>Points are measured against YOUR plan and YOUR targets. Mark's beginner day, Will's light day, and Brett's leg day all score the same.</li><li>Points + badges = your season total on the Score tab. Everyone can see everyone.</li><li>Log it the day it happens. The app counts the day you log it.</li></ul></details>
@@ -1177,26 +1269,46 @@ function rulebookHTML() {
     ${row("Basketball practice", PTS.practice, "Show up to Tuesday 7 PM practice. Check in on Today.")}${row("Full workout", PTS.workout, "Finish today's session. The 15-min version is " + PTS.quick + ".")}${row("Game, played", PTS.gamePlay, "At the game but couldn't play: " + PTS.gameWatch + ".")}
     ${row("Water goal", PTS.water, PTS.waterPart + " if you hit 75 percent. Tap the water buttons on Fuel.")}${row("Run or bike", PTS.cardio, "Run 1+ mile or bike 3+ miles. Counts once every other day.")}${row("Reading", "up to " + PTS.readCap, "1 point per minute. Log minutes on Reads.")}
     ${row("Sleep 7 to 8 hours", PTS.sleepBest, "6 to 7 or 8 to 9 hours: " + PTS.sleepMid + ". 9+: " + PTS.sleepLong + ". Under 6: 0. Log it on Recover.")}${row("Protein goal", PTS.protein, "Your own grams target on Fuel.")}${row("Affirmations", 0, "No points alone, but you need them for All In.")}
-    ${row("Bought a book", PTS.buy, "Check the box on the book, 1 a week.")}${row("Finished + passed the quiz", PTS.quiz, "3 easy questions, get 2 right.")}
+    ${row("Bought a book", "1 per $2", "Enter what you paid. A $20 book = 10 points. Brett checks the affiliate report.")}${row("Finished + passed the quiz", PTS.quiz, "3 easy questions, get 2 right.")}
     <div class="banner info" style="margin-top:10px"><b>A perfect practice day = ${perfect} points</b>Workout, practice, water, 35 min reading, 7 to 8 hrs sleep, protein, plus the All In bonus.</div></details>
-  <details><summary>3. All In: the daily bonus</summary><div class="small">Hit all 5 in one day: <b>workout, water goal, 6 to 9 hrs sleep, 10+ min reading, affirmations</b>. You get the All In badge for the day and <b>+${PTS.allIn}</b>. Stack them for All In x3, x7, and x30 badges. This is where accountability turns into points.</div></details>
-  <details open><summary>4. Badges: why streaks win seasons</summary>
-    <div class="small" style="margin-bottom:8px"><b>Badges ARE points.</b> The second you earn one, its points are added to your season total automatically. Nothing to cash in. Many badges come from <b>streaks</b> (water days in a row, workouts in a row, All In days), so consistency pays twice: daily points plus a badge bonus. Miss a day and the streak resets, so don't miss twice. Badges reset each season, and your lifetime count keeps growing.</div>
-    ${SEASON_BADGES.map(b => { const h = BADGE_HOW[b[0]] || ["", () => [0, 1]], [cur, goal] = h[1](st), have = st.badges.includes(b[0]), pct = Math.min(100, Math.round((cur / goal) * 100)); return `<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div class="row between small"><span><b>${have ? "✓ " : ""}${b[2]}</b><div class="muted" style="font-size:12px">${h[0]}</div></span><b class="brand">+${b[3]}</b></div><div class="bprog"><i style="width:${have ? 100 : pct}%"></i></div><div class="muted" style="font-size:11px;margin-top:2px">${have ? "Earned" : Math.min(cur, goal) + " of " + goal}</div></div>`; }).join("")}
-    <button class="btn block" style="margin-top:10px" data-act="burstDemo">Preview the badge animation</button></details>
-  <details><summary>5. Fair play</summary><ul class="list small"><li>Daily caps so nobody wins by farming one thing.</li><li>Cardio counts every other day. Rest matters.</li><li>Book buys are honor system, 1 a week. Brett can see affiliate sales.</li><li>Book reads need the quiz. Retake in 24 hours with new questions.</li><li>Sleep scores best at 7 to 8 hours, not 10. Recovery, not hibernation.</li></ul></details>
+  <details><summary>3. All In: the daily bonus</summary><div class="small">Hit all 5 in one day: <b>workout, water goal, 6 to 9 hrs sleep, 10+ min reading, affirmations</b>. You get <b>+${PTS.allIn}</b> bonus points. This is where accountability turns into points.</div></details>
+  <details open><summary>4. Weekly medals + the Golden Tropics badge</summary>
+    <div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. Each day has <b>4 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, and 10+ minutes of reading. That's <b>28 hits</b> a week. Streaks win weeks: miss a day and you lose up to 4 hits.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under 11 hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
+    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most hits, then share it.</div></div></div></div>
+    <div class="small muted" style="margin-top:8px">Medals don't add points by themselves. They decide who takes the Golden Tropics +${PTS.golden} each month, and that can swing the season.</div>
+    <button class="btn block" style="margin-top:10px" data-act="burstDemo">Preview the medal animations</button></details>
+  <details><summary>5. Fair play</summary><ul class="list small"><li>Daily caps so nobody wins by farming one thing.</li><li>Cardio counts every other day. Rest matters.</li><li>Book buys are honor system: 1 point per $2 you paid. Brett can see affiliate sales.</li><li>Book reads need the quiz. Retake in 24 hours with new questions.</li><li>Sleep scores best at 7 to 8 hours, not 10. Recovery, not hibernation.</li></ul></details>
   <details><summary>6. Quick check: do you know the rules?</summary>${qs.map(([qq, opts, ans], i) => `<div style="margin:8px 0"><b class="small">${qq}</b>${opts.map((o, j) => { const picked = q[i] === j, right = j === ans; return `<button class="chip ${picked ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:5px 0;${picked ? (right ? "background:var(--green);color:#fff" : "background:var(--danger-tint)") : ""}" data-act="rq" data-i="${i}" data-v="${j}">${picked ? (right ? "✓ " : "✗ ") : ""}${esc(o)}</button>`; }).join("")}</div>`).join("")}${qs.every((x, i) => q[i] === x[2]) ? `<div class="banner info"><b>3 for 3. You're ready.</b>Now go stack points.</div>` : ""}</details>
   <div style="text-align:center;font-weight:900;color:var(--green);margin:14px 0 4px">It's a grind, but it's all for the mind.</div><div style="text-align:center;font-weight:800;color:var(--orange-ink)">May the best man win.</div></div>`;
+}
+function weekCardHTML() {
+  const t = todayStr(), ws = weekStart(t), w = weekHits(ws), dleft = 6 - ((dow(t) + 6) % 7), cur = tierOf(w.hits), pace = tierOf(Math.round(w.hits / Math.max(1, w.days) * 7));
+  const tgt = pace === "gold" ? "gold" : pace === "silver" ? "gold" : pace === "bronze" ? "silver" : "bronze", need = Math.max(0, TIERS[tgt].min - w.hits), next = cur === "gold" ? null : tgt;
+  return `<div class="card"><div class="row between" style="align-items:center"><div><h2 class="brand" style="margin:0">This week's medal</h2><div class="small muted">4 goals a day: workout, water, sleep 6 to 9 hrs, read 10 min</div></div><div style="text-align:center">${medalSVG(pace, 46)}<div class="small muted" style="font-size:10px">on pace</div></div></div>
+  <div class="wkdots">${w.per.map((g, i) => `<span class="${g ? "h" + g.n : ""}">${["M", "T", "W", "T", "F", "S", "S"][i]}${g ? "<br>" + g.n : ""}</span>`).join("")}</div>
+  <div class="small" style="margin-top:8px"><b>${w.hits} of 28</b> • on pace for ${TIERS[pace].name}${next ? ` • ${need} more for ${TIERS[next].name}${need > dleft * 4 ? " (out of reach this week)" : ""}` : " • Gold locked in. Keep the streak."}</div></div>`;
+}
+function medalsCardHTML(list) {
+  const t = todayStr(), sz = seasonOf(t), me = list.find(p => p.id === PID) || {}, mc = medalCounts(me.weeks), m = (sz.start > t ? sz.start : t).slice(0, 7);
+  const race = list.map(p => { let v = 0, h = 0; Object.entries(p.weeks || {}).forEach(([ws, w]) => { if (w.tier && monthOfWeek(ws) === m) { v += TIERS[w.tier].v; h += +w.hits || 0; } }); return { p, v, h }; }).sort((a, b) => b.v - a.v || b.h - a.h);
+  return `<div class="card"><h2 class="brand" style="margin:0">Medals</h2><div class="small muted" style="margin:4px 0 10px">Every Mon to Sun week ends in Gold, Silver, Bronze, or Poop. Streaks win weeks.</div>
+    <div style="display:flex;justify-content:space-around;text-align:center">${["gold", "silver", "bronze", "poop"].map(k => `<div>${medalSVG(k, 46)}<div style="font-weight:900;font-size:20px">${mc[k]}</div><div class="small muted">${TIERS[k].name}</div></div>`).join("")}</div>
+    <div class="card" style="margin:14px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 64)}<div><b style="font-size:17px">Golden Tropics Basketball</b><div class="small" style="opacity:.85">${MONTH_NAME(m)}'s best medal record wins +${PTS.golden} points. Up for grabs in December, January, and February.</div></div></div>
+    <div style="margin-top:10px">${race.map((r, i) => `<div class="row between small" style="padding:5px 0;border-top:1px solid rgba(255,255,255,.15)"><span>${i + 1}. ${esc(r.p.name)}${r.p.id === PID ? " (you)" : ""}</span><span>${r.v} medal pts • ${r.h} hits</span></div>`).join("")}</div>
+    <div class="small" style="opacity:.75;margin-top:6px">Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most goal hits.</div></div></div>`;
 }
 function allInCardHTML(onScore) {
   const t = todayStr(), c = dayChecks(t), n = ALLIN.filter(([k]) => c[k]).length;
   return `<div class="card" style="${c.allIn ? "border:2px solid var(--green)" : ""}"><div class="row between"><h2 class="brand" style="margin:0">${c.allIn ? "ALL IN today ✓" : "Go All In today"}</h2><b class="brand">${c.allIn ? "+" + PTS.allIn : n + " of 5"}</b></div>
-  <div class="small muted" style="margin:4px 0 8px">Hit all 5 in one day for the All In badge and +${PTS.allIn} bonus points. Affirmations aren't worth points alone, but they count here.</div>
+  <div class="small muted" style="margin:4px 0 8px">Hit all 5 in one day for +${PTS.allIn} bonus points. Affirmations aren't worth points alone, but they count here.</div>
   ${ALLIN.map(([k, nm]) => `<div class="row between small" style="padding:6px 0;border-bottom:1px solid var(--line)"><span>${c[k] ? "✓" : "○"} ${nm}</span>${c[k] ? `<b class="brand">done</b>` : k === "affirm" ? `<button class="btn sm" data-act="affCheck">Check off</button>` : `<span class="muted">${k === "workout" ? "Start on Today" : k === "water" ? waterGoal(t) + " oz goal" : k === "sleep" ? "Log it on Recover" : "Log on Reads"}</span>`}</div>`).join("")}</div>`;
 }
+function medalCounts(weeks) { const c = { gold: 0, silver: 0, bronze: 0, poop: 0 }; Object.values(weeks || {}).forEach(w => { if (w.tier && c[w.tier] != null) c[w.tier]++; }); return c; }
+function medalsInline(c, size) { return `<span class="medal-row">${["gold", "silver", "bronze", "poop"].map(t => `<span class="mc" title="${TIERS[t].name}">${medalSVG(t, size || 22)}${c[t] || 0}</span>`).join("")}</span>`; }
 function myExtras() {
   const t = todayStr(), p = dayPoints(t), c = dayChecks(t);
-  return { today: { date: t, pts: Object.values(p).reduce((a, v) => a + v, 0), cats: p, checks: c }, weekPts: myWeekScore(weekStart(t)).score, badgesToday: badgesToday(), lifetime: lifetimeBadges(), allInEver: allInEver() };
+  return { today: { date: t, pts: Object.values(p).reduce((a, v) => a + v, 0), cats: p, checks: c }, weekPts: myWeekScore(weekStart(t)).score, weekHits: weekHits(weekStart(t)).hits, weeks: seasonWeeks(seasonOf(t)), badgesToday: [], lifetime: 0, allInEver: allInEver() };
 }
 function standingsList() {
   const sz = seasonOf(todayStr()), pre = todayStr() < sz.start, st = pre ? null : seasonStats(sz);
@@ -1210,33 +1322,31 @@ function seasonHTML(compact) {
   const head = pre ? `Season ${sz.n} starts ${fmtD(sz.start)} (${daysTo} day${daysTo === 1 ? "" : "s"})` : `Season ${sz.n} ends ${fmtD(sz.end)} • ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`;
   const dot = c => `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(c || "#ff8200")};margin-right:8px;vertical-align:0"></span>`;
   const todayOf = p => p.today && p.today.date === t ? p.today : null;
-  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${list.map((p, i) => { const td = todayOf(p); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span><b style="display:inline-block;width:20px">${i + 1}</b>${dot(p.accent)}${esc(p.name)}${p.id === PID ? " (you)" : ""}${td && td.checks.allIn ? ` <span class="tg shelf">All In</span>` : ""}</span><span class="small muted">today ${td ? td.pts : 0} • <b class="brand" style="font-size:16px">${p.points}</b></span></div>`; }).join("")}</div>`;
+  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${list.map((p, i) => { const td = todayOf(p); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span><b style="display:inline-block;width:20px">${i + 1}</b>${dot(p.accent)}${esc(p.name)}${p.id === PID ? " (you)" : ""}${td && td.checks.allIn ? ` <span class="tg shelf">All In</span>` : ""}</span><span class="small muted">${medalsInline(medalCounts(p.weeks), 16)} <b class="brand" style="font-size:16px;margin-left:6px">${p.points}</b></span></div>`; }).join("")}</div>`;
   const medal = i => ["1st", "2nd", "3rd"][i] || (i + 1) + "th";
   const cards = list.map((p, i) => {
     const td = todayOf(p), open = UI.sbOpen === p.id, tot = p.tot || {}, max = Math.max(1, ...CAT_LABEL.map(([k]) => tot[k] || 0));
     const checks = `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${ALLIN.map(([k, n]) => { const ok = td && td.checks && td.checks[k]; return `<span class="tg ${ok ? "shelf" : ""}" style="${ok ? "" : "opacity:.55"}">${ok ? "✓" : "○"} ${n.split(" ")[0]}</span>`; }).join("")}${td && td.checks.allIn ? `<span class="tg" style="background:var(--green);color:#fff">ALL IN +${PTS.allIn}</span>` : ""}</div>`;
-    const bt = (p.badgesToday || []).filter(id => id !== "allin" || (td && td.checks.allIn));
-    const btHTML = bt.length ? `<div class="small" style="margin-top:8px"><b>Badges today:</b> ${bt.map(id => { const b = badgeInfo(id); return `<span class="tg shelf">${esc(b[2])} +${b[3]}</span>`; }).join(" ")}</div>` : "";
+    const mc = medalCounts(p.weeks), gc = p.id === PID ? myGoldens(seasonOf(t)).length : (p.goldenCount || 0), pace = tierOf(Math.round((p.weekHits || 0) / Math.max(1, (dow(t) + 6) % 7 + 1) * 7));
+    const btHTML = `<div class="row between" style="margin-top:10px;align-items:center">${medalsInline(mc, 22)}${gc ? `<span class="mc" style="font-weight:900">${medalSVG("golden", 24)} x${gc}</span>` : ""}</div><div class="small muted" style="margin-top:4px">On pace for ${TIERS[pace].name} this week</div>`;
     const detail = open ? `<div style="margin-top:12px">${CAT_LABEL.map(([k, n]) => `<div class="small" style="display:flex;align-items:center;gap:8px;margin:5px 0"><span style="width:92px">${n}</span><span style="flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:${Math.round((tot[k] || 0) / max * 100)}%;background:${esc(p.accent || "#ff8200")}"></span></span><b style="width:42px;text-align:right">${tot[k] || 0}</b></div>`).join("")}
-      <div class="small muted" style="margin-top:8px">${p.miles || 0} cardio miles • ${p.books || 0} books verified • ${p.allInDays || 0} All In days this season</div>
-      <div style="margin-top:8px">${(p.badges || []).length ? (p.badges || []).map(id => { const b = badgeInfo(id); return `<span class="bdg"><span class="e">${I[b[1]] || I.flag}</span>${esc(b[2])} <b>+${b[3]}</b></span>`; }).join("") : `<div class="small muted">No season badges yet.</div>`}</div></div>` : "";
+      <div class="small muted" style="margin-top:8px">${p.miles || 0} cardio miles • ${p.books || 0} books verified • ${p.allInDays || 0} All In days</div>
+      <div class="small" style="margin-top:8px"><b>Weeks:</b> ${Object.keys(p.weeks || {}).sort().map(ws => { const w = p.weeks[ws]; return w.tier ? `<span title="${fmtD(ws)}">${medalSVG(w.tier, 20)}</span>` : ""; }).join(" ") || "No finished weeks yet."}</div></div>` : "";
     return `<div class="card" style="border-left:5px solid ${esc(p.accent || "#ff8200")}">
       <button data-act="sbOpen" data-id="${esc(p.id)}" style="display:block;width:100%;text-align:left">
       <div class="row between"><span style="font-size:18px"><b>${medal(i)}</b> ${dot(p.accent)}<b>${esc(p.name)}</b>${p.id === PID ? ` <span class="small muted">(you)</span>` : ""}</span><span style="text-align:right"><b class="brand" style="font-size:26px">${p.points}</b><div class="small muted" style="margin-top:-4px">season pts</div></span></div>
-      <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">Badges</div><div class="v" style="font-size:20px">${(p.badges || []).length}<span class="small muted"> / ${p.lifetime || 0} life</span></div></div></div>
+      <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">Week pts</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekHits || 0}<span class="small muted">/28</span></div></div></div>
       ${checks}${btHTML}
       <div class="small muted" style="margin-top:8px">${open ? "Tap to close" : "Tap for the full breakdown"}${td ? "" : " • not synced today yet"}</div></button>${detail}</div>`;
   }).join("");
   const prize = `<div class="banner info" style="margin-top:12px"><b>Season ${sz.n} prize</b>${esc(SB.prize || DEFAULT_PRIZE)}. Most points on ${fmtD(sz.end)} wins.${R().adminPin && !PERSON ? `<div style="margin-top:8px"><button class="btn sm" data-act="prizeEdit">Edit prize</button></div>` : ""}</div>`;
   const me = list.find(p => p.id === PID) || {}, have = st ? st.badges : [];
-  const mine = `<div class="card"><h2 class="brand" style="margin:0">My badges</h2><div class="small muted" style="margin:4px 0 8px">Season ${sz.n}: ${have.length} of ${SEASON_BADGES.length} • All In days: ${st ? st.allInDays : 0} • Lifetime badges: ${me.lifetime || 0}</div>
-    <div>${SEASON_BADGES.map(b => `<span class="bdg ${have.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>
-    <h3 class="sh3" style="margin-top:12px">Lifetime</h3><div>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}</div></div>`;
+  const mine = medalsCardHTML(list);
   const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
     <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
-    <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
-  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div><button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, badges, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
+    <li>Buy a book: 1 point per $2 you paid. Finish it and pass the 3-question quiz: ${PTS.quiz}</li><li>Weekly medals: Gold 24+ hits, Silver 18+, Bronze 11+, Poop under 11 (4 goals a day, 28 a week)</li><li>Golden Tropics: best medal record each month wins +${PTS.golden}</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div><button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
 
@@ -1257,7 +1367,7 @@ function myWeekScore(ws) {
   delete st.milesPts; st.miles = Math.round(st.miles * 10) / 10;
   return { score, stats: st };
 }
-const SB = { week: null, players: null, err: false, last: 0, season: null, standings: null, prize: DEFAULT_PRIZE };
+const SB = { week: null, players: null, err: false, last: 0, season: null, standings: null, prize: DEFAULT_PRIZE, goldens: {} };
 let sbTimer = null;
 function syncScore(force) {
   if (location.protocol === "file:") return;
@@ -1265,9 +1375,9 @@ function syncScore(force) {
   if (!force && Date.now() - SB.last < 20000 && SB.week === ws) return;
   SB.last = Date.now();
   const st = todayStr() >= sz.start ? seasonStats(sz) : null;
-  const season = Object.assign(st ? { id: sz.id, points: st.points, tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed, allInDays: st.allInDays } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0, allInDays: 0 }, myExtras());
+  const season = Object.assign(st ? { id: sz.id, points: st.points - (st.tot.badges || 0), tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed, allInDays: st.allInDays } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0, allInDays: 0 }, myExtras());
   fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: myName(), accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
-    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
+    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; const hadG = JSON.stringify(SB.goldens || {}); SB.goldens = d.goldens || {}; if (JSON.stringify(SB.goldens) !== hadG) setTimeout(checkWeekly, 300); SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
     .catch(() => { SB.err = true; });
 }
 function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncScore(true), 4000); }
@@ -1375,10 +1485,12 @@ function tourPages() {
       ${row("Full workout (the big one)", PTS.workout)}${row("Water goal hit (" + PTS.waterPart + " at 75 percent)", PTS.water)}${row("Run 1+ mi or bike 3+ mi (every other day)", PTS.cardio)}
       ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Basketball practice", PTS.practice)}${row("Game, played", PTS.gamePlay)}${row("Game, there but couldn't play", PTS.gameWatch)}${row("15-min quick workout", PTS.quick)}
       ${row("Sleep 7 to 8 hours", PTS.sleepBest)}${row("Sleep 6 to 7 or 8 to 9 hours", PTS.sleepMid)}${row("Sleep 9+ hours", PTS.sleepLong)}${row("Sleep under 6 hours", 0)}
-      ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book (1 a week)", PTS.buy)}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
+      ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book", "1 per $2")}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
       <div class="small muted" style="margin-top:8px">Daily caps keep it fair, so nobody wins by farming one thing. Log it the day it happens.</div>`),
-    p("Badges = bonus points", "Hit a milestone, unlock a badge, and its points add to your total automatically.", `<div>${SEASON_BADGES.map(b => `<span class="bdg"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>
-      <div class="small muted" style="margin-top:8px">Book quizzes: 3 basic questions, get 2 right to verify the book. Miss it? Retake in 24 hours with new questions. Badges reset each season.</div>`),
+    p("Weekly medals", "Streaks win weeks. Every week ends in Gold, Silver, Bronze, or Poop.", `<div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. Each day has <b>4 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, and 10+ minutes of reading. That's <b>28 hits</b> a week. Streaks win weeks: miss a day and you lose up to 4 hits.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under 11 hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
+    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most hits, then share it.</div></div></div></div>
+    <div class="small muted" style="margin-top:8px">Medals don't add points by themselves. They decide who takes the Golden Tropics +${PTS.golden} each month, and that can swing the season.</div>`),
     p("Season " + sz.n + ": " + fmtD(sz.start) + " to " + fmtD(sz.end), "Most points at the end of the season wins.", `<div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape T-shirt and matching beanie</h2><div class="small muted">One winner. One set. First ever made.</div></div>
       <p style="text-align:center;font-size:18px;font-weight:800;color:var(--green);margin:14px 0 4px">It's going to be a grind, but it's all for the mind.</p>
       <p style="text-align:center;margin:0 0 6px">Log every day. Stack the small wins. Check the Score tab and watch the race.</p>
@@ -1397,7 +1509,7 @@ function seasonPitch(isNew) {
   return `<ul class="list">
     <li><b>${who}</b></li>
     <li>Earn points for everything you log: workouts, runs, water, sleep, affirmations, reading, and books you buy and finish.</li>
-    <li>Earn badges. Every badge turns into bonus points.</li>
+    <li>Every week ends in a Gold, Silver, Bronze, or Poop medal. The best medal record each month wins the Golden Tropics badge and +${PTS.golden} points.</li>
     <li>Points are based on YOUR plan and YOUR targets, so everyone has a fair shot.</li>
     <li>Season ${sz.n} runs ${fmtD(sz.start)} to ${fmtD(sz.end)}. Most points wins the first Game Shape shirt and beanie.</li>
     <li>See where you stand any time on the new <b>Score</b> tab.</li></ul>
@@ -1569,6 +1681,7 @@ function renderToday() {
   out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
   out += courtCardHTML(s);
+  out += weekCardHTML();
   out += allInCardHTML(false);
   // workout window check (people who pick their own windows)
   const wins = myWindows();
@@ -1819,7 +1932,7 @@ function download(name, text) { const a = document.createElement("a"); a.href = 
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
   rq: el => { UI.rq = UI.rq || {}; UI.rq[+el.dataset.i] = +el.dataset.v; const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop, open = [...pn.querySelectorAll(".rb details")].map(d => d.open); renderSheet(); pn.querySelectorAll(".rb details").forEach((d, i) => { d.open = !!open[i]; }); pn.scrollTop = y; },
-  burstDemo: () => badgeBurst("wo10"),
+  burstDemo: () => { medalBurst("gold", 25); medalBurst("silver", 19); medalBurst("bronze", 12); medalBurst("poop", 7); medalBurst("golden", 0, "2026-12"); },
   tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourDone: el => { S.meta.tourSeen = APP_VERSION; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup") openSheet("setup", "first"); },
@@ -1828,7 +1941,8 @@ const ACT = {
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
   affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("Nice. Mind right."); render(); },
   buyNo: () => { SSN().pendingBuy = null; save(); closeSheet(); },
-  buyBook: el => { if (SSN().bought[el.dataset.id]) return closeSheet(); SSN().pendingBuy = null; const ss = SSN(), id = el.dataset.id, t = todayStr(), last = Object.values(ss.bought).filter(x => x.pts).map(x => x.date).sort().pop(); const ok = !last || between(last, t) >= 7; ss.bought[id] = { date: t, pts: ok ? PTS.buy : 0 }; save(); toast(ok ? "+" + PTS.buy + " points. Enjoy it." : "Logged. 1 book purchase a week earns points. Next one counts " + fmtD(addDays(last, 7)) + "."); checkSeasonBadges(); queueScore(); if (UI.sheet && UI.sheet.kind === "book") renderSheet(); else openSheet("book", id); },
+  buyBook: el => { const id = el.dataset.id; if (SSN().bought[id]) return closeSheet(); SSN().pendingBuy = null; save(); openSheet("result", buyPriceHTML(id)); setTimeout(() => { const i = $("buyPrice"); if (i) i.focus(); }, 300); },
+  buyConfirm: el => { const id = el.dataset.id, p = Math.round((+($("buyPrice") || {}).value || 0) * 100) / 100; if (!(p > 0) || p > 150) return toast("Enter what you paid, like 18.99"); const pts = Math.floor(p * PTS.perDollar); SSN().bought[id] = { date: todayStr(), price: p, pts }; save(); toast("+" + pts + " points. Enjoy the read."); queueScore(); openSheet("book", id); },
   quizOpen: el => openQuiz(el.dataset.id),
   quizPick: el => { QZ.picks[+el.dataset.i] = +el.dataset.v; renderSheet(); },
   quizSubmit: () => { if (QZ.picks.some(p => p < 0)) return toast("Answer all 3"); const ss = SSN(), id = QZ.id; QZ.loading = true; renderSheet();
@@ -2122,9 +2236,13 @@ function quizHTML() {
   if (QZ.result) { const r = QZ.result; return top + `<div class="card" style="text-align:center"><h2 style="margin:0">${r.correct} of ${r.total} right</h2><div class="muted" style="margin-top:6px">${r.pass ? "Verified! +" + PTS.quiz + " points. Nice work." : "Not this time. Retake in 24 hours with new questions."}</div></div><button class="btn primary block" data-act="closeSheet">${r.pass ? "Let's go" : "OK"}</button>`; }
   return top + QZ.questions.map((q, i) => `<div class="card" style="background:var(--card2)"><b>${i + 1}. ${esc(q.q)}</b><div style="margin-top:8px">${q.options.map((o, j) => `<button class="chip ${QZ.picks[i] === j ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:6px 0" data-act="quizPick" data-i="${i}" data-v="${j}">${esc(o)}</button>`).join("")}</div></div>`).join("") + `<button class="btn primary block" data-act="quizSubmit">Submit answers</button>`;
 }
+function buyPriceHTML(id) {
+  const b = bookById(id) || { title: "" };
+  return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Nice pickup</h2><div class="muted">${esc(b.title)}</div></div><div class="small muted" style="text-align:center;margin-bottom:10px">1 point for every $2 you paid. A $20 book = 10 points.</div><label class="f">What did you pay? ($)</label><input id="buyPrice" type="number" inputmode="decimal" step="0.01" min="0" max="150" placeholder="18.99"><button class="btn primary block" style="margin-top:12px" data-act="buyConfirm" data-id="${esc(id)}">Save and get my points</button><button class="btn block" style="margin-top:8px" data-act="buyNo">Cancel</button>`;
+}
 function bookSeasonHTML(id, sh) {
   const ss = SSN(), bo = ss.bought[id], q = ss.quiz[id];
-  const buy = bo ? `<span class="tg shelf">☑ Bought ${fmtD(bo.date)}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">☐ I bought it (+${PTS.buy})</button>`;
+  const buy = bo ? `<span class="tg shelf">☑ Bought ${fmtD(bo.date)}${bo.price ? " for $" + bo.price : ""}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">☐ I bought it (1 pt per $2)</button>`;
   const quiz = q && q.pass ? `<span class="tg shelf">✓ Book Verified (+${PTS.quiz})</span>` : sh === "done" ? `<button class="btn primary sm" data-act="quizOpen" data-id="${id}">${q && q.failDate ? "Retake the quiz" : "Take the quiz"} (+${PTS.quiz})</button>` : `<span class="small muted">Finish it, pass a 3-question quiz, earn ${PTS.quiz}.</span>`;
   return `<div class="row wrap" style="gap:8px;margin-top:12px;align-items:center">${buy}${quiz}</div>`;
 }
@@ -2520,7 +2638,7 @@ function askBought() {
   const ss = SSN(), pb = ss.pendingBuy; if (!pb || ss.bought[pb.id] || Date.now() - pb.at < 4000) return;
   if (Date.now() - pb.at > 3 * 864e5) { ss.pendingBuy = null; save(); return; }
   const b = bookById(pb.id); if (!b) return;
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Did you buy it?</h2><div class="muted">${esc(b.title)}</div></div><div class="small muted" style="text-align:center;margin-bottom:12px">Buying a book earns +${PTS.buy} points (1 a week) and the Book Buyer badge.</div><button class="btn primary block" data-act="buyBook" data-id="${esc(pb.id)}">Yes, I bought it</button><button class="btn block" style="margin-top:8px" data-act="buyNo">Not yet</button>`);
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Did you buy it?</h2><div class="muted">${esc(b.title)}</div></div><div class="small muted" style="text-align:center;margin-bottom:12px">Buying a book earns 1 point for every $2 you paid.</div><button class="btn primary block" data-act="buyBook" data-id="${esc(pb.id)}">Yes, I bought it</button><button class="btn block" style="margin-top:8px" data-act="buyNo">Not yet</button>`);
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
 paintSportsArt();

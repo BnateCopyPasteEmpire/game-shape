@@ -12,17 +12,36 @@ const num = (v, max) => Math.max(0, Math.min(max, Math.round(+v || 0)));
 const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 const byScore = (a, b) => b.score - a.score;
 const CATS = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus"], CHECKS = ["workout", "water", "sleep", "read", "affirm", "allIn"];
+function weeks(w) {
+  const out = {}; if (!w || typeof w !== "object") return out;
+  Object.keys(w).filter(okWeek).sort().slice(-20).forEach(ws => { const x = w[ws] || {}; out[ws] = { hits: num(x.hits, 28), tier: TV[x.tier] != null ? x.tier : null }; });
+  return out;
+}
 function today(t) {
   if (!t || !okWeek(t.date)) return null;
   const cats = {}, checks = {}; CATS.forEach(k => { cats[k] = num((t.cats || {})[k], 500); }); CHECKS.forEach(k => { checks[k] = !!(t.checks || {})[k]; });
   return { date: t.date, pts: num(t.pts, 2000), cats, checks };
 }
 
+/* Golden Tropics Basketball badge: for each finished month, the best weekly medal total (Gold 3, Silver 2, Bronze 1, Poop 0) wins +900. Ties share it.
+   A week belongs to the month its Thursday falls in. */
+const TV = { gold: 3, silver: 2, bronze: 1, poop: 0 }, GOLDEN = 900;
+function thursdayMonth(ws) { const d = new Date(ws + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + 3); return d.toISOString().slice(0, 7); }
+function goldens(recs) {
+  const nowM = new Date().toISOString().slice(0, 7), by = {};
+  recs.forEach(r => Object.entries(r.weeks || {}).forEach(([ws, w]) => { if (!w || !w.tier) return; const m = thursdayMonth(ws); if (m >= nowM) return; by[m] = by[m] || {}; const e = by[m][r.id] = by[m][r.id] || { v: 0, h: 0 }; e.v += TV[w.tier] || 0; e.h += +w.hits || 0; }));
+  const out = {};
+  for (const m in by) { const es = Object.entries(by[m]); const best = Math.max(...es.map(([, e]) => e.v)); if (best <= 0) continue; const top = es.filter(([, e]) => e.v === best), bh = Math.max(...top.map(([, e]) => e.h)); out[m] = top.filter(([, e]) => e.h === bh).map(([id]) => id); }
+  return out;
+}
 async function read(store, week, season) {
   const out = {};
   if (okWeek(week)) out.players = Object.values((await store.get("week-" + week, { type: "json" })) || {}).sort(byScore);
   if (okSeason(season)) {
-    out.standings = Object.values((await store.get("season-" + season, { type: "json" })) || {}).sort((a, b) => b.points - a.points);
+    const recs = Object.values((await store.get("season-" + season, { type: "json" })) || {});
+    out.goldens = goldens(recs);
+    recs.forEach(r => { const n = Object.values(out.goldens).filter(ids => ids.includes(r.id)).length; r.goldenCount = n; r.points = (r.points || 0) + n * GOLDEN; });
+    out.standings = recs.sort((a, b) => b.points - a.points);
     out.prize = (await store.get("prize-" + season, { type: "json" })) || DEFAULT_PRIZE;
   }
   return out;
@@ -62,7 +81,7 @@ export default async (req) => {
     const sk = "season-" + se.id, sdata = (await store.get(sk, { type: "json" })) || {};
     sdata[id] = { id, name, accent, points: num(se.points, 60000), tot, badges: (Array.isArray(se.badges) ? se.badges : []).slice(0, 40).map(x => String(x).slice(0, 12)),
       miles: Math.max(0, Math.min(3000, Math.round((+se.miles || 0) * 10) / 10)), books: num(se.books, 100), allInDays: num(se.allInDays, 400),
-      today: today(se.today), weekPts: num(se.weekPts, 5000), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
+      today: today(se.today), weekPts: num(se.weekPts, 5000), weekHits: num(se.weekHits, 28), weeks: weeks(se.weeks), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
       lifetime: num(se.lifetime, 5000), allInEver: num(se.allInEver, 5000), updated: rec.updated };
     await store.setJSON(sk, sdata);
   }
