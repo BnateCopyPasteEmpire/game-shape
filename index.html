@@ -494,7 +494,9 @@ img,svg,video{max-width:100%}
 .gtb2 .g-tw{position:absolute;color:#fff6c8;font-size:calc(var(--s)*.16);text-shadow:0 0 8px #ffd75e;animation:gTw 1.8s ease-in-out infinite}
 @keyframes gSheen{0%{transform:translateX(-60%)}55%,100%{transform:translateX(60%)}}
 @keyframes gTw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
-.fs-ic .gtb2{--s:22px!important}
+.fs-ic .gtb2,.fs-ic .gtb3{--s:22px!important}
+.gtb3{display:inline-block;width:calc(var(--s)*1.6);height:var(--s);vertical-align:middle;flex:none;filter:drop-shadow(0 calc(var(--s)*.04) calc(var(--s)*.12) rgba(255,186,30,.55))}
+.gtb3 img{display:block;width:100%;height:100%;object-fit:contain}
 .splash{position:fixed;z-index:120;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%) scale(.1);background:radial-gradient(circle,rgba(255,255,255,.9) 0 12%,var(--sp1) 13% 38%,var(--sp2) 39% 58%,transparent 60%);opacity:.95;animation:splashGo .6s cubic-bezier(.15,.8,.3,1) forwards}
 .splash.ring{background:none;border:4px solid var(--sp1);animation:splashRing .7s ease-out forwards}
 @keyframes splashGo{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
@@ -676,8 +678,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.1";
+const APP_VERSION = "3.0.2";
 const CHANGELOG = {
+  "3.0.2": ["New Golden Tropics badge: brighter gold, bigger jersey logo"],
   "3.0.1": ["Added reading by mistake? Tap Undo 10 min or Clear today on Today, Recover, or Reads"],
   "3.0.0": ["Recover is simpler: the reading card stays, the hot tub is gone from the app"],
   "2.9.9": ["Opening Day launch: a fresh What's new, the full score rundown, an app tour of every tab, and a 3-question intake (where, when, and any injuries)"],
@@ -1486,7 +1489,7 @@ function checkWeekly() {
 function medalSVG(t, size) {
   size = size || 44;
   if (t === "poop") return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 8c6 8 2 14-4 16 12 0 20 8 16 18 12 2 18 12 14 22 10 4 14 14 8 22-4 6-12 8-20 8H30c-10 0-18-4-20-12-2-8 4-16 12-18-4-10 2-20 14-22-4-10 4-18 14-18-2-6 0-12 0-16z" fill="#7a4a22" stroke="#4a2a10" stroke-width="3"/><circle cx="38" cy="62" r="6" fill="#fff"/><circle cx="62" cy="62" r="6" fill="#fff"/><circle cx="38" cy="64" r="3" fill="#222"/><circle cx="62" cy="64" r="3" fill="#222"/><path d="M38 84q12-10 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M29 57l14-6M71 57l-14-6" stroke="#222" stroke-width="3" stroke-linecap="round"/><path d="M33 72q-3 6 0 9q3-3 0-9z" fill="#6ec6ff"/></svg>`;
-  if (t === "golden") return `<span class="gtb2" style="--s:${size}px" title="Golden Tropics Basketball">${size >= 50 ? `<span class="g-stars">★★★</span>` : ""}<span class="g-frame"><img src="epc-tropics.jpg?v=282" alt="Golden Tropics"></span>${size >= 80 ? `<span class="g-tw" style="left:-6%;top:8%">✦</span><span class="g-tw" style="right:-5%;top:55%;animation-delay:.6s">✦</span><span class="g-tw" style="left:12%;bottom:-6%;animation-delay:1.1s">✦</span><span class="g-rib">GOLDEN</span>` : ""}</span>`;
+  if (t === "golden") return `<span class="gtb3" style="--s:${size}px" title="Golden Tropics Basketball"><img src="golden-badge.webp?v=302" alt="Golden Tropics badge"></span>`;
   const c = TIERS[t].c, d = t === "gold" ? "#a87a12" : t === "silver" ? "#7d8792" : "#7a4518";
   return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M30 4h14l8 26H38zM70 4H56l-8 26h14z" fill="${t === "gold" ? "#0e5a2e" : t === "silver" ? "#4a2d76" : "#555"}"/><circle cx="50" cy="60" r="34" fill="${c}" stroke="${d}" stroke-width="5"/><circle cx="50" cy="60" r="24" fill="none" stroke="${d}" stroke-width="2" opacity=".6"/><text x="50" y="70" text-anchor="middle" font-size="28" font-weight="900" fill="${d}" font-family="Arial">${t === "gold" ? "1" : t === "silver" ? "2" : "3"}</text></svg>`;
 }
