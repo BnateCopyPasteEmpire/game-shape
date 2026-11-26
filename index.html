@@ -547,6 +547,24 @@ img,svg,video{max-width:100%}
 .exmore summary:before{content:"+ "}
 .exmore[open] summary:before{content:"− "}
 .sb-seg{margin:12px 0 8px;width:100%}
+.tour-step{display:flex;justify-content:space-between;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:-4px 0 8px}
+.wn-grid{display:grid;gap:8px}
+.wn-item{background:var(--card2);border-radius:14px;padding:10px 12px;border-left:4px solid var(--orange);animation:bbUp .35s both}
+.wn-item b{display:block;font-size:15px}
+.wn-item span{font-size:13px;color:var(--ink-2)}
+.at-tab{background:var(--card2);border-radius:16px;padding:12px;margin-bottom:10px}
+.at-hd{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:17px}
+.at-ico{width:34px;height:34px;border-radius:10px;background:var(--orange);color:#fff;display:grid;place-items:center;flex:none}
+.at-ico svg{width:20px;height:20px}
+.at-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+.at-row em{font-style:normal;font-weight:900;color:var(--green);white-space:nowrap}
+.climb{display:grid;gap:4px;text-align:center}
+.climb-step{background:var(--card2);border-radius:16px;padding:12px}
+.climb-step b{display:block;font-size:16px}
+.climb-step span{font-size:13px;color:var(--ink-2)}
+.climb-step.gold{background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff}
+.climb-step.gold span{color:#e9dcff}
+.climb-arrow{color:var(--orange);font-size:14px}
 .sb-rank{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;margin-bottom:6px;background:var(--surface)}
 .sb-rank.me{outline:2px solid var(--orange)}
 .sb-rank .dot{width:12px;height:12px;border-radius:50%;flex:none}
@@ -658,8 +676,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.8";
+const APP_VERSION = "2.9.9";
 const CHANGELOG = {
+  "2.9.9": ["Opening Day launch: a fresh What's new, the full score rundown, an app tour of every tab, and a 3-question intake (where, when, and any injuries)"],
   "2.9.8": ["Scoreboards show everyone by name or nickname. Set your nickname in More, then Settings"],
   "2.9.7": ["Good Reads now has 220 books, all picked by Game Shape: new Faith, Health + Happiness, Sports, and Comeback sections, plus more money, mindset, and romance. Anyone can still suggest a book", "Fuel got a deep dive: 16 quick breakfasts, 10 no-cook lunches, 12 smart snacks, 18 prep meals, and a Fuel playbook for workouts, court nights, recovery, mood, and sleep"],
   "2.9.6": ["Book buys now earn 2 points for every $1 you paid. A $20 book = 40 points. Books you already logged were updated"],
@@ -1823,22 +1842,14 @@ function tourPages() {
   const p = (title, sub, body) => `<div class="done-hero" style="padding-bottom:6px"><img src="icon-512.png" alt=""><h2>${title}</h2><div class="muted">${sub}</div></div>${body}`;
   const row = (a, b) => `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${a}</span><b class="brand">${b}</b></div>`;
   return [
-    p("What's new in Game Shape", PID === "mark" ? "A lot changed since you joined, and Will (Coach) is in now too. Here's the quick tour." : PID === "will" ? "Welcome to the Game Shape Community, Coach. Here's everything you get." : "A lot changed since Mark and Will joined. Here's the quick tour.", `<ul class="list">
-      <li><b>Your own plan, your own link.</b> Built from your intake. Your data stays on your phone.</li>
-      <li><b>Workout windows.</b> Pick the times that work. Each day, tap the one you used.</li>
-      <li><b>Where you train.</b> Home, Brett's Gym, or the YMCA. Switch it any day on Today and the workout rebuilds for that equipment.</li>
-      <li><b>Home equipment.</b> Tell the app what you have and home workouts stay hard and still build muscle.</li>
-      <li><b>Run log.</b> Type in your miles after a run.</li>
-      <li><b>App color and nickname.</b> Your color from the intake, plus a nickname in More, then Settings.</li>
-      <li><b>Score tab.</b> Season standings, badges, and a breakdown for every player.</li>
-      <li><b>Book quizzes.</b> Finish a book, pass a quick quiz, get paid in points.</li></ul>`),
-    p("Why the extra questions", "Your intake got us started. These answers make the plan actually fit your life.", `<ul class="list">
-      <li><b>Windows:</b> so every workout lands at a time you can really train.</li>
-      <li><b>Where + home equipment:</b> so you never get an exercise you can't do. A missing machine gets swapped for a move that hits the same muscle.</li>
-      <li><b>Days off:</b> so busy days become rest or a walk instead of a missed workout.</li>
-      <li><b>Games + Tuesday 7 PM practices:</b> so heavy legs never land the day before or the day of, and missed court days become training days.</li>
-      <li><b>Your week preview:</b> you see Mon to Sun before you save.</li>
-      <li>Your answers go to Brett so he can fine-tune your plan in the next update.</li></ul>`),
+    p("What's new in Game Shape", PID === "will" ? "Welcome in, Coach. Here's everything built since your intake." : PID === "mark" ? "A lot landed since your last look. Here's all of it." : "Everything new for Opening Day.", `<div class="wn-grid">
+      ${[["Scoring", "Every box you check earns points. A real season with a prize, plus +" + PTS.allIn + " when you go All In."],
+         ["Medals", "Every week ends Gold, Silver, Bronze, or Poop. Best medals each month win the Golden Tropics badge, +" + PTS.golden + "."],
+         ["Live scoreboard", "See Brett, Mark, and Will's points and checks update about every 30 seconds, plus Day, Week, Month, and Season graphs."],
+         ["Workouts", "Pick where and when you train. Cleaner workout mode with a progress bar, a splash and click on every set, and a 15-min option."],
+         ["Fuel", "16 five-minute breakfasts, no-cook lunches, smart snacks, 18 prep meals, a grocery list, and a fueling playbook."],
+         ["Reads", "220 books in 17 sections. Log minutes for points, earn 2 points per $1 on books, and pass the season-end Book Test for +" + PTS.quiz + "."],
+         ["Recover", "Sleep logging, a nightly wind-down, calf and back care routines, affirmations, and an injury check that adjusts your plan."]].map(([h, t]) => `<div class="wn-item"><b>${h}</b><span>${t}</span></div>`).join("")}</div>`),
     p("How points work", "Every point comes from doing YOUR plan and hitting YOUR targets. A beginner day and a hard day count the same.", `<div>
       ${row("Full workout (the big one)", PTS.workout)}${row("Water goal hit (" + PTS.waterPart + " at 75 percent)", PTS.water)}${row("Run 1+ mi or bike 3+ mi (every other day)", PTS.cardio)}
       ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Basketball practice", PTS.practice)}${row("Game, played", PTS.gamePlay)}${row("Game, there but couldn't play", PTS.gameWatch)}${row("15-min quick workout", PTS.quick)}
@@ -1855,7 +1866,29 @@ function tourPages() {
       <div style="text-align:center;font-weight:800;color:var(--orange-ink);margin:8px 0">May the best man win.</div>`)
   ];
 }
-const TOUR_V = "opening-2026";
+const TOUR_V = "launch-298";
+/* v2.9.9 launch: app tour after the score rundown, then the 3-question intake. */
+function tabIco(k) { const e = document.querySelector(`#tabbar [data-tab="${k}"] svg, nav [data-tab="${k}"] svg, [data-tab="${k}"] svg`); return e ? e.outerHTML : ""; }
+function appTourPages() {
+  const p = (title, sub, body) => `<div class="show-hd"><div class="eyebrow">App tour</div><h2>${title}</h2><div class="muted">${sub}</div></div>${body}`;
+  const tab = (k, n, items) => `<div class="at-tab"><div class="at-hd"><span class="at-ico">${tabIco(k)}</span><b>${n}</b></div>${items.map(([a, b]) => `<div class="at-row"><span>${a}</span>${b ? `<em>${b}</em>` : ""}</div>`).join("")}</div>`;
+  return [
+    p("Today: your scorecard", "Open the app, check the boxes. This is where most points come from.", tab("today", "Today", [["Tap your water as you drink", "+" + PTS.water], ["Mark your workout done (full or 15-min)", "+" + PTS.workout + " / +" + PTS.quick], ["Tap your sleep hours", "up to +" + PTS.sleepBest], ["Tap reading minutes", "up to +" + PTS.readCap], ["Hit 50 g protein", "+" + PTS.protein], ["Practice, game, run, or bike", "+" + PTS.gamePlay + " to +" + PTS.practice], ["All 5 goals + affirmations = All In", "+" + PTS.allIn]]) + `<div class="small muted" style="margin-top:8px">Below the scorecard: your weekly medal chase and the live scoreboard.</div>`),
+    p("Train + Fuel", "Your workout and your food, built around your schedule.", tab("train", "Train", [["Start workout, tap each set as you finish it", ""], ["Short on time? Switch to 15 min", "+" + PTS.quick], ["Finish workout for the big splash", "+" + PTS.workout], ["Something hurts? Tell the app and it swaps the move", ""]]) + tab("fuel", "Fuel", [["+8 / +16 oz buttons for water", "goal = +" + PTS.water], ["Protein buttons and 'Ate this' on every meal", "50 g = +" + PTS.protein], ["Prep meals build your grocery list", ""], ["Fuel playbook: what to eat and when", ""]])),
+    p("Reads + Recover", "Feed the mind, protect the body.", tab("reads", "Reads", [["Pick a book, tap Start reading, log minutes", "1 pt per min"], ["Bought it? Enter the price", "2 pts per $1"], ["Finish it, pass the Book Test in the last week", "+" + PTS.quiz], ["Suggest a book for everyone", ""]]) + tab("recover", "Recover", [["Log bedtime and wake time", "sleep points"], ["Nightly wind-down and affirmations", ""], ["Calf, back, and full-body care routines", ""], ["Red flags: when to see a doctor", ""]])),
+    p("Score + More", "See the race and make the app yours.", tab("progress", "Score", [["Head to head: Day, Week, Month, Season graphs", ""], ["Season standings with everyone's checks today", ""], ["How to win: the full rulebook", ""]]) + `<div class="at-tab"><div class="at-hd"><span class="at-ico" style="font-weight:900">•••</span><b>More (top right)</b></div><div class="at-row"><span>Settings: name, nickname, color, click sound</span></div><div class="at-row"><span>Your plan, schedule, and backups</span></div></div>`),
+    p("How it all adds up", "Every small box feeds the big prize.", `<div class="climb">
+      <div class="climb-step"><b>Every day</b><span>Check your boxes. Points stack up.</span></div><div class="climb-arrow">▼</div>
+      <div class="climb-step"><b>Every week</b><span>5 goals a day, ${WK_MAX} hits a week. ${TIERS.gold.min}+ = Gold, ${TIERS.silver.min}+ = Silver, ${TIERS.bronze.min}+ = Bronze.</span><div style="display:flex;gap:6px;justify-content:center;margin-top:6px">${["gold", "silver", "bronze"].map(k => medalSVG(k, 34)).join("")}</div></div><div class="climb-arrow">▼</div>
+      <div class="climb-step gold"><b>Every month</b><span>Best medal record wins the Golden Tropics badge.</span><div style="margin:18px 0 6px">${medalSVG("golden", 56)}</div><b style="font-size:22px">+${PTS.golden} points</b></div><div class="climb-arrow">▼</div>
+      <div class="climb-step"><b>Sun, Feb 28</b><span>Most points wins the first-ever Game Shape T-shirt and beanie.</span></div></div>`)
+  ];
+}
+function startLaunch() {
+  UI.tourPage = 0; UI.demo = null; UI.wnPending = null; S.meta.seenVersion = APP_VERSION; save();
+  const go = () => openSheet("tour");
+  if (ME && ME.badgeImg && !S.meta.welcomed) showWelcome(true, go); else go();
+}
 /* ===== Opening Day: interactive "how the score works" show (daily > weekly > monthly > season), then a 2-question intake ===== */
 const DEMO_TASKS = [["water", "Water goal", 60], ["practice", "Practice", 55], ["workout", "Workout", 50], ["cardio", "Run or bike", 40], ["read", "Read 35 min", 35], ["sleep", "Sleep 7 to 8 hrs", 25], ["protein", "Protein 50 g", 10]];
 const SLOT_OPTS = ["Early (5 to 6 AM)", "Morning (6 to 8 AM)", "Lunch (11 to 1)", "Afternoon (3 to 5 PM)", "Evening (6 to 8 PM)", "Late (8 to 10 PM)"];
@@ -1931,11 +1964,13 @@ function saveMini() {
   saveHealth(); sendSetup(su);
 }
 function tourHTML() {
-  const pages = tourPages().concat(showPages(), [miniIntakeHTML()]), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
+  const tp = tourPages(), sp = showPages(), ap = appTourPages(), pages = [tp[0], tp[1], tp[2]].concat(sp, [tp[3]], ap, [miniIntakeHTML()]), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
+  const secs = [["What's new", 1], ["Score rundown", 2 + sp.length + 1], ["App tour", ap.length], ["Last step", 1]]; let acc = 0, sec = secs[0][0]; for (const [n, c] of secs) { if (i < acc + c) { sec = n; break; } acc += c; }
+  const stepHd = `<div class="tour-step"><span>${sec}</span><span>${i + 1} of ${pages.length}</span></div>`;
   const dots = `<div style="text-align:center;margin:10px 0">${pages.map((_, k) => `<span style="display:inline-block;width:${k === i ? 18 : 7}px;height:7px;border-radius:4px;margin:0 3px;background:${k === i ? "var(--orange)" : "var(--line)"}"></span>`).join("")}</div>`;
   const mi = D().mi, ready = mi.place && mi.slots.length && hcReady();
   const next = last ? `<button class="btn primary" style="flex:2;${ready ? "" : "opacity:.5"}" data-act="miDone">${ready ? "Save + send to Brett" : "Answer all 3 to finish"}</button>` : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
-  return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
+  return stepHd + pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
 }
 function scSave() { save(); buzz(); checkSeasonBadges(); const y = window.scrollY; render(); window.scrollTo(0, y); }
 function tourAfter() { const f = $("finalTotal"); if (f && !f.dataset.done) { f.dataset.done = 1; setTimeout(() => countUp(f, 0, +f.dataset.to), 200 + 4 * 350); } }
@@ -2095,12 +2130,14 @@ function markReady() { if (isReady() && !S.meta.readyAt) { S.meta.readyAt = Date
 function badgeHTML(big) { return ME && ME.badgeImg ? `<div class="pbadge${big ? " big" : ""}"><img src="${ME.badgeImg}" alt="${esc(ME.fullName || S.profile.name)} Game Shape badge"></div>` : ""; }
 function maybeWelcome() {
   if (!ME || !ME.badgeImg || S.meta.welcomed || UI.sheet || UI.wo || document.querySelector(".welcome,.mburst,.bburst")) return false;
-  if (!isReady()) return false; markReady();
+  if (!isReady()) return false; markReady(); return showWelcome(false);
+}
+function showWelcome(launch, then) {
   const w = document.createElement("div"); w.className = "welcome";
-  w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(ME.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
+  w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(ME.fullName || myName())}</h2><p>${launch ? "Season 1 starts " + fmtD(seasonOf(todayStr()).start) + ". Let's show you how to play and how to win." : "You're all set up. Your plan, your badge, your season."}</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
   document.body.appendChild(w);
   for (let i = 0; i < 70; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${[ACCENT, "#ff8200", "#ffffff", "#0e5a2e"][i % 4]};animation-duration:${2.2 + Math.random() * 2.2}s;animation-delay:${Math.random() * .8}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5500); }
-  w.querySelector("#wGo").onclick = () => { S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => w.remove(), 360); };
+  w.querySelector("#wGo").onclick = () => { S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => { w.remove(); if (then) then(); }, 360); };
   return true;
 }
 
@@ -2442,7 +2479,7 @@ const ACT = {
   miDone: () => { const mi = D().mi; if (!mi.place || !mi.slots.length) return toast("Pick a spot and at least 1 time"); if (!hcReady()) return toast(HC().hurt ? "Rate each area 1 to 10" : "Answer the injury question"); saveMini(); toast("Saved and sent to Brett"); ACT.tourDone({ dataset: {} }); },
   tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
-  tourDone: el => { S.meta.tourSeen = TOUR_V; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup" || needsSetup()) openSheet("setup", "first"); },
+  tourDone: el => { S.meta.tourSeen = TOUR_V; S.meta.seasonHello = 1; S.meta.seenVersion = APP_VERSION; UI.wnPending = null; save(); markReady(); closeSheet(); if (el.dataset.v === "setup" || needsSetup()) openSheet("setup", "first"); },
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
@@ -3167,7 +3204,7 @@ function askBought() {
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
 paintSportsArt();
-if (!maybeWelcome() && !showWhatsNew()) maybeSetup();
+if (S.meta.tourSeen !== TOUR_V) startLaunch(); else if (!maybeWelcome() && !showWhatsNew()) maybeSetup();
 if (!UI.sheet && S.meta.tourSeen && !S.meta.health && !document.querySelector(".welcome")) openSheet("health");
 checkUpdate(true);
 loadBooks();
