@@ -464,11 +464,15 @@ img,svg,video{max-width:100%}
 .scr.ok{border-color:var(--green);background:var(--green-tint)}
 .scr-top{display:flex;align-items:center;gap:10px}
 .scr-ck{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:900;color:#fff;font-size:14px}
-.scr.ok .scr-ck{background:var(--green);border-color:var(--green);animation:bump .35s ease}
+.scr.ok .scr-ck{background:var(--green);border-color:var(--green)}
 .scr-t{flex:1;min-width:0}.scr-t b{display:block;font-size:15px}.scr-t small{color:var(--ink-2);font-size:12px}
 .scr-top em{font-style:normal;font-weight:900;color:var(--orange-ink);white-space:nowrap}
 .scr-ctl{margin-top:8px}.scr-ctl .chip{min-height:40px;padding:0 10px}
-.scr.water{border-width:2px;border-color:rgba(var(--epc-teal-rgb),.7);background:linear-gradient(135deg,rgba(var(--epc-teal-rgb),.12),#fff)}
+.scr.water{border-left:4px solid rgba(var(--epc-teal-rgb),.85)}
+.wg-link{display:block;margin:8px 0 0;padding:4px 0;background:none;border:0;color:var(--ink-2);font-size:13px;font-weight:700;text-decoration:underline}
+.wg-edit{display:flex;align-items:center;gap:8px;margin-top:10px}
+.wg-edit span{font-size:13px;font-weight:800;color:var(--ink-2);flex:1}
+.wg-edit b{font-size:17px;min-width:64px;text-align:center}
 .scr.water.ok{background:linear-gradient(135deg,rgba(var(--epc-teal-rgb),.28),var(--green-tint))}
 .scr.water .scr-top em{font-size:18px}
 .wbar{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:2px}.wbar i{display:block;height:100%;background:linear-gradient(90deg,#4eb0d6,#2b8fc0);transition:width .5s ease}
@@ -684,8 +688,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.5";
+const APP_VERSION = "3.0.6";
 const CHANGELOG = {
+  "3.0.6": ["Pick where you train for any day on the Train tab. Brett: YMCA days use the full gym, home days use what you have"],
   "3.0.5": ["Workout tune-up: cleaner sessions, steady weight progress"],
   "3.0.4": ["Good Reads doubled: 400+ books, all on Amazon. New sections: Hoops + Coaching Legends, Make Me Money, Pump Me Up, Good Habits, Husband + Dad, Proof of God, and Inspiring Christian Stories", "New daily verse and prayer at the bottom of Reads"],
   "3.0.2": ["New Golden Tropics badge: brighter gold, bigger jersey logo"],
@@ -868,14 +873,18 @@ const LIB = {
   band_lateral: X("Band Lateral Raise", "Side delts", "15 to 20", "2 sec down", 45, "Stand on the band", ["Slight elbow bend", "Raise to shoulder height", "No shrug"], null, [], ["calf-safe", "back-safe"]),
   bulgarian_ss: X("Bulgarian Split Squat", "Quads, glutes", "10/side", "3 sec down", 75, "Back foot on a couch or chair. Hold DBs or a KB when bodyweight gets easy", ["Long stance", "Front knee over toes", "Drive through the front heel"], "split_squat", ["knee"], [], false),
   slider_curl: X("Towel Slider Hamstring Curl", "Hamstrings", "10", "3 sec out", 60, "Feet on towels on a hard floor", ["Hips up in a bridge", "Slide heels out slowly", "Pull them back in"], "glute_bridge", ["hamstring"], ["back-safe", "calf-safe"], false),
+  walk_jog: X("Brisk Walk or Easy Jog", "Blood flow", "8 to 10 min", "Easy", 0, "Talk pace", ["Outside, driveway, or stairs", "Start with a walk, jog when warm", "No sweat needed"], "walk", [], ["back-safe", "sciatica-safe"], false),
+  cardio_mix: X("Run, Walk + Stairs Mix", "Aerobic base, fat loss", "20 to 25 min", "Steady", 0, "Talk in short sentences", ["5 min brisk walk to warm up", "Then 4 rounds: 3 min easy jog + 2 min stairs or bench step-ups", "Finish with 3 min walk"], "walk", [], ["back-safe"], false),
+  bench_jump: X("Bench Jump + Step Down", "Explosive legs, first step", "5", "Jump up, step down", 60, "Low bench or step. Quality over height", ["Swing arms, jump up soft", "Land quiet in athletic stance", "Step down, never jump down"], "snap_down", ["knee", "ankle"], [], false),
+  hurdle_step: X("Bench Hurdle Strides", "Hips, rhythm, footwork", "6/side", "Smooth", 45, "Bodyweight", ["Line up beside the bench", "Lift knee high and step over", "Stay tall, quick feet"], "lat_shuffle", ["hip"], [], false),
   walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
 };
 const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
 const AREAS = [["calf", "Calves"], ["achilles", "Achilles"], ["ankle", "Ankle"], ["knee", "Knee"], ["hamstring", "Hamstring"], ["hip", "Hip"], ["back", "Low back"]];
 
 /* ---------------------------- SESSION TEMPLATES ---------------------------- */
-const W_STD = ["Easy bike 4 min", "Cat-cow x10", "90/90 hip switches x8/side", "Ankle circles x10 each way", "Sciatic nerve glide x10/side (gentle, no forcing)", "Glute bridge x12"];
-const W_LEG = ["Easy bike 4 min", "Vibration board 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
+const W_STD = ["Brisk walk or easy jog 4 min", "Cat-cow x10", "90/90 hip switches x8/side", "Ankle circles x10 each way", "Sciatic nerve glide x10/side (gentle, no forcing)", "Glute bridge x12"];
+const W_LEG = ["Brisk walk, easy jog, or stairs 4 min", "Vibration board 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
 const C_STD = ["Child's pose 60 sec", "Knees-to-chest 60 sec", "Figure-4 stretch 45 sec/side", "Strap hamstring stretch 45 sec/side (gentle)", "Wall calf stretch, straight + bent knee, 30 sec each", "90/90 breathing 1 min"];
 const C_LEG = ["Couch stretch 45 sec/side", ...C_STD];
 const W_M_UP = ["Brisk walk or easy bike 4 min", "Arm circles x10 each way", "Band pull-aparts x15 (or arm swings)", "Cat-cow x10", "Push-up to downward dog x6", "1 light warm-up set of the first exercise"];
@@ -904,7 +913,7 @@ const TPL = {
   PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Keep the legs fresh: moderate weight, no grinding reps." },
   PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "sl_balance", "db_row", "pushup"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
   PRACTICE_DAY: { focus: "Upper Maintenance + Mobility", min: 35, warm: W_STD, main: ["floor_press", "db_row", "hk_press", "sl_balance"], core: ["dead_bug", "plank"], cool: C_STD, tub: 10, note: "Court tonight. Upper body only, legs stay fresh." },
-  GAME_DAY: { focus: "Game Day Activation (15 min)", min: 15, warm: ["Easy bike 5 min", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["glute_bridge", 1], ["sl_balance", 1]], core: [], cool: ["Figure-4 stretch 30 sec/side", "Hip flexor stretch 30 sec/side"], tub: 10, note: "Game tonight. Activation only. Save your legs." },
+  GAME_DAY: { focus: "Game Day Activation (15 min)", min: 15, warm: ["Brisk walk or easy jog 5 min", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["glute_bridge", 1], ["sl_balance", 1]], core: [], cool: ["Figure-4 stretch 30 sec/side", "Hip flexor stretch 30 sec/side"], tub: 10, note: "Game tonight. Activation only. Save your legs." },
   LEG_A: { focus: "Legs + Glutes A: Squat + Thrust", min: 45, warm: W_LEG, main: ["smith_squat", "hip_thrust", "leg_ext", "lat_lunge", "calf_raise"], core: ["mcgill", "side_plank"], cool: C_LEG, tub: 12, note: "Main leg day. Light enough to own every rep. Add 5 lb when the last set feels easy." },
   LEG_B: { focus: "Legs + Glutes B: Hinge + Single-Leg", min: 45, warm: W_LEG, main: ["rdl", "split_squat", "leg_curl", "sl_rdl", "AGIL", "db_row"], core: ["dead_bug", "suitcase"], cool: C_LEG, tub: 12, note: "Hinge day. Flat back, steady weight, add a little when it moves easy." },
   FLEX: { focus: "Flex: Zone 2 + Core", min: 40, warm: W_STD.slice(1), main: [["bike_z2", 1], "sl_balance", "clam", "pushup"], core: ["bird_dog", "dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Easy aerobic day. Fat loss lives here." },
@@ -1213,16 +1222,16 @@ const LOCS = { home: "Home", brett: "Brett's Gym", ymca: "YMCA" };
 /* Equipment: what each place has, what each move needs (any one item in a group), and muscle-matched backups in order. */
 const EQUIP_OPTS = [["db", "Dumbbells"], ["kb", "Kettlebells"], ["bench", "Bench"], ["pullup", "Pull-up bar"], ["bands", "Resistance bands"], ["barbell", "Barbell + rack"], ["smith", "Smith machine"], ["legmachine", "Leg curl / extension"], ["cable", "Cable machine"], ["mb", "Medicine ball"], ["treadmill", "Treadmill"], ["bike", "Bike"], ["roller", "Foam roller"]];
 const DB_OPTS = [10, 15, 20, 25, 30, 35, 40, 50, 60];
-const EQUIP_AT = { brett: ["db", "kb", "bench", "smith", "legmachine", "mb", "bike", "roller"], ymca: ["db", "kb", "bench", "pullup", "bands", "barbell", "smith", "legmachine", "legpress", "cable", "mb", "treadmill", "bike", "roller"] };
+const EQUIP_AT = { brett: ["db", "kb", "bench", "smith", "legmachine", "mb", "roller"], ymca: ["db", "kb", "bench", "pullup", "bands", "barbell", "smith", "legmachine", "legpress", "cable", "mb", "treadmill", "bike", "roller"] };
 const NEEDS = { lat_pulldown: [["cable"]], cable_row: [["cable"]], face_pull: [["cable", "bands"]], tri_pushdown: [["cable", "bands"]], leg_press: [["legpress"]], smith_squat: [["smith", "barbell"]], hip_thrust: [["smith", "barbell"]], leg_curl: [["legmachine"]], leg_ext: [["legmachine"]],
   db_incline_press: [["db"], ["bench"]], db_pullover: [["db"], ["bench"]], floor_press: [["db"]], db_shoulder_press: [["db"]], db_curl: [["db"]], hammer_curl: [["db"]], lateral_raise: [["db"]], oh_tri_ext: [["db", "kb"]], db_kickback: [["db"]], db_row: [["db"]], rdl: [["db"]], goblet_squat: [["db", "kb"]], kb_swing_lite: [["kb", "db"]], kb_row: [["kb"]], kb_press: [["kb"]], sl_rdl: [["kb", "db"]],
-  pullup: [["pullup"]], chinup: [["pullup"]], band_pulldown: [["bands"]], band_row: [["bands"]], band_curl: [["bands"]], band_lateral: [["bands"]], mb_thruster: [["mb"]], mb_halo: [["mb"]] };
+  pullup: [["pullup"]], chinup: [["pullup"]], band_pulldown: [["bands"]], band_row: [["bands"]], band_curl: [["bands"]], band_lateral: [["bands"]], mb_thruster: [["mb"]], mb_halo: [["mb"]], bike_z2: [["bike", "treadmill"]], bike_easy: [["bike", "treadmill"]] };
 const ALTS = { lat_pulldown: ["pullup", "band_pulldown", "db_pullover", "db_row", "kb_row", "table_row"], cable_row: ["db_row", "kb_row", "band_row", "table_row"], db_row: ["kb_row", "band_row", "table_row"], db_pullover: ["db_row", "band_pulldown", "kb_row", "table_row"],
   face_pull: ["prone_ytw"], tri_pushdown: ["db_kickback", "oh_tri_ext", "bench_dip"], oh_tri_ext: ["db_kickback", "bench_dip"], db_kickback: ["oh_tri_ext", "bench_dip"],
   db_incline_press: ["floor_press", "decline_pushup"], floor_press: ["decline_pushup"], db_shoulder_press: ["kb_press", "pike_pushup"], lateral_raise: ["band_lateral", "pike_pushup"],
   db_curl: ["band_curl", "chinup", "table_row"], hammer_curl: ["band_curl", "chinup", "table_row"],
   leg_press: ["smith_squat", "goblet_squat", "bulgarian_ss"], smith_squat: ["goblet_squat", "bulgarian_ss"], hip_thrust: ["glute_bridge"], goblet_squat: ["bulgarian_ss", "bw_squat"], rdl: ["kb_swing_lite", "slider_curl", "glute_bridge"], kb_swing_lite: ["slider_curl", "glute_bridge"], sl_rdl: ["glute_bridge"],
-  leg_curl: ["slider_curl", "glute_bridge"], leg_ext: ["bulgarian_ss", "wall_sit"], mb_thruster: ["goblet_squat", "bw_squat"], mb_halo: ["dead_bug"] };
+  leg_curl: ["slider_curl", "glute_bridge"], leg_ext: ["bulgarian_ss", "wall_sit"], mb_thruster: ["goblet_squat", "bw_squat"], mb_halo: ["dead_bug"], bike_z2: ["cardio_mix"], bike_easy: ["walk_jog"] };
 function equipFor(loc) { if (loc === "home") { const su = C().setup || {}; return su.equip || []; } return EQUIP_AT[loc] || null; }
 function canDo(id, eq) { const n = NEEDS[id]; return !n || n.every(g => g.some(x => eq.includes(x))); }
 function todayLoc(s) { const su = C().setup; if (!su || !su.locs || !su.locs.length) return null; const l = S.logs[s]; return (l && l.loc && su.locs.includes(l.loc)) ? l.loc : (su.home || su.locs[0]); }
@@ -1236,6 +1245,17 @@ function locSwap(main, loc) {
     used.add(pick); return Object.assign({}, m, { id: pick, ex: hiReps(LIB[pick]), from: m.id });
   });
 }
+/* v3.0.6: Brett at the YMCA gets the full gym: machines and cables in, plus a bonus move. */
+const YMCA_UP = { floor_press: "db_incline_press", db_row: "cable_row", hk_press: "db_shoulder_press", goblet_box: "leg_press" };
+function ymcaUp(main, info) {
+  const used = new Set(main.map(m => m.id)), out = main.map(m => { const u = YMCA_UP[m.id]; if (!u || used.has(u) || !LIB[u]) return m; used.add(u); return Object.assign({}, m, { id: u, ex: LIB[u], from: m.id, gym: true }); });
+  const add = id => { if (!used.has(id) && LIB[id]) { used.add(id); out.push({ id, ex: LIB[id], sets: (out[0] || {}).sets || 3, gym: true }); } };
+  const light = info && (info.type === "PRE_COURT" || info.type === "GAME_DAY");
+  if (light) return out;
+  if (["smith_squat", "rdl", "split_squat", "hip_thrust", "goblet_box"].some(x => used.has(x))) add("leg_press");
+  else if (["cable_row", "db_incline_press", "db_shoulder_press"].some(x => used.has(x))) { add("lat_pulldown"); add("face_pull"); }
+  return out;
+}
 function myWindows() { const su = C().setup; return su && su.windows && su.windows.length ? su.windows : (PERSON && PERSON.windowsDefault) || []; }
 function buildSession(s, mvd) {
   const info = dayInfo(s), ph = phase(weekNum(s)), key = tplKey(info), T = TPL[key];
@@ -1244,7 +1264,7 @@ function buildSession(s, mvd) {
   T.main.forEach(m => {
     let id = Array.isArray(m) ? m[0] : m, fixed = Array.isArray(m) ? m[1] : null;
     if (id === "CALF") id = ph.calf === "ecc" && !calfPain ? "calf_ecc" : "calf_iso";
-    if (id === "AGIL") { const a = ph.agil === 0 ? ["sl_balance"] : ph.agil === 1 ? ["lat_shuffle"] : ["first_step", "snap_down"]; a.forEach(x => slots.push([x, null])); return; }
+    if (id === "AGIL") { const a = ph.agil === 0 ? ["sl_balance"] : ph.agil === 1 ? ["lat_shuffle", "hurdle_step"] : ["first_step", "bench_jump"]; a.forEach(x => slots.push([x, null])); return; }
     slots.push([id, fixed]);
   });
   let main = slots.map(([id, fixed]) => {
@@ -1253,7 +1273,7 @@ function buildSession(s, mvd) {
     if (PERSON && PERSON.maxSets) sets = Math.min(sets, PERSON.maxSets);
     return { id: r.id, from: r.from, ex: hiReps(ex), sets };
   });
-  const loc = todayLoc(s); if (loc) main = locSwap(main, loc);
+  const loc = todayLoc(s); if (loc) main = locSwap(main, loc); if (loc === "ymca" && !PERSON) main = ymcaUp(main, info);
   const su9 = C().setup || {}, lightNote = loc === "home" && (su9.equip || []).includes("db") && +su9.maxDB > 0 && +su9.maxDB < 30 && !(PERSON && PERSON.highReps) ? " Light dumbbells at home: 3 sec lowering, pause at the bottom, and take sets to 1 or 2 reps from failure." : "";
   let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
   if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
@@ -1577,7 +1597,7 @@ function scorecardHTML(s) {
   const nAll = ALLIN.filter(([k]) => c[k]).length;
   UI.scPrev = UI.scPrev == null ? tot : UI.scPrev;
   return `<div class="card scorecard"><div class="row between" style="align-items:flex-end"><div><h2 class="brand" style="margin:0">Today's scorecard</h2><div class="small muted">Tap as you go. Days are your main points.</div></div><div style="text-align:right"><div class="sc-total" id="scTotal" data-from="${UI.scPrev}" data-to="${tot}">${tot}</div><div class="small muted">points today</div></div></div>
-  ${row(c.water, "Water: " + (l.water || 0) + " of " + wg + " oz", "+" + PTS.water, "The big one. " + PTS.waterPart + " points at 75 percent.", `<div class="wbar"><i style="width:${pct}%"></i></div><div class="row" style="gap:6px;margin-top:8px"><button class="chip" style="flex:1" data-act="addW" data-v="8">+8</button><button class="chip" style="flex:1" data-act="addW" data-v="16">+16</button><button class="chip" style="flex:1" data-act="addW" data-v="20">+20</button><button class="chip ${c.water ? "on" : ""}" style="flex:1.4" data-act="scWater">${c.water ? "✓ Hit it" : "Hit my goal"}</button></div>`, "water")}
+  ${row(c.water, "Water: " + (l.water || 0) + " of " + wg + " oz", "+" + PTS.water, "The big one. " + PTS.waterPart + " points at 75 percent.", `<div class="wbar"><i style="width:${pct}%"></i></div><div class="row" style="gap:6px;margin-top:8px"><button class="chip" style="flex:1" data-act="addW" data-v="8">+8</button><button class="chip" style="flex:1" data-act="addW" data-v="16">+16</button><button class="chip" style="flex:1" data-act="addW" data-v="20">+20</button><button class="chip ${c.water ? "on" : ""}" style="flex:1.4" data-act="scWater">${c.water ? "✓ Hit it" : "Hit my goal"}</button></div>${UI.wgEdit ? `<div class="wg-edit"><span>Daily goal</span><button class="chip" data-act="wgStep" data-v="-8">−8</button><b>${S.profile.waterBase} oz</b><button class="chip" data-act="wgStep" data-v="8">+8</button><button class="chip on" data-act="wgEdit">Done</button></div>${S.profile.waterCourtExtra ? `<div class="small muted" style="margin-top:4px">Court days add ${S.profile.waterCourtExtra} oz.</div>` : ""}` : `<button class="wg-link" data-act="wgEdit">Goal: ${wg} oz · change</button>`}`, "water")}
   ${row(c.workout, "Workout", "+" + (l.mvdDone && !l.done ? PTS.quick : PTS.workout), l.done ? "Done. Nice work." : l.mvdDone ? "15-min version done" : "Use Train for the full session, or check it here when you finish.", `<div class="row" style="gap:6px"><button class="chip ${l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="full">${l.done ? "✓ " : ""}Full workout</button><button class="chip ${l.mvdDone && !l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="quick">${l.mvdDone && !l.done ? "✓ " : ""}15-min</button><button class="chip" data-tab="train">Train ›</button></div>`)}
   ${court.length ? row(p.court > 0, "Basketball: " + esc(court[0].label), "+" + (p.court || (court.some(e => e.kind === "game" || e.type === "game") ? PTS.gamePlay : PTS.practice)), "Check in on the game or practice card.", "") : ""}
   ${row(cdt, "Run or bike", "+" + PTS.cardio, cdt ? "Counted today." : ycd ? "Counted yesterday. Miles still log, points come back tomorrow." : "Run 1+ mile or bike 3+ miles. Every other day.", `<div class="row" style="gap:6px"><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="60" placeholder="Miles" style="flex:1;min-height:44px"><button class="chip" data-act="runAdd">Add</button></div>${l.miles || l.bike ? `<div class="small muted" style="margin-top:4px">${l.miles ? l.miles + " mi run " : ""}${l.bike ? l.bike + " mi bike" : ""} <button class="small" style="text-decoration:underline" data-act="runClear">undo</button></div>` : ""}`)}
@@ -2156,6 +2176,8 @@ function showWelcome(launch, then) {
 
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
+/* v3.0.6: Brett has no bike. Cardio is run, walk, stairs. YMCA added as a place he can pick per day. */
+if (PID === "brett" && !S.meta.gym306) { const su = (S.custom || {}).setup; if (su) { su.locs = Array.from(new Set([...(su.locs && su.locs.length ? su.locs : ["brett"]), "ymca"])); if (!su.home) su.home = su.locs[0]; su.equip = (su.equip || []).filter(x => x !== "bike"); } S.meta.gym306 = 1; save(); }
 /* v3.0.5: Brett's calf is better. Clear any old calf/Achilles back-offs once so normal leg work comes back. */
 if (PID === "brett" && !S.meta.calfClear305) { if (S.pain) { delete S.pain.calf; delete S.pain.achilles; } S.meta.calfClear305 = 1; save(); }
 /* v2.7.4: Brett asked for a clean start and to walk through the same onboarding as Mark and Will (tour, setup, welcome badge). */
@@ -2262,6 +2284,7 @@ function renderTrain() {
   out += `<div class="week">${Object.values(wk).map(d => `<button class="day ${d.date === sel ? "sel" : ""} ${d.date === t ? "today" : ""}" data-act="selDay" data-date="${d.date}"><div class="d">${DOW[dow(d.date)]}</div><div class="n">${pd(d.date).getDate()}</div><div class="ty" style="background:var(--${d.type})"></div><div class="mk">${courtOn(d.date).length ? I.ball : d.midday ? "Zz" : ""}</div></button>`).join("")}</div>`;
   out += `<div class="banner info"><b>${esc(ph.label)}</b>${esc(ph.note)}</div>`;
   const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Pain swaps active</b>${pa.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")}</div>`;
+  const suL = C().setup; if (suL && suL.locs && suL.locs.length > 1) { const cur = todayLoc(sel); out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training ${sel === t ? "today" : fmtShort(sel)}?</h3><div class="row">${suL.locs.map(k => `<button class="chip ${cur === k ? "on" : ""}" style="flex:1" data-act="locDay" data-date="${sel}" data-v="${k}">${cur === k ? "✓ " : ""}${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Pick the YMCA and that day's workout uses the full gym.</div></div>`; }
   out += sessionHTML(buildSession(sel), false);
   return out;
 }
@@ -2515,6 +2538,7 @@ const ACT = {
   crewRetry: () => { if (/PIN/.test(CREW.err)) R().adminPin = ""; CREW.people = null; CREW.err = ""; save(); renderSheet(); },
   crewCopy: () => { const txt = "Game Shape crew check-ins:\n" + JSON.stringify((CREW.people || []).map(p => ({ id: p.id, name: p.name, updated: p.updated, setup: p.setup })), null, 1); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast("Copied. Paste it to Claude.")).catch(() => openSheet("result", `<textarea style="width:100%;height:300px">${esc(txt)}</textarea>`)); },
   loc: el => { const l = L(todayStr()); l.loc = el.dataset.v; save(); render(); },
+  locDay: el => { const l = L(el.dataset.date); l.loc = el.dataset.v; save(); const y = window.scrollY; render(); window.scrollTo(0, y); toast(LOCS[el.dataset.v] + " workout ready"); },
   suLoc: el => { const su = UI.setup, v = el.dataset.v; su.locs = su.locs || []; const i = su.locs.indexOf(v); if (i >= 0) su.locs.splice(i, 1); else su.locs.push(v); if (!su.locs.includes(su.home)) su.home = su.locs[0] || null; rerenderSetup(); },
   suEq: el => { const su = UI.setup, v = el.dataset.v; su.equip = su.equip || []; const i = su.equip.indexOf(v); if (i >= 0) su.equip.splice(i, 1); else su.equip.push(v); rerenderSetup(); },
   suOff: el => { const su = UI.setup, v = +el.dataset.v; su.offDays = su.offDays || []; const i = su.offDays.indexOf(v); if (i >= 0) su.offDays.splice(i, 1); else su.offDays.push(v); su.offDays.sort(); rerenderSetup(); },
@@ -2552,6 +2576,8 @@ const ACT = {
   toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
   addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
+  wgEdit: () => { UI.wgEdit = !UI.wgEdit; const y = window.scrollY; render(); window.scrollTo(0, y); },
+  wgStep: el => { S.profile.waterBase = Math.max(40, Math.min(200, (S.profile.waterBase || 100) + +el.dataset.v)); save(); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
   read: el => { const l = L(todayStr()); l.reading += +el.dataset.v; l.checks.wd_read = true; save(); buzz(); render(); },
   readUndo: el => { const l = L(todayStr()), v = el.dataset.v === "all" ? l.reading : Math.min(l.reading, +el.dataset.v), rd = R(); if (!v) return;
     l.reading -= v; if (!l.reading) l.checks.wd_read = false;

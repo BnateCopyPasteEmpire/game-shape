@@ -120,8 +120,8 @@ window.GS_SELF = {
   setupMode: "locations",
   windowsDefault: ["5:00 AM"],
   maxWindows: 2,
-  locsDefault: ["brett"],
-  homeEquipDefault: { equip: ["db", "kb", "bench", "smith", "legmachine", "mb", "bike", "roller"], maxDB: 50 }
+  locsDefault: ["brett", "ymca"],
+  homeEquipDefault: { equip: ["db", "kb", "bench", "smith", "legmachine", "mb", "roller"], maxDB: 50 }
 };
 window.GS_PERSON = (function () {
   try {
