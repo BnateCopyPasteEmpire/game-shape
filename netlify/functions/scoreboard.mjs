@@ -23,9 +23,9 @@ function today(t) {
   return { date: t.date, pts: num(t.pts, 2000), cats, checks };
 }
 
-/* Golden Tropics Basketball badge: for each finished month, the best weekly medal total (Gold 3, Silver 2, Bronze 1, Poop 0) wins +900. Ties share it.
+/* Golden Tropics Basketball badge: for each finished month, the best weekly medal total (Gold 3, Silver 2, Bronze 1, Poop 0) wins +300. Ties share it.
    A week belongs to the month its Thursday falls in. */
-const TV = { gold: 3, silver: 2, bronze: 1, poop: 0 }, GOLDEN = 900;
+const TV = { gold: 3, silver: 2, bronze: 1, poop: 0 }, GOLDEN = 300;
 function thursdayMonth(ws) { const d = new Date(ws + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + 3); return d.toISOString().slice(0, 7); }
 function goldens(recs) {
   const nowM = new Date().toISOString().slice(0, 7), by = {};

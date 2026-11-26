@@ -421,6 +421,47 @@ img,svg,video{max-width:100%}
 /* v2.8.2: exact Copy Paste Empire logo, small, top right */
 .cpe-chip{opacity:1}
 .cpe-chip .cpe-logo{height:24px;width:auto;border-radius:7px;background:#000;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+/* Opening Day show */
+.show-hd{text-align:center;margin:6px 0 12px}.show-hd h2{margin:4px 0;font-size:24px;letter-spacing:-.4px}
+.show-total{text-align:center;margin:6px 0 12px}.show-total span{display:block;font-size:56px;font-weight:900;color:var(--green);line-height:1;letter-spacing:-1px}.show-total small{color:var(--ink-2);font-weight:700}
+.show-total.bump span{animation:bump .4s ease}
+@keyframes bump{50%{transform:scale(1.15);color:var(--orange-ink)}}
+.task-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.task{display:flex;align-items:center;gap:8px;padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;text-align:left;min-height:56px}
+.task span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--surface);font-weight:900;color:var(--green);flex:none}
+.task b{flex:1;font-size:14px}.task em{font-style:normal;font-weight:900;color:var(--orange-ink)}
+.task.on{border-color:var(--green);background:var(--green-tint);animation:bump .35s ease}.task.on span{background:var(--green);color:#fff}
+.allin-hint{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--surface);font-size:13px;font-weight:700;text-align:center}
+.allin-hint.on{background:var(--green);color:#fff;animation:bump .5s ease}
+.week-demo{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.wd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:12px;background:var(--surface);border:1px solid var(--line);transition:background .25s}
+.wd small{font-weight:800;color:var(--ink-2)}.wd b{font-size:18px}.wd i{font-style:normal;font-size:8px;letter-spacing:1px;color:var(--green)}
+.wd.h3{background:#cfe6d6}.wd.h4{background:var(--green);color:#fff}.wd.h4 small,.wd.h4 i{color:#fff}
+.ladder{display:flex;gap:8px}.ladder-step{flex:1;display:flex;align-items:center;gap:6px;padding:8px;border-radius:12px;border:1px dashed var(--line);opacity:.45;filter:grayscale(.8);transition:all .3s}
+.ladder-step.lit{opacity:1;filter:none;border-style:solid;border-color:var(--green);background:var(--green-tint)}
+.ladder-step.pop{animation:bump .5s ease}
+.month-demo .md-row{display:flex;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid var(--line);opacity:0;animation:bbUp .4s both}
+.md-row b{width:48px}.md-row em{margin-left:auto;font-style:normal;font-weight:900;color:var(--green)}
+.md-m{opacity:0;animation:bbPop .5s both}
+.golden-win{display:flex;align-items:center;gap:12px;margin-top:14px;padding:12px;border-radius:16px;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;animation:bbUp .5s 1.2s both}
+.season-line{display:flex;justify-content:space-between;gap:8px;position:relative;margin:4px 0 12px}
+.season-line:before{content:"";position:absolute;top:27px;left:12%;right:12%;height:3px;background:linear-gradient(90deg,var(--orange),#ffd75e,var(--green));border-radius:2px}
+.sl-step{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;opacity:0;animation:bbPop .6s both}
+.sl-step small{color:var(--ink-2);font-weight:700}
+.season-flow{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;font-weight:800;font-size:13px}
+.season-flow span{padding:6px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}.season-flow i{font-style:normal;color:var(--orange-ink)}
+.season-flow .win{background:var(--green);color:#fff;border-color:var(--green)}
+/* medal ladder on Today */
+.mladder{display:flex;gap:8px;margin-top:10px}
+.mladder .ms{flex:1;text-align:center;padding:8px 4px;border-radius:12px;border:1px solid var(--line);position:relative}
+.mladder .ms.got{border-color:var(--green);background:var(--green-tint)}
+.mladder .ms.next{border:2px solid var(--orange);animation:dangle 2.4s ease-in-out infinite}
+.mladder .ms:not(.got) svg{filter:grayscale(.6);opacity:.55}
+.mladder .ms.next svg{filter:none;opacity:1}
+.mladder b{display:block;font-size:13px}.mladder small{color:var(--ink-2);font-weight:700}
+@keyframes dangle{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-3px)}}
+.odcount{text-align:center}.odcount .n{font-size:44px;font-weight:900;color:var(--green);line-height:1}
+.sheet-panel.tall{min-height:88vh}
 </style>
 </head>
 <body>
@@ -509,8 +550,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.8.2";
+const APP_VERSION = "2.9.0";
 const CHANGELOG = {
+  "2.9.0": ["Opening Day is Monday, Nov 30. Season 1 runs through Feb 28", "New interactive show: how points, weekly medals, the Golden Tropics badge, and the season all fit together", "3 Golden Tropics badges are up for grabs (Dec, Jan, Feb), each worth +300 points", "Chase the medal: your Bronze, Silver, and Gold targets and today's small wins, right on Today", "2 quick questions: where you'll work out the most and your best times. Sent to Brett"],
   "2.8.2": ["Fixed images not loading (question mark boxes)", "New Copy Paste Empire logo, small, top right", "Sharper EPC Tropics logo on game days, practices, and the schedule"],
   "2.8.1": ["Every pop-up screen (like More) now has an X to close it and get back to the app", "The EPC Tropics logo now pops up on game days, practice days, court days in Train, and the Schedule"],
   "2.8.0": ["Simpler badges: every week ends in a Gold, Silver, Bronze, or Poop medal. 4 goals a day, 28 a week. Streaks win weeks", "New Golden Tropics Basketball badge: the best medal record each month (Dec, Jan, Feb) wins +900 points", "Books now score 1 point for every $2 you paid", "New This week's medal card on Today shows your 7 days and what you need for the next medal"],
@@ -1074,7 +1116,7 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 /* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
    Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
-const PTS = { golden: 900, perDollar: 0.5, allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+const PTS = { golden: 300, perDollar: 0.5, allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
 function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
 /* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
 function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
@@ -1191,6 +1233,7 @@ function checkSeasonBadges() {
   const ss = SSN();
   checkWeekly();
   if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; toast("ALL IN today! +" + PTS.allIn + " bonus"); }
+  else if (dayHits(t).n === 4 && ss.fourToast !== t) { ss.fourToast = t; toast("4 for 4 today. That's a Gold-pace day."); }
 }
 /* ---------------------------- WEEKLY MEDALS + GOLDEN TROPICS ----------------------------
    Each Mon to Sun week scores 4 goals a day (workout or court, water goal, sleep 6 to 9 hrs, read 10+ min) = 28 possible.
@@ -1297,11 +1340,17 @@ function rulebookHTML() {
   <div style="text-align:center;font-weight:900;color:var(--green);margin:14px 0 4px">It's a grind, but it's all for the mind.</div><div style="text-align:center;font-weight:800;color:var(--orange-ink)">May the best man win.</div></div>`;
 }
 function weekCardHTML() {
-  const t = todayStr(), ws = weekStart(t), w = weekHits(ws), dleft = 6 - ((dow(t) + 6) % 7), cur = tierOf(w.hits), pace = tierOf(Math.round(w.hits / Math.max(1, w.days) * 7));
-  const tgt = pace === "gold" ? "gold" : pace === "silver" ? "gold" : pace === "bronze" ? "silver" : "bronze", need = Math.max(0, TIERS[tgt].min - w.hits), next = cur === "gold" ? null : tgt;
-  return `<div class="card"><div class="row between" style="align-items:center"><div><h2 class="brand" style="margin:0">This week's medal</h2><div class="small muted">4 goals a day: workout, water, sleep 6 to 9 hrs, read 10 min</div></div><div style="text-align:center">${medalSVG(pace, 46)}<div class="small muted" style="font-size:10px">on pace</div></div></div>
+  const t = todayStr(), sz = seasonOf(t);
+  if (t < sz.start) { const n = between(t, sz.start); return `<div class="card odcount">${tropicsHTML(150)}<div class="eyebrow">Opening Day • Monday, ${fmtD(sz.start).replace(/^\w+,? /, "")}</div><div class="n">${n}</div><div class="small muted">${n === 1 ? "day" : "days"} until Season ${sz.n} starts. Points, medals, and the Golden Tropics race all begin Monday. Practice the habits now.</div><button class="btn sm" style="margin-top:10px" data-act="sheet" data-k="rules">How the score works</button></div>`; }
+  const ws = weekStart(t), w = weekHits(ws), today = dayHits(t), dleft = 6 - ((dow(t) + 6) % 7);
+  const got = ["bronze", "silver", "gold"].filter(k => w.hits >= TIERS[k].min), nextK = ["bronze", "silver", "gold"].find(k => w.hits < TIERS[k].min);
+  const ladder = ["bronze", "silver", "gold"].map(k => `<div class="ms ${got.includes(k) ? "got" : ""} ${k === nextK ? "next" : ""}">${medalSVG(k, 36)}<b>${TIERS[k].name}</b><small>${got.includes(k) ? "locked ✓" : (TIERS[k].min - w.hits) + " to go"}</small></div>`).join("");
+  const wins = [["workout", "Workout"], ["water", "Water"], ["sleep", "Sleep"], ["read", "Read"]].map(([k, n]) => `<span class="tg ${today[k] ? "shelf" : ""}" style="${today[k] ? "" : "opacity:.6"}">${today[k] ? "✓" : "○"} ${n}</span>`).join(" ");
+  return `<div class="card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Chase the medal</h2><b class="brand">${w.hits}/28</b></div>
+  <div class="small muted" style="margin-top:2px">${nextK ? `${TIERS[nextK].min - w.hits} more hits for ${TIERS[nextK].name}${dleft ? ", " + dleft + " day" + (dleft === 1 ? "" : "s") + " left" : ", last day"}. Every box counts.` : "Gold is locked. Keep the streak alive."}</div>
+  <div class="mladder">${ladder}</div>
   <div class="wkdots">${w.per.map((g, i) => `<span class="${g ? "h" + g.n : ""}">${["M", "T", "W", "T", "F", "S", "S"][i]}${g ? "<br>" + g.n : ""}</span>`).join("")}</div>
-  <div class="small" style="margin-top:8px"><b>${w.hits} of 28</b> • on pace for ${TIERS[pace].name}${next ? ` • ${need} more for ${TIERS[next].name}${need > dleft * 4 ? " (out of reach this week)" : ""}` : " • Gold locked in. Keep the streak."}</div></div>`;
+  <div class="small" style="margin-top:10px"><b>Today's small wins (${today.n}/4):</b> ${wins}</div></div>`;
 }
 function medalsCardHTML(list) {
   const t = todayStr(), sz = seasonOf(t), me = list.find(p => p.id === PID) || {}, mc = medalCounts(me.weeks), m = (sz.start > t ? sz.start : t).slice(0, 7);
@@ -1342,7 +1391,7 @@ function seasonHTML(compact) {
     const td = todayOf(p), open = UI.sbOpen === p.id, tot = p.tot || {}, max = Math.max(1, ...CAT_LABEL.map(([k]) => tot[k] || 0));
     const checks = `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${ALLIN.map(([k, n]) => { const ok = td && td.checks && td.checks[k]; return `<span class="tg ${ok ? "shelf" : ""}" style="${ok ? "" : "opacity:.55"}">${ok ? "✓" : "○"} ${n.split(" ")[0]}</span>`; }).join("")}${td && td.checks.allIn ? `<span class="tg" style="background:var(--green);color:#fff">ALL IN +${PTS.allIn}</span>` : ""}</div>`;
     const mc = medalCounts(p.weeks), gc = p.id === PID ? myGoldens(seasonOf(t)).length : (p.goldenCount || 0), pace = tierOf(Math.round((p.weekHits || 0) / Math.max(1, (dow(t) + 6) % 7 + 1) * 7));
-    const btHTML = `<div class="row between" style="margin-top:10px;align-items:center">${medalsInline(mc, 22)}${gc ? `<span class="mc" style="font-weight:900">${medalSVG("golden", 24)} x${gc}</span>` : ""}</div><div class="small muted" style="margin-top:4px">On pace for ${TIERS[pace].name} this week</div>`;
+    const btHTML = `<div class="row between" style="margin-top:10px;align-items:center">${medalsInline(mc, 22)}${gc ? `<span class="mc" style="font-weight:900">${medalSVG("golden", 24)} x${gc}</span>` : ""}</div><div class="small muted" style="margin-top:4px">${(p.weekHits || 0) >= 24 ? "Gold locked this week" : "Chasing " + TIERS[["bronze", "silver", "gold"].find(k => (p.weekHits || 0) < TIERS[k].min)].name + " this week"}</div>`;
     const detail = open ? `<div style="margin-top:12px">${CAT_LABEL.map(([k, n]) => `<div class="small" style="display:flex;align-items:center;gap:8px;margin:5px 0"><span style="width:92px">${n}</span><span style="flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:${Math.round((tot[k] || 0) / max * 100)}%;background:${esc(p.accent || "#ff8200")}"></span></span><b style="width:42px;text-align:right">${tot[k] || 0}</b></div>`).join("")}
       <div class="small muted" style="margin-top:8px">${p.miles || 0} cardio miles • ${p.books || 0} books verified • ${p.allInDays || 0} All In days</div>
       <div class="small" style="margin-top:8px"><b>Weeks:</b> ${Object.keys(p.weeks || {}).sort().map(ws => { const w = p.weeks[ws]; return w.tier ? `<span title="${fmtD(ws)}">${medalSVG(w.tier, 20)}</span>` : ""; }).join(" ") || "No finished weeks yet."}</div></div>` : "";
@@ -1511,12 +1560,54 @@ function tourPages() {
       <div style="text-align:center;font-weight:800;color:var(--orange-ink);margin:8px 0">May the best man win.</div>`)
   ];
 }
-function tourHTML() {
-  const pages = tourPages(), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
-  const dots = `<div style="text-align:center;margin:10px 0">${pages.map((_, k) => `<span style="display:inline-block;width:${k === i ? 18 : 7}px;height:7px;border-radius:4px;margin:0 3px;background:${k === i ? "var(--orange)" : "var(--line)"}"></span>`).join("")}</div>`;
-  const next = last ? (needsSetup() ? `<button class="btn primary" style="flex:2" data-act="tourDone" data-v="setup">Answer the setup questions</button>` : `<button class="btn primary" style="flex:2" data-act="tourDone">Let's go</button>`) : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
-  return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>${last && !S.profile.nickname ? `<button class="btn block" style="margin-top:8px" data-act="nickGo">Add my nickname</button>` : ""}`;
+const TOUR_V = "opening-2026";
+/* ===== Opening Day: interactive "how the score works" show (daily > weekly > monthly > season), then a 2-question intake ===== */
+const DEMO_TASKS = [["workout", "Workout", 50], ["practice", "Practice", 55], ["water", "Water goal", 40], ["cardio", "Run or bike", 40], ["read", "Read 35 min", 35], ["sleep", "Sleep 7 to 8 hrs", 25], ["protein", "Protein", 10]];
+const SLOT_OPTS = ["Early (5 to 6 AM)", "Morning (6 to 8 AM)", "Lunch (11 to 1)", "Afternoon (3 to 5 PM)", "Evening (6 to 8 PM)", "Late (8 to 10 PM)"];
+function D() { return UI.demo || (UI.demo = { day: {}, week: [0, 0, 0, 0, 0, 0, 0], shown: 0, mi: { place: (C().setup && C().setup.home) || null, slots: ((C().setup && C().setup.windows) || []).filter(w => SLOT_OPTS.includes(w)) } }); }
+function demoDayPts() { const d = D().day; let p = DEMO_TASKS.reduce((a, [k, , v]) => a + (d[k] ? v : 0), 0); const all = d.workout && d.water && d.sleep && d.read; if (all) p += PTS.allIn; return { p, all }; }
+function showPages() {
+  const d = D(), dp = demoDayPts(), wh = d.week.reduce((a, b) => a + b, 0), wt = tierOf(wh), sz = seasonOf(todayStr());
+  const ladder = ["bronze", "silver", "gold"].map(k => `<div class="ladder-step ${wh >= TIERS[k].min ? "lit" : ""}">${medalSVG(k, 40)}<div><b>${TIERS[k].name}</b><div class="small muted">${TIERS[k].min}+ hits</div></div></div>`).join("");
+  const p = (title, sub, body) => `<div class="show-hd"><div class="eyebrow">How the score works</div><h2>${title}</h2><div class="muted">${sub}</div></div>${body}`;
+  return [
+    p("1. Every day: stack points", "Tap the things you'd do in a day and watch your points add up.", `<div class="show-total"><span id="dayPts" data-to="${dp.p}">${dp.p}</span><small>points today</small></div>
+      <div class="task-grid">${DEMO_TASKS.map(([k, n, v]) => `<button class="task ${d.day[k] ? "on" : ""}" data-act="demoTask" data-v="${k}"><span>${d.day[k] ? "✓" : "+"}</span><b>${n}</b><em>+${v}</em></button>`).join("")}</div>
+      <div class="allin-hint ${dp.all ? "on" : ""}">${dp.all ? "ALL IN! Workout + water + sleep + reading (and affirmations) = +" + PTS.allIn + " bonus" : "Hit workout, water, sleep, and reading together for the All In +" + PTS.allIn + " bonus"}</div>`),
+    p("2. Every week: earn a medal", "4 goals a day (workout, water, sleep 6 to 9 hrs, read 10 min). Tap a day to add a goal. Fill the week.", `<div class="week-demo">${d.week.map((h, i) => `<button class="wd h${h}" data-act="demoDay" data-i="${i}"><small>${"MTWTFSS"[i]}</small><b>${h}</b><i>${"●".repeat(h)}${"○".repeat(4 - h)}</i></button>`).join("")}</div>
+      <div class="row between" style="margin:10px 0 6px"><b>${wh} of 28 hits</b><button class="btn sm" data-act="demoAuto">Auto-fill a great week</button></div>
+      <div class="ladder">${ladder}</div>
+      <div class="small muted" style="margin-top:8px">${wh >= 24 ? "Gold locked. That's a streak week." : wh >= 18 ? (24 - wh) + " more hits to reach Gold." : wh >= 11 ? (18 - wh) + " more for Silver, " + (24 - wh) + " for Gold." : (11 - wh) + " more hits to lock Bronze. Under 11 at the end of the week is the dreaded Poop."}</div>`),
+    p("3. Every month: the Golden Tropics badge", "Medals add up all month. Best medal record wins the badge and +" + PTS.golden + " points.", `<div class="month-demo">${[["You", ["gold", "gold", "silver", "gold"]], ["Mark", ["silver", "gold", "bronze", "silver"]], ["Will", ["bronze", "silver", "silver", "poop"]]].map(([n, ms], r) => `<div class="md-row" style="animation-delay:${r * .15}s"><b>${n}</b>${ms.map((m, j) => `<span class="md-m" style="animation-delay:${.3 + r * .15 + j * .12}s">${medalSVG(m, 30)}</span>`).join("")}<em>${ms.reduce((a, m) => a + TIERS[m].v, 0)} pts</em></div>`).join("")}</div>
+      <div class="golden-win">${medalSVG("golden", 92)}<div><b>Golden Tropics Basketball</b><div class="small">Goes to the best month. <b>+${PTS.golden} points.</b> Gold 3, Silver 2, Bronze 1, Poop 0.</div></div></div>`),
+    p("4. The season: Nov 30 to Feb 28", "3 Golden Tropics badges are up for grabs. Each one is +" + PTS.golden + ". Grab one to have the best shot at the end.", `<div class="season-line">${[["Dec", "Golden #1"], ["Jan", "Golden #2"], ["Feb", "Golden #3"]].map(([m, g], i) => `<div class="sl-step" style="animation-delay:${i * .2}s">${medalSVG("golden", 54)}<b>${m}</b><small>${g}<br>+${PTS.golden}</small></div>`).join("")}</div>
+      <div class="season-flow"><span>Daily points</span><i>+</i><span>Golden badges</span><i>=</i><span class="win">Season total</span></div>
+      <div class="card" style="text-align:center;background:var(--card2);margin-top:12px"><div class="eyebrow">Opening Day: Monday, Nov 30</div><h3 style="margin:6px 0">Most points on Feb 28 wins the first-ever Game Shape merch</h3><div class="small muted">Daily wins build streaks. Streaks win medals. Medals win Golden badges. Golden badges win seasons.</div></div>`)
+  ];
 }
+function miniIntakeHTML() {
+  const mi = D().mi;
+  return `<div class="show-hd"><div class="eyebrow">Last step</div><h2>2 quick questions</h2><div class="muted">Brett will set your plan to match. You can change spots and times any day in the app.</div></div>
+  <h3 class="sh3">1. Where will you work out the most?</h3><div class="row" style="gap:8px">${[["home", "Home"], ["brett", "Brett's Gym"], ["ymca", "YMCA"]].map(([k, n]) => `<button class="chip ${mi.place === k ? "on" : ""}" style="flex:1" data-act="miPlace" data-v="${k}">${mi.place === k ? "✓ " : ""}${n}</button>`).join("")}</div>
+  <h3 class="sh3" style="margin-top:16px">2. Best times in your day? (pick up to 3)</h3><div class="row wrap" style="gap:8px">${SLOT_OPTS.map(o => `<button class="chip ${mi.slots.includes(o) ? "on" : ""}" data-act="miSlot" data-v="${o}">${mi.slots.includes(o) ? "✓ " : ""}${o}</button>`).join("")}</div>
+  ${mi.place && mi.slots.length ? `<div class="card" style="background:var(--card2);margin-top:14px;white-space:pre-line;font-size:14px">${esc(miSummary())}</div><div class="row" style="gap:8px"><button class="btn" style="flex:1" data-act="miCopy">Copy</button><a class="btn" style="flex:1" href="sms:?&body=${encodeURIComponent(miSummary())}" data-act="miSent">Text to Brett</a></div>` : ""}`;
+}
+function miSummary() { const mi = D().mi; return "Game Shape Opening Day intake from " + ((ME && ME.fullName) || myName()) + ":\nMost workouts at: " + ({ home: "Home", brett: "Brett's Gym", ymca: "YMCA" }[mi.place] || "") + "\nBest times: " + mi.slots.join(", "); }
+function saveMini() {
+  const mi = D().mi, su = C().setup = Object.assign({ windows: [], locs: [], gym: false, gymDays: [] }, C().setup || {});
+  su.windows = mi.slots.slice(0, 3); su.home = mi.place; su.locs = Array.from(new Set([mi.place, ...(su.locs || [])])); su.opening = todayStr();
+  invalidate(); save(); sendSetup(su);
+}
+function tourHTML() {
+  const pages = tourPages().concat(showPages(), [miniIntakeHTML()]), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
+  const dots = `<div style="text-align:center;margin:10px 0">${pages.map((_, k) => `<span style="display:inline-block;width:${k === i ? 18 : 7}px;height:7px;border-radius:4px;margin:0 3px;background:${k === i ? "var(--orange)" : "var(--line)"}"></span>`).join("")}</div>`;
+  const mi = D().mi, ready = mi.place && mi.slots.length;
+  const next = last ? `<button class="btn primary" style="flex:2;${ready ? "" : "opacity:.5"}" data-act="miDone">${ready ? "Save + send to Brett" : "Answer both to finish"}</button>` : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
+  return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
+}
+function rerenderTour() { const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop; renderSheet(); pn.scrollTop = y; }
+function countUp(el, from, to) { if (!el) return; const t0 = performance.now(), dur = 600; el.textContent = from; const f = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else { el.parentNode.classList.remove("bump"); void el.offsetWidth; el.parentNode.classList.add("bump"); } }; requestAnimationFrame(f); }
+function burstAt(el) { const r = el.getBoundingClientRect(); for (let i = 0; i < 16; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / 16 * 6.283, rr = 50 + Math.random() * 50; c.style.cssText = `position:fixed;z-index:99;top:${r.top + r.height / 2}px;left:${r.left + r.width / 2}px;--x:${Math.cos(a) * rr}px;--y:${Math.sin(a) * rr}px;background:${["#ffd75e", ACCENT, "#4eb0d6"][i % 3]}`; document.body.appendChild(c); setTimeout(() => c.remove(), 1100); } }
 function seasonPitch(isNew) {
   const sz = seasonOf(todayStr());
   const who = PID === "will" ? "You just joined Brett and Mark in the Game Shape Community. Welcome, Coach." : "Will (Coach) just joined the Game Shape Community.";
@@ -1897,6 +1988,7 @@ function renderSheet() {
   else if (kind === "feedback") o = feedbackHTML();
   else if (kind === "result") o = arg;
   const locked = (kind === "tour") || (kind === "setup" && arg === "first") || !!UI.wnPending;
+  $("sheet").querySelector(".sheet-panel").classList.toggle("tall", kind === "tour");
   $("sheetBody").innerHTML = (locked ? "" : `<button class="sheet-x" data-act="closeSheet" aria-label="Close">&times;</button>`) + o;
 }
 function feedbackHTML() {
@@ -1949,9 +2041,17 @@ function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || 
 const ACT = {
   rq: el => { UI.rq = UI.rq || {}; UI.rq[+el.dataset.i] = +el.dataset.v; const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop, open = [...pn.querySelectorAll(".rb details")].map(d => d.open); renderSheet(); pn.querySelectorAll(".rb details").forEach((d, i) => { d.open = !!open[i]; }); pn.scrollTop = y; },
   burstDemo: () => { medalBurst("gold", 25); medalBurst("silver", 19); medalBurst("bronze", 12); medalBurst("poop", 7); medalBurst("golden", 0, "2026-12"); },
+  demoTask: el => { const d = D(), k = el.dataset.v, before = demoDayPts().p; d.day[k] = !d.day[k]; rerenderTour(); countUp($("dayPts"), before, demoDayPts().p); if (demoDayPts().all && !d.allToast) { d.allToast = 1; burstAt(el); } },
+  demoDay: el => { const d = D(), i = +el.dataset.i, before = tierOf(d.week.reduce((a, b) => a + b, 0)); d.week[i] = (d.week[i] + 1) % 5; rerenderTour(); const after = tierOf(d.week.reduce((a, b) => a + b, 0)); if (TIERS[after].v > TIERS[before].v) { const lit = document.querySelectorAll(".ladder-step.lit"); const lastLit = lit[lit.length - 1]; if (lastLit) { lastLit.classList.add("pop"); burstAt(lastLit); } } },
+  demoAuto: () => { const d = D(), plan = [4, 4, 3, 4, 4, 3, 4]; let i = 0; const step = () => { if (i >= 7 || !UI.sheet || UI.sheet.kind !== "tour") return; d.week[i] = plan[i]; i++; rerenderTour(); setTimeout(step, 260); }; d.week = [0, 0, 0, 0, 0, 0, 0]; step(); },
+  miPlace: el => { D().mi.place = el.dataset.v; rerenderTour(); },
+  miSlot: el => { const s2 = D().mi.slots, v = el.dataset.v, i = s2.indexOf(v); if (i >= 0) s2.splice(i, 1); else { s2.push(v); if (s2.length > 3) s2.shift(); } s2.sort((a, b) => SLOT_OPTS.indexOf(a) - SLOT_OPTS.indexOf(b)); rerenderTour(); },
+  miCopy: () => { const t2 = miSummary(); (navigator.clipboard ? navigator.clipboard.writeText(t2) : Promise.reject()).then(() => toast("Copied. Paste it to Brett.")).catch(() => toast("Select the text and copy it")); },
+  miSent: () => { D().mi.sent = 1; },
+  miDone: () => { const mi = D().mi; if (!mi.place || !mi.slots.length) return toast("Pick a spot and at least 1 time"); saveMini(); toast("Saved and sent to Brett"); ACT.tourDone({ dataset: {} }); },
   tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
-  tourDone: el => { S.meta.tourSeen = APP_VERSION; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup") openSheet("setup", "first"); },
+  tourDone: el => { S.meta.tourSeen = TOUR_V; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup" || needsSetup()) openSheet("setup", "first"); },
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
@@ -1992,7 +2092,7 @@ const ACT = {
     if ($("suNotes")) su.notes = $("suNotes").value.trim().slice(0, 200);
     if ((su.locs || []).includes("home")) su.equipDone = todayStr();
     su.weekOk = todayStr(); applyMiss(su, C().setup); setTimeout(markReady, 50);
-    if (!S.meta.tourSeen) { setTimeout(() => { UI.tourPage = 0; openSheet("tour"); }, 400); }
+    if (S.meta.tourSeen !== TOUR_V) { setTimeout(() => { UI.tourPage = 0; openSheet("tour"); }, 400); }
     else setTimeout(() => openSheet("result", setupSentHTML(su)), 350);
     sendSetup(su); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
@@ -2606,7 +2706,7 @@ function showWhatsNew() {
   UI.wnPending = APP_VERSION;   // saved as seen only when they close it, so a reload can't eat it
   const needSetup = needsSetup();
   if (!seen && !Object.keys(S.logs).length) { S.meta.seenVersion = APP_VERSION; UI.wnPending = null; save(); return false; }   // brand new user: nothing to announce
-  if (!S.meta.tourSeen) { UI.tourPage = 0; openSheet("tour"); return true; }
+  if (S.meta.tourSeen !== TOUR_V) { UI.tourPage = 0; UI.demo = null; openSheet("tour"); return true; }
   const pitch = !S.meta.seasonHello; S.meta.seasonHello = 1; save();
   openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
   return true;
