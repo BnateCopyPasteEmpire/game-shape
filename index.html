@@ -460,8 +460,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.7.3";
+const APP_VERSION = "2.7.4";
 const CHANGELOG = {
+  "2.7.4": ["Setup answers now show a summary after you save, go to Brett automatically, and can be texted with one tap", "Brett's app now gets the same tour, setup questions, and welcome badge as everyone else"],
   "2.7.3": ["EPC Tropics logo on every screen, top right", "Cleaner Copy Paste Empire badge", "Tap effect now glows EPC Tropics purple and teal"],
   "2.7.2": ["Fixed: the update screen flashing and disappearing. It now stays open until you tap the button", "New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)"],
   "2.7.1": ["New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)", "Fixed the screen sliding side to side on phones"],
@@ -733,6 +734,7 @@ const RED_FLAGS = [
 
 /* ---------------------------- STORAGE ---------------------------- */
 const PERSON = window.GS_PERSON || null, PID = PERSON ? PERSON.id : "brett";
+const ME = PERSON || window.GS_SELF || null;   // onboarding + badge settings (Brett has these without a custom plan)
 const KEY = PID === "brett" ? "gameShape_v1" : "gameShape_" + PID + "_v1", SCHEMA = 1;   // each person saves separately
 const clone = o => JSON.parse(JSON.stringify(o));
 function gamesToEvents(games) {
@@ -1287,10 +1289,10 @@ function scoreboardHTML(compact) {
 /* ---------------------------- WORKOUT SETUP (first open, per person) ---------------------------- */
 const WIN_OPTS = ["5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "Lunch 12 PM", "6 to 9 PM", "6:00 PM", "7:00 PM", "8:00 PM"];
 function setupHTML() {
-  const hd = (PERSON && PERSON.homeEquipDefault) || {};
-  const su = UI.setup || (UI.setup = JSON.parse(JSON.stringify(Object.assign({ windows: (PERSON && PERSON.windowsDefault) || [], gym: false, gymDays: [], locs: (PERSON && PERSON.locsDefault) || [], home: null, equip: hd.equip || [], maxDB: hd.maxDB || null }, C().setup || {}))));
-  const opts = (PERSON && PERSON.windowOpts) || WIN_OPTS, maxW = (PERSON && PERSON.maxWindows) || 2;
-  if (PERSON && PERSON.setupMode === "locations") {
+  const hd = (ME && ME.homeEquipDefault) || {};
+  const su = UI.setup || (UI.setup = JSON.parse(JSON.stringify(Object.assign({ windows: (ME && ME.windowsDefault) || [], gym: false, gymDays: [], locs: (ME && ME.locsDefault) || [], home: null, equip: hd.equip || [], maxDB: hd.maxDB || null }, C().setup || {}))));
+  const opts = (ME && ME.windowOpts) || WIN_OPTS, maxW = (ME && ME.maxWindows) || 2;
+  if (ME && ME.setupMode === "locations") {
     su.locs = su.locs || [];
     return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Quick setup</h2><div class="muted">This sets when and where you train, and what your workouts look like. Change it any time in More, then Workout setup.</div></div>
   <h3 class="sh3">1. Which workout windows work for you?</h3><div class="small muted">Pick all that fit. Each day you tap the one you used.</div>
@@ -1401,7 +1403,23 @@ function seasonPitch(isNew) {
     <li>See where you stand any time on the new <b>Score</b> tab.</li></ul>
     <div style="text-align:center;font-weight:800;color:var(--green);margin:10px 0 4px">May the best man win.</div>`;
 }
-function needsSetup() { const su = C().setup; return !!(PERSON && PERSON.onboard && (!su || (PERSON.setupMode === "locations" && (!su.locs || !su.weekOk || ((su.locs || []).includes("home") && !su.equipDone))))); }
+function setupSummary(su) {
+  const parts = ["Game Shape setup from " + ((ME && ME.fullName) || myName()) + ":", "Windows: " + (su.windows || []).join(", ")];
+  if ((su.locs || []).length) parts.push("Trains at: " + su.locs.map(k => LOCS[k] + (k === su.home ? " (usual)" : "")).join(", "));
+  if ((su.locs || []).includes("home")) parts.push("Home: " + ((su.equip || []).map(eqName).join(", ") || "bodyweight") + (su.maxDB ? " (DBs to " + su.maxDB + " lb)" : ""));
+  if ((su.offDays || []).length) parts.push("Can't train: " + su.offDays.map(d => DOW[d]).join(", "));
+  if (su.missSome && (su.miss || []).length) parts.push("Missing: " + su.miss.map(k => fmtD(k.split("|")[0]) + (k.endsWith("|g") ? " game" : " practice")).join(", "));
+  if (su.notes) parts.push("Notes: " + su.notes);
+  return parts.join("\n");
+}
+function setupSentHTML(su) {
+  const txt = setupSummary(su);
+  return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Setup saved ✓</h2><div class="muted">Your answers went to Brett's Crew check-ins automatically.</div></div>
+  <div class="card" style="background:var(--card2);white-space:pre-line;font-size:14px">${esc(txt)}</div>
+  <a class="btn block" href="sms:?&body=${encodeURIComponent(txt)}">Text a copy</a>
+  <button class="btn primary block" style="margin-top:8px" data-act="closeSheet">Done</button>`;
+}
+function needsSetup() { const su = C().setup; return !!(ME && ME.onboard && (!su || (ME.setupMode === "locations" && (!su.locs || !su.weekOk || ((su.locs || []).includes("home") && !su.equipDone))))); }
 function maybeSetup() { if (needsSetup()) openSheet("setup", "first"); }
 /* Send the answers to Brett so he can see what everyone has and fine-tune their plan. */
 function sendSetup(su) {
@@ -1474,14 +1492,14 @@ document.addEventListener("pointerdown", e => {
   document.body.appendChild(fx); setTimeout(() => fx.remove(), 600);
 }, { passive: true });
 /* Welcome surprise: the open AFTER all updates, the tour, and the setup questions are done. One time. */
-function isReady() { return !!(S.meta.tourSeen && !needsSetup() && (!PERSON || !PERSON.onboard || C().setup)); }
+function isReady() { return !!(S.meta.tourSeen && !needsSetup() && (!ME || !ME.onboard || C().setup)); }
 function markReady() { if (isReady() && !S.meta.readyAt) { S.meta.readyAt = Date.now(); save(); } }
-function badgeHTML(big) { return PERSON && PERSON.badgeImg ? `<div class="pbadge${big ? " big" : ""}"><img src="${PERSON.badgeImg}" alt="${esc(PERSON.fullName || S.profile.name)} Game Shape badge"></div>` : ""; }
+function badgeHTML(big) { return ME && ME.badgeImg ? `<div class="pbadge${big ? " big" : ""}"><img src="${ME.badgeImg}" alt="${esc(ME.fullName || S.profile.name)} Game Shape badge"></div>` : ""; }
 function maybeWelcome() {
-  if (!PERSON || !PERSON.badgeImg || S.meta.welcomed) return false;
+  if (!ME || !ME.badgeImg || S.meta.welcomed) return false;
   if (!S.meta.readyAt || S.meta.readyAt >= LOAD_AT) { markReady(); return false; }
   const w = document.createElement("div"); w.className = "welcome";
-  w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(PERSON.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
+  w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(ME.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
   document.body.appendChild(w);
   for (let i = 0; i < 70; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${[ACCENT, "#ff8200", "#ffffff", "#0e5a2e"][i % 4]};animation-duration:${2.2 + Math.random() * 2.2}s;animation-delay:${Math.random() * .8}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5500); }
   w.querySelector("#wGo").onclick = () => { S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => w.remove(), 360); };
@@ -1490,6 +1508,14 @@ function maybeWelcome() {
 
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
+/* v2.7.4: Brett asked for a clean start and to walk through the same onboarding as Mark and Will (tour, setup, welcome badge). */
+if (PID === "brett" && !S.meta.clean274) {
+  S.logs = {}; S.season = { bought: {}, quiz: {}, seen: {} }; S.meta.badges = [];
+  ["tourSeen", "seasonHello", "welcomed", "readyAt", "crewSeen"].forEach(k => delete S.meta[k]);
+  if (S.custom) delete S.custom.setup;
+  S.meta.clean274 = new Date().toISOString();
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+}
 const UI = { tab: "today", trainOff: 0, trainSel: null, sheet: null, wo: null, mvd: false, fb: null, rest: null };
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -1717,7 +1743,7 @@ function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; U
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + (PERSON && PERSON.badgeImg ? `<div style="text-align:center;margin:2px 0 12px">${badgeHTML(false)}<b>${esc(PERSON.fullName || myName())}</b><div class="small muted">Game Shape Community</div></div>` : "") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ["tour", "flag", "How Season 1 works"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + (ME && ME.badgeImg ? `<div style="text-align:center;margin:2px 0 12px">${badgeHTML(false)}<b>${esc(ME.fullName || myName())}</b><div class="small muted">Game Shape Community</div></div>` : "") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ["tour", "flag", "How Season 1 works"], ...(ME && ME.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!ME ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
@@ -1829,14 +1855,15 @@ const ACT = {
     if (!bike && buildSession(s).run && l.miles >= 1 && !l.done) { l.done = true; l.runDone = true; l.checks.workout = true; }
     save(); toast(v + " mi " + (bike ? "biked" : "run") + (cardioCredit(s) ? ". +" + PTS.cardio : runIsWorkout(s) ? ". Workout done" : "") + ". Nice work."); render(); },
   runClear: () => { const s = todayStr(), l = L(s); l.miles = 0; l.bike = 0; if (l.runDone) { l.done = false; l.runDone = false; l.checks.workout = false; } save(); render(); },
-  suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > ((PERSON && PERSON.maxWindows) || 2)) su.windows.shift(); } const o = (PERSON && PERSON.windowOpts) || WIN_OPTS; su.windows.sort((a, b) => o.indexOf(a) - o.indexOf(b)); rerenderSetup(); },
+  suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > ((ME && ME.maxWindows) || 2)) su.windows.shift(); } const o = (ME && ME.windowOpts) || WIN_OPTS; su.windows.sort((a, b) => o.indexOf(a) - o.indexOf(b)); rerenderSetup(); },
   suGym: el => { UI.setup.gym = el.dataset.v === "1"; rerenderSetup(); },
   suDay: el => { const su = UI.setup, v = +el.dataset.v, i = su.gymDays.indexOf(v); if (i >= 0) su.gymDays.splice(i, 1); else su.gymDays.push(v); su.gymDays.sort(); rerenderSetup(); },
-  suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (PERSON && PERSON.setupMode === "locations" && !(su.locs || []).length) return toast("Pick at least 1 place to work out");
+  suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (ME && ME.setupMode === "locations" && !(su.locs || []).length) return toast("Pick at least 1 place to work out");
     if ($("suNotes")) su.notes = $("suNotes").value.trim().slice(0, 200);
     if ((su.locs || []).includes("home")) su.equipDone = todayStr();
     su.weekOk = todayStr(); applyMiss(su, C().setup); setTimeout(markReady, 50);
     if (!S.meta.tourSeen) { setTimeout(() => { UI.tourPage = 0; openSheet("tour"); }, 400); }
+    else setTimeout(() => openSheet("result", setupSentHTML(su)), 350);
     sendSetup(su); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
   more: () => openSheet("menu"),

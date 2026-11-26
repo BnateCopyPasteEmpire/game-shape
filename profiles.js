@@ -111,6 +111,18 @@ window.GS_PROFILES = {
     restDays: [0]                   // Sundays off: they never break the streak
   }
 };
+/* Brett keeps his own built-in plan at "/", but gets the same onboarding, setup questions, and welcome badge as everyone else. */
+window.GS_SELF = {
+  id: "brett",
+  fullName: "Brett N.",
+  badgeImg: "brett-badge.jpg",
+  onboard: true,
+  setupMode: "locations",
+  windowsDefault: ["5:00 AM"],
+  maxWindows: 2,
+  locsDefault: ["brett"],
+  homeEquipDefault: { equip: ["db", "kb", "bench", "smith", "legmachine", "mb", "bike", "roller"], maxDB: 50 }
+};
 window.GS_PERSON = (function () {
   try {
     const seg = (location.pathname.split("/").filter(Boolean)[0] || "").toLowerCase();
