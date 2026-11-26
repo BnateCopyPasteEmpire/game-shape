@@ -678,7 +678,7 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.2";
+const APP_VERSION = "3.0.3";
 const CHANGELOG = {
   "3.0.2": ["New Golden Tropics badge: brighter gold, bigger jersey logo"],
   "3.0.1": ["Added reading by mistake? Tap Undo 10 min or Clear today on Today, Recover, or Reads"],
@@ -2046,7 +2046,7 @@ function crewHTML() {
     ${p.health ? `<div class="small" style="margin-top:4px"><b>Injuries / soreness:</b> ${!p.health.hurt ? "None" : (p.health.issues || []).map(i => `<span style="color:${i.r >= 7 ? "var(--bad,#c0392b)" : i.r >= 4 ? "var(--warn)" : "inherit"};font-weight:700">${esc(i.area)} ${i.r}/10</span>${i.note ? " (" + esc(i.note) + ")" : ""}`).join(", ")}</div>` : ""}
     ${(su.miss || []).length ? `<div class="small"><b>Missing:</b> ${su.miss.map(k => fmtD(k.split("|")[0]) + (k.endsWith("|g") ? " game" : " practice")).join(", ")}</div>` : ""}
     ${su.notes ? `<div class="small"><b>Notes:</b> ${esc(su.notes)}</div>` : ""}</div>`; }).join("") : `<div class="muted">No check-ins yet.</div>`)
-    + `<button class="btn primary block" style="margin-top:10px" data-act="crewCopy">Copy for Claude</button><div class="small muted" style="margin-top:6px">Paste it into your Game Shape chat to fine-tune their plans in the next update.</div>`;
+    + `<button class="btn primary block" style="margin-top:10px" data-act="crewCopy">Copy for Claude</button><div class="small muted" style="margin-top:6px">Paste it into your Game Shape chat to fine-tune their plans in the next update.</div><div class="card" style="margin-top:14px"><b>Reset a player</b><div class="small muted" style="margin:4px 0 10px">Clears their scoreboard and check-in on the server, like they never opened it. Use it if you opened someone else's link by accident. Their own phone keeps its saved progress.</div><div class="row" style="gap:8px">${Object.entries(window.GS_PROFILES || {}).map(([k, v]) => { const n = esc((v.fullName || v.name || k).split(" ")[0]); return `<button class="btn sm" style="flex:1" data-act="crewReset" data-id="${esc(k)}" data-n="${n}">Reset ${n}</button>`; }).join("")}</div></div>`;
 }
 
 /* ---------------------------- v2.7 FEEL: sports art, scroll reveal, tap glow, welcome surprise ---------------------------- */
@@ -2499,6 +2499,9 @@ const ACT = {
       .then(r => r.json().then(d => r.ok ? d : Promise.reject(d.error))).then(d => { QZ.result = d; const prev = ss.quiz[id] || {}; ss.quiz[id] = d.pass ? { pass: true, date: todayStr(), score: d.correct, attempts: (prev.attempts || 0) + 1 } : { pass: false, failDate: new Date().toISOString(), score: d.correct, attempts: (prev.attempts || 0) + 1 }; save(); checkSeasonBadges(); queueScore(); })
       .catch(e => { QZ.err = typeof e === "string" ? e : "Couldn't grade. Try again."; }).finally(() => { QZ.loading = false; renderSheet(); }); },
   crewUnlock: () => { const v = ($("crewPin").value || "").trim(); if (!v) return toast("Enter your PIN"); R().adminPin = v; save(); CREW.people = null; CREW.err = ""; renderSheet(); },
+  crewReset: el => { const id = el.dataset.id; if (UI.resetArm !== id) { UI.resetArm = id; el.textContent = "Tap again to reset " + el.dataset.n; return; } UI.resetArm = null;
+    const pin = R().adminPin, post = (u) => fetch(u, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "reset", pin, id }) }).then(r => r.ok ? r.json() : Promise.reject(r.status));
+    Promise.all([post("/.netlify/functions/scoreboard"), post("/.netlify/functions/crew")]).then(() => { toast(el.dataset.n + " is reset. Fresh start when he opens it."); CREW.people = null; renderSheet(); pollBoard(); }).catch(() => toast("Reset failed. Check your PIN and try again.")); },
   crewRetry: () => { if (/PIN/.test(CREW.err)) R().adminPin = ""; CREW.people = null; CREW.err = ""; save(); renderSheet(); },
   crewCopy: () => { const txt = "Game Shape crew check-ins:\n" + JSON.stringify((CREW.people || []).map(p => ({ id: p.id, name: p.name, updated: p.updated, setup: p.setup })), null, 1); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast("Copied. Paste it to Claude.")).catch(() => openSheet("result", `<textarea style="width:100%;height:300px">${esc(txt)}</textarea>`)); },
   loc: el => { const l = L(todayStr()); l.loc = el.dataset.v; save(); render(); },

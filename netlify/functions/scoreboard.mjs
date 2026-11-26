@@ -57,6 +57,13 @@ export default async (req) => {
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
   let b; try { b = await req.json(); } catch { return json({ error: "Bad request" }, 400); }
 
+  if (b.action === "reset") {   // Brett only: clear one player's scoreboard records (used if someone else opened their link)
+    if (!process.env.ADMIN_PIN || b.pin !== process.env.ADMIN_PIN) return json({ error: "Wrong PIN" }, 401);
+    const rid = String(b.id || "").toLowerCase(); if (!/^[a-z0-9-]{2,20}$/.test(rid)) return json({ error: "Bad request" }, 400);
+    const { blobs } = await store.list(); let n = 0;
+    for (const bl of blobs) { if (!/^(week|season)-/.test(bl.key)) continue; const d = (await store.get(bl.key, { type: "json" })) || {}; if (d[rid]) { delete d[rid]; await store.setJSON(bl.key, d); n++; } }
+    return json({ ok: true, cleared: n });
+  }
   if (b.action === "prize") {
     if (!process.env.ADMIN_PIN || b.pin !== process.env.ADMIN_PIN) return json({ error: "Wrong PIN" }, 401);
     if (!okSeason(b.season)) return json({ error: "Bad season" }, 400);

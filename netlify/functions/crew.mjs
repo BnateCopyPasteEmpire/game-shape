@@ -18,6 +18,11 @@ export default async (req) => {
   }
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
   let b; try { b = await req.json(); } catch { return json({ error: "Bad request" }, 400); }
+  if (b.action === "reset") {   // Brett only: clear one person's check-in
+    if (!process.env.ADMIN_PIN || b.pin !== process.env.ADMIN_PIN) return json({ error: "Wrong PIN" }, 401);
+    const rid = String(b.id || "").toLowerCase(); const had = !!data[rid]; delete data[rid]; await store.setJSON("setups", data);
+    return json({ ok: true, cleared: had });
+  }
   const id = String(b.id || "").toLowerCase();
   if (!/^[a-z0-9-]{2,20}$/.test(id)) return json({ error: "Bad request" }, 400);
   const su = b.setup || {};
