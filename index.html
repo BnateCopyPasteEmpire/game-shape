@@ -418,13 +418,16 @@ img,svg,video{max-width:100%}
 /* close X on every pop-up sheet */
 .sheet-x{position:sticky;top:0;float:right;z-index:6;width:38px;height:38px;margin:2px -2px 0 8px;border-radius:50%;display:grid;place-items:center;font-size:26px;line-height:1;font-weight:400;color:var(--ink);background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 @media (prefers-reduced-motion:reduce){.tropics-pop{animation:none}}
+/* v2.8.2: exact Copy Paste Empire logo, small, top right */
+.cpe-chip{opacity:1}
+.cpe-chip .cpe-logo{height:24px;width:auto;border-radius:7px;background:#000;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 </style>
 </head>
 <body>
 <img class="wm-bg" src="gs-mark.png" alt="" aria-hidden="true">
 <div id="app">
   <header class="top">
-    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><div class="hdr-badges"><span class="cpe-chip" title="Copy Paste Empire"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><sup>TM</sup></span></div><div class="cpe-date" id="hdrDate"></div></div></div>
+    <div class="brandrow"><img src="wordmark-on-light.png?v=282" alt="Game Shape"><div class="cpe"><div class="hdr-badges"><span class="cpe-chip" title="Copy Paste Empire"><img class="cpe-logo" src="cpe-main.png?v=282" alt="Copy Paste Empire"></span></div><div class="cpe-date" id="hdrDate"></div></div></div>
     <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
     <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   </header>
@@ -506,8 +509,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.8.1";
+const APP_VERSION = "2.8.2";
 const CHANGELOG = {
+  "2.8.2": ["Fixed images not loading (question mark boxes)", "New Copy Paste Empire logo, small, top right", "Sharper EPC Tropics logo on game days, practices, and the schedule"],
   "2.8.1": ["Every pop-up screen (like More) now has an X to close it and get back to the app", "The EPC Tropics logo now pops up on game days, practice days, court days in Train, and the Schedule"],
   "2.8.0": ["Simpler badges: every week ends in a Gold, Silver, Bronze, or Poop medal. 4 goals a day, 28 a week. Streaks win weeks", "New Golden Tropics Basketball badge: the best medal record each month (Dec, Jan, Feb) wins +900 points", "Books now score 1 point for every $2 you paid", "New This week's medal card on Today shows your 7 days and what you need for the next medal"],
   "2.7.4": ["Setup answers now show a summary after you save, go to Brett automatically, and can be texted with one tap", "Brett's app now gets the same tour, setup questions, and welcome badge as everyone else"],
@@ -1097,7 +1101,7 @@ function courtPts(s) {
   return PTS.practice;
 }
 /* EPC Tropics jersey logo: shows up (medium, with a pop) anywhere basketball comes up: game and practice cards, the schedule, court days in Train. */
-const tropicsHTML = (w) => `<div class="tropics-pop" style="max-width:${w || 220}px"><img src="epc-jersey.jpg" alt="EPC Tropics"></div>`;
+const tropicsHTML = (w) => `<div class="tropics-pop" style="max-width:${w || 220}px"><img src="epc-tropics.jpg?v=282" alt="EPC Tropics"></div>`;
 function courtCardHTML(s) {
   const ev = courtOn(s); if (!ev.length) return "";
   const l = getL(s), game = ev.find(e => e.kind === "game" || e.type === "game"), done = !!(l.checks && l.checks.court), v = l.court || (done ? (game ? "played" : "practice") : "");
@@ -1220,7 +1224,7 @@ function checkWeekly() {
 function medalSVG(t, size) {
   size = size || 44;
   if (t === "poop") return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 8c6 8 2 14-4 16 12 0 20 8 16 18 12 2 18 12 14 22 10 4 14 14 8 22-4 6-12 8-20 8H30c-10 0-18-4-20-12-2-8 4-16 12-18-4-10 2-20 14-22-4-10 4-18 14-18-2-6 0-12 0-16z" fill="#7a4a22" stroke="#4a2a10" stroke-width="3"/><circle cx="38" cy="62" r="6" fill="#fff"/><circle cx="62" cy="62" r="6" fill="#fff"/><circle cx="38" cy="64" r="3" fill="#222"/><circle cx="62" cy="64" r="3" fill="#222"/><path d="M38 84q12-10 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M29 57l14-6M71 57l-14-6" stroke="#222" stroke-width="3" stroke-linecap="round"/><path d="M33 72q-3 6 0 9q3-3 0-9z" fill="#6ec6ff"/></svg>`;
-  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-jersey.jpg" alt=""></span>`;
+  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-tropics.jpg?v=282" alt=""></span>`;
   const c = TIERS[t].c, d = t === "gold" ? "#a87a12" : t === "silver" ? "#7d8792" : "#7a4518";
   return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M30 4h14l8 26H38zM70 4H56l-8 26h14z" fill="${t === "gold" ? "#0e5a2e" : t === "silver" ? "#4a2d76" : "#555"}"/><circle cx="50" cy="60" r="34" fill="${c}" stroke="${d}" stroke-width="5"/><circle cx="50" cy="60" r="24" fill="none" stroke="${d}" stroke-width="2" opacity=".6"/><text x="50" y="70" text-anchor="middle" font-size="28" font-weight="900" fill="${d}" font-family="Arial">${t === "gold" ? "1" : t === "silver" ? "2" : "3"}</text></svg>`;
 }
@@ -1581,6 +1585,7 @@ function crewHTML() {
 
 /* ---------------------------- v2.7 FEEL: sports art, scroll reveal, tap glow, welcome surprise ---------------------------- */
 const LOAD_AT = Date.now();
+document.addEventListener("error", e => { const im = e.target; if (!im || im.tagName !== "IMG" || im.dataset.retry) return; im.dataset.retry = "1"; setTimeout(() => { im.src = im.src.split("?")[0] + "?r=" + Date.now(); }, 700); }, true);
 const SPORT_SVG = {
   ball: '<svg viewBox="0 0 100 100" fill="none" stroke="#013919" stroke-width="3"><circle cx="50" cy="50" r="46"/><path d="M4 50h92M50 4v92M17 17c18 14 18 52 0 66M83 17c-18 14-18 52 0 66"/></svg>',
   hoop: '<svg viewBox="0 0 120 120" fill="none" stroke="#013919" stroke-width="3"><rect x="20" y="6" width="80" height="54" rx="4"/><rect x="44" y="26" width="32" height="24"/><ellipse cx="60" cy="66" rx="22" ry="5"/><path d="M40 67l6 40M80 67l-6 40M50 70l3 36M70 70l-3 36M46 86h28M48 98h24"/></svg>',
