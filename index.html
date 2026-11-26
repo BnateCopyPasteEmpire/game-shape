@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.0";
+const APP_VERSION = "2.6.1";
 const CHANGELOG = {
+  "2.6.1": ["Nicknames: go to More, then Settings, and add a nickname. It replaces your first name on Today, the Score tab, and the scoreboard"],
   "2.6.0": ["Game Shape Season 1: earn points and badges for everything you log, and compete for the first Game Shape shirt and beanie", "New Score tab with season standings, a breakdown for every player, and your badges", "Book quizzes: finish a book, pass 2 of 3 questions, earn 150 points", "I bought it button on books (+25, once a week)", "Affirmations check-off on Recover (+5)", "Setup now asks about days off and the games and practices you'll miss, then shows your week"],
   "2.5.1": ["Pick your workout windows: morning, late afternoon, or after the kids are down. Tap the one you used each day", "Pick where you train: Home, Brett's Gym, or YMCA, and check off what you have at home. Your exercises change to fit the equipment, and Brett gets your answers", "Your app color from your intake now shows up. Change it in Customize", "Run log and weekly scoreboard points for miles"],
   "2.5.0": ["Your app color: the color you picked on your intake now shows up, and you can change it in Customize", "Run log: track your miles, earn scoreboard points", "Pick your own workout windows and tap which one you used each day", "Gym day option: choose days at the YMCA or a home gym and get gym workouts those days"],
@@ -928,6 +929,9 @@ function runCardHTML(s, sess) {
 }
 Object.assign(window, { GS_RUN: true });
 
+/* Nickname: if set, it shows everywhere instead of the first name (greeting, scoreboard, standings, crew check-ins). */
+const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID).slice(0, 20);
+
 /* ---------------------------- SEASON (3-month competition) ----------------------------
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 const PTS = { workout: 50, quick: 25, court: 30, mile: 10, mileCap: 60, water: 15, waterPart: 7, protein: 10, sleep: 15, sleepLog: 5, affirm: 5, readCap: 30, buy: 25, quiz: 150 };
@@ -1010,7 +1014,7 @@ function checkSeasonBadges() {
 const CAT_LABEL = [["workout", "Workouts"], ["court", "Court"], ["run", "Runs"], ["water", "Water"], ["protein", "Protein"], ["sleep", "Sleep"], ["affirm", "Affirmations"], ["read", "Reading"], ["books", "Books"], ["badges", "Badges"]];
 function standingsList() {
   const sz = seasonOf(todayStr()), pre = todayStr() < sz.start, st = pre ? null : seasonStats(sz);
-  const mine = { id: PID, name: S.profile.name || PID, accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0 };
+  const mine = { id: PID, name: myName(), accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0 };
   let list = (SB.standings && SB.season === sz.id ? SB.standings.slice() : []).filter(p => p.id !== PID); list.push(mine);
   return { sz, pre, st, list: list.sort((a, b) => b.points - a.points) };
 }
@@ -1059,7 +1063,7 @@ function syncScore(force) {
   SB.last = Date.now();
   const st = todayStr() >= sz.start ? seasonStats(sz) : null;
   const season = st ? { id: sz.id, points: st.points, tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0 };
-  fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: S.profile.name || PID, accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
+  fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: myName(), accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
     .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
     .catch(() => { SB.err = true; });
 }
@@ -1067,7 +1071,7 @@ function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncSc
 function scoreboardHTML(compact) {
   const ws = weekStart(todayStr()), me = myWeekScore(ws);
   let list = (SB.players && SB.week === ws ? SB.players.slice() : []);
-  list = list.filter(p => p.id !== PID); list.push({ id: PID, name: S.profile.name || PID, score: me.score, stats: me.stats });
+  list = list.filter(p => p.id !== PID); list.push({ id: PID, name: myName(), score: me.score, stats: me.stats });
   list.sort((a, b) => b.score - a.score);
   const lead = list[0], rows = list.map((p, i) => `<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${i + 1}.</b> ${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && list.length > 1 && p.score > 0 ? " " + I.flame : ""}</span><span>${p.stats && p.stats.miles ? `<span class="small muted">${p.stats.miles} mi </span>` : ""}<b class="brand">${p.score}</b></span></div>`).join("");
   const others = list.length > 1;
@@ -1159,7 +1163,7 @@ function maybeSetup() { if (needsSetup()) openSheet("setup", "first"); }
 /* Send the answers to Brett so he can see what everyone has and fine-tune their plan. */
 function sendSetup(su) {
   if (location.protocol === "file:") return;
-  const body = { id: PID, name: S.profile.name, version: APP_VERSION, setup: { windows: su.windows, locs: su.locs || [], home: su.home || null, equip: su.equip || [], maxDB: su.maxDB || null, notes: su.notes || "", gym: !!su.gym, gymDays: su.gymDays || [], offDays: su.offDays || [], miss: su.missSome ? (su.miss || []) : [] } };
+  const body = { id: PID, name: myName(), version: APP_VERSION, setup: { windows: su.windows, locs: su.locs || [], home: su.home || null, equip: su.equip || [], maxDB: su.maxDB || null, notes: su.notes || "", gym: !!su.gym, gymDays: su.gymDays || [], offDays: su.offDays || [], miss: su.missSome ? (su.miss || []) : [] } };
   fetch("/.netlify/functions/crew", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => { if (r.ok) toast("Sent to Brett"); }).catch(() => {});
 }
 function rerenderSetup() { if ($("suNotes") && UI.setup) UI.setup.notes = $("suNotes").value; if (UI.sheet && UI.sheet.kind === "setup") { const y = $("sheet").scrollTop; renderSheet(); $("sheet").scrollTop = y; } }
@@ -1233,7 +1237,7 @@ function renderToday() {
   const h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
   const nc = nextCourt(), st = streak(), x = xp(), lvl = Math.floor(x / 300) + 1;
   let out = "";
-  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${badgeFor(info)}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(S.profile.name)}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
+  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${badgeFor(info)}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(myName())}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
   // banners
   if (S.schedAlert) out += `<div class="banner info"><b>Your schedule changed</b>${S.schedAlert.msgs.map(esc).join("<br>")}<br>Your plan was updated.<div style="margin-top:10px" class="row"><button class="btn sm" data-act="sheet" data-k="hoops">View schedule</button><button class="btn sm" data-act="dismissSched">Got it</button></div></div>`;
   if (!upcomingEvents().length) out += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
@@ -1435,7 +1439,7 @@ function renderSheet() {
     o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
   } else if (kind === "settings") {
     const p = S.profile;
-    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
   } else if (kind === "backup") {
     o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
   } else if (kind === "book") o = bookSheet(arg);
@@ -1491,6 +1495,7 @@ function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSh
 function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
+  nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
   affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("+" + PTS.affirm + " points"); render(); },
@@ -1813,7 +1818,7 @@ function recommendSheet() {
 }
 async function sendRec() {
   const v = id => (document.getElementById(id).value || "").trim();
-  const rec = { title: v("rcT"), author: v("rcA"), category: v("rcC"), why: v("rcW"), link: v("rcL"), recommendedBy: S.profile.name || "Friend", device: deviceId() };
+  const rec = { title: v("rcT"), author: v("rcA"), category: v("rcC"), why: v("rcW"), link: v("rcL"), recommendedBy: myName() || "Friend", device: deviceId() };
   if (!rec.title || !rec.author) return toast("Title and author please");
   if (rec.link && !/^https?:\/\//i.test(rec.link)) return toast("Link must start with https://");
   try {
@@ -2132,8 +2137,8 @@ function showWhatsNew() {
   S.meta.seenVersion = APP_VERSION; save();
   const needSetup = needsSetup();
   if (!seen && !Object.keys(S.logs).length) return false;   // brand new user: nothing to announce
-  S.meta.seasonHello = 1; save();
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${APP_VERSION === "2.6.0" ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here.</div></div>${APP_VERSION === "2.6.0" ? seasonPitch(false) : `<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
+  const pitch = !S.meta.seasonHello; S.meta.seasonHello = 1; save();
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
   return true;
 }
 async function applyUpdate() {

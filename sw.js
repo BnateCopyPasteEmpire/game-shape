@@ -1,6 +1,6 @@
 /* Game Shape service worker.
    RELEASE: bump VERSION to match APP_VERSION in index.html and version.json. */
-const VERSION = "gs-2.6.0";
+const VERSION = "gs-2.6.1";
 const FILES = ["./", "./index.html", "./intake.html", "./manifest.json", "./wordmark-on-light.png", "./icon-180.png", "./icon-192.png", "./icon-512.png", "./favicon.ico", "./cpe-logo.png", "./gs-mark.png", "./books.json", "./schedule-lib.js", "./profiles.js", "./manifest-mark.json", "./manifest-will.json"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).catch(() => {}).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
