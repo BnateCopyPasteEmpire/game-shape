@@ -40,7 +40,9 @@ window.GS_PROFILES = {
       ]
     },
     onboard: true,
+    setupMode: "locations",
     windowsDefault: ["5:00 AM", "6 to 9 PM"],
+    homeEquipDefault: { equip: ["mb", "treadmill", "roller"], maxDB: null },   // from intake
     noMidday: true,
     maxSets: 2,
     highReps: true,
@@ -49,6 +51,7 @@ window.GS_PROFILES = {
     heavyLegs: ["W_LOWER", "WG_LEGS"],
     preCourtSwap: "W_UPPER",
     practiceTpl: "W_PRACTICE",
+    restTpl: "W_REST",
     restDays: [0]
   },
   mark: {
@@ -92,7 +95,15 @@ window.GS_PROFILES = {
     weekPlan: { 0: "M_REST", 1: "M_UPPER_A", 2: "M_EASY", 3: "M_UPPER_B", 4: "M_EASY", 5: "M_LEGS", 6: "M_FULL" },
     heavyLegs: ["M_LEGS"],          // never the day before or day of a game or practice
     preCourtSwap: "M_UPPER_A",      // what a leg day becomes when court is tomorrow
+    onboard: true,                  // asks the workout setup questions on next open
+    setupMode: "locations",         // pick windows + where he trains (Home, Brett's Gym, YMCA)
+    windowOpts: ["Morning (5 to 7 AM)", "Late afternoon (4 to 6 PM)", "After kids (8 to 10 PM)"],
+    windowsDefault: ["Morning (5 to 7 AM)", "Late afternoon (4 to 6 PM)", "After kids (8 to 10 PM)"],
+    maxWindows: 3,
+    homeEquipDefault: { equip: ["db", "kb", "bike", "roller"], maxDB: 25 },   // from intake; he confirms on setup
+    noMidday: true,
     practiceTpl: "M_PRACTICE",
+    restTpl: "M_EASY",            // days he says he can't train: walk + mobility
     restDays: [0]                   // Sundays off: they never break the streak
   }
 };

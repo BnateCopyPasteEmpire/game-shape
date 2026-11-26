@@ -318,7 +318,7 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
     <button data-tab="fuel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><path d="M12 7v6M9 10h6"/></svg><span class="tl">Fuel</span></button>
     <button data-tab="reads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5z"/><path d="M12 6v13"/></svg><span class="tl">Reads</span></button>
     <button data-tab="recover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span class="tl">Recover</span></button>
-    <button data-tab="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-5 3 3 6-8"/></svg><span class="tl">Progress</span></button>
+    <button data-tab="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-5 3 3 6-8"/></svg><span class="tl">Score</span></button>
   </nav>
 </div>
 <div id="sheet" class="sheet hidden"><div class="sheet-bg" data-act="closeSheet"></div><div class="sheet-panel"><div class="grab"></div><div id="sheetBody"></div></div></div>
@@ -387,8 +387,10 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.5.0";
+const APP_VERSION = "2.6.0";
 const CHANGELOG = {
+  "2.6.0": ["Game Shape Season 1: earn points and badges for everything you log, and compete for the first Game Shape shirt and beanie", "New Score tab with season standings, a breakdown for every player, and your badges", "Book quizzes: finish a book, pass 2 of 3 questions, earn 150 points", "I bought it button on books (+25, once a week)", "Affirmations check-off on Recover (+5)", "Setup now asks about days off and the games and practices you'll miss, then shows your week"],
+  "2.5.1": ["Pick your workout windows: morning, late afternoon, or after the kids are down. Tap the one you used each day", "Pick where you train: Home, Brett's Gym, or YMCA, and check off what you have at home. Your exercises change to fit the equipment, and Brett gets your answers", "Your app color from your intake now shows up. Change it in Customize", "Run log and weekly scoreboard points for miles"],
   "2.5.0": ["Your app color: the color you picked on your intake now shows up, and you can change it in Customize", "Run log: track your miles, earn scoreboard points", "Pick your own workout windows and tap which one you used each day", "Gym day option: choose days at the YMCA or a home gym and get gym workouts those days"],
   "2.4.0": ["Weekly Scoreboard: friendly competition with your crew, resets every Monday", "Game Shape now supports more than one person, each with their own link, plan, and saved data", "Hot tub mentions hide when hot tub is off in Customize"],
   "2.3.2": ["Bottom tabs now glow with a breathing green and orange gradient"],
@@ -453,7 +455,7 @@ const I = {
   save: sv('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>')
 };
 /* "How to" links: a YouTube search for the exact exercise, so every exercise (any user, any future swap) always has a working demo. */
-const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits", bw_squat: "bodyweight squat to chair beginner", rev_lunge: "reverse lunge form beginner", adductor_rock: "adductor rock back stretch", incline_pushup: "incline push up beginner", prone_ytw: "prone y t w exercise", mb_thruster: "medicine ball squat to press", mb_halo: "medicine ball halo exercise", run_easy: "easy run pace beginner", lat_pulldown: "lat pulldown proper form", cable_row: "seated cable row form", db_shoulder_press: "seated dumbbell shoulder press form", db_curl: "dumbbell bicep curl form", hammer_curl: "dumbbell hammer curl form", face_pull: "face pull form", db_incline_press: "incline dumbbell press form", lateral_raise: "dumbbell lateral raise form", tri_pushdown: "tricep pushdown form", oh_tri_ext: "overhead dumbbell tricep extension form", leg_press: "leg press proper form beginner", goblet_squat: "goblet squat form", calf_raise: "standing calf raise form", knee_raise: "lying knee raise abs" };
+const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits", pullup: "assisted pull up beginner", chinup: "chin up form", band_pulldown: "band lat pulldown", band_row: "resistance band seated row", kb_row: "kettlebell row form", table_row: "inverted row under table", bench_dip: "chair dip form", decline_pushup: "feet elevated push up", kb_press: "kettlebell overhead press form", pike_pushup: "pike push up form", band_curl: "resistance band bicep curl", band_lateral: "resistance band lateral raise", bulgarian_ss: "bulgarian split squat form", slider_curl: "towel slider hamstring curl", db_pullover: "dumbbell pullover form", db_kickback: "dumbbell tricep kickback form", kb_swing_lite: "kettlebell deadlift form", bw_squat: "bodyweight squat to chair beginner", rev_lunge: "reverse lunge form beginner", adductor_rock: "adductor rock back stretch", incline_pushup: "incline push up beginner", prone_ytw: "prone y t w exercise", mb_thruster: "medicine ball squat to press", mb_halo: "medicine ball halo exercise", run_easy: "easy run pace beginner", lat_pulldown: "lat pulldown proper form", cable_row: "seated cable row form", db_shoulder_press: "seated dumbbell shoulder press form", db_curl: "dumbbell bicep curl form", hammer_curl: "dumbbell hammer curl form", face_pull: "face pull form", db_incline_press: "incline dumbbell press form", lateral_raise: "dumbbell lateral raise form", tri_pushdown: "tricep pushdown form", oh_tri_ext: "overhead dumbbell tricep extension form", leg_press: "leg press proper form beginner", goblet_squat: "goblet squat form", calf_raise: "standing calf raise form", knee_raise: "lying knee raise abs" };
 const howUrl = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " how to proper form");
 const howFor = (id, name) => howUrl(HOWQ[id] || name);
 const howText = t => howUrl(String(t).replace(/\(.*?\)/g, "").replace(/\s+x\d.*$/i, "").replace(/\s+\d+(\s*(sec|min)).*$/i, "").replace(/,.*$/, "").trim());
@@ -524,6 +526,23 @@ const LIB = {
   mb_thruster: X("Med Ball Squat to Press", "Legs, shoulders", "12", "Smooth", 60, "Medicine ball", ["Ball at chest, squat to a chair", "Stand and press the ball overhead", "Ribs down, no back arch"], "bw_squat", ["knee"], ["calf-safe"], false),
   mb_halo: X("Med Ball Halo", "Shoulders, core", "8 each way", "Slow", 30, "Medicine ball", ["Stand tall, brace your abs", "Circle the ball around your head", "Keep ribs down"], null, [], ["back-safe", "calf-safe"], false),
   run_easy: X("Easy Run or Treadmill", "Heart, fat loss", "20 to 30 min", "Talk pace", 0, "Can still talk in short sentences", ["Log your miles in the app", "Walk breaks are fine", "Easy pace beats fast pace"], "walk", ["calf", "achilles"], ["back-safe"], false),
+  db_pullover: X("DB Pullover", "Lats, chest", "12", "3 sec down", 60, "15 to 25 lb DB", ["Upper back on bench, hips low", "Arms slightly bent", "Stretch back, pull over to chest"], "db_row", [], ["calf-safe", "back-safe"]),
+  db_kickback: X("DB Triceps Kickback", "Triceps", "12", "2 sec down", 45, "10 to 20 lb DB", ["Hinge forward, flat back", "Elbow pinned high at your side", "Straighten the arm, squeeze"], "oh_tri_ext", [], ["calf-safe"]),
+  kb_swing_lite: X("KB Deadlift", "Hamstrings, glutes", "12", "2 sec down", 60, "25 to 35 lb KB", ["KB between feet", "Push hips back, flat back", "Stand tall, squeeze glutes"], "glute_bridge", ["back"], ["calf-safe"]),
+  pullup: X("Pull-Up (band assist OK)", "Lats, biceps", "6 to 8", "Slow down", 90, "Bodyweight. Band or chair assist until you get 8", ["Full hang at the bottom", "Chest to the bar", "3 sec lower"], "band_pulldown", [], ["calf-safe"]),
+  chinup: X("Chin-Up (palms toward you)", "Biceps, lats", "6 to 8", "Slow down", 90, "Bodyweight, assist OK", ["Palms face you", "Chin over the bar", "3 sec lower"], "band_curl", [], ["calf-safe"]),
+  band_pulldown: X("Band Lat Pulldown", "Lats", "15", "2 sec squeeze", 60, "Band anchored high", ["Kneel, arms up", "Pull elbows to ribs", "Slow return"], "db_pullover", [], ["calf-safe", "back-safe"]),
+  band_row: X("Band Seated Row", "Mid back", "15", "2 sec squeeze", 60, "Band around feet or a post", ["Sit tall", "Pull to belly button", "Squeeze shoulder blades"], "table_row", [], ["calf-safe", "back-safe"]),
+  kb_row: X("1-Arm KB Row", "Back", "12/side", "2 sec squeeze", 60, "Heaviest KB you have", ["Flat back, hand on a chair", "Pull to your hip", "Slow lower"], "band_row", [], ["calf-safe"]),
+  table_row: X("Inverted Row (sturdy table or bar)", "Back, biceps", "10", "2 sec squeeze", 60, "Bodyweight. Bend knees to make it easier", ["Body straight", "Pull chest to the edge", "Slow lower"], null, [], ["calf-safe"]),
+  bench_dip: X("Bench or Chair Dip", "Triceps", "12", "2 sec down", 60, "Bodyweight. Feet on a second chair to make it harder", ["Hands on the edge, fingers forward", "Lower until elbows hit 90", "Press up, no shrugging"], "pushup", [], ["calf-safe", "back-safe"]),
+  decline_pushup: X("Feet-Elevated Push-Up", "Upper chest, shoulders", "10 to 15", "3 sec down", 60, "Feet on a chair or couch", ["Body straight", "Chest to the floor", "Push hard"], "pushup", [], ["calf-safe", "back-safe"]),
+  kb_press: X("1-Arm KB Overhead Press", "Shoulders", "10/side", "2 sec down", 60, "Heaviest KB you can press clean", ["Squeeze glutes, ribs down", "Press straight up", "Slow lower to shoulder"], "pike_pushup", [], ["calf-safe"]),
+  pike_pushup: X("Pike Push-Up", "Shoulders, triceps", "8 to 12", "3 sec down", 60, "Bodyweight. Feet on a chair to make it harder", ["Hips high, upside-down V", "Head lowers toward hands", "Press back up"], "pushup", [], ["calf-safe"]),
+  band_curl: X("Band Biceps Curl", "Biceps", "15 to 20", "2 sec down", 45, "Stand on the band", ["Elbows pinned", "Squeeze at the top", "Slow lower"], null, [], ["calf-safe", "back-safe"]),
+  band_lateral: X("Band Lateral Raise", "Side delts", "15 to 20", "2 sec down", 45, "Stand on the band", ["Slight elbow bend", "Raise to shoulder height", "No shrug"], null, [], ["calf-safe", "back-safe"]),
+  bulgarian_ss: X("Bulgarian Split Squat", "Quads, glutes", "10/side", "3 sec down", 75, "Back foot on a couch or chair. Hold DBs or a KB when bodyweight gets easy", ["Long stance", "Front knee over toes", "Drive through the front heel"], "split_squat", ["knee"], [], false),
+  slider_curl: X("Towel Slider Hamstring Curl", "Hamstrings", "10", "3 sec out", 60, "Feet on towels on a hard floor", ["Hips up in a bridge", "Slide heels out slowly", "Pull them back in"], "glute_bridge", ["hamstring"], ["back-safe", "calf-safe"], false),
   walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
 };
 const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
@@ -694,7 +713,7 @@ function invalidate() { weekCache = {}; }
 function courtOn(s) {
   const ev = [];
   (S.events || []).forEach(e => {
-    if (e.date !== s || e.cancelled || e.affectsTraining === false || e.intensity === "low") return;
+    if (e.date !== s || e.cancelled || e.skipMe || e.affectsTraining === false || e.intensity === "low") return;
     const st = e.start || "18:00";
     ev.push({ type: e.intensity === "high" ? "game" : "practice", kind: e.type, date: s, start: st, end: e.end || fromMin(toMin(st) + 60), label: (e.type === "game" ? "Game " : e.type === "race" ? "Race: " : "") + e.title, gym: e.location, id: e.id });
   });
@@ -759,8 +778,10 @@ function tplKey(info) {
     if (info.type === "GAME_DAY") return "GAME_DAY";
     if (info.type === "PRACTICE_DAY") return PERSON.practiceTpl || "M_PRACTICE";
     let k = PERSON.weekPlan[dow(info.date)] || "M_EASY";
+    if (isOffDay(info.date)) return PERSON.restTpl || "M_REST";
     const su = C().setup;
-    if (PERSON.gymSwap && su && su.gym && (su.gymDays || []).includes(dow(info.date)) && PERSON.gymSwap[k]) k = PERSON.gymSwap[k];
+    const lc = todayLoc(info.date);
+    if (PERSON.gymSwap && PERSON.gymSwap[k] && (lc ? lc !== "home" : su && su.gym && (su.gymDays || []).includes(dow(info.date)))) k = PERSON.gymSwap[k];
     if (info.type === "PRE_COURT" && (PERSON.heavyLegs || []).includes(k)) k = PERSON.preCourtSwap || "M_UPPER_A";
     return k;
   }
@@ -782,6 +803,34 @@ function hiReps(ex) {
   if (/^\d+\/side$/.test(ex.reps)) return Object.assign({}, ex, { reps: "12/side" });
   return ex;
 }
+/* Where you train changes the exercises. Each machine move has ordered backups; the first one not already in the session is used. */
+const LOCS = { home: "Home", brett: "Brett's Gym", ymca: "YMCA" };
+/* Equipment: what each place has, what each move needs (any one item in a group), and muscle-matched backups in order. */
+const EQUIP_OPTS = [["db", "Dumbbells"], ["kb", "Kettlebells"], ["bench", "Bench"], ["pullup", "Pull-up bar"], ["bands", "Resistance bands"], ["barbell", "Barbell + rack"], ["smith", "Smith machine"], ["legmachine", "Leg curl / extension"], ["cable", "Cable machine"], ["mb", "Medicine ball"], ["treadmill", "Treadmill"], ["bike", "Bike"], ["roller", "Foam roller"]];
+const DB_OPTS = [10, 15, 20, 25, 30, 35, 40, 50, 60];
+const EQUIP_AT = { brett: ["db", "kb", "bench", "smith", "legmachine", "mb", "bike", "roller"], ymca: ["db", "kb", "bench", "pullup", "bands", "barbell", "smith", "legmachine", "legpress", "cable", "mb", "treadmill", "bike", "roller"] };
+const NEEDS = { lat_pulldown: [["cable"]], cable_row: [["cable"]], face_pull: [["cable", "bands"]], tri_pushdown: [["cable", "bands"]], leg_press: [["legpress"]], smith_squat: [["smith", "barbell"]], hip_thrust: [["smith", "barbell"]], leg_curl: [["legmachine"]], leg_ext: [["legmachine"]],
+  db_incline_press: [["db"], ["bench"]], db_pullover: [["db"], ["bench"]], floor_press: [["db"]], db_shoulder_press: [["db"]], db_curl: [["db"]], hammer_curl: [["db"]], lateral_raise: [["db"]], oh_tri_ext: [["db", "kb"]], db_kickback: [["db"]], db_row: [["db"]], rdl: [["db"]], goblet_squat: [["db", "kb"]], kb_swing_lite: [["kb", "db"]], kb_row: [["kb"]], kb_press: [["kb"]], sl_rdl: [["kb", "db"]],
+  pullup: [["pullup"]], chinup: [["pullup"]], band_pulldown: [["bands"]], band_row: [["bands"]], band_curl: [["bands"]], band_lateral: [["bands"]], mb_thruster: [["mb"]], mb_halo: [["mb"]] };
+const ALTS = { lat_pulldown: ["pullup", "band_pulldown", "db_pullover", "db_row", "kb_row", "table_row"], cable_row: ["db_row", "kb_row", "band_row", "table_row"], db_row: ["kb_row", "band_row", "table_row"], db_pullover: ["db_row", "band_pulldown", "kb_row", "table_row"],
+  face_pull: ["prone_ytw"], tri_pushdown: ["db_kickback", "oh_tri_ext", "bench_dip"], oh_tri_ext: ["db_kickback", "bench_dip"], db_kickback: ["oh_tri_ext", "bench_dip"],
+  db_incline_press: ["floor_press", "decline_pushup"], floor_press: ["decline_pushup"], db_shoulder_press: ["kb_press", "pike_pushup"], lateral_raise: ["band_lateral", "pike_pushup"],
+  db_curl: ["band_curl", "chinup", "table_row"], hammer_curl: ["band_curl", "chinup", "table_row"],
+  leg_press: ["smith_squat", "goblet_squat", "bulgarian_ss"], smith_squat: ["goblet_squat", "bulgarian_ss"], hip_thrust: ["glute_bridge"], goblet_squat: ["bulgarian_ss", "bw_squat"], rdl: ["kb_swing_lite", "slider_curl", "glute_bridge"], kb_swing_lite: ["slider_curl", "glute_bridge"], sl_rdl: ["glute_bridge"],
+  leg_curl: ["slider_curl", "glute_bridge"], leg_ext: ["bulgarian_ss", "wall_sit"], mb_thruster: ["goblet_squat", "bw_squat"], mb_halo: ["dead_bug"] };
+function equipFor(loc) { if (loc === "home") { const su = C().setup || {}; return su.equip || []; } return EQUIP_AT[loc] || null; }
+function canDo(id, eq) { const n = NEEDS[id]; return !n || n.every(g => g.some(x => eq.includes(x))); }
+function todayLoc(s) { const su = C().setup; if (!su || !su.locs || !su.locs.length) return null; const l = S.logs[s]; return (l && l.loc && su.locs.includes(l.loc)) ? l.loc : (su.home || su.locs[0]); }
+function locSwap(main, loc) {
+  const eq = equipFor(loc); if (!eq) return main;
+  const used = new Set(main.map(m => m.id));
+  return main.map(m => {
+    if (canDo(m.id, eq)) return m;
+    const pick = (ALTS[m.id] || []).find(o => canDo(o, eq) && !used.has(o)) || (ALTS[m.id] || []).find(o => canDo(o, eq));
+    if (!pick) return m;
+    used.add(pick); return Object.assign({}, m, { id: pick, ex: hiReps(LIB[pick]), from: m.id });
+  });
+}
 function myWindows() { const su = C().setup; return su && su.windows && su.windows.length ? su.windows : (PERSON && PERSON.windowsDefault) || []; }
 function buildSession(s, mvd) {
   const info = dayInfo(s), ph = phase(weekNum(s)), key = tplKey(info), T = TPL[key];
@@ -799,13 +848,15 @@ function buildSession(s, mvd) {
     if (PERSON && PERSON.maxSets) sets = Math.min(sets, PERSON.maxSets);
     return { id: r.id, from: r.from, ex: hiReps(ex), sets };
   });
+  const loc = todayLoc(s); if (loc) main = locSwap(main, loc);
+  const su9 = C().setup || {}, lightNote = loc === "home" && (su9.equip || []).includes("db") && +su9.maxDB > 0 && +su9.maxDB < 30 && !(PERSON && PERSON.highReps) ? " Light dumbbells at home: 3 sec lowering, pause at the bottom, and take sets to 1 or 2 reps from failure." : "";
   let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
   if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
   const tips = TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
   const wins = myWindows(), lg = S.logs[s];
-  if (wins.length) { const tm = lg && lg.slot ? "Trained: " + lg.slot : wins.join(" or "); return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time: tm, note: T.note, run: !!T.run }; }
+  if (wins.length) { const tm = (lg && lg.slot ? "Trained: " + lg.slot : wins.length > 2 ? "Pick today's window" : wins.join(" or ")) + (loc ? " • " + LOCS[loc] : ""); return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time: tm, note: T.note + lightNote + (lg && /after kids|8 to 10/i.test(lg.slot || "") ? " Late session: finish 60 min before bed and skip caffeine." : ""), run: !!T.run }; }
   const wt = (C().times && C().times.workout) || "05:00", wh = +wt.split(":")[0], time = info.midday ? "12:00 PM (sleep in)" : ((wh % 12) || 12) + ":" + wt.split(":")[1] + (wh < 12 ? " AM" : " PM");
-  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note, run: !!T.run };
+  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note + lightNote, run: !!T.run };
 }
 
 /* ---------------------------- STATS ---------------------------- */
@@ -877,6 +928,111 @@ function runCardHTML(s, sess) {
 }
 Object.assign(window, { GS_RUN: true });
 
+/* ---------------------------- SEASON (3-month competition) ----------------------------
+   Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
+const PTS = { workout: 50, quick: 25, court: 30, mile: 10, mileCap: 60, water: 15, waterPart: 7, protein: 10, sleep: 15, sleepLog: 5, affirm: 5, readCap: 30, buy: 25, quiz: 150 };
+const DEFAULT_PRIZE = "The first Game Shape shirt and beanie (matching set)";
+function seasonOf(d) {
+  if (d < "2027-03-01") return { id: "S1", n: 1, start: "2026-11-30", end: "2027-02-28" };
+  const [y, m] = d.split("-").map(Number), k = Math.floor(((y - 2027) * 12 + (m - 3)) / 3);   // 3-month blocks from Mar 2027
+  const sm0 = 2 + k * 3, sy = 2027 + Math.floor(sm0 / 12), sm = (sm0 % 12) + 1, start = sy + "-" + pad(sm) + "-01";
+  const endD = new Date(sy, sm - 1 + 3, 0);
+  return { id: "S" + (k + 2), n: k + 2, start, end: endD.getFullYear() + "-" + pad(endD.getMonth() + 1) + "-" + pad(endD.getDate()) };
+}
+function SSN() { if (!S.season) S.season = { bought: {}, quiz: {}, seen: {} }; ["bought", "quiz", "seen"].forEach(k => { if (!S.season[k]) S.season[k] = {}; }); return S.season; }
+function dayPoints(s) {
+  const l = S.logs[s], b = { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0 };
+  if (!l) return b;
+  b.workout = l.done ? PTS.workout : l.mvdDone ? PTS.quick : 0;
+  b.court = l.checks && l.checks.court ? PTS.court : 0;
+  b.run = Math.min(PTS.mileCap, Math.round((+l.miles || 0) * PTS.mile));
+  const wg = waterGoal(s); b.water = l.water >= wg ? PTS.water : l.water >= wg * .75 ? PTS.waterPart : 0;
+  b.protein = l.protein >= S.profile.protein ? PTS.protein : 0;
+  const h = sleepHrs(l.sleep); b.sleep = h == null ? 0 : h >= 7 ? PTS.sleep : PTS.sleepLog;
+  b.affirm = l.checks && l.checks.affirm ? PTS.affirm : 0;
+  b.read = Math.min(PTS.readCap, Math.floor((l.reading || 0) / 2));
+  return b;
+}
+const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY"];
+const SEASON_BADGES = [
+  ["run1", "flag", "First Run", 25], ["mi10", "flag", "10 Miles", 50], ["mi25", "flag", "25 Miles", 100], ["mi50", "flag", "50 Miles", 150], ["mi100", "flag", "100 Miles", 250], ["run5wk", "flame", "5-Mile Week", 50],
+  ["water3", "drop", "Hydrated x3", 25], ["water7", "drop", "Hydration Hero", 75], ["water28", "drop", "Water Week x4", 150], ["sleep7", "moon", "Sleep 7 Nights", 75],
+  ["wo10", "fire", "10 Workouts", 50], ["wo25", "fire", "25 Workouts", 100], ["wo50", "fire", "50 Workouts", 200], ["perfect", "shield", "Perfect Week", 100], ["streak7", "flame", "7-Day Streak", 50],
+  ["affirm14", "ball", "Affirmations x14", 50], ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["ironman", "hoop", "Iron Man", 100]
+];
+function seasonStats(sz) {
+  const t = todayStr(), to = t < sz.end ? t : sz.end, st = { days: [], tot: { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, books: 0, badges: 0 }, miles: 0, workouts: 0, waterDays: 0, sleepGood: 0, affirmDays: 0 };
+  for (let d = sz.start; d <= to; d = addDays(d, 1)) {
+    const p = dayPoints(d), l = S.logs[d] || null; st.days.push([d, p, l]);
+    for (const k in p) st.tot[k] += p[k];
+    if (l) { st.miles += +l.miles || 0; if (l.done || l.mvdDone) st.workouts++; if (p.water === PTS.water) st.waterDays++; if (p.sleep === PTS.sleep) st.sleepGood++; if (p.affirm) st.affirmDays++; }
+  }
+  const ss = SSN(), inS = d => d >= sz.start && d <= sz.end;
+  const bought = Object.values(ss.bought).filter(x => inS(x.date)), passed = Object.values(ss.quiz).filter(x => x.pass && inS(x.date));
+  st.tot.books = bought.reduce((a, x) => a + (x.pts || 0), 0) + passed.length * PTS.quiz; st.booksPassed = passed.length; st.booksBought = bought.length;
+  st.miles = Math.round(st.miles * 10) / 10;
+  const earned = seasonBadges(sz, st); st.badges = earned; st.tot.badges = earned.reduce((a, id) => a + SEASON_BADGES.find(b => b[0] === id)[3], 0);
+  st.points = Object.values(st.tot).reduce((a, v) => a + v, 0);
+  return st;
+}
+function runOf(days, test) { let best = 0, cur = 0; days.forEach(([, p, l]) => { if (test(p, l)) { cur++; best = Math.max(best, cur); } else cur = 0; }); return best; }
+function seasonBadges(sz, st) {
+  const e = [], add = id => e.push(id), d = st.days;
+  if (st.miles > 0) add("run1"); [[10, "mi10"], [25, "mi25"], [50, "mi50"], [100, "mi100"]].forEach(([m, id]) => { if (st.miles >= m) add(id); });
+  const wk = {}; d.forEach(([dt, , l]) => { if (l) { const w = weekStart(dt); wk[w] = (wk[w] || 0) + (+l.miles || 0); } }); if (Object.values(wk).some(m => m >= 5)) add("run5wk");
+  if (runOf(d, p => p.water === PTS.water) >= 3) add("water3"); if (runOf(d, p => p.water === PTS.water) >= 7) add("water7"); if (st.waterDays >= 28) add("water28");
+  if (st.sleepGood >= 7) add("sleep7");
+  [[10, "wo10"], [25, "wo25"], [50, "wo50"]].forEach(([n, id]) => { if (st.workouts >= n) add(id); });
+  if (runOf(d, (p, l) => !!(l && (l.done || l.mvdDone || (l.checks && l.checks.court) || l.miles > 0))) >= 7) add("streak7");
+  if (st.affirmDays >= 14) add("affirm14");
+  if (st.booksPassed >= 1) add("book1"); if (st.booksPassed >= 3) add("book3");
+  // Perfect week: a finished Mon-Sun week inside the season where every planned training day got done
+  const t = todayStr();
+  for (let w = weekStart(sz.start) < sz.start ? addDays(weekStart(sz.start), 7) : sz.start; addDays(w, 6) < t && addDays(w, 6) <= sz.end; w = addDays(w, 7)) {
+    let planned = 0, done = 0;
+    for (let i = 0; i < 7; i++) { const dt = addDays(w, i), info = dayInfo(dt), k = tplKey(info); if (REST_KEYS.includes(k) || info.type === "GAME_DAY" || isOffDay(dt)) continue; planned++; const l = S.logs[dt]; if (l && (l.done || l.mvdDone || (buildSession(dt).run && l.miles >= 1))) done++; }
+    if (planned >= 3 && done >= planned) { add("perfect"); break; }
+  }
+  // Iron Man: every practice and game in a calendar month (at least 4)
+  const mo = {}; d.forEach(([dt, , l]) => { if (dt.slice(0, 7) === t.slice(0, 7)) return; if (courtOn(dt).length) { const m = dt.slice(0, 7); mo[m] = mo[m] || [0, 0]; mo[m][0]++; if (l && l.checks && l.checks.court) mo[m][1]++; } });
+  if (Object.values(mo).some(([n, k]) => n >= 4 && k >= n)) add("ironman");
+  return e;
+}
+function isOffDay(s) { const su = C().setup; return !!(su && (su.offDays || []).includes(dow(s))); }
+function checkSeasonBadges() {
+  const sz = seasonOf(todayStr()); if (todayStr() < sz.start) return;
+  const st = seasonStats(sz), ss = SSN(), seen = ss.seen[sz.id] || [];
+  st.badges.filter(id => !seen.includes(id)).forEach(id => { const b = SEASON_BADGES.find(x => x[0] === id); toast("Badge: " + b[2] + " (+" + b[3] + " pts)"); });
+  ss.seen[sz.id] = st.badges.slice();
+}
+
+/* ---------------------------- SEASON STANDINGS UI ---------------------------- */
+const CAT_LABEL = [["workout", "Workouts"], ["court", "Court"], ["run", "Runs"], ["water", "Water"], ["protein", "Protein"], ["sleep", "Sleep"], ["affirm", "Affirmations"], ["read", "Reading"], ["books", "Books"], ["badges", "Badges"]];
+function standingsList() {
+  const sz = seasonOf(todayStr()), pre = todayStr() < sz.start, st = pre ? null : seasonStats(sz);
+  const mine = { id: PID, name: S.profile.name || PID, accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0 };
+  let list = (SB.standings && SB.season === sz.id ? SB.standings.slice() : []).filter(p => p.id !== PID); list.push(mine);
+  return { sz, pre, st, list: list.sort((a, b) => b.points - a.points) };
+}
+function seasonHTML(compact) {
+  const { sz, pre, st, list } = standingsList(), t = todayStr();
+  const daysLeft = between(t, sz.end), daysTo = between(t, sz.start);
+  const head = pre ? `Season ${sz.n} starts ${fmtD(sz.start)} (${daysTo} day${daysTo === 1 ? "" : "s"})` : `Season ${sz.n} ends ${fmtD(sz.end)} • ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`;
+  const rows = list.map((p, i) => `<button class="sbrow" data-act="sbOpen" data-id="${esc(p.id)}" style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);text-align:left">
+    <span><b style="display:inline-block;width:22px">${i + 1}</b><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(p.accent || "#ff8200")};margin-right:8px"></span>${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && p.points > 0 ? " " + I.flame : ""}</span>
+    <span class="small muted">${(p.badges || []).length} badges • <b class="brand" style="font-size:17px">${p.points}</b></span></button>
+    ${UI.sbOpen === p.id && !compact ? `<div class="grid3" style="margin:8px 0 10px">${CAT_LABEL.map(([k, n]) => `<div class="tile"><div class="k">${n}</div><div class="v" style="font-size:18px">${(p.tot || {})[k] || 0}</div></div>`).join("")}<div class="tile"><div class="k">Miles</div><div class="v" style="font-size:18px">${p.miles || 0}</div></div><div class="tile"><div class="k">Books</div><div class="v" style="font-size:18px">${p.books || 0}</div></div></div>` : ""}`).join("");
+  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${rows}</div>`;
+  const prize = `<div class="banner info" style="margin-top:12px"><b>Season ${sz.n} prize</b>${esc(SB.prize || DEFAULT_PRIZE)}. Most points on ${fmtD(sz.end)} wins.${R().adminPin && !PERSON ? `<div style="margin-top:8px"><button class="btn sm" data-act="prizeEdit">Edit prize</button></div>` : ""}</div>`;
+  const ss = SSN(), have = st ? st.badges : [];
+  const badges = `<h3 class="sh3" style="margin-top:16px">Your Season ${sz.n} badges (${have.length}/${SEASON_BADGES.length})</h3><div>${SEASON_BADGES.map(b => `<span class="bdg ${have.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>`;
+  const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
+    <li>Full workout ${PTS.workout}, quick 15-min ${PTS.quick}. A run of 1+ mile on a run day counts as the workout</li><li>Practice or game ${PTS.court}</li><li>Runs ${PTS.mile} per mile (${PTS.mileCap} max a day)</li>
+    <li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent), protein goal ${PTS.protein}</li><li>Sleep 7+ hours ${PTS.sleep} (${PTS.sleepLog} for logging less)</li><li>Affirmations ${PTS.affirm}, reading 1 per 2 min (${PTS.readCap} max a day)</li>
+    <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 6px">${head}. Tap a name for the breakdown.</div>${rows}${pre ? `<div class="small muted" style="margin-top:8px">Points start counting ${fmtD(sz.start)}. Get your setup and logging habits dialed in now.</div>` : ""}${prize}${badges}${guide}</div>`;
+}
+
 /* ---------------------------- WEEKLY SCOREBOARD (friendly competition) ---------------------------- */
 function myWeekScore(ws) {
   const t = todayStr(); const st = { workouts: 0, quick: 0, active: 0, water: 0, protein: 0, readMin: 0, sleep: 0, miles: 0 };
@@ -890,18 +1046,21 @@ function myWeekScore(ws) {
     st.readMin += Math.min(60, l.reading || 0);
     if (l.sleep) st.sleep++;
   }
-  const score = Math.round(st.workouts * 20 + st.quick * 10 + st.active * 5 + st.water * 3 + st.protein * 3 + st.readMin * 0.5 + st.sleep * 2 + (st.milesPts || 0)); delete st.milesPts; st.miles = Math.round(st.miles * 10) / 10;
+  let score = 0; for (let i = 0; i < 7; i++) { const d = addDays(ws, i); if (d > t) break; score += Object.values(dayPoints(d)).reduce((a, v) => a + v, 0); }
+  delete st.milesPts; st.miles = Math.round(st.miles * 10) / 10;
   return { score, stats: st };
 }
-const SB = { week: null, players: null, err: false, last: 0 };
+const SB = { week: null, players: null, err: false, last: 0, season: null, standings: null, prize: DEFAULT_PRIZE };
 let sbTimer = null;
 function syncScore(force) {
   if (location.protocol === "file:") return;
-  const ws = weekStart(todayStr()), me = myWeekScore(ws);
+  const ws = weekStart(todayStr()), me = myWeekScore(ws), sz = seasonOf(todayStr());
   if (!force && Date.now() - SB.last < 20000 && SB.week === ws) return;
   SB.last = Date.now();
-  fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: S.profile.name || PID, week: ws, score: me.score, stats: me.stats }) })
-    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
+  const st = todayStr() >= sz.start ? seasonStats(sz) : null;
+  const season = st ? { id: sz.id, points: st.points, tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0 };
+  fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: S.profile.name || PID, accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
+    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
     .catch(() => { SB.err = true; });
 }
 function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncScore(true), 4000); }
@@ -923,19 +1082,115 @@ function scoreboardHTML(compact) {
 /* ---------------------------- WORKOUT SETUP (first open, per person) ---------------------------- */
 const WIN_OPTS = ["5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "Lunch 12 PM", "6 to 9 PM", "6:00 PM", "7:00 PM", "8:00 PM"];
 function setupHTML() {
-  const su = UI.setup || (UI.setup = JSON.parse(JSON.stringify(C().setup || { windows: (PERSON && PERSON.windowsDefault) || [], gym: false, gymDays: [] })));
+  const hd = (PERSON && PERSON.homeEquipDefault) || {};
+  const su = UI.setup || (UI.setup = JSON.parse(JSON.stringify(Object.assign({ windows: (PERSON && PERSON.windowsDefault) || [], gym: false, gymDays: [], locs: (PERSON && PERSON.locsDefault) || [], home: null, equip: hd.equip || [], maxDB: hd.maxDB || null }, C().setup || {}))));
+  const opts = (PERSON && PERSON.windowOpts) || WIN_OPTS, maxW = (PERSON && PERSON.maxWindows) || 2;
+  if (PERSON && PERSON.setupMode === "locations") {
+    su.locs = su.locs || [];
+    return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Quick setup</h2><div class="muted">This sets when and where you train, and what your workouts look like. Change it any time in More, then Workout setup.</div></div>
+  <h3 class="sh3">1. Which workout windows work for you?</h3><div class="small muted">Pick all that fit. Each day you tap the one you used.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${opts.map(w => `<button class="chip ${su.windows.includes(w) ? "on" : ""}" data-act="suWin" data-v="${w}">${su.windows.includes(w) ? "✓ " : ""}${w}</button>`).join("")}</div>
+  <h3 class="sh3" style="margin-top:18px">2. Where can you work out?</h3><div class="small muted">Check every spot you use. Your exercises change to match the equipment.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${Object.entries(LOCS).map(([k, n]) => `<button class="chip ${su.locs.includes(k) ? "on" : ""}" data-act="suLoc" data-v="${k}">${su.locs.includes(k) ? "✓ " : ""}${n}</button>`).join("")}</div>
+  ${su.locs.length > 1 ? `<div class="small muted" style="margin-top:12px">Where do you go most? That's your default. You can switch it each day on Today.</div><div class="row wrap" style="gap:8px;margin-top:8px">${su.locs.map(k => `<button class="chip ${su.home === k ? "on" : ""}" data-act="suHome" data-v="${k}">${LOCS[k]}</button>`).join("")}</div>` : ""}
+  <div class="small muted" style="margin-top:12px">Brett's Gym: Smith machine, dumbbells, kettlebells, bench, leg curl and extension, med balls, bike. YMCA: full gym with cables, machines, pull-up bars, and barbells.</div>
+  ${su.locs.includes("home") ? `<h3 class="sh3" style="margin-top:18px">3. What do you have at home?</h3><div class="small muted">Check everything you have. Home workouts are built from this, so they stay hard and still build muscle.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${EQUIP_OPTS.map(([k, n]) => `<button class="chip ${(su.equip || []).includes(k) ? "on" : ""}" data-act="suEq" data-v="${k}">${(su.equip || []).includes(k) ? "✓ " : ""}${n}</button>`).join("")}</div>
+  ${(su.equip || []).includes("db") ? `<label class="f">Heaviest dumbbell you have (lb)</label><div class="row wrap" style="gap:8px">${DB_OPTS.map(w => `<button class="chip ${+su.maxDB === w ? "on" : ""}" data-act="suDB" data-v="${w}">${w}${w === 60 ? "+" : ""}</button>`).join("")}</div>` : ""}
+  <label class="f">Anything else? (optional)</label><input id="suNotes" value="${esc(su.notes || "")}" placeholder="Example: adjustable bench, 2 bands, jump rope">` : ""}
+  <h3 class="sh3" style="margin-top:18px">${su.locs.includes("home") ? 4 : 3}. Any days you can't work out?</h3><div class="small muted">Work travel, family nights. Those become rest or an easy walk. Sundays are already off.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${[[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"]].map(([i, d]) => `<button class="chip ${(su.offDays || []).includes(i) ? "on" : ""}" data-act="suOff" data-v="${i}">${(su.offDays || []).includes(i) ? "✓ " : ""}${d}</button>`).join("")}</div>
+  ${courtQHTML(su)}
+  ${weekPreviewHTML(su)}
+  <button class="btn primary block" style="margin-top:20px" data-act="suSave">Looks good. Save my setup</button>`;
+  }
   const days = [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"]];
   return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Let's set up your workouts</h2><div class="muted">30 seconds. You can change this any time in More, then Workout setup.</div></div>
-  <h3 class="sh3">1. Pick your 2 best workout windows</h3><div class="small muted">Each day you tap which one you used.</div>
-  <div class="row wrap" style="gap:8px;margin-top:8px">${WIN_OPTS.map(w => `<button class="chip ${su.windows.includes(w) ? "on" : ""}" data-act="suWin" data-v="${w}">${w}</button>`).join("")}</div>
+  <h3 class="sh3">1. Pick your ${maxW} best workout windows</h3><div class="small muted">Each day you tap which one you used.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${opts.map(w => `<button class="chip ${su.windows.includes(w) ? "on" : ""}" data-act="suWin" data-v="${w}">${w}</button>`).join("")}</div>
   <h3 class="sh3" style="margin-top:18px">2. Open to training some days at the YMCA or Brett's gym?</h3>
   <div class="row" style="gap:8px"><button class="chip ${su.gym ? "on" : ""}" style="flex:1" data-act="suGym" data-v="1">Yes</button><button class="chip ${!su.gym ? "on" : ""}" style="flex:1" data-act="suGym" data-v="0">No, home only</button></div>
   ${su.gym ? `<div class="small muted" style="margin-top:10px">Which days? Gym days get machine and dumbbell workouts. Home days stay bodyweight, med ball, and treadmill.</div><div class="row wrap" style="gap:8px;margin-top:8px">${days.map(([i, d]) => `<button class="chip ${su.gymDays.includes(i) ? "on" : ""}" data-act="suDay" data-v="${i}">${d}</button>`).join("")}</div>` : ""}
   <button class="btn primary block" style="margin-top:20px" data-act="suSave">Save my setup</button>`;
 }
-function maybeSetup() { if (PERSON && PERSON.onboard && !C().setup) openSheet("setup", "first"); }
-function rerenderSetup() { if (UI.sheet && UI.sheet.kind === "setup") { const y = $("sheet").scrollTop; renderSheet(); $("sheet").scrollTop = y; } }
+function upcomingCourt() {
+  const t = todayStr(), out = [];
+  (S.events || []).forEach(e => { if (e.date >= t && e.date <= addDays(t, 70) && !e.cancelled && e.type === "game") out.push({ key: e.date + "|g", date: e.date, label: "Game " + e.title + (e.start ? " " + fmtT(e.start) : "") }); });
+  if (S.practice.weekday >= 0) for (let d = t; d <= addDays(t, 42); d = addDays(d, 1)) if (dow(d) === S.practice.weekday) out.push({ key: d + "|p", date: d, label: "Practice " + fmtT(S.practice.start) });
+  return out.sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12);
+}
+function courtQHTML(su) {
+  const n = su.locs.includes("home") ? 5 : 4, up = upcomingCourt(), miss = su.miss || [];
+  return `<h3 class="sh3" style="margin-top:18px">${n}. Playing in all the Easley Pres games and Tuesday 7 PM practices?</h3>
+  <div class="row" style="gap:8px"><button class="chip ${!su.missSome ? "on" : ""}" style="flex:1" data-act="suMissSome" data-v="0">Yes, all of them</button><button class="chip ${su.missSome ? "on" : ""}" style="flex:1" data-act="suMissSome" data-v="1">I'll miss some</button></div>
+  ${su.missSome ? `<div class="small muted" style="margin-top:10px">Tap the ones you'll miss. Those days become normal training days.</div><div style="margin-top:6px">${up.map(c => `<button class="chip ${miss.includes(c.key) ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:5px 0" data-act="suMiss" data-v="${c.key}">${miss.includes(c.key) ? "✓ Missing: " : ""}${fmtD(c.date)} • ${esc(c.label)}</button>`).join("") || `<div class="small muted">No games or practices on the calendar yet.</div>`}</div>` : `<div class="small muted" style="margin-top:6px">The plan keeps heavy legs off the day before and the day of every game and practice.</div>`}`;
+}
+function weekPreviewHTML(su) {
+  const keep = C().setup, keepE = (S.events || []).map(e => e.skipMe), keepP = S.practiceSkips.slice();
+  C().setup = su; applyMiss(su, keep); invalidate();
+  let rows = "";
+  try {
+    const ws = weekStart(todayStr()) < todayStr() ? addDays(weekStart(todayStr()), 7) : weekStart(todayStr());
+    for (let i = 0; i < 7; i++) { const d = addDays(ws, i), info = dayInfo(d), k = tplKey(info), T = TPL[k] || {}, loc = todayLoc(d), cr = courtOn(d)[0];
+      rows += `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${DOW[dow(d)]} ${fmtD(d).replace(/^\w+,? /, "")}</b>${cr ? ` <span class="muted">• ${esc(cr.label)}</span>` : ""}</span><span style="text-align:right">${esc(T.short || T.focus || k)}${loc && !REST_KEYS.includes(k) && k !== "GAME_DAY" ? ` <span class="muted">@ ${LOCS[loc]}</span>` : ""}</span></div>`; }
+  } finally { C().setup = keep; (S.events || []).forEach((e, i) => { e.skipMe = keepE[i]; }); S.practiceSkips = keepP; invalidate(); }
+  return `<h3 class="sh3" style="margin-top:18px">Your week</h3><div class="small muted">Next Mon to Sun, built from your answers and the team schedule. Times: ${esc((su.windows || []).join(", "))}.</div><div style="margin-top:6px">${rows}</div>`;
+}
+function applyMiss(su, prev) {
+  const old = (prev && prev.miss) || [], now = su.missSome ? (su.miss || []) : [];
+  old.forEach(k => { const [d, t] = k.split("|"); if (t === "p") S.practiceSkips = S.practiceSkips.filter(x => x !== d); });
+  (S.events || []).forEach(e => { if (e.type === "game") e.skipMe = now.includes(e.date + "|g") || undefined; });
+  now.forEach(k => { const [d, t] = k.split("|"); if (t === "p" && !S.practiceSkips.includes(d)) S.practiceSkips.push(d); });
+}
+function seasonPitch(isNew) {
+  const sz = seasonOf(todayStr());
+  const who = PID === "will" ? "You just joined Brett and Mark in the Game Shape Community. Welcome, Coach." : "Will (Coach) just joined the Game Shape Community.";
+  return `<ul class="list">
+    <li><b>${who}</b></li>
+    <li>Earn points for everything you log: workouts, runs, water, sleep, affirmations, reading, and books you buy and finish.</li>
+    <li>Earn badges. Every badge turns into bonus points.</li>
+    <li>Points are based on YOUR plan and YOUR targets, so everyone has a fair shot.</li>
+    <li>Season ${sz.n} runs ${fmtD(sz.start)} to ${fmtD(sz.end)}. Most points wins the first Game Shape shirt and beanie.</li>
+    <li>See where you stand any time on the new <b>Score</b> tab.</li></ul>
+    <div style="text-align:center;font-weight:800;color:var(--green);margin:10px 0 4px">May the best man win.</div>`;
+}
+function needsSetup() { const su = C().setup; return !!(PERSON && PERSON.onboard && (!su || (PERSON.setupMode === "locations" && (!su.locs || !su.weekOk || ((su.locs || []).includes("home") && !su.equipDone))))); }
+function maybeSetup() { if (needsSetup()) openSheet("setup", "first"); }
+/* Send the answers to Brett so he can see what everyone has and fine-tune their plan. */
+function sendSetup(su) {
+  if (location.protocol === "file:") return;
+  const body = { id: PID, name: S.profile.name, version: APP_VERSION, setup: { windows: su.windows, locs: su.locs || [], home: su.home || null, equip: su.equip || [], maxDB: su.maxDB || null, notes: su.notes || "", gym: !!su.gym, gymDays: su.gymDays || [], offDays: su.offDays || [], miss: su.missSome ? (su.miss || []) : [] } };
+  fetch("/.netlify/functions/crew", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => { if (r.ok) toast("Sent to Brett"); }).catch(() => {});
+}
+function rerenderSetup() { if ($("suNotes") && UI.setup) UI.setup.notes = $("suNotes").value; if (UI.sheet && UI.sheet.kind === "setup") { const y = $("sheet").scrollTop; renderSheet(); $("sheet").scrollTop = y; } }
 Object.assign(window, { GS_SETUP: true });
+
+/* ---------------------------- CREW CHECK-INS (Brett's view) ---------------------------- */
+const CREW = { people: null, err: "", loading: false };
+const eqName = k => (EQUIP_OPTS.find(e => e[0] === k) || [0, k])[1];
+function loadCrew(cb) {
+  if (!R().adminPin || CREW.loading || location.protocol === "file:") return;
+  CREW.loading = true;
+  fetch("/.netlify/functions/crew?pin=" + encodeURIComponent(R().adminPin)).then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => { CREW.people = d.people || []; CREW.err = ""; }).catch(e => { CREW.err = e === 401 ? "Wrong PIN." : "Could not load. Check your connection."; })
+    .finally(() => { CREW.loading = false; if (cb) cb(); });
+}
+function crewNew() { return (CREW.people || []).filter(p => !S.meta.crewSeen || p.updated > S.meta.crewSeen); }
+function crewHTML() {
+  if (!R().adminPin) return `${sheetTitle("Crew check-ins")}<div class="small muted">See what Mark, Will, and everyone else picked for workout times, places, and home equipment. Enter your admin PIN.</div><div class="row" style="margin-top:10px"><input id="crewPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="crewUnlock">Unlock</button></div>`;
+  if (!CREW.people && !CREW.err) { loadCrew(() => { if (UI.sheet && UI.sheet.kind === "crew") renderSheet(); }); return sheetTitle("Crew check-ins") + `<div class="muted">Loading...</div>`; }
+  if (CREW.err) return sheetTitle("Crew check-ins") + `<div class="banner info">${esc(CREW.err)}</div><button class="btn sm" data-act="crewRetry">Try again</button>`;
+  S.meta.crewSeen = new Date().toISOString(); save();
+  const ppl = CREW.people;
+  return sheetTitle("Crew check-ins") + (ppl.length ? ppl.map(p => { const su = p.setup || {}; return `<div class="card" style="background:var(--card2)"><div class="row between"><b>${esc(p.name)}</b><span class="small muted">${new Date(p.updated).toLocaleDateString("en-US", { month: "short", day: "numeric" })} • v${esc(p.version || "")}</span></div>
+    <div class="small" style="margin-top:6px"><b>Windows:</b> ${esc((su.windows || []).join(", ") || "None")}</div>
+    ${su.locs && su.locs.length ? `<div class="small"><b>Trains at:</b> ${su.locs.map(k => esc(LOCS[k] || k) + (k === su.home ? " (usual)" : "")).join(", ")}</div>` : `<div class="small"><b>Gym days:</b> ${su.gym ? (su.gymDays || []).map(d => DOW[d]).join(", ") : "Home only"}</div>`}
+    ${(su.locs || []).includes("home") ? `<div class="small"><b>Home equipment:</b> ${esc((su.equip || []).map(eqName).join(", ") || "Bodyweight only")}${su.maxDB ? " (DBs up to " + su.maxDB + " lb)" : ""}</div>` : ""}
+    ${(su.offDays || []).length ? `<div class="small"><b>Can't train:</b> ${su.offDays.map(d => DOW[d]).join(", ")}</div>` : ""}
+    ${(su.miss || []).length ? `<div class="small"><b>Missing:</b> ${su.miss.map(k => fmtD(k.split("|")[0]) + (k.endsWith("|g") ? " game" : " practice")).join(", ")}</div>` : ""}
+    ${su.notes ? `<div class="small"><b>Notes:</b> ${esc(su.notes)}</div>` : ""}</div>`; }).join("") : `<div class="muted">No check-ins yet.</div>`)
+    + `<button class="btn primary block" style="margin-top:10px" data-act="crewCopy">Copy for Claude</button><div class="small muted" style="margin-top:6px">Paste it into your Game Shape chat to fine-tune their plans in the next update.</div>`;
+}
 
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
@@ -993,12 +1248,16 @@ function renderToday() {
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
   // workout window check (people who pick their own windows)
   const wins = myWindows();
+  const su0 = C().setup, tl = todayLoc(s);
+  if (su0 && su0.locs && su0.locs.length > 1) out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
   if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
   if (C().features.runs) out += runCardHTML(s, sess);
   // tiles
   out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
+  // crew check-ins (Brett only, after the admin PIN is saved)
+  if (!PERSON && R().adminPin) { if (!CREW.people && !CREW.err) loadCrew(() => { if (UI.tab === "today" && crewNew().length) render(); }); const nw = crewNew(); if (nw.length) out += `<div class="banner info"><b>New crew check-in</b>${esc(nw.map(p => p.name).join(" and "))} sent their workout setup.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="crew">View</button></div></div>`; }
   // weekly scoreboard (compact)
-  out += scoreboardHTML(true);
+  out += seasonHTML(true);
   // Sunday review
   if (dow(s) === 0) out += weeklyReview(s);
   if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
@@ -1119,6 +1378,8 @@ function renderRecover() {
   <div class="grid2" style="margin-top:14px"><div class="tile"><div class="k">7-day avg sleep</div><div class="v">${a.hrs ? a.hrs.toFixed(1) + " h" : "--"}</div></div><div class="tile"><div class="k">7-day quality</div><div class="v">${a.q ? a.q.toFixed(1) + "/5" : "--"}</div></div></div></div>`;
   const cw = C(), wind = cw.wind.filter(w => cw.features.hotTub || !/hot tub/i.test(w.label));
   o += `<div class="card"><div class="row between"><h2 style="margin:0">Wind-down (${fmtT(cw.times.windDown)} to ${fmtT(cw.times.bed)})</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div><div class="small muted" style="margin-top:6px">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out late is OK." : ""}</div>${UI.windEdit ? timedEditor("wind", cw.wind, "New step") : wind.map(w => checkRow(s, w.id, fmtT(w.time), esc(w.id === "wd_read" ? readLabel() : w.label))).join("")}</div>`;
+  const affDone = !!(getL(todayStr()).checks || {}).affirm;
+  o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today (+" + PTS.affirm + ")"}</button></div>`;
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
   o += `${C().features.hotTub ? `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>` : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div></div>`}`;
   o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
@@ -1138,6 +1399,8 @@ function renderProgress() {
   checkBadges();
   const r = weekReport(weekStart(todayStr())), st = streak(), x = xp();
   let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Level</div><div class="v">${Math.floor(x / 300) + 1}</div></div></div>`;
+  checkSeasonBadges();
+  o = seasonHTML(false) + o;
   o += scoreboardHTML(false);
   o += `<div class="card"><h2 class="brand">Badges</h2>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}<div class="small muted">Never miss twice: 1 grace day per week keeps your streak alive.</div></div>`;
   o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
@@ -1156,13 +1419,15 @@ function closeSheet() { UI.sheet = null; UI.setup = null; $("sheet").classList.a
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
   } else if (kind === "import") { o = back + importSheetHTML();
   } else if (kind === "review") { o = reviewHTML();
   } else if (kind === "mapper") { o = mapperHTML();
+  } else if (kind === "quiz") { o = quizHTML();
+  } else if (kind === "crew") { o = back + crewHTML();
   } else if (kind === "setup") { o = (arg === "first" ? "" : back) + setupHTML();
   } else if (kind === "custom") { o = customizeHTML();
   } else if (kind === "supps") { o = supplementsHTML();
@@ -1209,7 +1474,7 @@ function submitFeedback() {
 }
 
 /* ---------------------------- RENDER ROOT ---------------------------- */
-const TITLES = { today: "Today", train: "Train", fuel: "Fuel", reads: "Good Reads", recover: "Recover", progress: "Progress" };
+const TITLES = { today: "Today", train: "Train", fuel: "Fuel", reads: "Good Reads", recover: "Recover", progress: "Score" };
 function render() {
   const s = todayStr();
   $("hdrTitle").textContent = TITLES[UI.tab];
@@ -1226,13 +1491,40 @@ function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSh
 function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
+  sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
+  prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
+  affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("+" + PTS.affirm + " points"); render(); },
+  buyBook: el => { const ss = SSN(), id = el.dataset.id, t = todayStr(), last = Object.values(ss.bought).filter(x => x.pts).map(x => x.date).sort().pop(); const ok = !last || between(last, t) >= 7; ss.bought[id] = { date: t, pts: ok ? PTS.buy : 0 }; save(); toast(ok ? "+" + PTS.buy + " points. Enjoy it." : "Logged. 1 book purchase a week earns points. Next one counts " + fmtD(addDays(last, 7)) + "."); renderSheet(); },
+  quizOpen: el => openQuiz(el.dataset.id),
+  quizPick: el => { QZ.picks[+el.dataset.i] = +el.dataset.v; renderSheet(); },
+  quizSubmit: () => { if (QZ.picks.some(p => p < 0)) return toast("Answer all 3"); const ss = SSN(), id = QZ.id; QZ.loading = true; renderSheet();
+    fetch("/.netlify/functions/quiz", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "grade", bookId: id, qid: QZ.qid, answers: QZ.picks }) })
+      .then(r => r.json().then(d => r.ok ? d : Promise.reject(d.error))).then(d => { QZ.result = d; const prev = ss.quiz[id] || {}; ss.quiz[id] = d.pass ? { pass: true, date: todayStr(), score: d.correct, attempts: (prev.attempts || 0) + 1 } : { pass: false, failDate: new Date().toISOString(), score: d.correct, attempts: (prev.attempts || 0) + 1 }; save(); checkSeasonBadges(); queueScore(); })
+      .catch(e => { QZ.err = typeof e === "string" ? e : "Couldn't grade. Try again."; }).finally(() => { QZ.loading = false; renderSheet(); }); },
+  crewUnlock: () => { const v = ($("crewPin").value || "").trim(); if (!v) return toast("Enter your PIN"); R().adminPin = v; save(); CREW.people = null; CREW.err = ""; renderSheet(); },
+  crewRetry: () => { if (/PIN/.test(CREW.err)) R().adminPin = ""; CREW.people = null; CREW.err = ""; save(); renderSheet(); },
+  crewCopy: () => { const txt = "Game Shape crew check-ins:\n" + JSON.stringify((CREW.people || []).map(p => ({ id: p.id, name: p.name, updated: p.updated, setup: p.setup })), null, 1); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast("Copied. Paste it to Claude.")).catch(() => openSheet("result", `<textarea style="width:100%;height:300px">${esc(txt)}</textarea>`)); },
+  loc: el => { const l = L(todayStr()); l.loc = el.dataset.v; save(); render(); },
+  suLoc: el => { const su = UI.setup, v = el.dataset.v; su.locs = su.locs || []; const i = su.locs.indexOf(v); if (i >= 0) su.locs.splice(i, 1); else su.locs.push(v); if (!su.locs.includes(su.home)) su.home = su.locs[0] || null; rerenderSetup(); },
+  suEq: el => { const su = UI.setup, v = el.dataset.v; su.equip = su.equip || []; const i = su.equip.indexOf(v); if (i >= 0) su.equip.splice(i, 1); else su.equip.push(v); rerenderSetup(); },
+  suOff: el => { const su = UI.setup, v = +el.dataset.v; su.offDays = su.offDays || []; const i = su.offDays.indexOf(v); if (i >= 0) su.offDays.splice(i, 1); else su.offDays.push(v); su.offDays.sort(); rerenderSetup(); },
+  suMissSome: el => { UI.setup.missSome = el.dataset.v === "1"; rerenderSetup(); },
+  suMiss: el => { const su = UI.setup, v = el.dataset.v; su.miss = su.miss || []; const i = su.miss.indexOf(v); if (i >= 0) su.miss.splice(i, 1); else su.miss.push(v); rerenderSetup(); },
+  suDB: el => { UI.setup.maxDB = +el.dataset.v; rerenderSetup(); },
+  suHome: el => { UI.setup.home = el.dataset.v; rerenderSetup(); },
+  setupNow: () => { closeSheet(); openSheet("setup", "first"); },
   slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
   runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10; if (v <= 0 || v > 30) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s); l.miles = Math.round(((+l.miles || 0) + v) * 10) / 10; if (buildSession(s).run && l.miles >= 1) { l.done = true; l.checks.workout = true; } save(); toast(v + " mi logged. Nice work."); render(); },
   runClear: () => { const s = todayStr(), l = L(s); l.miles = 0; if (buildSession(s).run) { l.done = false; l.checks.workout = false; } save(); render(); },
-  suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > 2) su.windows.shift(); } rerenderSetup(); },
+  suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > ((PERSON && PERSON.maxWindows) || 2)) su.windows.shift(); } const o = (PERSON && PERSON.windowOpts) || WIN_OPTS; su.windows.sort((a, b) => o.indexOf(a) - o.indexOf(b)); rerenderSetup(); },
   suGym: el => { UI.setup.gym = el.dataset.v === "1"; rerenderSetup(); },
   suDay: el => { const su = UI.setup, v = +el.dataset.v, i = su.gymDays.indexOf(v); if (i >= 0) su.gymDays.splice(i, 1); else su.gymDays.push(v); su.gymDays.sort(); rerenderSetup(); },
-  suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
+  suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (PERSON && PERSON.setupMode === "locations" && !(su.locs || []).length) return toast("Pick at least 1 place to work out");
+    if ($("suNotes")) su.notes = $("suNotes").value.trim().slice(0, 200);
+    if ((su.locs || []).includes("home")) su.equipDone = todayStr();
+    su.weekOk = todayStr(); applyMiss(su, C().setup);
+    if (!S.meta.seasonHello) { S.meta.seasonHello = 1; setTimeout(() => openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Welcome to Season ${seasonOf(todayStr()).n}</h2><div class="muted">Your plan is set. Here's how the competition works.</div></div>${seasonPitch(true)}<button class="btn primary block" data-act="closeSheet">Let's go</button>`), 400); }
+    sendSetup(su); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
   more: () => openSheet("menu"),
   sheet: el => openSheet(el.dataset.k, el.dataset.a),
@@ -1465,6 +1757,37 @@ function renderReads() {
   setTimeout(renderReadList, 0);
   return o;
 }
+/* Book quiz: 3 questions, pass with 2. Questions come from the server; grading happens there too. */
+const QZ = { id: null, qid: null, questions: null, picks: [], loading: false, err: "", result: null };
+function deviceId() { let d = ""; try { d = localStorage.getItem("gs_device") || ""; if (!d) { d = Math.random().toString(36).slice(2, 12); localStorage.setItem("gs_device", d); } } catch (e) {} return d || "anon"; }
+function openQuiz(id) {
+  const ss = SSN(), q = ss.quiz[id];
+  if (q && q.pass) return openSheet("book", id);
+  if (q && q.failDate && Date.now() - new Date(q.failDate).getTime() < 864e5) { const h = Math.ceil((864e5 - (Date.now() - new Date(q.failDate).getTime())) / 36e5); return openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Retake in ${h} hr</h2><div class="muted">You can retake the quiz 24 hours after your last try. New questions each time.</div></div><button class="btn primary block" data-act="closeSheet">OK</button>`); }
+  const b = bookById(id); if (!b) return;
+  Object.assign(QZ, { id, qid: null, questions: null, picks: [], loading: true, err: "", result: null });
+  openSheet("quiz", id);
+  if (location.protocol === "file:") { QZ.loading = false; QZ.err = "Quizzes work on the live app."; return renderSheet(); }
+  fetch("/.netlify/functions/quiz", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "get", bookId: id, title: b.title, author: b.author, attempt: (q && q.attempts) || 0, device: deviceId() }) })
+    .then(r => r.json().then(d => r.ok ? d : Promise.reject(d.error || "Try again later.")))
+    .then(d => { QZ.qid = d.qid; QZ.questions = d.questions; QZ.picks = d.questions.map(() => -1); })
+    .catch(e => { QZ.err = typeof e === "string" ? e : "Couldn't load the quiz. Try again later."; })
+    .finally(() => { QZ.loading = false; if (UI.sheet && UI.sheet.kind === "quiz") renderSheet(); });
+}
+function quizHTML() {
+  const b = bookById(QZ.id) || { title: "" };
+  const top = `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Book quiz</h2><div class="muted">${esc(b.title)}. Get 2 of 3 right to verify it and earn ${PTS.quiz} points.</div></div>`;
+  if (QZ.loading) return top + `<div class="muted" style="text-align:center">Writing your questions...</div>`;
+  if (QZ.err) return top + `<div class="banner info">${esc(QZ.err)}</div><button class="btn block" data-act="closeSheet">Close</button>`;
+  if (QZ.result) { const r = QZ.result; return top + `<div class="card" style="text-align:center"><h2 style="margin:0">${r.correct} of ${r.total} right</h2><div class="muted" style="margin-top:6px">${r.pass ? "Verified! +" + PTS.quiz + " points. Nice work." : "Not this time. Retake in 24 hours with new questions."}</div></div><button class="btn primary block" data-act="closeSheet">${r.pass ? "Let's go" : "OK"}</button>`; }
+  return top + QZ.questions.map((q, i) => `<div class="card" style="background:var(--card2)"><b>${i + 1}. ${esc(q.q)}</b><div style="margin-top:8px">${q.options.map((o, j) => `<button class="chip ${QZ.picks[i] === j ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:6px 0" data-act="quizPick" data-i="${i}" data-v="${j}">${esc(o)}</button>`).join("")}</div></div>`).join("") + `<button class="btn primary block" data-act="quizSubmit">Submit answers</button>`;
+}
+function bookSeasonHTML(id, sh) {
+  const ss = SSN(), bo = ss.bought[id], q = ss.quiz[id];
+  const buy = bo ? `<span class="tg shelf">Bought ${fmtD(bo.date)}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">I bought it (+${PTS.buy})</button>`;
+  const quiz = q && q.pass ? `<span class="tg shelf">✓ Book Verified (+${PTS.quiz})</span>` : sh === "done" ? `<button class="btn primary sm" data-act="quizOpen" data-id="${id}">${q && q.failDate ? "Retake the quiz" : "Take the quiz"} (+${PTS.quiz})</button>` : `<span class="small muted">Finish it, pass a 3-question quiz, earn ${PTS.quiz}.</span>`;
+  return `<div class="row wrap" style="gap:8px;margin-top:12px;align-items:center">${buy}${quiz}</div>`;
+}
 function bookSheet(id) {
   const b = bookById(id); if (!b) return "Book not found.";
   const rd = R(), sh = shelfOf(id), rate = (rd.rating || {})[id] || 0;
@@ -1474,6 +1797,7 @@ function bookSheet(id) {
   <p style="margin:14px 0 6px">${esc(b.why)}</p>${b.readIf ? `<p class="small muted" style="margin:0 0 10px">${esc(b.readIf)}</p>` : ""}
   <div class="bp" style="margin-bottom:12px">${(b.tags || []).map(t => `<span class="tg">${esc(t)}</span>`).join("")}${b.category === "romance" ? `<span class="tg spice">Spice ${b.spice}/3</span>` : ""}${b.similarTo ? `<span class="tg shelf">Like ${esc(b.similarTo)}</span>` : ""}</div>
   <div class="grid2">${lk(L.amazon, "Amazon")}${lk(L.bookshop, "Bookshop")}${lk(L.goodreads, "Reviews (Goodreads)")}${lk(L.audible, "Audible")}${lk(L.link, "Their link")}</div>
+  ${bookSeasonHTML(id, sh)}
   <h3 class="sh3">My shelf</h3><div class="seg">${[["want", "Want to read"], ["reading", "Reading"], ["done", "Finished"]].map(s => `<button class="${sh === s[0] ? "on" : ""}" data-act="setShelf" data-id="${id}" data-v="${s[0]}">${s[1]}</button>`).join("")}</div>
   <h3 class="sh3">My rating</h3><div class="stars">${[1, 2, 3, 4, 5].map(n => `<button class="${n <= rate ? "on" : ""}" data-act="rateBook" data-id="${id}" data-v="${n}">★</button>`).join("")}</div>
   <h3 class="sh3">Private notes</h3><textarea data-in="bookNote" data-id="${id}" placeholder="Takeaways, quotes in your own words, what to apply">${esc((rd.notes || {})[id] || "")}</textarea>
@@ -1516,12 +1840,12 @@ Object.assign(ACT, {
   rchip: el => { RUI.chip = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rchip"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
   rshelf: el => { RUI.shelf = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rshelf"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
   moreBooks: () => { RUI.limit += 30; renderReadList(); },
-  setShelf: el => { const rd = R(), id = el.dataset.id, v = el.dataset.v; rd.shelf = rd.shelf || {}; rd.shelf[id] = rd.shelf[id] === v ? "" : v; if (rd.shelf[id] === "reading") rd.current = id; if (rd.shelf[id] === "done") { rd.progress = rd.progress || {}; rd.progress[id] = 100; if (rd.current === id) rd.current = null; toast("Finished. Nice work."); } save(); checkBadges(); renderSheet(); render(); },
+  setShelf: el => { const rd = R(), id = el.dataset.id, v = el.dataset.v; rd.shelf = rd.shelf || {}; rd.shelf[id] = rd.shelf[id] === v ? "" : v; if (rd.shelf[id] === "reading") rd.current = id; if (rd.shelf[id] === "done") { rd.progress = rd.progress || {}; rd.progress[id] = 100; if (rd.current === id) rd.current = null; save(); checkBadges(); render(); return openQuiz(id); } save(); checkBadges(); renderSheet(); render(); },
   rateBook: el => { const rd = R(); rd.rating = rd.rating || {}; rd.rating[el.dataset.id] = +el.dataset.v; save(); renderSheet(); },
   hideBook: el => { const rd = R(); rd.hidden = (rd.hidden || []).concat([el.dataset.id]); save(); closeSheet(); render(); toast("Hidden. Undo in Settings."); },
   readMin: el => { logReading(+el.dataset.v); toast("+" + el.dataset.v + " min logged"); render(); },
   readPct: el => { const rd = R(); rd.progress = rd.progress || {}; rd.progress[rd.current] = Math.min(100, (rd.progress[rd.current] || 0) + +el.dataset.v); save(); render(); },
-  finishBook: () => { const rd = R(), id = rd.current; if (!id) return; rd.shelf[id] = "done"; rd.progress = rd.progress || {}; rd.progress[id] = 100; rd.current = null; save(); checkBadges(); openSheet("book", id); toast("Finished. Rate it while it's fresh."); render(); },
+  finishBook: () => { const rd = R(), id = rd.current; if (!id) return; rd.shelf[id] = "done"; rd.progress = rd.progress || {}; rd.progress[id] = 100; rd.current = null; save(); checkBadges(); render(); openQuiz(id); },
   sendRec: () => sendRec(),
   spicy: () => { R().spicy = !R().spicy; save(); renderSheet(); render(); },
   unhideAll: () => { R().hidden = []; save(); toast("All books visible again"); render(); },
@@ -1806,8 +2130,11 @@ function whatsNewHTML() {
 function showWhatsNew() {
   const seen = S.meta.seenVersion; if (seen === APP_VERSION) return;
   S.meta.seenVersion = APP_VERSION; save();
-  if (!seen && !Object.keys(S.logs).length) return;   // brand new user: nothing to announce
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Updated to v${APP_VERSION}</h2><div class="muted">All your data is still here.</div></div><ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul><button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`);
+  const needSetup = needsSetup();
+  if (!seen && !Object.keys(S.logs).length) return false;   // brand new user: nothing to announce
+  S.meta.seasonHello = 1; save();
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${APP_VERSION === "2.6.0" ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here.</div></div>${APP_VERSION === "2.6.0" ? seasonPitch(false) : `<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
+  return true;
 }
 async function applyUpdate() {
   save();
@@ -1844,8 +2171,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) chec
 render();
 setTimeout(() => syncScore(true), 1500);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) syncScore(false); });
-showWhatsNew();
-maybeSetup();
+if (!showWhatsNew()) maybeSetup();
 checkUpdate(true);
 loadBooks();
 syncCommunity();
