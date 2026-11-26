@@ -448,8 +448,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.7.1";
+const APP_VERSION = "2.7.2";
 const CHANGELOG = {
+  "2.7.2": ["Fixed: the update screen flashing and disappearing. It now stays open until you tap the button", "New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)"],
   "2.7.1": ["New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)", "Fixed the screen sliding side to side on phones"],
   "2.7.0": ["Fresh look: tighter layout, smooth scroll animations, and a glow in your color when you tap", "Subtle sports art in the background", "Your custom Game Shape badge now lives on your profile (More, then Settings)", "Fixed the screen sliding side to side on phones"],
   "2.6.5": ["Basketball points: practice 55, game played 45, at the game but couldn't play 30. Attendance and playing is key", "New Game day and Practice day check-in card on Today"],
@@ -1470,8 +1471,7 @@ function maybeWelcome() {
   w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(PERSON.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
   document.body.appendChild(w);
   for (let i = 0; i < 70; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${[ACCENT, "#ff8200", "#ffffff", "#0e5a2e"][i % 4]};animation-duration:${2.2 + Math.random() * 2.2}s;animation-delay:${Math.random() * .8}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5500); }
-  S.meta.welcomed = new Date().toISOString(); save();
-  w.querySelector("#wGo").onclick = () => { w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => w.remove(), 360); };
+  w.querySelector("#wGo").onclick = () => { S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => w.remove(), 360); };
   return true;
 }
 
@@ -1700,7 +1700,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); }
+function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -1828,7 +1828,7 @@ const ACT = {
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
   more: () => openSheet("menu"),
   sheet: el => { if (el.dataset.k === "tour") UI.tourPage = 0; openSheet(el.dataset.k, el.dataset.a); },
-  closeSheet: () => closeSheet(),
+  closeSheet: el => { if (el && el.classList && el.classList.contains("sheet-bg") && UI.sheet && (UI.wnPending || UI.sheet.kind === "tour" || (UI.sheet.kind === "setup" && UI.sheet.arg === "first"))) return; closeSheet(); },
   toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
   addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
@@ -2429,16 +2429,16 @@ function whatsNewHTML() {
 }
 function showWhatsNew() {
   const seen = S.meta.seenVersion; if (seen === APP_VERSION) return;
-  S.meta.seenVersion = APP_VERSION; save();
+  UI.wnPending = APP_VERSION;   // saved as seen only when they close it, so a reload can't eat it
   const needSetup = needsSetup();
-  if (!seen && !Object.keys(S.logs).length) return false;   // brand new user: nothing to announce
+  if (!seen && !Object.keys(S.logs).length) { S.meta.seenVersion = APP_VERSION; UI.wnPending = null; save(); return false; }   // brand new user: nothing to announce
   if (!S.meta.tourSeen) { UI.tourPage = 0; openSheet("tour"); return true; }
   const pitch = !S.meta.seasonHello; S.meta.seasonHello = 1; save();
   openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
   return true;
 }
 async function applyUpdate() {
-  save();
+  save(); window.__gsUpdating = true;
   try {
     if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) for (const r of await navigator.serviceWorker.getRegistrations()) { await r.update(); if (r.waiting) r.waiting.postMessage("SKIP_WAITING"); }
     if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
@@ -2458,7 +2458,9 @@ async function checkUpdate(auto) {
   } catch (e) {}
 }
 ACT.doUpdate = () => applyUpdate();
-if (navigator.serviceWorker) navigator.serviceWorker.addEventListener("controllerchange", () => { if (!window.__gsReloaded) { window.__gsReloaded = true; location.reload(); } });
+// Reload on a new service worker ONLY when the user (or auto-update) asked for it. The page is already served fresh from the network,
+// so an unasked reload just wipes whatever is on screen (that's what made the update card flash and vanish).
+if (navigator.serviceWorker) navigator.serviceWorker.addEventListener("controllerchange", () => { if (window.__gsUpdating && !window.__gsReloaded) { window.__gsReloaded = true; location.reload(); } });
 setInterval(() => checkUpdate(false), 30 * 60 * 1000);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) checkUpdate(false); });
 
