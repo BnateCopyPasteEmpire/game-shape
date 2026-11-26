@@ -676,8 +676,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.9";
+const APP_VERSION = "3.0.0";
 const CHANGELOG = {
+  "3.0.0": ["Recover is simpler: the reading card stays, the hot tub is gone from the app"],
   "2.9.9": ["Opening Day launch: a fresh What's new, the full score rundown, an app tour of every tab, and a 3-question intake (where, when, and any injuries)"],
   "2.9.8": ["Scoreboards show everyone by name or nickname. Set your nickname in More, then Settings"],
   "2.9.7": ["Good Reads now has 220 books, all picked by Game Shape: new Faith, Health + Happiness, Sports, and Comeback sections, plus more money, mindset, and romance. Anyone can still suggest a book", "Fuel got a deep dive: 16 quick breakfasts, 10 no-cook lunches, 12 smart snacks, 18 prep meals, and a Fuel playbook for workouts, court nights, recovery, mood, and sleep"],
@@ -955,7 +956,7 @@ const SNACKS = [
 const PLAYBOOK = [
   { n: "The Game Shape plate", items: ["Protein: 1 to 2 palms (30 to 50 g). Every meal.", "Veggies: 2 fists. Color matters: green, red, orange.", "Carbs: 1 to 2 cupped hands. More on training and court days, less on rest days.", "Fats: 1 thumb. Olive oil, avocado, nuts, cheese.", "Water first: 16 oz before you eat."] },
   { n: "Before a 5 AM workout", items: ["Feel good training empty? Water + electrolytes + coffee is fine for 30 to 45 min.", "Feel weak or dizzy? Half a banana or a small yogurt 15 to 30 min before.", "Leg day: a little carb before (banana, rice cake, toast) helps you push.", "Creatine 5 g any time of day. Consistency matters more than timing."] },
-  { n: "After you train", items: ["30 to 40 g protein within about 2 hours. The shake or breakfast counts.", "Add carbs after leg day: oats, fruit, toast, or rice.", "Hot tub? Drink 12 to 16 oz of water with it.", "Sore calves? Tart cherries or tart cherry juice, plus salt in your water."] },
+  { n: "After you train", items: ["30 to 40 g protein within about 2 hours. The shake or breakfast counts.", "Add carbs after leg day: oats, fruit, toast, or rice.", "Sore calves? Tart cherries or tart cherry juice, plus salt in your water."] },
   { n: "Court night (practice or game)", items: ["Real meal 2 to 3 hours before tip: chicken, rice, veggies.", "60 min before: electrolytes + a banana or applesauce pouch.", "During: sip water at every break. Cramps usually mean low fluid or salt.", "After: protein shake or chocolate milk on the drive home, then a light meal.", "Skip heavy, greasy food after 8 PM. It wrecks sleep."] },
   { n: "Foods that help recovery", items: ["Salmon, sardines, and walnuts: omega-3s for joints and soreness.", "Berries and tart cherries: antioxidants for muscle recovery.", "Eggs and Greek yogurt: high-quality protein and nutrients for muscle.", "Sweet potatoes and oats: refill energy after hard days.", "Leafy greens and beans: magnesium and potassium help prevent cramps.", "Ginger and turmeric: easy to add to shakes, tea, or stir-fries."] },
   { n: "Feed your mind (mood + focus)", items: ["Omega-3 fish 2 times a week supports brain health.", "Fermented foods (yogurt, kefir, sauerkraut, kimchi) support your gut, which talks to your brain.", "Eat protein at breakfast: steadier energy and fewer cravings by 3 PM.", "Do not skip lunch. Low blood sugar shows up as a bad mood.", "Caffeine before 1 PM only. Afternoon coffee steals deep sleep."] },
@@ -1031,10 +1032,10 @@ const ROUTINES = [
   { n: "Calf Care (8 min)", note: "Pain stays 3/10 or below. Soreness that fades by morning is OK.", items: ["Wall calf stretch, straight knee 30 sec x2/side", "Wall calf stretch, bent knee 30 sec x2/side", "Calf raise isometric hold 3 x 30 sec", "Tibialis raise 2 x 15", "Roll arch on a ball 60 sec/side", "Ankle circles x10 each way"] },
   { n: "20-Min Full Flow", items: ["Easy bike or walk 5 min", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Couch stretch 45 sec/side", "Strap hamstring stretch 45 sec/side", "Figure-4 45 sec/side", "Wall calf stretch 30 sec each way", "Sciatic nerve glide x10/side", "Child's pose 60 sec", "5 min breathing"] }
 ];
-const WIND = [["wd_tv", "20:00", "TV off, phone on charger"], ["wd_tub", "20:05", "Hot tub 12 min + 12 oz water"], ["wd_stretch", "20:25", "Back + hip stretch 10 min"], ["wd_read", "20:35", "Read 20 min"], ["wd_breathe", "20:55", "5 min breathing + affirmations"], ["bed", "21:00", "In bed. Lights out by 9:30 to 10:00"]];
+const WIND = [["wd_tv", "20:00", "TV off, phone on charger"], ["wd_stretch", "20:25", "Back + hip stretch 10 min"], ["wd_read", "20:35", "Read 20 min"], ["wd_breathe", "20:55", "5 min breathing + affirmations"], ["bed", "21:00", "In bed. Lights out by 9:30 to 10:00"]];
 const RED_FLAGS = [
   ["pop", "Felt or heard a pop", "See a doctor or PT before loading that area again."],
-  ["swelling", "Swelling or bruising", "See a doctor or PT. Skip the hot tub, ice and elevate instead."],
+  ["swelling", "Swelling or bruising", "See a doctor or PT. Ice and elevate it."],
   ["dvt", "One calf swollen, warm, or red", "Same-day medical check. This can be a blood clot."],
   ["neuro", "Numbness in groin, bladder or bowel changes, or a leg getting weaker", "Go to the ER now."],
   ["rest", "Pain at rest or waking you at night", "Book a doctor or PT visit this week."]
@@ -2230,7 +2231,7 @@ function renderToday() {
 }
 function weeklyReview(s) {
   const ws = weekStart(s), r = weekReport(ws), nws = addDays(ws, 7), nw = resolveWeek(nws);
-  const cats = [["Water goal", r.water], ["Protein goal", r.prot], ["Reading", r.read], ["Sleep logged", r.slp], ["Hot tub", r.tub]].sort((a, b) => a[1] - b[1]);
+  const cats = [["Water goal", r.water], ["Protein goal", r.prot], ["Reading", r.read], ["Sleep logged", r.slp]].sort((a, b) => a[1] - b[1]);
   return `<div class="card"><h2 class="brand">Weekly review</h2><div class="big">${r.pct}%</div><div class="small muted">of days active (${r.act}/${r.days})</div>
   <h3>Wins</h3><div class="small">${r.act} active days, ${C().features.hotTub ? r.tub + " hot tubs, " : ""}${r.read} reading days, protein goal ${r.prot}x, water goal ${r.water}x.</div>
   ${(() => { let m = 0; for (let i = 0; i < 7; i++) m += getL(addDays(ws, i)).reading || 0; const cb = R().current && bookById(R().current); return `<h3>Reading</h3><div class="small">${m} min this week${cb ? ". Currently reading " + esc(cb.title) + "." : ". Pick a book in Good Reads."}</div>`; })()}
@@ -2349,7 +2350,7 @@ function renderRecover() {
   const affDone = !!(getL(todayStr()).checks || {}).affirm;
   o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today"}</button></div>`;
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
-  o += `${C().features.hotTub ? `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>` : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div></div>`}`;
+  o += `${false ? ""  : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div></div>`}`;
   o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
   o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
   return o;
@@ -2443,7 +2444,7 @@ function submitFeedback() {
   $("workout").classList.add("hidden"); document.body.style.overflow = ""; stopRest(); UI.wo = null;
   floodFx(UI.mvd ? "15-min done!" : "Workout done!", "+" + (UI.mvd ? PTS.quick : PTS.workout) + " points. Keep checking boxes."); queueScore();
   const painNow = Object.keys(S.pain);
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Session logged</h2><div class="muted"><b style="color:var(--orange-ink)">+${UI.mvd ? PTS.quick : PTS.workout} points</b> \u2022 Streak ${streak()} ${I.flame}</div><div class="swoosh-under"></div></div>${msgs.length ? `<div class="banner bad"><b>See a doctor or PT</b>${msgs.map(esc).join("<br>")}</div>` : ""}${painNow.length ? `<div class="banner warn"><b>Backing off next 3 sessions</b>${painNow.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")} exercises will be swapped.</div>` : ""}<div class="small muted">${f.rating === "easy" ? "Felt easy. If it is easy again next time, the app will suggest +5 percent." : f.rating === "hard" ? "Felt hard. Hold weights steady next time. Recovery is part of the plan." : "Right where we want it. Consistency wins."}</div><div class="card" style="background:var(--card2);margin-top:14px"><b>Now:</b> hot tub, water, shower. Streak: ${streak()} ${I.flame}</div><button class="btn primary block" data-act="closeSheet">Done</button>`);
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Session logged</h2><div class="muted"><b style="color:var(--orange-ink)">+${UI.mvd ? PTS.quick : PTS.workout} points</b> \u2022 Streak ${streak()} ${I.flame}</div><div class="swoosh-under"></div></div>${msgs.length ? `<div class="banner bad"><b>See a doctor or PT</b>${msgs.map(esc).join("<br>")}</div>` : ""}${painNow.length ? `<div class="banner warn"><b>Backing off next 3 sessions</b>${painNow.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")} exercises will be swapped.</div>` : ""}<div class="small muted">${f.rating === "easy" ? "Felt easy. If it is easy again next time, the app will suggest +5 percent." : f.rating === "hard" ? "Felt hard. Hold weights steady next time. Recovery is part of the plan." : "Right where we want it. Consistency wins."}</div><div class="card" style="background:var(--card2);margin-top:14px"><b>Now:</b> water, protein, shower. Streak: ${streak()} ${I.flame}</div><button class="btn primary block" data-act="closeSheet">Done</button>`);
   render();
 }
 
@@ -2606,8 +2607,8 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) { in
    Everything a person may want to change lives in S.custom and is edited in the app:
    daily times, which checklist items show, personal habits, wind-down steps, Today quotes, features, targets. */
 const DEFAULT_TIMES = { wake: "05:00", workout: "05:05", hottub: "05:45", breakfast: "06:30", lunch: "12:00", windDown: "20:00", read: "20:35", bed: "21:00" };
-const TIME_LABELS = [["wake", "Wake up + water"], ["workout", "Workout"], ["hottub", "Hot tub"], ["breakfast", "Breakfast"], ["lunch", "Lunch"], ["windDown", "Wind-down starts"], ["read", "Reading"], ["bed", "In bed"]];
-const CHECK_ITEMS = [["water_wake", "Water on waking"], ["hottub", "Hot tub"], ["breakfast", "Protein breakfast"], ["lunch", "Protein + veg lunch"], ["electro", "Electrolytes before court"], ["wd_tv", "Wind-down start"], ["wd_read", "Reading"], ["bed", "Bedtime"]];
+const TIME_LABELS = [["wake", "Wake up + water"], ["workout", "Workout"], ["breakfast", "Breakfast"], ["lunch", "Lunch"], ["windDown", "Wind-down starts"], ["read", "Reading"], ["bed", "In bed"]];
+const CHECK_ITEMS = [["water_wake", "Water on waking"], ["breakfast", "Protein breakfast"], ["lunch", "Protein + veg lunch"], ["electro", "Electrolytes before court"], ["wd_tv", "Wind-down start"], ["wd_read", "Reading"], ["bed", "Bedtime"]];
 function C() {
   if (!S.custom) S.custom = {};
   const c = S.custom;
@@ -2617,7 +2618,8 @@ function C() {
   if (!c.habits) c.habits = [];
   if (!c.wind) c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] }));
   if (!c.identity) c.identity = IDENTITY.slice();
-  if (!c.features) c.features = { hotTub: true };
+  if (!c.features) c.features = {};
+  c.features.hotTub = false; c.hide = c.hide || {}; c.hide.hottub = true;   // v3.0.0: hot tub removed from the app
   if (c.waterWakeOz == null) c.waterWakeOz = 16;
   return c;
 }
@@ -2651,7 +2653,7 @@ function customizeHTML() {
   <h3 class="sh3">Affirmations</h3>${listEditor("aff", S.affirmations, "New affirmation")}
   <h3 class="sh3">Today screen quotes</h3><div class="small muted">One shows each day under your greeting.</div>${listEditor("idn", c.identity, "New quote")}
   <h3 class="sh3">App color</h3><div class="row wrap" style="gap:8px">${ACCENTS.map(([hx, nm]) => `<button class="chip ${(c.accent || ACCENT) === hx ? "on" : ""}" data-act="cAccent" data-v="${hx}"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${hx};vertical-align:-2px;margin-right:6px"></span>${nm}</button>`).join("")}</div>
-  <h3 class="sh3">Features</h3>${tog("cFeat", c.features.hotTub, "Hot tub", 'data-k="hotTub"')}${tog("cFeat", c.features.runs, "Run log (track miles)", 'data-k="runs"')}
+  <h3 class="sh3">Features</h3>${tog("cFeat", c.features.runs, "Run log (track miles)", 'data-k="runs"')}
   <h3 class="sh3">Daily targets</h3><div class="grid2"><div><label class="f">Protein (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Extra water court days (oz)</label><input type="number" value="${p.waterCourtExtra}" data-in="prof" data-k="waterCourtExtra"></div><div><label class="f">Water on waking (oz)</label><input type="number" value="${c.waterWakeOz}" data-in="cwake"></div></div>
   <button class="btn block" style="margin-top:18px" data-act="cReset">${UI.cResetArm ? "Tap again to restore defaults" : "Restore default times and lists"}</button>`;
 }
