@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.3";
+const APP_VERSION = "2.6.4";
 const CHANGELOG = {
+  "2.6.4": ["New Score tab: a card for every player with season points, today, this week, badges today, and lifetime badges", "See everyone's daily check-offs: workout, water, sleep, reading, affirmations", "ALL IN: hit all 5 in one day for the All In badge and +50 bonus points. Affirmations count here", "Bought a book? Check the box, or tap a store link and the app asks when you come back. +25 and the Book Buyer badge"],
   "2.6.3": ["New scoring: the workout is worth the most (50). Water goal is huge (40). Reading is 1 point a minute (up to 35)", "Run or bike: 40 points, once every other day. The Run log is now a Cardio log with Run and Bike", "Sleep: 7 to 8 hours is best (25). 6 to 7 or 8 to 9 hours is 15. 9+ hours is 5. Under 6 hours is 0", "Affirmations are for you now, no points"],
   "2.6.2": ["New tour: everything that changed, why we asked more questions, how points and badges work, and the Season 1 prize. Find it any time in More, then How Season 1 works"],
   "2.6.1": ["Nicknames: go to More, then Settings, and add a nickname. It replaces your first name on Today, the Score tab, and the scoreboard"],
@@ -941,7 +942,7 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 /* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
    Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
-const PTS = { workout: 50, quick: 25, court: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+const PTS = { allIn: 50, workout: 50, quick: 25, court: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
 function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
 /* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
 function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
@@ -956,8 +957,15 @@ function seasonOf(d) {
   return { id: "S" + (k + 2), n: k + 2, start, end: endD.getFullYear() + "-" + pad(endD.getMonth() + 1) + "-" + pad(endD.getDate()) };
 }
 function SSN() { if (!S.season) S.season = { bought: {}, quiz: {}, seen: {} }; ["bought", "quiz", "seen"].forEach(k => { if (!S.season[k]) S.season[k] = {}; }); return S.season; }
+/* All In: workout + water goal + sleep (6 to 9 hrs) + 10+ min reading + affirmations checked, all on the same day. */
+const ALLIN = [["workout", "Workout"], ["water", "Water goal"], ["sleep", "Sleep 6 to 9 hrs"], ["read", "Read 10+ min"], ["affirm", "Affirmations"]];
+function dayChecks(s) {
+  const l = S.logs[s] || null, h = l ? sleepHrs(l.sleep) : null;
+  const c = { workout: !!(l && (l.done || l.mvdDone)), water: !!(l && l.water >= waterGoal(s)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10), affirm: !!(l && l.checks && l.checks.affirm) };
+  c.allIn = ALLIN.every(([k]) => c[k]); return c;
+}
 function dayPoints(s) {
-  const l = S.logs[s], b = { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0 };
+  const l = S.logs[s], b = { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, bonus: 0 };
   if (!l) return b;
   b.workout = l.done ? PTS.workout : l.mvdDone ? PTS.quick : 0;
   b.court = l.checks && l.checks.court ? PTS.court : 0;
@@ -967,6 +975,7 @@ function dayPoints(s) {
   b.sleep = sleepPts(sleepHrs(l.sleep));
   b.affirm = l.checks && l.checks.affirm ? PTS.affirm : 0;
   b.read = Math.min(PTS.readCap, Math.floor(l.reading || 0));
+  b.bonus = dayChecks(s).allIn ? PTS.allIn : 0;
   return b;
 }
 const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY"];
@@ -974,14 +983,16 @@ const SEASON_BADGES = [
   ["run1", "flag", "First Run", 25], ["mi10", "flag", "10 Miles", 50], ["mi25", "flag", "25 Miles", 100], ["mi50", "flag", "50 Miles", 150], ["mi100", "flag", "100 Miles", 250], ["run5wk", "flame", "5-Mile Week", 50],
   ["water3", "drop", "Hydrated x3", 25], ["water7", "drop", "Hydration Hero", 75], ["water28", "drop", "Water Week x4", 150], ["sleep7", "moon", "Sleep 7 Nights", 75],
   ["wo10", "fire", "10 Workouts", 50], ["wo25", "fire", "25 Workouts", 100], ["wo50", "fire", "50 Workouts", 200], ["perfect", "shield", "Perfect Week", 100], ["streak7", "flame", "7-Day Streak", 50],
-  ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["ironman", "hoop", "Iron Man", 100]
+  ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["buy1", "book", "Book Buyer", 25], ["buy3", "book", "Library Builder", 50], ["ironman", "hoop", "Iron Man", 100],
+  ["allin3", "shield", "All In x3", 50], ["allin7", "shield", "All In x7", 100], ["allin30", "shield", "All In x30", 300]
 ];
+const ALLIN_BADGE = ["allin", "shield", "All In (daily)", 50];
 function seasonStats(sz) {
-  const t = todayStr(), to = t < sz.end ? t : sz.end, st = { days: [], tot: { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, books: 0, badges: 0 }, miles: 0, workouts: 0, waterDays: 0, sleepGood: 0, affirmDays: 0 };
+  const t = todayStr(), to = t < sz.end ? t : sz.end, st = { days: [], tot: { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, bonus: 0, books: 0, badges: 0 }, miles: 0, workouts: 0, waterDays: 0, sleepGood: 0, affirmDays: 0, allInDays: 0 };
   for (let d = sz.start; d <= to; d = addDays(d, 1)) {
     const p = dayPoints(d), l = S.logs[d] || null; st.days.push([d, p, l]);
     for (const k in p) st.tot[k] += p[k];
-    if (l) { st.miles += +l.miles || 0; if (l.done || l.mvdDone) st.workouts++; if (p.water === PTS.water) st.waterDays++; if (p.sleep === PTS.sleepBest) st.sleepGood++; if (p.affirm) st.affirmDays++; }
+    if (l) { st.miles += +l.miles || 0; if (l.done || l.mvdDone) st.workouts++; if (p.water === PTS.water) st.waterDays++; if (p.sleep === PTS.sleepBest) st.sleepGood++; if (l.checks && l.checks.affirm) st.affirmDays++; if (p.bonus) st.allInDays++; }
   }
   const ss = SSN(), inS = d => d >= sz.start && d <= sz.end;
   const bought = Object.values(ss.bought).filter(x => inS(x.date)), passed = Object.values(ss.quiz).filter(x => x.pass && inS(x.date));
@@ -1001,6 +1012,8 @@ function seasonBadges(sz, st) {
   [[10, "wo10"], [25, "wo25"], [50, "wo50"]].forEach(([n, id]) => { if (st.workouts >= n) add(id); });
   if (runOf(d, (p, l) => !!(l && (l.done || l.mvdDone || (l.checks && l.checks.court) || l.miles > 0))) >= 7) add("streak7");
   if (st.booksPassed >= 1) add("book1"); if (st.booksPassed >= 3) add("book3");
+  if (st.booksBought >= 1) add("buy1"); if (st.booksBought >= 3) add("buy3");
+  [[3, "allin3"], [7, "allin7"], [30, "allin30"]].forEach(([n, id]) => { if (st.allInDays >= n) add(id); });
   // Perfect week: a finished Mon-Sun week inside the season where every planned training day got done
   const t = todayStr();
   for (let w = weekStart(sz.start) < sz.start ? addDays(weekStart(sz.start), 7) : sz.start; addDays(w, 6) < t && addDays(w, 6) <= sz.end; w = addDays(w, 7)) {
@@ -1015,37 +1028,70 @@ function seasonBadges(sz, st) {
 }
 function isOffDay(s) { const su = C().setup; return !!(su && (su.offDays || []).includes(dow(s))); }
 function checkSeasonBadges() {
-  const sz = seasonOf(todayStr()); if (todayStr() < sz.start) return;
+  const sz = seasonOf(todayStr()), t = todayStr(); if (t < sz.start) return;
   const st = seasonStats(sz), ss = SSN(), seen = ss.seen[sz.id] || [];
-  st.badges.filter(id => !seen.includes(id)).forEach(id => { const b = SEASON_BADGES.find(x => x[0] === id); toast("Badge: " + b[2] + " (+" + b[3] + " pts)"); });
+  ss.when = ss.when || {}; ss.when[sz.id] = ss.when[sz.id] || {};
+  st.badges.filter(id => !seen.includes(id)).forEach(id => { const b = SEASON_BADGES.find(x => x[0] === id); ss.when[sz.id][id] = t; toast("Badge: " + b[2] + " (+" + b[3] + " pts)"); });
+  if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; toast("ALL IN today! +" + PTS.allIn + " bonus"); }
   ss.seen[sz.id] = st.badges.slice();
 }
+function badgesToday() { const sz = seasonOf(todayStr()), t = todayStr(), w = ((SSN().when || {})[sz.id]) || {}; const ids = Object.keys(w).filter(id => w[id] === t); if (dayChecks(t).allIn) ids.unshift("allin"); return ids; }
+function allInEver() { let n = 0; for (const d in S.logs) if (dayChecks(d).allIn) n++; return n; }
+function lifetimeBadges() { const ss = SSN(); let n = (S.meta.badges || []).length + allInEver(); for (const k in ss.seen) n += (ss.seen[k] || []).length; return n; }
+const badgeInfo = id => id === "allin" ? ALLIN_BADGE : SEASON_BADGES.find(b => b[0] === id) || [id, "flag", id, 0];
 
 /* ---------------------------- SEASON STANDINGS UI ---------------------------- */
-const CAT_LABEL = [["workout", "Workouts"], ["court", "Court"], ["run", "Runs"], ["water", "Water"], ["protein", "Protein"], ["sleep", "Sleep"], ["affirm", "Affirmations"], ["read", "Reading"], ["books", "Books"], ["badges", "Badges"]];
+const CAT_LABEL = [["workout", "Workouts"], ["water", "Water"], ["run", "Cardio"], ["read", "Reading"], ["sleep", "Sleep"], ["court", "Court"], ["protein", "Protein"], ["bonus", "All In bonus"], ["books", "Books"], ["badges", "Badges"]];
+function allInCardHTML(onScore) {
+  const t = todayStr(), c = dayChecks(t), n = ALLIN.filter(([k]) => c[k]).length;
+  return `<div class="card" style="${c.allIn ? "border:2px solid var(--green)" : ""}"><div class="row between"><h2 class="brand" style="margin:0">${c.allIn ? "ALL IN today ✓" : "Go All In today"}</h2><b class="brand">${c.allIn ? "+" + PTS.allIn : n + " of 5"}</b></div>
+  <div class="small muted" style="margin:4px 0 8px">Hit all 5 in one day for the All In badge and +${PTS.allIn} bonus points. Affirmations aren't worth points alone, but they count here.</div>
+  ${ALLIN.map(([k, nm]) => `<div class="row between small" style="padding:6px 0;border-bottom:1px solid var(--line)"><span>${c[k] ? "✓" : "○"} ${nm}</span>${c[k] ? `<b class="brand">done</b>` : k === "affirm" ? `<button class="btn sm" data-act="affCheck">Check off</button>` : `<span class="muted">${k === "workout" ? "Start on Today" : k === "water" ? waterGoal(t) + " oz goal" : k === "sleep" ? "Log it on Recover" : "Log on Reads"}</span>`}</div>`).join("")}</div>`;
+}
+function myExtras() {
+  const t = todayStr(), p = dayPoints(t), c = dayChecks(t);
+  return { today: { date: t, pts: Object.values(p).reduce((a, v) => a + v, 0), cats: p, checks: c }, weekPts: myWeekScore(weekStart(t)).score, badgesToday: badgesToday(), lifetime: lifetimeBadges(), allInEver: allInEver() };
+}
 function standingsList() {
   const sz = seasonOf(todayStr()), pre = todayStr() < sz.start, st = pre ? null : seasonStats(sz);
-  const mine = { id: PID, name: myName(), accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0 };
+  const mine = Object.assign({ id: PID, name: myName(), accent: ACCENT, points: st ? st.points : 0, tot: st ? st.tot : {}, badges: st ? st.badges : [], miles: st ? st.miles : 0, books: st ? st.booksPassed : 0, allInDays: st ? st.allInDays : 0 }, myExtras());
   let list = (SB.standings && SB.season === sz.id ? SB.standings.slice() : []).filter(p => p.id !== PID); list.push(mine);
-  return { sz, pre, st, list: list.sort((a, b) => b.points - a.points) };
+  return { sz, pre, st, list: list.sort((a, b) => b.points - a.points || (b.weekPts || 0) - (a.weekPts || 0) || ((b.today && b.today.pts) || 0) - ((a.today && a.today.pts) || 0)) };
 }
 function seasonHTML(compact) {
   const { sz, pre, st, list } = standingsList(), t = todayStr();
   const daysLeft = between(t, sz.end), daysTo = between(t, sz.start);
   const head = pre ? `Season ${sz.n} starts ${fmtD(sz.start)} (${daysTo} day${daysTo === 1 ? "" : "s"})` : `Season ${sz.n} ends ${fmtD(sz.end)} • ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`;
-  const rows = list.map((p, i) => `<button class="sbrow" data-act="sbOpen" data-id="${esc(p.id)}" style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);text-align:left">
-    <span><b style="display:inline-block;width:22px">${i + 1}</b><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(p.accent || "#ff8200")};margin-right:8px"></span>${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && p.points > 0 ? " " + I.flame : ""}</span>
-    <span class="small muted">${(p.badges || []).length} badges • <b class="brand" style="font-size:17px">${p.points}</b></span></button>
-    ${UI.sbOpen === p.id && !compact ? `<div class="grid3" style="margin:8px 0 10px">${CAT_LABEL.map(([k, n]) => `<div class="tile"><div class="k">${n}</div><div class="v" style="font-size:18px">${(p.tot || {})[k] || 0}</div></div>`).join("")}<div class="tile"><div class="k">Miles</div><div class="v" style="font-size:18px">${p.miles || 0}</div></div><div class="tile"><div class="k">Books</div><div class="v" style="font-size:18px">${p.books || 0}</div></div></div>` : ""}`).join("");
-  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${rows}</div>`;
+  const dot = c => `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(c || "#ff8200")};margin-right:8px;vertical-align:0"></span>`;
+  const todayOf = p => p.today && p.today.date === t ? p.today : null;
+  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${list.map((p, i) => { const td = todayOf(p); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span><b style="display:inline-block;width:20px">${i + 1}</b>${dot(p.accent)}${esc(p.name)}${p.id === PID ? " (you)" : ""}${td && td.checks.allIn ? ` <span class="tg shelf">All In</span>` : ""}</span><span class="small muted">today ${td ? td.pts : 0} • <b class="brand" style="font-size:16px">${p.points}</b></span></div>`; }).join("")}</div>`;
+  const medal = i => ["1st", "2nd", "3rd"][i] || (i + 1) + "th";
+  const cards = list.map((p, i) => {
+    const td = todayOf(p), open = UI.sbOpen === p.id, tot = p.tot || {}, max = Math.max(1, ...CAT_LABEL.map(([k]) => tot[k] || 0));
+    const checks = `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${ALLIN.map(([k, n]) => { const ok = td && td.checks && td.checks[k]; return `<span class="tg ${ok ? "shelf" : ""}" style="${ok ? "" : "opacity:.55"}">${ok ? "✓" : "○"} ${n.split(" ")[0]}</span>`; }).join("")}${td && td.checks.allIn ? `<span class="tg" style="background:var(--green);color:#fff">ALL IN +${PTS.allIn}</span>` : ""}</div>`;
+    const bt = (p.badgesToday || []).filter(id => id !== "allin" || (td && td.checks.allIn));
+    const btHTML = bt.length ? `<div class="small" style="margin-top:8px"><b>Badges today:</b> ${bt.map(id => { const b = badgeInfo(id); return `<span class="tg shelf">${esc(b[2])} +${b[3]}</span>`; }).join(" ")}</div>` : "";
+    const detail = open ? `<div style="margin-top:12px">${CAT_LABEL.map(([k, n]) => `<div class="small" style="display:flex;align-items:center;gap:8px;margin:5px 0"><span style="width:92px">${n}</span><span style="flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:${Math.round((tot[k] || 0) / max * 100)}%;background:${esc(p.accent || "#ff8200")}"></span></span><b style="width:42px;text-align:right">${tot[k] || 0}</b></div>`).join("")}
+      <div class="small muted" style="margin-top:8px">${p.miles || 0} cardio miles • ${p.books || 0} books verified • ${p.allInDays || 0} All In days this season</div>
+      <div style="margin-top:8px">${(p.badges || []).length ? (p.badges || []).map(id => { const b = badgeInfo(id); return `<span class="bdg"><span class="e">${I[b[1]] || I.flag}</span>${esc(b[2])} <b>+${b[3]}</b></span>`; }).join("") : `<div class="small muted">No season badges yet.</div>`}</div></div>` : "";
+    return `<div class="card" style="border-left:5px solid ${esc(p.accent || "#ff8200")}">
+      <button data-act="sbOpen" data-id="${esc(p.id)}" style="display:block;width:100%;text-align:left">
+      <div class="row between"><span style="font-size:18px"><b>${medal(i)}</b> ${dot(p.accent)}<b>${esc(p.name)}</b>${p.id === PID ? ` <span class="small muted">(you)</span>` : ""}</span><span style="text-align:right"><b class="brand" style="font-size:26px">${p.points}</b><div class="small muted" style="margin-top:-4px">season pts</div></span></div>
+      <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">Badges</div><div class="v" style="font-size:20px">${(p.badges || []).length}<span class="small muted"> / ${p.lifetime || 0} life</span></div></div></div>
+      ${checks}${btHTML}
+      <div class="small muted" style="margin-top:8px">${open ? "Tap to close" : "Tap for the full breakdown"}${td ? "" : " • not synced today yet"}</div></button>${detail}</div>`;
+  }).join("");
   const prize = `<div class="banner info" style="margin-top:12px"><b>Season ${sz.n} prize</b>${esc(SB.prize || DEFAULT_PRIZE)}. Most points on ${fmtD(sz.end)} wins.${R().adminPin && !PERSON ? `<div style="margin-top:8px"><button class="btn sm" data-act="prizeEdit">Edit prize</button></div>` : ""}</div>`;
-  const ss = SSN(), have = st ? st.badges : [];
-  const badges = `<h3 class="sh3" style="margin-top:16px">Your Season ${sz.n} badges (${have.length}/${SEASON_BADGES.length})</h3><div>${SEASON_BADGES.map(b => `<span class="bdg ${have.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>`;
+  const me = list.find(p => p.id === PID) || {}, have = st ? st.badges : [];
+  const mine = `<div class="card"><h2 class="brand" style="margin:0">My badges</h2><div class="small muted" style="margin:4px 0 8px">Season ${sz.n}: ${have.length} of ${SEASON_BADGES.length} • All In days: ${st ? st.allInDays : 0} • Lifetime badges: ${me.lifetime || 0}</div>
+    <div>${SEASON_BADGES.map(b => `<span class="bdg ${have.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>
+    <h3 class="sh3" style="margin-top:12px">Lifetime</h3><div>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}</div></div>`;
   const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
-    <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice or game ${PTS.court}, protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points, just a better head</li>
+    <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice or game ${PTS.court}, protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
     <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
-  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 6px">${head}. Tap a name for the breakdown.</div>${rows}${pre ? `<div class="small muted" style="margin-top:8px">Points start counting ${fmtD(sz.start)}. Get your setup and logging habits dialed in now.</div>` : ""}${prize}${badges}${guide}</div>`;
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
+    + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
 
 /* ---------------------------- WEEKLY SCOREBOARD (friendly competition) ---------------------------- */
@@ -1073,7 +1119,7 @@ function syncScore(force) {
   if (!force && Date.now() - SB.last < 20000 && SB.week === ws) return;
   SB.last = Date.now();
   const st = todayStr() >= sz.start ? seasonStats(sz) : null;
-  const season = st ? { id: sz.id, points: st.points, tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0 };
+  const season = Object.assign(st ? { id: sz.id, points: st.points, tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed, allInDays: st.allInDays } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0, allInDays: 0 }, myExtras());
   fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: myName(), accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
     .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
     .catch(() => { SB.err = true; });
@@ -1303,6 +1349,7 @@ function renderToday() {
   const done = l.done || l.mvdDone;
   out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
+  out += allInCardHTML(false);
   // workout window check (people who pick their own windows)
   const wins = myWindows();
   const su0 = C().setup, tl = todayLoc(s);
@@ -1459,7 +1506,7 @@ function renderProgress() {
   checkSeasonBadges();
   o = seasonHTML(false) + o;
   o += scoreboardHTML(false);
-  o += `<div class="card"><h2 class="brand">Badges</h2>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}<div class="small muted">Never miss twice: 1 grace day per week keeps your streak alive.</div></div>`;
+  o += `<div class="small muted" style="text-align:center;margin:4px 0 12px">Never miss twice: 1 grace day per week keeps your streak alive.</div>`;
   o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
   const lifts = Object.entries(S.exHist).filter(([, h]) => h.length);
   o += `<div class="card"><h2>Lift progression</h2>${lifts.length ? `<table class="t">${lifts.map(([id, h]) => `<tr><td>${esc(LIB[id] ? LIB[id].name : id)}</td><td style="text-align:right">${h[0].w} → <b>${h[h.length - 1].w}</b> lb</td></tr>`).join("")}</table>` : emptyState("Enter weights during workouts to track progress.")}</div>`;
@@ -1556,7 +1603,8 @@ const ACT = {
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
   affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("Nice. Mind right."); render(); },
-  buyBook: el => { const ss = SSN(), id = el.dataset.id, t = todayStr(), last = Object.values(ss.bought).filter(x => x.pts).map(x => x.date).sort().pop(); const ok = !last || between(last, t) >= 7; ss.bought[id] = { date: t, pts: ok ? PTS.buy : 0 }; save(); toast(ok ? "+" + PTS.buy + " points. Enjoy it." : "Logged. 1 book purchase a week earns points. Next one counts " + fmtD(addDays(last, 7)) + "."); renderSheet(); },
+  buyNo: () => { SSN().pendingBuy = null; save(); closeSheet(); },
+  buyBook: el => { if (SSN().bought[el.dataset.id]) return closeSheet(); SSN().pendingBuy = null; const ss = SSN(), id = el.dataset.id, t = todayStr(), last = Object.values(ss.bought).filter(x => x.pts).map(x => x.date).sort().pop(); const ok = !last || between(last, t) >= 7; ss.bought[id] = { date: t, pts: ok ? PTS.buy : 0 }; save(); toast(ok ? "+" + PTS.buy + " points. Enjoy it." : "Logged. 1 book purchase a week earns points. Next one counts " + fmtD(addDays(last, 7)) + "."); checkSeasonBadges(); queueScore(); if (UI.sheet && UI.sheet.kind === "book") renderSheet(); else openSheet("book", id); },
   quizOpen: el => openQuiz(el.dataset.id),
   quizPick: el => { QZ.picks[+el.dataset.i] = +el.dataset.v; renderSheet(); },
   quizSubmit: () => { if (QZ.picks.some(p => p < 0)) return toast("Answer all 3"); const ss = SSN(), id = QZ.id; QZ.loading = true; renderSheet();
@@ -1850,7 +1898,7 @@ function quizHTML() {
 }
 function bookSeasonHTML(id, sh) {
   const ss = SSN(), bo = ss.bought[id], q = ss.quiz[id];
-  const buy = bo ? `<span class="tg shelf">Bought ${fmtD(bo.date)}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">I bought it (+${PTS.buy})</button>`;
+  const buy = bo ? `<span class="tg shelf">☑ Bought ${fmtD(bo.date)}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">☐ I bought it (+${PTS.buy})</button>`;
   const quiz = q && q.pass ? `<span class="tg shelf">✓ Book Verified (+${PTS.quiz})</span>` : sh === "done" ? `<button class="btn primary sm" data-act="quizOpen" data-id="${id}">${q && q.failDate ? "Retake the quiz" : "Take the quiz"} (+${PTS.quiz})</button>` : `<span class="small muted">Finish it, pass a 3-question quiz, earn ${PTS.quiz}.</span>`;
   return `<div class="row wrap" style="gap:8px;margin-top:12px;align-items:center">${buy}${quiz}</div>`;
 }
@@ -1858,7 +1906,7 @@ function bookSheet(id) {
   const b = bookById(id); if (!b) return "Book not found.";
   const rd = R(), sh = shelfOf(id), rate = (rd.rating || {})[id] || 0;
   const L = b.links || qlink(b.title, b.author);
-  const lk = (u, t) => u ? `<a class="btn sm" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>` : "";
+  const lk = (u, t) => u ? `<a class="btn sm" href="${esc(u)}" target="_blank" rel="noopener"${t === "Reviews (Goodreads)" ? "" : ` data-buylink="${esc(id)}"`}>${t}</a>` : "";
   return `<div class="row" style="gap:14px;align-items:flex-start">${coverHTML(b, 92)}<div style="flex:1"><div class="eyebrow">${esc(catName(b.category))}</div><h2 style="margin:4px 0 2px;font-size:22px;line-height:1.15">${esc(b.title)}</h2><div class="muted">${esc(b.author)}${b.year ? " • " + esc(b.year) : ""}</div>${b.series ? `<div class="small" style="margin-top:4px;color:var(--orange-ink);font-weight:700">${esc(b.series)}, book ${b.seriesOrder}</div>` : ""}${b.source === "community" ? `<div class="small" style="margin-top:4px;color:var(--green);font-weight:700">Community pick${b.by ? " from " + esc(b.by) : ""}</div>` : ""}</div></div>
   <p style="margin:14px 0 6px">${esc(b.why)}</p>${b.readIf ? `<p class="small muted" style="margin:0 0 10px">${esc(b.readIf)}</p>` : ""}
   <div class="bp" style="margin-bottom:12px">${(b.tags || []).map(t => `<span class="tg">${esc(t)}</span>`).join("")}${b.category === "romance" ? `<span class="tg spice">Spice ${b.spice}/3</span>` : ""}${b.similarTo ? `<span class="tg shelf">Like ${esc(b.similarTo)}</span>` : ""}</div>
@@ -2238,6 +2286,15 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) chec
 render();
 setTimeout(() => syncScore(true), 1500);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) syncScore(false); });
+/* Tapped a store link? When they come back, ask if they bought it so the points and badge land. */
+document.addEventListener("click", e => { const a = e.target.closest("a[data-buylink]"); if (!a) return; const ss = SSN(); if (ss.bought[a.dataset.buylink]) return; ss.pendingBuy = { id: a.dataset.buylink, at: Date.now() }; save(); }, true);
+function askBought() {
+  const ss = SSN(), pb = ss.pendingBuy; if (!pb || ss.bought[pb.id] || Date.now() - pb.at < 4000) return;
+  if (Date.now() - pb.at > 3 * 864e5) { ss.pendingBuy = null; save(); return; }
+  const b = bookById(pb.id); if (!b) return;
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Did you buy it?</h2><div class="muted">${esc(b.title)}</div></div><div class="small muted" style="text-align:center;margin-bottom:12px">Buying a book earns +${PTS.buy} points (1 a week) and the Book Buyer badge.</div><button class="btn primary block" data-act="buyBook" data-id="${esc(pb.id)}">Yes, I bought it</button><button class="btn block" style="margin-top:8px" data-act="buyNo">Not yet</button>`);
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
 if (!showWhatsNew()) maybeSetup();
 checkUpdate(true);
 loadBooks();

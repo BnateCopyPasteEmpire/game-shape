@@ -11,6 +11,12 @@ const okSeason = s => /^S\d{1,3}$/.test(String(s || ""));
 const num = (v, max) => Math.max(0, Math.min(max, Math.round(+v || 0)));
 const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 const byScore = (a, b) => b.score - a.score;
+const CATS = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus"], CHECKS = ["workout", "water", "sleep", "read", "affirm", "allIn"];
+function today(t) {
+  if (!t || !okWeek(t.date)) return null;
+  const cats = {}, checks = {}; CATS.forEach(k => { cats[k] = num((t.cats || {})[k], 500); }); CHECKS.forEach(k => { checks[k] = !!(t.checks || {})[k]; });
+  return { date: t.date, pts: num(t.pts, 2000), cats, checks };
+}
 
 async function read(store, week, season) {
   const out = {};
@@ -51,11 +57,13 @@ export default async (req) => {
 
   const se = b.season;
   if (se && okSeason(se.id)) {
-    const t = se.tot || {}, cats = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "books", "badges"], tot = {};
+    const t = se.tot || {}, cats = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus", "books", "badges"], tot = {};
     cats.forEach(k => { tot[k] = num(t[k], 20000); });
     const sk = "season-" + se.id, sdata = (await store.get(sk, { type: "json" })) || {};
     sdata[id] = { id, name, accent, points: num(se.points, 60000), tot, badges: (Array.isArray(se.badges) ? se.badges : []).slice(0, 40).map(x => String(x).slice(0, 12)),
-      miles: Math.max(0, Math.min(3000, Math.round((+se.miles || 0) * 10) / 10)), books: num(se.books, 100), updated: rec.updated };
+      miles: Math.max(0, Math.min(3000, Math.round((+se.miles || 0) * 10) / 10)), books: num(se.books, 100), allInDays: num(se.allInDays, 400),
+      today: today(se.today), weekPts: num(se.weekPts, 5000), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
+      lifetime: num(se.lifetime, 5000), allInEver: num(se.allInEver, 5000), updated: rec.updated };
     await store.setJSON(sk, sdata);
   }
   return json({ ok: true, ...(await read(store, b.week, se && se.id)) });
