@@ -4,6 +4,8 @@
 window.GS_PROFILES = {
   will: {
     id: "will",
+    fullName: "Will Y.",
+    badgeImg: "will-badge.jpg",
     theme: { accent: "#3ecf7a" },   // from intake: Green
     profile: { name: "Will", sport: "Basketball", team: "Easley Pres - B", age: 42, heightIn: 74, weight: 200, waist: 36, goalWeight: 185,
       protein: 165, waterBase: 80, waterCourtExtra: 20, calTrain: 2200, calCourt: 2400, fiber: 30 },
@@ -56,6 +58,8 @@ window.GS_PROFILES = {
   },
   mark: {
     id: "mark",
+    fullName: "Mark L.",
+    badgeImg: "mark-badge.jpg",
     theme: { accent: "#4cc9f0" },   // from intake: Ice blue
     profile: { name: "Mark", sport: "Basketball", team: "Easley Pres - B", age: 35, heightIn: 75, weight: 175, waist: 32,
       protein: 160, waterBase: 100, waterCourtExtra: 25, calTrain: 3000, calCourt: 3200, fiber: 34 },

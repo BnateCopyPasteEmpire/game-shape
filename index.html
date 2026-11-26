@@ -300,6 +300,66 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
 .tabbar button.on:before{content:"";position:absolute;inset:2px 8px 10px;border-radius:16px;z-index:-1;background:linear-gradient(120deg,rgba(1,57,25,.16),rgba(var(--orange-rgb),.26),rgba(1,57,25,.16));background-size:200% 200%;animation:gsFlow 4s ease-in-out infinite,gsGlow 3.2s ease-in-out infinite;box-shadow:0 0 16px rgba(var(--orange-rgb),.25)}
 .tabbar button.on:after{background:linear-gradient(90deg,var(--orange),#0e5a2e);width:18px;height:4px;border-radius:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== v2.7 polish: tighter layout, no sideways drift, tap glow, scroll reveal, sports art, badge shine ===== */
+html{overflow-x:clip}
+body{touch-action:pan-y pinch-zoom}
+main{padding:0 12px calc(var(--sb) + 100px);overflow-x:clip}
+.top{padding:calc(var(--st) + 12px) 14px 10px}
+.card{padding:14px;margin:0 0 12px;border-radius:18px}
+.grid3,.grid2{gap:8px}
+img,svg,video{max-width:100%}
+/* tap glow in each person's color */
+.btn,.chip,.iconbtn,.tile,.menu button,.sbrow,.tabbar button,a.btn,[data-act]{-webkit-tap-highlight-color:transparent;transition:transform .12s ease,box-shadow .25s ease,background-color .2s ease}
+.btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{transform:scale(.97);box-shadow:0 0 0 4px rgba(var(--orange-rgb),.22),0 6px 18px rgba(var(--orange-rgb),.28)}
+.tabbar button:active{transform:scale(.94)}
+.tapfx{position:fixed;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(var(--orange-rgb),.42) 0%,rgba(var(--orange-rgb),.12) 45%,rgba(var(--orange-rgb),0) 70%);transform:translate(-50%,-50%) scale(.2);opacity:1;animation:tapfx .55s ease-out forwards;z-index:5}
+@keyframes tapfx{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(14px) scale(.99);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* subtle sports art layer */
+#sportsArt{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#sportsArt svg{position:absolute;opacity:.045;will-change:transform}
+/* profile badge with slow color shine */
+.pbadge{position:relative;display:block;width:132px;height:132px;margin:4px auto 10px;border-radius:26%;overflow:hidden;box-shadow:0 10px 30px rgba(var(--orange-rgb),.28),0 2px 6px rgba(0,0,0,.25);animation:pbHue 14s ease-in-out infinite}
+.pbadge img{width:100%;height:100%;display:block}
+.pbadge:after{content:"";position:absolute;inset:-40%;background:linear-gradient(115deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.38) 50%,rgba(255,255,255,0) 60%);transform:translateX(-60%);animation:pbShine 6s ease-in-out infinite}
+.pbadge.big{width:min(72vw,300px);height:min(72vw,300px)}
+@keyframes pbHue{0%,100%{filter:hue-rotate(0deg) saturate(1) brightness(1)}50%{filter:hue-rotate(-14deg) saturate(1.15) brightness(1.06)}}
+@keyframes pbShine{0%,55%{transform:translateX(-60%)}85%,100%{transform:translateX(60%)}}
+/* welcome surprise */
+.welcome{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:radial-gradient(circle at 50% 32%,rgba(var(--orange-rgb),.32),rgba(1,57,25,0) 58%),linear-gradient(160deg,#013919,#00230f);color:#fff;animation:wIn .5s ease}
+.welcome h2{margin:6px 0 4px;font-size:26px;letter-spacing:-.4px}
+.welcome p{margin:4px 0;opacity:.9}
+.welcome .btn{margin-top:18px;min-width:220px}
+.welcome .pbadge{animation:pbHue 14s ease-in-out infinite,wPop .9s cubic-bezier(.2,1.4,.4,1)}
+.confetti{position:fixed;top:-12px;width:8px;height:14px;border-radius:2px;z-index:81;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+@keyframes wIn{from{opacity:0}to{opacity:1}}
+@keyframes wPop{from{transform:scale(.4) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.pbadge,.pbadge:after,.tapfx,.confetti{animation:none!important}#sportsArt svg{transform:none!important}}
+/* badge unlock burst */
+.bburst{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 42%,rgba(var(--orange-rgb),.38),rgba(1,57,25,0) 60%),linear-gradient(160deg,#013919,#00230f);color:#fff;text-align:center;animation:wIn .25s ease}
+.bburst.out{opacity:0;transition:opacity .3s}
+.bb-rays{position:absolute;top:42%;left:50%;width:520px;height:520px;margin:-260px 0 0 -260px;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.10) 0 8deg,rgba(255,255,255,0) 8deg 22deg);border-radius:50%;animation:bbSpin 6s linear infinite;-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%)}
+.bb-medal{position:relative;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,var(--orange) 55%,#7a3a00);box-shadow:0 0 0 6px rgba(255,255,255,.18),0 0 40px rgba(var(--orange-rgb),.8);animation:bbPop .7s cubic-bezier(.2,1.6,.4,1)}
+.bb-medal span{width:58px;height:58px;color:#013919;display:grid;place-items:center}.bb-medal svg{width:58px;height:58px}
+.bb-eyebrow{margin-top:22px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+.bb-name{font-size:28px;font-weight:900;letter-spacing:-.4px;margin-top:4px;animation:bbUp .5s .15s both}
+.bb-pts{margin-top:6px;font-size:20px;font-weight:900;color:var(--orange);animation:bbUp .5s .3s both}
+.bb-tap{margin-top:26px;font-size:12px;opacity:.6}
+.bb-spark{position:absolute;top:42%;left:50%;width:8px;height:8px;border-radius:2px;animation:bbSpark .9s ease-out both}
+@keyframes bbSpin{to{transform:rotate(360deg)}}
+@keyframes bbPop{0%{transform:scale(.2) rotate(-30deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes bbUp{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+@keyframes bbSpark{0%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.3) rotate(260deg);opacity:0}}
+/* rulebook */
+.rb details{border:1px solid var(--line);border-radius:14px;padding:4px 12px;margin:8px 0;background:#fff}
+.rb summary{font-weight:800;padding:10px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.rb summary:after{content:"+";font-size:20px;color:var(--orange-ink)}
+.rb details[open] summary:after{content:"\2212"}
+.rb .bprog{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}.rb .bprog i{display:block;height:100%;background:var(--orange)}
+@media (prefers-reduced-motion:reduce){.bb-rays,.bb-medal,.bb-spark,.bb-name,.bb-pts{animation:none!important}}
 </style>
 </head>
 <body>
@@ -310,6 +370,7 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
     <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
     <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   </header>
+  <div id="sportsArt" aria-hidden="true"></div>
   <main id="view"></main>
   <nav class="tabbar" id="tabbar">
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gsTabGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#0f7a3f"><animate attributeName="stop-color" values="#0f7a3f;#ff8200;#0f7a3f" dur="4s" repeatCount="indefinite"/></stop><stop offset="100%" stop-color="#ff8200"><animate attributeName="stop-color" values="#ff8200;#0f7a3f;#ff8200" dur="4s" repeatCount="indefinite"/></stop></linearGradient></defs></svg>
@@ -387,8 +448,10 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.5";
+const APP_VERSION = "2.7.1";
 const CHANGELOG = {
+  "2.7.1": ["New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)", "Fixed the screen sliding side to side on phones"],
+  "2.7.0": ["Fresh look: tighter layout, smooth scroll animations, and a glow in your color when you tap", "Subtle sports art in the background", "Your custom Game Shape badge now lives on your profile (More, then Settings)", "Fixed the screen sliding side to side on phones"],
   "2.6.5": ["Basketball points: practice 55, game played 45, at the game but couldn't play 30. Attendance and playing is key", "New Game day and Practice day check-in card on Today"],
   "2.6.4": ["New Score tab: a card for every player with season points, today, this week, badges today, and lifetime badges", "See everyone's daily check-offs: workout, water, sleep, reading, affirmations", "ALL IN: hit all 5 in one day for the All In badge and +50 bonus points. Affirmations count here", "Bought a book? Check the box, or tap a store link and the app asks when you come back. +25 and the Book Buyer badge"],
   "2.6.3": ["New scoring: the workout is worth the most (50). Water goal is huge (40). Reading is 1 point a minute (up to 35)", "Run or bike: 40 points, once every other day. The Run log is now a Cardio log with Run and Bike", "Sleep: 7 to 8 hours is best (25). 6 to 7 or 8 to 9 hours is 15. 9+ hours is 5. Under 6 hours is 0", "Affirmations are for you now, no points"],
@@ -1005,6 +1068,17 @@ const SEASON_BADGES = [
   ["allin3", "shield", "All In x3", 50], ["allin7", "shield", "All In x7", 100], ["allin30", "shield", "All In x30", 300]
 ];
 const ALLIN_BADGE = ["allin", "shield", "All In (daily)", 50];
+const BADGE_HOW = {
+  run1: ["Log your first run or ride", st => [st.miles > 0 ? 1 : 0, 1]], mi10: ["Log 10 cardio miles this season", st => [st.miles, 10]], mi25: ["25 cardio miles", st => [st.miles, 25]], mi50: ["50 cardio miles", st => [st.miles, 50]], mi100: ["100 cardio miles", st => [st.miles, 100]],
+  run5wk: ["5 running miles in one Mon to Sun week", st => [st.bestWeekMi || 0, 5]],
+  water3: ["Hit your water goal 3 days in a row", st => [st.waterRun || 0, 3]], water7: ["Hit your water goal 7 days in a row", st => [st.waterRun || 0, 7]], water28: ["28 water-goal days this season", st => [st.waterDays, 28]],
+  sleep7: ["7 nights of 7 to 8 hours of sleep", st => [st.sleepGood, 7]],
+  wo10: ["Finish 10 workouts", st => [st.workouts, 10]], wo25: ["Finish 25 workouts", st => [st.workouts, 25]], wo50: ["Finish 50 workouts", st => [st.workouts, 50]],
+  perfect: ["Every planned workout done in one Mon to Sun week", st => [st.badges.includes("perfect") ? 1 : 0, 1]], streak7: ["7 days in a row with a workout, court, or cardio", st => [st.activeRun || 0, 7]],
+  book1: ["Finish a book and pass its quiz", st => [st.booksPassed, 1]], book3: ["Pass 3 book quizzes", st => [st.booksPassed, 3]], buy1: ["Buy your first book from Good Reads", st => [st.booksBought, 1]], buy3: ["Buy 3 books", st => [st.booksBought, 3]],
+  ironman: ["Make every practice and game in a month (4+)", st => [st.badges.includes("ironman") ? 1 : 0, 1]],
+  allin3: ["Go All In on 3 days", st => [st.allInDays, 3]], allin7: ["Go All In on 7 days", st => [st.allInDays, 7]], allin30: ["Go All In on 30 days", st => [st.allInDays, 30]]
+};
 function seasonStats(sz) {
   const t = todayStr(), to = t < sz.end ? t : sz.end, st = { days: [], tot: { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, bonus: 0, books: 0, badges: 0 }, miles: 0, workouts: 0, waterDays: 0, sleepGood: 0, affirmDays: 0, allInDays: 0 };
   for (let d = sz.start; d <= to; d = addDays(d, 1)) {
@@ -1016,6 +1090,8 @@ function seasonStats(sz) {
   const bought = Object.values(ss.bought).filter(x => inS(x.date)), passed = Object.values(ss.quiz).filter(x => x.pass && inS(x.date));
   st.tot.books = bought.reduce((a, x) => a + (x.pts || 0), 0) + passed.length * PTS.quiz; st.booksPassed = passed.length; st.booksBought = bought.length;
   st.miles = Math.round(st.miles * 10) / 10;
+  st.waterRun = runOf(st.days, p => p.water === PTS.water); st.activeRun = runOf(st.days, (p, l) => !!(l && (l.done || l.mvdDone || (l.checks && l.checks.court) || l.miles > 0 || l.bike > 0)));
+  const wkm = {}; st.days.forEach(([dt, , l]) => { if (l) { const w = weekStart(dt); wkm[w] = (wkm[w] || 0) + (+l.miles || 0); } }); st.bestWeekMi = Math.round(Math.max(0, ...Object.values(wkm)) * 10) / 10;
   const earned = seasonBadges(sz, st); st.badges = earned; st.tot.badges = earned.reduce((a, id) => a + SEASON_BADGES.find(b => b[0] === id)[3], 0);
   st.points = Object.values(st.tot).reduce((a, v) => a + v, 0);
   return st;
@@ -1049,9 +1125,22 @@ function checkSeasonBadges() {
   const sz = seasonOf(todayStr()), t = todayStr(); if (t < sz.start) return;
   const st = seasonStats(sz), ss = SSN(), seen = ss.seen[sz.id] || [];
   ss.when = ss.when || {}; ss.when[sz.id] = ss.when[sz.id] || {};
-  st.badges.filter(id => !seen.includes(id)).forEach(id => { const b = SEASON_BADGES.find(x => x[0] === id); ss.when[sz.id][id] = t; toast("Badge: " + b[2] + " (+" + b[3] + " pts)"); });
-  if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; toast("ALL IN today! +" + PTS.allIn + " bonus"); }
+  st.badges.filter(id => !seen.includes(id)).forEach(id => { ss.when[sz.id][id] = t; badgeBurst(id); });
+  if (dayChecks(t).allIn && !(ss.allInToast === t)) { ss.allInToast = t; badgeBurst("allin"); }
   ss.seen[sz.id] = st.badges.slice();
+}
+/* Badge unlock animation: a pop, rays, sparks in your color, and the points it's worth. Queued so several play one after another. */
+const BURST = { q: [], on: false };
+function badgeBurst(id) { BURST.q.push(id); if (!BURST.on) nextBurst(); }
+function nextBurst() {
+  const id = BURST.q.shift(); if (!id) { BURST.on = false; return; } BURST.on = true;
+  const b = badgeInfo(id), w = document.createElement("div"); w.className = "bburst";
+  w.innerHTML = `<div class="bb-rays"></div><div class="bb-medal"><span>${I[b[1]] || I.flag}</span></div><div class="bb-eyebrow">Badge unlocked</div><div class="bb-name">${esc(b[2])}</div><div class="bb-pts">+${b[3]} points</div><div class="bb-tap">Tap to keep going</div>`;
+  document.body.appendChild(w);
+  for (let i = 0; i < 26; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / 26 * 6.283, r = 120 + Math.random() * 90; c.style.cssText = `--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r}px;background:${[ACCENT, "#ff8200", "#fff"][i % 3]};animation-delay:${.15 + Math.random() * .15}s`; w.appendChild(c); }
+  try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch (e) {}
+  let gone = false; const close = () => { if (gone) return; gone = true; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
+  w.onclick = close; setTimeout(close, 2800);
 }
 function badgesToday() { const sz = seasonOf(todayStr()), t = todayStr(), w = ((SSN().when || {})[sz.id]) || {}; const ids = Object.keys(w).filter(id => w[id] === t); if (dayChecks(t).allIn) ids.unshift("allin"); return ids; }
 function allInEver() { let n = 0; for (const d in S.logs) if (dayChecks(d).allIn) n++; return n; }
@@ -1060,6 +1149,29 @@ const badgeInfo = id => id === "allin" ? ALLIN_BADGE : SEASON_BADGES.find(b => b
 
 /* ---------------------------- SEASON STANDINGS UI ---------------------------- */
 const CAT_LABEL = [["workout", "Workouts"], ["water", "Water"], ["run", "Cardio"], ["read", "Reading"], ["sleep", "Sleep"], ["court", "Basketball"], ["protein", "Protein"], ["bonus", "All In bonus"], ["books", "Books"], ["badges", "Badges"]];
+function rulebookHTML() {
+  const sz = seasonOf(todayStr()), st = todayStr() >= sz.start ? seasonStats(sz) : seasonStats({ id: "PRE", n: 0, start: todayStr(), end: todayStr() });
+  const row = (a, b, c) => `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${a}${c ? `<div class="muted" style="font-size:12px">${c}</div>` : ""}</span><b class="brand">${b}</b></div>`;
+  const perfect = PTS.workout + PTS.practice + PTS.water + PTS.readCap + PTS.sleepBest + PTS.protein + PTS.allIn;
+  const q = UI.rq || {}, qs = [["What's worth the most on a normal day?", ["Reading", "A full workout", "Affirmations"], 1], ["How do badges turn into points?", ["You cash them in with Brett", "Automatically, the moment you earn them", "Only at the end of the season"], 1], ["You ran yesterday and got cardio points. You run again today. Points?", ["Yes, 40 more", "No, cardio counts every other day", "Only if it's 5+ miles"], 1]];
+  return `${sheetTitle("How to win Season " + sz.n)}<div class="rb">
+  <div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape merch</h2><div>Matching Game Shape T-shirt and beanie. One winner.</div><div class="small muted" style="margin-top:6px">Season ${sz.n}: ${fmtD(sz.start)} to ${fmtD(sz.end)}. Most points wins.</div></div>
+  <details open><summary>1. How the game works</summary><ul class="list small"><li>Every day you log your plan, you stack points.</li><li>Points are measured against YOUR plan and YOUR targets. Mark's beginner day, Will's light day, and Brett's leg day all score the same.</li><li>Points + badges = your season total on the Score tab. Everyone can see everyone.</li><li>Log it the day it happens. The app counts the day you log it.</li></ul></details>
+  <details><summary>2. Daily points, line by line</summary>
+    ${row("Basketball practice", PTS.practice, "Show up to Tuesday 7 PM practice. Check in on Today.")}${row("Full workout", PTS.workout, "Finish today's session. The 15-min version is " + PTS.quick + ".")}${row("Game, played", PTS.gamePlay, "At the game but couldn't play: " + PTS.gameWatch + ".")}
+    ${row("Water goal", PTS.water, PTS.waterPart + " if you hit 75 percent. Tap the water buttons on Fuel.")}${row("Run or bike", PTS.cardio, "Run 1+ mile or bike 3+ miles. Counts once every other day.")}${row("Reading", "up to " + PTS.readCap, "1 point per minute. Log minutes on Reads.")}
+    ${row("Sleep 7 to 8 hours", PTS.sleepBest, "6 to 7 or 8 to 9 hours: " + PTS.sleepMid + ". 9+: " + PTS.sleepLong + ". Under 6: 0. Log it on Recover.")}${row("Protein goal", PTS.protein, "Your own grams target on Fuel.")}${row("Affirmations", 0, "No points alone, but you need them for All In.")}
+    ${row("Bought a book", PTS.buy, "Check the box on the book, 1 a week.")}${row("Finished + passed the quiz", PTS.quiz, "3 easy questions, get 2 right.")}
+    <div class="banner info" style="margin-top:10px"><b>A perfect practice day = ${perfect} points</b>Workout, practice, water, 35 min reading, 7 to 8 hrs sleep, protein, plus the All In bonus.</div></details>
+  <details><summary>3. All In: the daily bonus</summary><div class="small">Hit all 5 in one day: <b>workout, water goal, 6 to 9 hrs sleep, 10+ min reading, affirmations</b>. You get the All In badge for the day and <b>+${PTS.allIn}</b>. Stack them for All In x3, x7, and x30 badges. This is where accountability turns into points.</div></details>
+  <details open><summary>4. Badges: why streaks win seasons</summary>
+    <div class="small" style="margin-bottom:8px"><b>Badges ARE points.</b> The second you earn one, its points are added to your season total automatically. Nothing to cash in. Many badges come from <b>streaks</b> (water days in a row, workouts in a row, All In days), so consistency pays twice: daily points plus a badge bonus. Miss a day and the streak resets, so don't miss twice. Badges reset each season, and your lifetime count keeps growing.</div>
+    ${SEASON_BADGES.map(b => { const h = BADGE_HOW[b[0]] || ["", () => [0, 1]], [cur, goal] = h[1](st), have = st.badges.includes(b[0]), pct = Math.min(100, Math.round((cur / goal) * 100)); return `<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div class="row between small"><span><b>${have ? "✓ " : ""}${b[2]}</b><div class="muted" style="font-size:12px">${h[0]}</div></span><b class="brand">+${b[3]}</b></div><div class="bprog"><i style="width:${have ? 100 : pct}%"></i></div><div class="muted" style="font-size:11px;margin-top:2px">${have ? "Earned" : Math.min(cur, goal) + " of " + goal}</div></div>`; }).join("")}
+    <button class="btn block" style="margin-top:10px" data-act="burstDemo">Preview the badge animation</button></details>
+  <details><summary>5. Fair play</summary><ul class="list small"><li>Daily caps so nobody wins by farming one thing.</li><li>Cardio counts every other day. Rest matters.</li><li>Book buys are honor system, 1 a week. Brett can see affiliate sales.</li><li>Book reads need the quiz. Retake in 24 hours with new questions.</li><li>Sleep scores best at 7 to 8 hours, not 10. Recovery, not hibernation.</li></ul></details>
+  <details><summary>6. Quick check: do you know the rules?</summary>${qs.map(([qq, opts, ans], i) => `<div style="margin:8px 0"><b class="small">${qq}</b>${opts.map((o, j) => { const picked = q[i] === j, right = j === ans; return `<button class="chip ${picked ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:5px 0;${picked ? (right ? "background:var(--green);color:#fff" : "background:var(--danger-tint)") : ""}" data-act="rq" data-i="${i}" data-v="${j}">${picked ? (right ? "✓ " : "✗ ") : ""}${esc(o)}</button>`; }).join("")}</div>`).join("")}${qs.every((x, i) => q[i] === x[2]) ? `<div class="banner info"><b>3 for 3. You're ready.</b>Now go stack points.</div>` : ""}</details>
+  <div style="text-align:center;font-weight:900;color:var(--green);margin:14px 0 4px">It's a grind, but it's all for the mind.</div><div style="text-align:center;font-weight:800;color:var(--orange-ink)">May the best man win.</div></div>`;
+}
 function allInCardHTML(onScore) {
   const t = todayStr(), c = dayChecks(t), n = ALLIN.filter(([k]) => c[k]).length;
   return `<div class="card" style="${c.allIn ? "border:2px solid var(--green)" : ""}"><div class="row between"><h2 class="brand" style="margin:0">${c.allIn ? "ALL IN today ✓" : "Go All In today"}</h2><b class="brand">${c.allIn ? "+" + PTS.allIn : n + " of 5"}</b></div>
@@ -1108,7 +1220,7 @@ function seasonHTML(compact) {
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
     <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
     <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
-  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div><button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, badges, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
 
@@ -1311,6 +1423,56 @@ function crewHTML() {
     ${(su.miss || []).length ? `<div class="small"><b>Missing:</b> ${su.miss.map(k => fmtD(k.split("|")[0]) + (k.endsWith("|g") ? " game" : " practice")).join(", ")}</div>` : ""}
     ${su.notes ? `<div class="small"><b>Notes:</b> ${esc(su.notes)}</div>` : ""}</div>`; }).join("") : `<div class="muted">No check-ins yet.</div>`)
     + `<button class="btn primary block" style="margin-top:10px" data-act="crewCopy">Copy for Claude</button><div class="small muted" style="margin-top:6px">Paste it into your Game Shape chat to fine-tune their plans in the next update.</div>`;
+}
+
+/* ---------------------------- v2.7 FEEL: sports art, scroll reveal, tap glow, welcome surprise ---------------------------- */
+const LOAD_AT = Date.now();
+const SPORT_SVG = {
+  ball: '<svg viewBox="0 0 100 100" fill="none" stroke="#013919" stroke-width="3"><circle cx="50" cy="50" r="46"/><path d="M4 50h92M50 4v92M17 17c18 14 18 52 0 66M83 17c-18 14-18 52 0 66"/></svg>',
+  hoop: '<svg viewBox="0 0 120 120" fill="none" stroke="#013919" stroke-width="3"><rect x="20" y="6" width="80" height="54" rx="4"/><rect x="44" y="26" width="32" height="24"/><ellipse cx="60" cy="66" rx="22" ry="5"/><path d="M40 67l6 40M80 67l-6 40M50 70l3 36M70 70l-3 36M46 86h28M48 98h24"/></svg>',
+  bell: '<svg viewBox="0 0 140 60" fill="none" stroke="#013919" stroke-width="3"><rect x="4" y="12" width="14" height="36" rx="3"/><rect x="20" y="4" width="16" height="52" rx="3"/><path d="M36 30h68"/><rect x="104" y="4" width="16" height="52" rx="3"/><rect x="122" y="12" width="14" height="36" rx="3"/></svg>',
+  kb: '<svg viewBox="0 0 100 110" fill="none" stroke="#013919" stroke-width="3"><path d="M30 40c-6-30 46-30 40 0"/><circle cx="50" cy="70" r="34"/></svg>',
+  court: '<svg viewBox="0 0 200 200" fill="none" stroke="#013919" stroke-width="2.5"><rect x="4" y="4" width="192" height="192"/><path d="M60 4v76h80V4"/><circle cx="100" cy="80" r="24"/><path d="M20 4c0 110 160 110 160 0"/></svg>',
+  watch: '<svg viewBox="0 0 100 110" fill="none" stroke="#013919" stroke-width="3"><circle cx="50" cy="62" r="40"/><path d="M42 8h16M50 8v14M50 62V38M50 62l16 10M84 26l8-8"/></svg>'
+};
+function paintSportsArt() {
+  const host = $("sportsArt"); if (!host || host.dataset.done) return; host.dataset.done = "1";
+  const spots = [["court", "top:8%;right:-70px;width:240px;transform:rotate(8deg)", .15], ["ball", "top:44%;left:-40px;width:120px", .32], ["bell", "top:72%;right:-20px;width:170px;transform:rotate(-14deg)", .22], ["hoop", "top:22%;left:-26px;width:110px", .4], ["kb", "top:86%;left:18%;width:70px", .28], ["watch", "top:58%;right:12%;width:64px", .5]];
+  host.innerHTML = spots.map(([k, st, sp]) => `<div data-sp="${sp}" style="position:absolute;${st}">${SPORT_SVG[k].replace("<svg", '<svg style="position:static;width:100%;height:auto;opacity:1"')}</div>`).join("");
+  host.style.opacity = ".05";
+  let tick = false;
+  window.addEventListener("scroll", () => { if (tick) return; tick = true; requestAnimationFrame(() => { const y = window.scrollY; host.querySelectorAll("[data-sp]").forEach(el => { el.style.translate = "0 " + (-y * +el.dataset.sp) + "px"; }); tick = false; }); }, { passive: true });
+}
+let revealIO = null;
+function revealCards() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  if (!revealIO) revealIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px", threshold: .06 });
+  document.querySelectorAll("#view > .card, #view > .grid3, #view > .grid2, #view > .banner").forEach((el, i) => {
+    if (el.dataset.rv) return; el.dataset.rv = "1";
+    const r = el.getBoundingClientRect(); if (r.top < innerHeight * .9) return;   // already on screen: no flicker
+    el.classList.add("rv"); el.style.transitionDelay = Math.min(i % 4, 3) * 40 + "ms"; revealIO.observe(el);
+  });
+}
+document.addEventListener("pointerdown", e => {
+  const el = e.target.closest(".btn,.chip,.iconbtn,.tabbar button,.menu button,a,[data-act],[data-tab]"); if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const r = el.getBoundingClientRect(), sz = Math.min(220, Math.max(r.width, r.height) * 1.6), fx = document.createElement("span");
+  fx.className = "tapfx"; fx.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${sz}px;height:${sz}px`;
+  document.body.appendChild(fx); setTimeout(() => fx.remove(), 600);
+}, { passive: true });
+/* Welcome surprise: the open AFTER all updates, the tour, and the setup questions are done. One time. */
+function isReady() { return !!(S.meta.tourSeen && !needsSetup() && (!PERSON || !PERSON.onboard || C().setup)); }
+function markReady() { if (isReady() && !S.meta.readyAt) { S.meta.readyAt = Date.now(); save(); } }
+function badgeHTML(big) { return PERSON && PERSON.badgeImg ? `<div class="pbadge${big ? " big" : ""}"><img src="${PERSON.badgeImg}" alt="${esc(PERSON.fullName || S.profile.name)} Game Shape badge"></div>` : ""; }
+function maybeWelcome() {
+  if (!PERSON || !PERSON.badgeImg || S.meta.welcomed) return false;
+  if (!S.meta.readyAt || S.meta.readyAt >= LOAD_AT) { markReady(); return false; }
+  const w = document.createElement("div"); w.className = "welcome";
+  w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(PERSON.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
+  document.body.appendChild(w);
+  for (let i = 0; i < 70; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${[ACCENT, "#ff8200", "#ffffff", "#0e5a2e"][i % 4]};animation-duration:${2.2 + Math.random() * 2.2}s;animation-delay:${Math.random() * .8}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5500); }
+  S.meta.welcomed = new Date().toISOString(); save();
+  w.querySelector("#wGo").onclick = () => { w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => w.remove(), 360); };
+  return true;
 }
 
 /* ---------------------------- UI helpers ---------------------------- */
@@ -1542,7 +1704,7 @@ function closeSheet() { UI.sheet = null; UI.setup = null; $("sheet").classList.a
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ["tour", "flag", "How Season 1 works"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + (PERSON && PERSON.badgeImg ? `<div style="text-align:center;margin:2px 0 12px">${badgeHTML(false)}<b>${esc(PERSON.fullName || myName())}</b><div class="small muted">Game Shape Community</div></div>` : "") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ["tour", "flag", "How Season 1 works"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
@@ -1550,6 +1712,7 @@ function renderSheet() {
   } else if (kind === "review") { o = reviewHTML();
   } else if (kind === "mapper") { o = mapperHTML();
   } else if (kind === "tour") { o = tourHTML();
+  } else if (kind === "rules") { o = `<button class="btn sm" data-act="closeSheet" style="margin-bottom:10px">‹ Close</button>` + rulebookHTML();
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "crew") { o = back + crewHTML();
   } else if (kind === "setup") { o = (arg === "first" ? "" : back) + setupHTML();
@@ -1559,7 +1722,7 @@ function renderSheet() {
     o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
   } else if (kind === "settings") {
     const p = S.profile;
-    o = back + `${sheetTitle("Settings")}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+    o = back + `${sheetTitle("Settings")}${badgeHTML(false)}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
   } else if (kind === "backup") {
     o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
   } else if (kind === "book") o = bookSheet(arg);
@@ -1608,6 +1771,7 @@ function render() {
   $("view").innerHTML = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]();
   $("view").insertAdjacentHTML("beforeend", `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`);
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
+  setTimeout(revealCards, 0);
 }
 function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSheet(); }
 
@@ -1615,9 +1779,11 @@ function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSh
 function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
+  rq: el => { UI.rq = UI.rq || {}; UI.rq[+el.dataset.i] = +el.dataset.v; const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop, open = [...pn.querySelectorAll(".rb details")].map(d => d.open); renderSheet(); pn.querySelectorAll(".rb details").forEach((d, i) => { d.open = !!open[i]; }); pn.scrollTop = y; },
+  burstDemo: () => badgeBurst("wo10"),
   tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
-  tourDone: el => { S.meta.tourSeen = APP_VERSION; S.meta.seasonHello = 1; save(); closeSheet(); if (el.dataset.v === "setup") openSheet("setup", "first"); },
+  tourDone: el => { S.meta.tourSeen = APP_VERSION; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup") openSheet("setup", "first"); },
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
@@ -1656,7 +1822,7 @@ const ACT = {
   suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (PERSON && PERSON.setupMode === "locations" && !(su.locs || []).length) return toast("Pick at least 1 place to work out");
     if ($("suNotes")) su.notes = $("suNotes").value.trim().slice(0, 200);
     if ((su.locs || []).includes("home")) su.equipDone = todayStr();
-    su.weekOk = todayStr(); applyMiss(su, C().setup);
+    su.weekOk = todayStr(); applyMiss(su, C().setup); setTimeout(markReady, 50);
     if (!S.meta.tourSeen) { setTimeout(() => { UI.tourPage = 0; openSheet("tour"); }, 400); }
     sendSetup(su); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
@@ -2315,7 +2481,8 @@ function askBought() {
   openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Did you buy it?</h2><div class="muted">${esc(b.title)}</div></div><div class="small muted" style="text-align:center;margin-bottom:12px">Buying a book earns +${PTS.buy} points (1 a week) and the Book Buyer badge.</div><button class="btn primary block" data-act="buyBook" data-id="${esc(pb.id)}">Yes, I bought it</button><button class="btn block" style="margin-top:8px" data-act="buyNo">Not yet</button>`);
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
-if (!showWhatsNew()) maybeSetup();
+paintSportsArt();
+if (!maybeWelcome() && !showWhatsNew()) maybeSetup();
 checkUpdate(true);
 loadBooks();
 syncCommunity();
