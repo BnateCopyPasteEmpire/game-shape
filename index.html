@@ -658,8 +658,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.7";
+const APP_VERSION = "2.9.8";
 const CHANGELOG = {
+  "2.9.8": ["Scoreboards show everyone by name or nickname. Set your nickname in More, then Settings"],
   "2.9.7": ["Good Reads now has 220 books, all picked by Game Shape: new Faith, Health + Happiness, Sports, and Comeback sections, plus more money, mindset, and romance. Anyone can still suggest a book", "Fuel got a deep dive: 16 quick breakfasts, 10 no-cook lunches, 12 smart snacks, 18 prep meals, and a Fuel playbook for workouts, court nights, recovery, mood, and sleep"],
   "2.9.6": ["Book buys now earn 2 points for every $1 you paid. A $20 book = 40 points. Books you already logged were updated"],
   "2.9.5": ["New quick health check: tell Brett about any injuries, soreness, or nagging issues and rate each one 1 to 10. Anything 4 or higher gets backed off in your first 3 workouts"],
@@ -1573,7 +1574,7 @@ function medalsCardHTML(list) {
   return `<div class="card"><h2 class="brand" style="margin:0">Medals</h2><div class="small muted" style="margin:4px 0 10px">Every Mon to Sun week ends in Gold, Silver, Bronze, or Poop. Streaks win weeks.</div>
     <div style="display:flex;justify-content:space-around;text-align:center">${["gold", "silver", "bronze", "poop"].map(k => `<div>${medalSVG(k, 46)}<div style="font-weight:900;font-size:20px">${mc[k]}</div><div class="small muted">${TIERS[k].name}</div></div>`).join("")}</div>
     <div class="card" style="margin:14px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 64)}<div><b style="font-size:17px">Golden Tropics Basketball</b><div class="small" style="opacity:.85">${MONTH_NAME(m)}'s best medal record wins +${PTS.golden} points. Up for grabs in December, January, and February.</div></div></div>
-    <div style="margin-top:10px">${race.map((r, i) => `<div class="row between small" style="padding:5px 0;border-top:1px solid rgba(255,255,255,.15)"><span>${i + 1}. ${esc(r.p.name)}${r.p.id === PID ? " (you)" : ""}</span><span>${r.v} medal pts • ${r.h} pts</span></div>`).join("")}</div>
+    <div style="margin-top:10px">${race.map((r, i) => `<div class="row between small" style="padding:5px 0;border-top:1px solid rgba(255,255,255,.15)"><span>${i + 1}. ${esc(r.p.name)}</span><span>${r.v} medal pts • ${r.h} pts</span></div>`).join("")}</div>
     <div class="small" style="opacity:.75;margin-top:6px">Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to the most points that month.</div></div></div>`;
 }
 function allInCardHTML(onScore) {
@@ -1620,8 +1621,8 @@ function scoreChartHTML() {
   const per = { day: "today", week: "this week", month: "this month", season: "this season" }[view];
   if (pre) return `<div class="card sb-card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Head to head</h2>${livePill()}</div>${seg}<div class="sb-empty"><b>Everyone starts at 0</b><span>Scoring starts ${fmtD(sz.start)}. Graphs fill in after the first day.</span></div>${ppl.map(p => `<div class="sb-rank"><span class="dot" style="background:${esc(p.c)}"></span><b>${esc(p.name)}</b><span class="sb-pts">0</span></div>`).join("")}</div>`;
   const ranked = ppl.map((p, i) => ({ p, tot: sbTotal(view, p, vals[i]) })).sort((a, b) => b.tot - a.tot), meT = (ranked.find(r => r.p.id === PID) || { tot: 0 }).tot, top = ranked[0].tot;
-  const rows = ranked.map((r, i) => { const gap = r.p.id === PID ? (i === 0 ? (ranked[1] ? `Leading by ${r.tot - ranked[1].tot}` : "Leading") : `${top - r.tot} behind 1st`) : (r.tot > meT ? `${r.tot - meT} ahead of you` : r.tot < meT ? `${meT - r.tot} behind you` : "Tied with you");
-    return `<div class="sb-rank ${r.p.id === PID ? "me" : ""}"><span class="sb-pos">${i + 1}</span><span class="dot" style="background:${esc(r.p.c)}"></span><div style="min-width:0;flex:1"><b>${esc(r.p.name)}</b>${r.p.id === PID ? ' <span class="small muted">(you)</span>' : ""}<div class="small muted">${gap}</div></div><span class="sb-pts">${r.tot.toLocaleString()}</span></div>`; }).join("");
+  const rows = ranked.map((r, i) => { const gap = r.p.id === PID ? (i === 0 ? (ranked[1] ? `Leading by ${r.tot - ranked[1].tot}` : "Leading") : `${top - r.tot} behind 1st`) : (r.tot > meT ? `${r.tot - meT} ahead of ${esc(myName())}` : r.tot < meT ? `${meT - r.tot} behind ${esc(myName())}` : `Tied with ${esc(myName())}`);
+    return `<div class="sb-rank ${r.p.id === PID ? "me" : ""}"><span class="sb-pos">${i + 1}</span><span class="dot" style="background:${esc(r.p.c)}"></span><div style="min-width:0;flex:1"><b>${esc(r.p.name)}</b><div class="small muted">${gap}</div></div><span class="sb-pts">${r.tot.toLocaleString()}</span></div>`; }).join("");
   const W = 340, H = 190, L = 34, B = 24, T = 10, cw = W - L - 6, chh = H - B - T;
   const mx = Math.max(10, ...vals.flat()), nice = (() => { const st = Math.pow(10, Math.floor(Math.log10(mx))), m = Math.ceil(mx / st * 2) / 2 * st; return m; })();
   const y = v => T + chh - v / nice * chh;
@@ -1644,7 +1645,7 @@ function seasonHTML(compact) {
   const head = pre ? `Season ${sz.n} starts ${fmtD(sz.start)} (${daysTo} day${daysTo === 1 ? "" : "s"})` : `Season ${sz.n} ends ${fmtD(sz.end)} • ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`;
   const dot = c => `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(c || "#ff8200")};margin-right:8px;vertical-align:0"></span>`;
   const todayOf = p => p.today && p.today.date === t ? p.today : null;
-  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${list.map((p, i) => { const td = todayOf(p); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span><b style="display:inline-block;width:20px">${i + 1}</b>${dot(p.accent)}${esc(p.name)}${p.id === PID ? " (you)" : ""}${td && td.checks.allIn ? ` <span class="tg shelf">All In</span>` : ""}</span><span class="small muted">${medalsInline(medalCounts(p.weeks), 16)} <b class="brand" style="font-size:16px;margin-left:6px">${p.points}</b></span></div>`; }).join("")}</div>`;
+  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">Season ${sz.n} standings</h3><button class="btn sm" data-tab="progress">Score</button></div><div class="small muted" style="margin:4px 0 2px">${head}</div>${list.map((p, i) => { const td = todayOf(p); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span><b style="display:inline-block;width:20px">${i + 1}</b>${dot(p.accent)}${esc(p.name)}${td && td.checks.allIn ? ` <span class="tg shelf">All In</span>` : ""}</span><span class="small muted">${medalsInline(medalCounts(p.weeks), 16)} <b class="brand" style="font-size:16px;margin-left:6px">${p.points}</b></span></div>`; }).join("")}</div>`;
   const medal = i => ["1st", "2nd", "3rd"][i] || (i + 1) + "th";
   const cards = list.map((p, i) => {
     const td = todayOf(p), open = UI.sbOpen === p.id, tot = p.tot || {}, max = Math.max(1, ...CAT_LABEL.map(([k]) => tot[k] || 0));
@@ -1656,7 +1657,7 @@ function seasonHTML(compact) {
       <div class="small" style="margin-top:8px"><b>Weeks:</b> ${Object.keys(p.weeks || {}).sort().map(ws => { const w = p.weeks[ws]; return w.tier ? `<span title="${fmtD(ws)}">${medalSVG(w.tier, 20)}</span>` : ""; }).join(" ") || "No finished weeks yet."}</div></div>` : "";
     return `<div class="card" style="border-left:5px solid ${esc(p.accent || "#ff8200")}">
       <button data-act="sbOpen" data-id="${esc(p.id)}" style="display:block;width:100%;text-align:left">
-      <div class="row between"><span style="font-size:18px"><b>${medal(i)}</b> ${dot(p.accent)}<b>${esc(p.name)}</b>${p.id === PID ? ` <span class="small muted">(you)</span>` : ""}</span><span style="text-align:right"><b class="brand" style="font-size:26px">${p.points}</b><div class="small muted" style="margin-top:-4px">season pts</div></span></div>
+      <div class="row between"><span style="font-size:18px"><b>${medal(i)}</b> ${dot(p.accent)}<b>${esc(p.name)}</b></span><span style="text-align:right"><b class="brand" style="font-size:26px">${p.points}</b><div class="small muted" style="margin-top:-4px">season pts</div></span></div>
       <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">Week pts</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekHits || 0}<span class="small muted">/${WK_MAX}</span></div></div></div>
       ${checks}${btHTML}
       <div class="small muted" style="margin-top:8px">${open ? "Tap to close" : "Tap for the full breakdown"}${td ? "" : " • not synced today yet"}</div></button>${detail}</div>`;
@@ -1741,7 +1742,7 @@ const RV_KEYS = [["workout", "Work"], ["water", "Water"], ["sleep", "Sleep"], ["
 function rivalsHTML() {
   const { sz, pre, list } = standingsList(), t = todayStr();
   const rows = list.map(p => { const td = p.today && p.today.date === t ? p.today : null, c = esc(p.accent || "#ff8200");
-    return `<div class="rv-row"><div class="rv-name"><span class="dot" style="background:${c}"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}${p.id === PID ? ' <span class="small muted">(you)</span>' : ""}</span>${td && td.checks && td.checks.allIn ? '<span class="tg shelf">All In</span>' : ""}</div><div class="rv-today">${td ? td.pts : 0}<small>today</small></div>
+    return `<div class="rv-row"><div class="rv-name"><span class="dot" style="background:${c}"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}</span>${td && td.checks && td.checks.allIn ? '<span class="tg shelf">All In</span>' : ""}</div><div class="rv-today">${td ? td.pts : 0}<small>today</small></div>
     <div class="rv-sub"><div class="rv-dots" style="--c:${c}">${RV_KEYS.map(([k, n]) => `<span class="${td && td.checks && td.checks[k] ? "on" : ""}">${n}</span>`).join("")}</div><span class="small muted">wk <b style="color:var(--ink)">${p.weekPts || 0}</b> • ${pre ? "season starts " + fmtShort(sz.start) : `season <b style="color:var(--ink)">${p.points}</b>`}</span></div></div>`; }).join("");
   const feed = LIVE.feed.filter(f => between(new Date(f.at).toISOString().slice(0, 10), t) <= 0).slice(0, 3);
   const others = list.length > 1;
@@ -2554,7 +2555,7 @@ document.addEventListener("change", e => {
   else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
   else if (k === "supp") { S.supplements[+el.dataset.i][el.dataset.k] = el.value; save(); render(); }
   else if (k === "appt") { S.appointments[+el.dataset.i][el.dataset.k] = el.value; save(); }
-  else if (k === "prof") { S.profile[el.dataset.k] = el.type === "number" ? +el.value : el.value; save(); render(); }
+  else if (k === "prof") { S.profile[el.dataset.k] = el.type === "number" ? +el.value : el.value; save(); render(); if (el.dataset.k === "name" || el.dataset.k === "nickname") queueScore(); }
   else if (k === "start") { S.programStart = el.value; invalidate(); save(); render(); }
   else if (k === "affirm") { S.affirmations = el.value.split("\n").map(x => x.trim()).filter(Boolean); save(); }
 });
