@@ -24,8 +24,10 @@ export default async (req) => {
   const setup = { windows: list(su.windows, 6, 40), locs: list(su.locs, 5, 12), home: clean(su.home, 12) || null, equip: list(su.equip, 20, 16),
     maxDB: Math.max(0, Math.min(200, Math.round(+su.maxDB || 0))) || null, notes: clean(su.notes, 200), gym: !!su.gym, gymDays: (Array.isArray(su.gymDays) ? su.gymDays : []).slice(0, 7).map(n => Math.max(0, Math.min(6, Math.round(+n || 0)))),
     offDays: (Array.isArray(su.offDays) ? su.offDays : []).slice(0, 7).map(n => Math.max(0, Math.min(6, Math.round(+n || 0)))), miss: list(su.miss, 20, 14) };
+  const hh = b.health && typeof b.health === "object" ? b.health : null;
+  const health = hh ? { hurt: !!hh.hurt, issues: (Array.isArray(hh.issues) ? hh.issues : []).slice(0, 12).map(i => ({ area: clean(i && i.area, 20), note: clean(i && i.note, 80), r: Math.max(0, Math.min(10, Math.round(+(i && i.r) || 0))) })) } : null;
   const prev = data[id];
-  data[id] = { id, name: clean(b.name, 20) || id, version: clean(b.version, 12), updated: new Date().toISOString(), setup, history: [...((prev && prev.history) || []), ...(prev ? [{ updated: prev.updated, setup: prev.setup }] : [])].slice(-5) };
+  data[id] = { id, name: clean(b.name, 20) || id, version: clean(b.version, 12), updated: new Date().toISOString(), setup, health: health || (prev && prev.health) || null, history: [...((prev && prev.history) || []), ...(prev ? [{ updated: prev.updated, setup: prev.setup }] : [])].slice(-5) };
   await store.setJSON("setups", data);
   return json({ ok: true });
 };

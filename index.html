@@ -546,6 +546,11 @@ img,svg,video{max-width:100%}
 .exmore summary::-webkit-details-marker{display:none}
 .exmore summary:before{content:"+ "}
 .exmore[open] summary:before{content:"− "}
+.hc-scale{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:6px}
+.hc-scale button{height:40px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-weight:900;font-size:15px;color:var(--ink)}
+.hc-scale button.on{background:#2f9e5b;border-color:#2f9e5b;color:#fff;transform:scale(1.08)}
+.hc-scale button.md.on{background:#e8a317;border-color:#e8a317}
+.hc-scale button.hi.on{background:#d64545;border-color:#d64545}
 .exl{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
 .exl:last-child{border-bottom:0}
 .exl .nm{font-weight:800}
@@ -642,8 +647,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.4";
+const APP_VERSION = "2.9.5";
 const CHANGELOG = {
+  "2.9.5": ["New quick health check: tell Brett about any injuries, soreness, or nagging issues and rate each one 1 to 10. Anything 4 or higher gets backed off in your first 3 workouts"],
   "2.9.4": ["Live scoreboard on Today: see Mark, Will, and Brett's points and checks for today, updated about every 30 seconds while the app is open", "Every check-off now splashes in your colors with a click, and the points float up. Finish a workout for the big one", "Cleaner workout mode: a progress bar for your sets, the next exercise highlighted, cues tucked under one tap", "New Golden Tropics badge: a bigger jersey logo in a gold frame", "Turn the click sound off in More, then Settings"],
   "2.9.3": ["The score show now ends with the final score: daily points + Golden badges + books bought + Book Test Week = your season total. Find it in More, then How Season 1 works", "New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points. Protein is a simple 50 g check", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics +300: best medal record of the month, then most points", "Book Tests happen the last week of the season: +67 per book read and passed"],
   "2.9.2": ["New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300", "Book buys score the day you buy. Book Tests happen the last week of the season: +67 per book read and passed", "Calories removed"],
@@ -1745,24 +1751,53 @@ function showPages() {
     })())
   ];
 }
+/* v2.9.5 health check: active injuries, soreness, or nagging issues, each rated 1 to 10. Goes to Brett with the intake.
+   4+ on a tracked area backs that area off for the first 3 workouts. 7+ adds a "get it checked" note. */
+const HC_AREAS = [["calf", "Calves"], ["achilles", "Achilles"], ["ankle", "Ankle / foot"], ["knee", "Knee"], ["hamstring", "Hamstring"], ["hip", "Hip / groin"], ["back", "Low back"], ["shoulder", "Shoulder"], ["neck", "Neck"], ["arm", "Elbow / wrist"], ["other", "Other"]];
+function HC() { const d = D(); if (!d.hc) { const h = S.meta.health; d.hc = h ? { hurt: h.hurt, issues: JSON.parse(JSON.stringify(h.issues || {})) } : { hurt: null, issues: {} }; } return d.hc; }
+function hcReady() { const h = HC(), ks = Object.keys(h.issues); return h.hurt === false || (h.hurt === true && ks.length > 0 && ks.every(k => h.issues[k].r)); }
+function hcName(k) { return (HC_AREAS.find(a => a[0] === k) || [k, k])[1]; }
+function hcLines() { const h = HC(); return h.hurt === false ? ["No injuries or nagging issues"] : Object.keys(h.issues).map(k => hcName(k) + ": " + (h.issues[k].r || "?") + "/10" + (h.issues[k].note ? " (" + h.issues[k].note + ")" : "")); }
+function healthBlock(n) {
+  const h = HC();
+  return `<h3 class="sh3" style="margin-top:16px">${n ? n + ". " : ""}Any injuries, soreness, or nagging issues?</h3><div class="small muted" style="margin:-2px 0 8px">Small or big. Brett builds around them so they get better, not worse.</div>
+  <div class="row" style="gap:8px"><button class="chip ${h.hurt === false ? "on" : ""}" style="flex:1" data-act="hcHurt" data-v="0">${h.hurt === false ? "✓ " : ""}Nope, all good</button><button class="chip ${h.hurt === true ? "on" : ""}" style="flex:1" data-act="hcHurt" data-v="1">${h.hurt === true ? "✓ " : ""}Yes, I have something</button></div>
+  ${h.hurt ? `<div class="small" style="margin:12px 0 6px"><b>Where?</b> Tap all that apply.</div><div class="row wrap" style="gap:6px">${HC_AREAS.map(([k, nm]) => `<button class="chip ${h.issues[k] ? "on" : ""}" data-act="hcArea" data-v="${k}">${h.issues[k] ? "✓ " : ""}${nm}</button>`).join("")}</div>
+  ${Object.keys(h.issues).map(k => { const it = h.issues[k]; return `<div class="card" style="background:var(--card2);margin-top:10px;padding:12px"><b>${esc(hcName(k))}</b><label class="f" style="margin-top:6px">What is it?</label><input maxlength="80" placeholder="Example: sore after games, old sprain, tight in the morning" value="${esc(it.note || "")}" data-in="hcNote" data-k="${k}"><label class="f">How bad right now? <b>${it.r ? it.r + "/10" : ""}</b></label><div class="hc-scale">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(v => `<button class="${it.r === v ? "on" : ""} ${v >= 7 ? "hi" : v >= 4 ? "md" : ""}" data-act="hcRate" data-k="${k}" data-v="${v}" aria-label="${v} out of 10">${v}</button>`).join("")}</div><div class="row between small muted" style="margin-top:3px"><span>1 barely notice</span><span>10 can't play</span></div></div>`; }).join("")}
+  ${Object.keys(h.issues).length ? `<div class="small muted" style="margin-top:8px">4 or higher: the app backs that area off for your first 3 workouts. 7 or higher: get it looked at by a doctor or PT.</div>` : ""}` : ""}`;
+}
+function saveHealth() {
+  const h = HC(), t = todayStr(), track = AREAS.map(a => a[0]);
+  S.meta.health = { date: t, hurt: !!h.hurt, issues: h.hurt ? JSON.parse(JSON.stringify(h.issues)) : {} };
+  S.pain = S.pain || {}; const msgs = [];
+  if (h.hurt) Object.entries(h.issues).forEach(([k, it]) => {
+    if (track.includes(k) && it.r >= 4 && !S.pain[k]) S.pain[k] = { left: 3, level: it.r, since: t };
+    if (it.r >= 7) msgs.push(hcName(k) + " at " + it.r + "/10: get it checked by a doctor or PT before you push it.");
+  });
+  if (msgs.length) S.alert = { date: t, flags: [], msgs };
+  invalidate(); save();
+}
+function healthSheetHTML() { return `<div class="done-hero" style="padding-bottom:6px"><img src="icon-512.png" alt=""><h2>Quick health check</h2><div class="muted">One question before Opening Day. Your answer goes to Brett.</div></div>${healthBlock(0)}<button class="btn primary block" style="margin-top:16px;${hcReady() ? "" : "opacity:.5"}" data-act="hcSave">${hcReady() ? "Save + send to Brett" : "Answer to finish"}</button>`; }
+function hcRerender() { if (UI.sheet && UI.sheet.kind === "health") { const pn = $("sheet").querySelector(".sheet-panel"), y = pn ? pn.scrollTop : 0; renderSheet(); if (pn) $("sheet").querySelector(".sheet-panel").scrollTop = y; } else rerenderTour(); }
 function miniIntakeHTML() {
   const mi = D().mi;
-  return `<div class="show-hd"><div class="eyebrow">Last step</div><h2>2 quick questions</h2><div class="muted">Brett will set your plan to match. You can change spots and times any day in the app.</div></div>
+  return `<div class="show-hd"><div class="eyebrow">Last step</div><h2>3 quick questions</h2><div class="muted">Brett will set your plan to match. You can change spots and times any day in the app.</div></div>
   <h3 class="sh3">1. Where will you work out the most?</h3><div class="row" style="gap:8px">${[["home", "Home"], ["brett", "Brett's Gym"], ["ymca", "YMCA"]].map(([k, n]) => `<button class="chip ${mi.place === k ? "on" : ""}" style="flex:1" data-act="miPlace" data-v="${k}">${mi.place === k ? "✓ " : ""}${n}</button>`).join("")}</div>
   <h3 class="sh3" style="margin-top:16px">2. Best times in your day? (pick up to 3)</h3><div class="row wrap" style="gap:8px">${SLOT_OPTS.map(o => `<button class="chip ${mi.slots.includes(o) ? "on" : ""}" data-act="miSlot" data-v="${o}">${mi.slots.includes(o) ? "✓ " : ""}${o}</button>`).join("")}</div>
-  ${mi.place && mi.slots.length ? `<div class="card" style="background:var(--card2);margin-top:14px;white-space:pre-line;font-size:14px">${esc(miSummary())}</div><div class="row" style="gap:8px"><button class="btn" style="flex:1" data-act="miCopy">Copy</button><a class="btn" style="flex:1" href="sms:?&body=${encodeURIComponent(miSummary())}" data-act="miSent">Text to Brett</a></div>` : ""}`;
+  ${healthBlock(3)}
+  ${mi.place && mi.slots.length && hcReady() ? `<div class="card" style="background:var(--card2);margin-top:14px;white-space:pre-line;font-size:14px">${esc(miSummary())}</div><div class="row" style="gap:8px"><button class="btn" style="flex:1" data-act="miCopy">Copy</button><a class="btn" style="flex:1" href="sms:?&body=${encodeURIComponent(miSummary())}" data-act="miSent">Text to Brett</a></div>` : ""}`;
 }
-function miSummary() { const mi = D().mi; return "Game Shape Opening Day intake from " + ((ME && ME.fullName) || myName()) + ":\nMost workouts at: " + ({ home: "Home", brett: "Brett's Gym", ymca: "YMCA" }[mi.place] || "") + "\nBest times: " + mi.slots.join(", "); }
+function miSummary() { const mi = D().mi; return "Game Shape Opening Day intake from " + ((ME && ME.fullName) || myName()) + ":\nMost workouts at: " + ({ home: "Home", brett: "Brett's Gym", ymca: "YMCA" }[mi.place] || "") + "\nBest times: " + mi.slots.join(", ") + "\nInjuries / soreness: " + hcLines().join("; "); }
 function saveMini() {
   const mi = D().mi, su = C().setup = Object.assign({ windows: [], locs: [], gym: false, gymDays: [] }, C().setup || {});
   su.windows = mi.slots.slice(0, 3); su.home = mi.place; su.locs = Array.from(new Set([mi.place, ...(su.locs || [])])); su.opening = todayStr();
-  invalidate(); save(); sendSetup(su);
+  saveHealth(); sendSetup(su);
 }
 function tourHTML() {
   const pages = tourPages().concat(showPages(), [miniIntakeHTML()]), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
   const dots = `<div style="text-align:center;margin:10px 0">${pages.map((_, k) => `<span style="display:inline-block;width:${k === i ? 18 : 7}px;height:7px;border-radius:4px;margin:0 3px;background:${k === i ? "var(--orange)" : "var(--line)"}"></span>`).join("")}</div>`;
-  const mi = D().mi, ready = mi.place && mi.slots.length;
-  const next = last ? `<button class="btn primary" style="flex:2;${ready ? "" : "opacity:.5"}" data-act="miDone">${ready ? "Save + send to Brett" : "Answer both to finish"}</button>` : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
+  const mi = D().mi, ready = mi.place && mi.slots.length && hcReady();
+  const next = last ? `<button class="btn primary" style="flex:2;${ready ? "" : "opacity:.5"}" data-act="miDone">${ready ? "Save + send to Brett" : "Answer all 3 to finish"}</button>` : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
   return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
 }
 function scSave() { save(); buzz(); checkSeasonBadges(); const y = window.scrollY; render(); window.scrollTo(0, y); }
@@ -1803,7 +1838,7 @@ function maybeSetup() { if (needsSetup()) openSheet("setup", "first"); }
 /* Send the answers to Brett so he can see what everyone has and fine-tune their plan. */
 function sendSetup(su) {
   if (location.protocol === "file:") return;
-  const body = { id: PID, name: myName(), version: APP_VERSION, setup: { windows: su.windows, locs: su.locs || [], home: su.home || null, equip: su.equip || [], maxDB: su.maxDB || null, notes: su.notes || "", gym: !!su.gym, gymDays: su.gymDays || [], offDays: su.offDays || [], miss: su.missSome ? (su.miss || []) : [] } };
+  const body = { id: PID, name: myName(), version: APP_VERSION, setup: { windows: su.windows, locs: su.locs || [], home: su.home || null, equip: su.equip || [], maxDB: su.maxDB || null, notes: su.notes || "", gym: !!su.gym, gymDays: su.gymDays || [], offDays: su.offDays || [], miss: su.missSome ? (su.miss || []) : [] }, health: S.meta.health ? { hurt: S.meta.health.hurt, issues: Object.entries(S.meta.health.issues || {}).map(([k, it]) => ({ area: hcName(k), note: it.note || "", r: it.r || 0 })) } : null };
   fetch("/.netlify/functions/crew", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => { if (r.ok) toast("Sent to Brett"); }).catch(() => {});
 }
 function rerenderSetup() { if ($("suNotes") && UI.setup) UI.setup.notes = $("suNotes").value; if (UI.sheet && UI.sheet.kind === "setup") { const y = $("sheet").scrollTop; renderSheet(); $("sheet").scrollTop = y; } }
@@ -1831,6 +1866,7 @@ function crewHTML() {
     ${su.locs && su.locs.length ? `<div class="small"><b>Trains at:</b> ${su.locs.map(k => esc(LOCS[k] || k) + (k === su.home ? " (usual)" : "")).join(", ")}</div>` : `<div class="small"><b>Gym days:</b> ${su.gym ? (su.gymDays || []).map(d => DOW[d]).join(", ") : "Home only"}</div>`}
     ${(su.locs || []).includes("home") ? `<div class="small"><b>Home equipment:</b> ${esc((su.equip || []).map(eqName).join(", ") || "Bodyweight only")}${su.maxDB ? " (DBs up to " + su.maxDB + " lb)" : ""}</div>` : ""}
     ${(su.offDays || []).length ? `<div class="small"><b>Can't train:</b> ${su.offDays.map(d => DOW[d]).join(", ")}</div>` : ""}
+    ${p.health ? `<div class="small" style="margin-top:4px"><b>Injuries / soreness:</b> ${!p.health.hurt ? "None" : (p.health.issues || []).map(i => `<span style="color:${i.r >= 7 ? "var(--bad,#c0392b)" : i.r >= 4 ? "var(--warn)" : "inherit"};font-weight:700">${esc(i.area)} ${i.r}/10</span>${i.note ? " (" + esc(i.note) + ")" : ""}`).join(", ")}</div>` : ""}
     ${(su.miss || []).length ? `<div class="small"><b>Missing:</b> ${su.miss.map(k => fmtD(k.split("|")[0]) + (k.endsWith("|g") ? " game" : " practice")).join(", ")}</div>` : ""}
     ${su.notes ? `<div class="small"><b>Notes:</b> ${esc(su.notes)}</div>` : ""}</div>`; }).join("") : `<div class="muted">No check-ins yet.</div>`)
     + `<button class="btn primary block" style="margin-top:10px" data-act="crewCopy">Copy for Claude</button><div class="small muted" style="margin-top:6px">Paste it into your Game Shape chat to fine-tune their plans in the next update.</div>`;
@@ -2167,7 +2203,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
+function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -2181,6 +2217,7 @@ function renderSheet() {
   } else if (kind === "tour") { o = tourHTML();
   } else if (kind === "rules") { o = `<button class="btn sm" data-act="closeSheet" style="margin-bottom:10px">‹ Close</button>` + rulebookHTML();
   } else if (kind === "quiz") { o = quizHTML();
+  } else if (kind === "health") { o = healthSheetHTML();
   } else if (kind === "crew") { o = back + crewHTML();
   } else if (kind === "setup") { o = (arg === "first" ? "" : back) + setupHTML();
   } else if (kind === "custom") { o = customizeHTML();
@@ -2260,7 +2297,7 @@ const ACT = {
   miSlot: el => { const s2 = D().mi.slots, v = el.dataset.v, i = s2.indexOf(v); if (i >= 0) s2.splice(i, 1); else { s2.push(v); if (s2.length > 3) s2.shift(); } s2.sort((a, b) => SLOT_OPTS.indexOf(a) - SLOT_OPTS.indexOf(b)); rerenderTour(); },
   miCopy: () => { const t2 = miSummary(); (navigator.clipboard ? navigator.clipboard.writeText(t2) : Promise.reject()).then(() => toast("Copied. Paste it to Brett.")).catch(() => toast("Select the text and copy it")); },
   miSent: () => { D().mi.sent = 1; },
-  miDone: () => { const mi = D().mi; if (!mi.place || !mi.slots.length) return toast("Pick a spot and at least 1 time"); saveMini(); toast("Saved and sent to Brett"); ACT.tourDone({ dataset: {} }); },
+  miDone: () => { const mi = D().mi; if (!mi.place || !mi.slots.length) return toast("Pick a spot and at least 1 time"); if (!hcReady()) return toast(HC().hurt ? "Rate each area 1 to 10" : "Answer the injury question"); saveMini(); toast("Saved and sent to Brett"); ACT.tourDone({ dataset: {} }); },
   tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
   tourDone: el => { S.meta.tourSeen = TOUR_V; S.meta.seasonHello = 1; save(); markReady(); closeSheet(); if (el.dataset.v === "setup" || needsSetup()) openSheet("setup", "first"); },
@@ -2334,6 +2371,10 @@ const ACT = {
   fbA: el => { const a = el.dataset.v, v = UI.fb.areas[a]; if (!v) UI.fb.areas[a] = "soreness"; else if (v === "soreness") UI.fb.areas[a] = "pain"; else delete UI.fb.areas[a]; renderSheet(); },
   fbF: el => { UI.fb.flags[el.dataset.v] = !UI.fb.flags[el.dataset.v]; renderSheet(); },
   fbSave: () => submitFeedback(),
+  hcHurt: el => { HC().hurt = el.dataset.v === "1"; hcRerender(); },
+  hcArea: el => { const h = HC(), k = el.dataset.v; if (h.issues[k]) delete h.issues[k]; else h.issues[k] = { note: "", r: 0 }; hcRerender(); },
+  hcRate: el => { const it = HC().issues[el.dataset.k]; if (it) { it.r = +el.dataset.v; buzz(); } hcRerender(); },
+  hcSave: () => { if (!hcReady()) return toast(HC().hurt ? "Rate each area 1 to 10" : "Pick an answer"); saveHealth(); sendSetup(C().setup || { windows: [] }); closeSheet(); render(); },
   sndTog: () => { S.meta.sound = S.meta.sound === false; save(); if (S.meta.sound) snd("mid"); openSheet("settings"); },
   dismissAlert: () => { S.alert = null; save(); render(); },
   wkPrev: () => { UI.trainOff--; UI.trainSel = null; render(); },
@@ -2366,6 +2407,7 @@ document.addEventListener("click", e => {
 document.addEventListener("change", e => {
   const el = e.target, k = el.dataset.in; if (!k) return;
   if (k === "weight") { L(UI.wo).weights[el.dataset.id] = el.value; save(); }
+  else if (k === "hcNote") { const it = HC().issues[el.dataset.k]; if (it) it.note = el.value.slice(0, 80); }
   else if (k === "sleep") { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); save(); render(); }
   else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
   else if (k === "supp") { S.supplements[+el.dataset.i][el.dataset.k] = el.value; save(); render(); }
@@ -2983,6 +3025,7 @@ function askBought() {
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
 paintSportsArt();
 if (!maybeWelcome() && !showWhatsNew()) maybeSetup();
+if (!UI.sheet && S.meta.tourSeen && !S.meta.health && !document.querySelector(".welcome")) openSheet("health");
 checkUpdate(true);
 loadBooks();
 syncCommunity();
