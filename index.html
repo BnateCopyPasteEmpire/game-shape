@@ -684,8 +684,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.4";
+const APP_VERSION = "3.0.5";
 const CHANGELOG = {
+  "3.0.5": ["Workout tune-up: cleaner sessions, steady weight progress"],
   "3.0.4": ["Good Reads doubled: 400+ books, all on Amazon. New sections: Hoops + Coaching Legends, Make Me Money, Pump Me Up, Good Habits, Husband + Dad, Proof of God, and Inspiring Christian Stories", "New daily verse and prayer at the bottom of Reads"],
   "3.0.2": ["New Golden Tropics badge: brighter gold, bigger jersey logo"],
   "3.0.1": ["Added reading by mistake? Tap Undo 10 min or Clear today on Today, Recover, or Reads"],
@@ -874,7 +875,7 @@ const AREAS = [["calf", "Calves"], ["achilles", "Achilles"], ["ankle", "Ankle"],
 
 /* ---------------------------- SESSION TEMPLATES ---------------------------- */
 const W_STD = ["Easy bike 4 min", "Cat-cow x10", "90/90 hip switches x8/side", "Ankle circles x10 each way", "Sciatic nerve glide x10/side (gentle, no forcing)", "Glute bridge x12"];
-const W_LEG = ["Easy bike 4 min", "Vibration board calves 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
+const W_LEG = ["Easy bike 4 min", "Vibration board 60 sec (low)", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Leg swings x10 each direction", "Bodyweight box squat x10"];
 const C_STD = ["Child's pose 60 sec", "Knees-to-chest 60 sec", "Figure-4 stretch 45 sec/side", "Strap hamstring stretch 45 sec/side (gentle)", "Wall calf stretch, straight + bent knee, 30 sec each", "90/90 breathing 1 min"];
 const C_LEG = ["Couch stretch 45 sec/side", ...C_STD];
 const W_M_UP = ["Brisk walk or easy bike 4 min", "Arm circles x10 each way", "Band pull-aparts x15 (or arm swings)", "Cat-cow x10", "Push-up to downward dog x6", "1 light warm-up set of the first exercise"];
@@ -900,13 +901,13 @@ const TPL = {
   M_PRACTICE: { short: "Court Day", focus: "Court Day: 15-Min Loosen Up", min: 15, warm: W_M_LEG.slice(0, 3), main: [["calf_raise", 2], ["pushup", 2], ["face_pull", 2]], core: ["dead_bug"], cool: C_M_LEG.slice(0, 3), tub: 0, note: "Court tonight. Stay fresh. Bring water." },
   M_EASY: { short: "Easy Day", focus: "Easy Day: Walk + Mobility + Abs", min: 30, warm: [], main: [["walk", 1]], core: ["dead_bug", "plank"], cool: ["Cat-cow x10", "World's greatest stretch x4/side", "Hip flexor stretch 45 sec/side", "Doorway chest stretch 45 sec", "Foam roll 5 min"], tub: 0, note: "Muscle grows on rest days. Move easy, eat your protein." },
   M_REST: { short: "Rest Day", focus: "Sunday Off: Rest + Optional Walk", min: 20, warm: [], main: [["walk", 1]], core: [], cool: ["Foam roll 5 min", "Child's pose 60 sec", "Couch stretch 45 sec/side"], tub: 0, note: "No training today. A walk and a stretch if you feel like it. Recharge." },
-  PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "calf_iso", "tib_raise", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Nothing heavy on quads or calves." },
-  PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "calf_iso", "tib_raise", "sl_balance", "db_row"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
-  PRACTICE_DAY: { focus: "Upper Maintenance + Mobility", min: 35, warm: W_STD, main: ["floor_press", "db_row", "hk_press", "tib_raise", "sl_balance"], core: ["dead_bug", "plank"], cool: C_STD, tub: 10, note: "Court tonight. Keep calves fresh." },
-  GAME_DAY: { focus: "Game Day Activation (15 min)", min: 15, warm: ["Easy bike 5 min", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["glute_bridge", 1], ["calf_iso", 1], ["sl_balance", 1]], core: [], cool: ["Figure-4 stretch 30 sec/side", "Gentle wall calf stretch 30 sec/side"], tub: 10, note: "Game tonight. Activation only. Save your legs." },
-  LEG_A: { focus: "Legs + Glutes A: Squat + Thrust", min: 45, warm: W_LEG, main: ["smith_squat", "hip_thrust", "leg_ext", "lat_lunge", "CALF", "tib_raise"], core: ["mcgill", "side_plank"], cool: C_LEG, tub: 12, note: "Main glute day. Control every rep." },
-  LEG_B: { focus: "Legs + Glutes B: Hinge + Single-Leg", min: 45, warm: W_LEG, main: ["rdl", "split_squat", "leg_curl", "sl_rdl", "AGIL", "CALF", "db_row"], core: ["dead_bug", "suitcase"], cool: C_LEG, tub: 12, note: "Hinge day. Flat back, gentle on hamstrings." },
-  FLEX: { focus: "Flex: Zone 2 + Core + Ankles", min: 40, warm: W_STD.slice(1), main: [["bike_z2", 1], "tib_raise", "sl_balance", "CALF", "clam"], core: ["bird_dog", "dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Easy aerobic day. Fat loss lives here." },
+  PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Keep the legs fresh: moderate weight, no grinding reps." },
+  PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "sl_balance", "db_row", "pushup"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
+  PRACTICE_DAY: { focus: "Upper Maintenance + Mobility", min: 35, warm: W_STD, main: ["floor_press", "db_row", "hk_press", "sl_balance"], core: ["dead_bug", "plank"], cool: C_STD, tub: 10, note: "Court tonight. Upper body only, legs stay fresh." },
+  GAME_DAY: { focus: "Game Day Activation (15 min)", min: 15, warm: ["Easy bike 5 min", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["glute_bridge", 1], ["sl_balance", 1]], core: [], cool: ["Figure-4 stretch 30 sec/side", "Hip flexor stretch 30 sec/side"], tub: 10, note: "Game tonight. Activation only. Save your legs." },
+  LEG_A: { focus: "Legs + Glutes A: Squat + Thrust", min: 45, warm: W_LEG, main: ["smith_squat", "hip_thrust", "leg_ext", "lat_lunge", "calf_raise"], core: ["mcgill", "side_plank"], cool: C_LEG, tub: 12, note: "Main leg day. Light enough to own every rep. Add 5 lb when the last set feels easy." },
+  LEG_B: { focus: "Legs + Glutes B: Hinge + Single-Leg", min: 45, warm: W_LEG, main: ["rdl", "split_squat", "leg_curl", "sl_rdl", "AGIL", "db_row"], core: ["dead_bug", "suitcase"], cool: C_LEG, tub: 12, note: "Hinge day. Flat back, steady weight, add a little when it moves easy." },
+  FLEX: { focus: "Flex: Zone 2 + Core", min: 40, warm: W_STD.slice(1), main: [["bike_z2", 1], "sl_balance", "clam", "pushup"], core: ["bird_dog", "dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Easy aerobic day. Fat loss lives here." },
   RECOVERY: { focus: "Sunday Recovery", min: 40, warm: [], main: [["walk", 1]], core: [], cool: ["Cat-cow x10", "90/90 hip switches x8/side", "World's greatest stretch x4/side", "Sciatic nerve glide x10/side", "Knees-to-chest 60 sec", "Figure-4 60 sec/side", "Child's pose 60 sec", "Wall calf stretch 45 sec each way", "Couch stretch 45 sec/side", "5 min breathing"], tub: 15, note: "Recovery is training. Easy walk, long stretch, hot tub." }
 };
 const TIPS = {
@@ -1169,7 +1170,7 @@ const TYPE_NAME = { GAME_DAY: "Game Day", PRE_COURT: "Pre-Court", PRACTICE_DAY: 
 /* ---------------------------- PROGRAM: phases + session builder ---------------------------- */
 function weekNum(s) { const d = between(S.programStart, s); return d < 0 ? 0 : Math.floor(d / 7) + 1; }
 function phase(wk) {
-  if (wk <= 1) return { wk, label: "Week 1: Foundation", sets: 2, rpe: "5", calf: "iso", agil: 0, note: "Mostly mobility. Bodyweight or very light. Finish every set with 5+ reps in the tank." };
+  if (wk <= 1) return { wk, label: "Week 1: Foundation", sets: 2, rpe: "5", calf: "iso", agil: 0, note: "Light weights, perfect form. Finish every set with 4 to 5 reps in the tank." };
   if (wk === 2) return { wk, label: "Week 2: Groove", sets: 3, rpe: "6", calf: "ecc", agil: 1, note: "Add a 3rd set on main lifts. Same light loads, sharper control." };
   if (wk === 3) return { wk, label: "Week 3: Build", sets: 3, rpe: "6", calf: "ecc", agil: 2, note: "Add 5 to 10 percent load if last week felt easy. Landing drills start." };
   if (wk === 4) return { wk, label: "Week 4: Build + Check-in", sets: 3, rpe: "6 to 7", calf: "ecc", agil: 2, note: "Small bump. 4-week check-in on Sunday." };
@@ -2155,6 +2156,8 @@ function showWelcome(launch, then) {
 
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
+/* v3.0.5: Brett's calf is better. Clear any old calf/Achilles back-offs once so normal leg work comes back. */
+if (PID === "brett" && !S.meta.calfClear305) { if (S.pain) { delete S.pain.calf; delete S.pain.achilles; } S.meta.calfClear305 = 1; save(); }
 /* v2.7.4: Brett asked for a clean start and to walk through the same onboarding as Mark and Will (tour, setup, welcome badge). */
 if (PID === "brett" && !S.meta.clean274) {
   S.logs = {}; S.season = { bought: {}, quiz: {}, seen: {} }; S.meta.badges = [];
@@ -2362,7 +2365,7 @@ function renderRecover() {
   o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today"}</button></div>`;
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
   o += `${false ? ""  : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div>${l.reading > 0 ? `<div class="row" style="gap:6px;margin-top:6px"><button class="btn sm" style="flex:1" data-act="readUndo" data-v="10">Undo 10 min</button><button class="btn sm" style="flex:1" data-act="readUndo" data-v="all">Clear today</button></div>` : ""}</div>`}`;
-  o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
+  o += ROUTINES.filter(r => !(PID === "brett" && /^Calf Care/.test(r.n))).map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
   o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
   return o;
 }
