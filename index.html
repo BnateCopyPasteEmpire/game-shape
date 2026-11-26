@@ -480,6 +480,14 @@ img,svg,video{max-width:100%}
 .allin-bar.on{background:var(--green);color:#fff;animation:bump .5s ease}
 /* bigger Tropics logo on the Golden badge */
 .gtb img{width:94%!important;border-radius:14%!important}
+/* final score scene */
+.final-stack{display:flex;flex-direction:column;gap:8px}
+.fs-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:#fff;opacity:0;animation:bbUp .45s both}
+.fs-ic{width:38px;height:38px;flex:none;border-radius:12px;display:grid;place-items:center;background:var(--green-tint);font-weight:900;color:var(--green);font-size:18px}
+.fs-t{flex:1;min-width:0}.fs-t b{display:block}.fs-t small{color:var(--ink-2);font-size:12px}
+.fs-row em{font-style:normal;font-weight:900;color:var(--orange-ink);font-size:17px}
+.fs-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,var(--green),#0e5a2e);color:#fff;opacity:0;animation:bbPop .6s both;margin-top:4px}
+.fs-total span{font-weight:800;letter-spacing:.5px;text-transform:uppercase;font-size:13px}.fs-total b{font-size:34px;font-weight:900;letter-spacing:-1px}
 </style>
 </head>
 <body>
@@ -568,8 +576,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.2";
+const APP_VERSION = "2.9.3";
 const CHANGELOG = {
+  "2.9.3": ["The score show now ends with the final score: daily points + Golden badges + books bought + Book Test Week = your season total. Find it in More, then How Season 1 works", "New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points. Protein is a simple 50 g check", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics +300: best medal record of the month, then most points", "Book Tests happen the last week of the season: +67 per book read and passed"],
   "2.9.2": ["New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300", "Book buys score the day you buy. Book Tests happen the last week of the season: +67 per book read and passed", "Calories removed"],
   "2.9.1": ["New Today's scorecard: every point on the table with one-tap checks. Water, workout, run or bike, reading, sleep, protein, affirmations", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g a day check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300. Bigger Tropics logo on the badge", "Calories removed"],
   "2.9.0": ["Opening Day is Monday, Nov 30. Season 1 runs through Feb 28", "New interactive show: how points, weekly medals, the Golden Tropics badge, and the season all fit together", "3 Golden Tropics badges are up for grabs (Dec, Jan, Feb), each worth +300 points", "Chase the medal: your Bronze, Silver, and Gold targets and today's small wins, right on Today", "2 quick questions: where you'll work out the most and your best times. Sent to Brett"],
@@ -1622,8 +1631,16 @@ function showPages() {
     p("3. Every month: the Golden Tropics badge", "Medals are your momentum. The best medal record in the month (then the most points) wins the badge and +" + PTS.golden + " points.", `<div class="month-demo">${[["You", ["gold", "gold", "silver", "gold"]], ["Mark", ["silver", "gold", "bronze", "silver"]], ["Will", ["bronze", "silver", "silver", "poop"]]].map(([n, ms], r) => `<div class="md-row" style="animation-delay:${r * .15}s"><b>${n}</b>${ms.map((m, j) => `<span class="md-m" style="animation-delay:${.3 + r * .15 + j * .12}s">${medalSVG(m, 30)}</span>`).join("")}<em>${ms.reduce((a, m) => a + TIERS[m].v, 0)} pts</em></div>`).join("")}</div>
       <div class="golden-win">${medalSVG("golden", 92)}<div><b>Golden Tropics Basketball</b><div class="small">Goes to the best month. <b>+${PTS.golden} points.</b> Gold 3, Silver 2, Bronze 1, Poop 0.</div></div></div>`),
     p("4. The season: Nov 30 to Feb 28", "3 Golden Tropics badges are up for grabs. Each one is +" + PTS.golden + ". Grab one to have the best shot at the end.", `<div class="season-line">${[["Dec", "Golden #1"], ["Jan", "Golden #2"], ["Feb", "Golden #3"]].map(([m, g], i) => `<div class="sl-step" style="animation-delay:${i * .2}s">${medalSVG("golden", 54)}<b>${m}</b><small>${g}<br>+${PTS.golden}</small></div>`).join("")}</div>
-      <div class="season-flow"><span>Daily points</span><i>+</i><span>Golden badges</span><i>=</i><span class="win">Season total</span></div>
-      <div class="card" style="text-align:center;background:var(--card2);margin-top:12px"><div class="eyebrow">Opening Day: Monday, Nov 30</div><h3 style="margin:6px 0">Most points on Feb 28 wins the first-ever Game Shape merch</h3><div class="small muted">Daily wins build streaks. Streaks win medals. Medals win Golden badges. Golden badges win seasons.</div></div>`)
+      <div class="season-flow"><span>Daily points</span><i>+</i><span>Golden badges</span><i>+</i><span>Books</span><i>=</i><span class="win">Season total</span></div>
+      <div class="card" style="text-align:center;background:var(--card2);margin-top:12px"><div class="eyebrow">Opening Day: Monday, Nov 30</div><h3 style="margin:6px 0">Most points on Feb 28 wins the first-ever Game Shape merch</h3><div class="small muted">Daily wins build streaks. Streaks win medals. Medals win Golden badges. Golden badges win seasons.</div></div>`),
+    p("5. The final score", "Here's how a season total adds up on Feb 28. Example numbers.", (() => {
+      const ex = [["Daily points", "91 days of checking the boxes", 16380, "scorecard"], ["Golden Tropics badges", "2 months won x " + PTS.golden, 2 * PTS.golden, "golden"], ["Books bought", "$90 spent, 1 point per $2", 45, "buy"], ["Book Test Week", "4 books read and passed x " + PTS.quiz, 4 * PTS.quiz, "test"]];
+      const tot = ex.reduce((a, r) => a + r[2], 0);
+      return `<div class="final-stack">${ex.map((r, i) => `<div class="fs-row" style="animation-delay:${.15 + i * .35}s"><span class="fs-ic">${r[3] === "golden" ? medalSVG("golden", 34) : r[3] === "scorecard" ? "✓" : r[3] === "buy" ? "$" : "📖"}</span><div class="fs-t"><b>${r[0]}</b><small>${r[1]}</small></div><em>+${r[2].toLocaleString()}</em></div>`).join("")}
+      <div class="fs-total" style="animation-delay:${.2 + ex.length * .35}s"><span>Season total</span><b id="finalTotal" data-fmt="1" data-to="${tot}">0</b></div></div>
+      <div class="small muted" style="text-align:center;margin-top:10px">Book buys count the day you buy. Book Tests open the last week of the season (Feb 22 to 28): pass 2 of 3 questions on each book you read for +${PTS.quiz}.</div>
+      <div style="text-align:center;font-weight:900;color:var(--green);margin-top:12px">Most points wins the first-ever Game Shape merch. May the best man win.</div>`;
+    })())
   ];
 }
 function miniIntakeHTML() {
@@ -1647,8 +1664,9 @@ function tourHTML() {
   return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
 }
 function scSave() { save(); buzz(); checkSeasonBadges(); const y = window.scrollY; render(); window.scrollTo(0, y); }
+function tourAfter() { const f = $("finalTotal"); if (f && !f.dataset.done) { f.dataset.done = 1; setTimeout(() => countUp(f, 0, +f.dataset.to), 200 + 4 * 350); } }
 function rerenderTour() { const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop; renderSheet(); pn.scrollTop = y; }
-function countUp(el, from, to) { if (!el) return; const t0 = performance.now(), dur = 600; el.textContent = from; const f = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else { el.parentNode.classList.remove("bump"); void el.offsetWidth; el.parentNode.classList.add("bump"); } }; requestAnimationFrame(f); }
+function countUp(el, from, to) { if (!el) return; const t0 = performance.now(), dur = 600; el.textContent = from; const f = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); const n = Math.round(from + (to - from) * e); el.textContent = el.dataset.fmt ? n.toLocaleString() : n; if (k < 1) requestAnimationFrame(f); else { el.parentNode.classList.remove("bump"); void el.offsetWidth; el.parentNode.classList.add("bump"); } }; requestAnimationFrame(f); }
 function burstAt(el) { const r = el.getBoundingClientRect(); for (let i = 0; i < 16; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / 16 * 6.283, rr = 50 + Math.random() * 50; c.style.cssText = `position:fixed;z-index:99;top:${r.top + r.height / 2}px;left:${r.left + r.width / 2}px;--x:${Math.cos(a) * rr}px;--y:${Math.sin(a) * rr}px;background:${["#ffd75e", ACCENT, "#4eb0d6"][i % 3]}`; document.body.appendChild(c); setTimeout(() => c.remove(), 1100); } }
 function seasonPitch(isNew) {
   const sz = seasonOf(todayStr());
@@ -2033,6 +2051,7 @@ function renderSheet() {
   const locked = (kind === "tour") || (kind === "setup" && arg === "first") || !!UI.wnPending;
   $("sheet").querySelector(".sheet-panel").classList.toggle("tall", kind === "tour");
   $("sheetBody").innerHTML = (locked ? "" : `<button class="sheet-x" data-act="closeSheet" aria-label="Close">&times;</button>`) + o;
+  if (kind === "tour") tourAfter();
 }
 function feedbackHTML() {
   const f = UI.fb;
