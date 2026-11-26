@@ -312,7 +312,7 @@ img,svg,video{max-width:100%}
 .btn,.chip,.iconbtn,.tile,.menu button,.sbrow,.tabbar button,a.btn,[data-act]{-webkit-tap-highlight-color:transparent;transition:transform .12s ease,box-shadow .25s ease,background-color .2s ease}
 .btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{transform:scale(.97);box-shadow:0 0 0 4px rgba(var(--orange-rgb),.22),0 6px 18px rgba(var(--orange-rgb),.28)}
 .tabbar button:active{transform:scale(.94)}
-.tapfx{position:fixed;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(var(--orange-rgb),.42) 0%,rgba(var(--orange-rgb),.12) 45%,rgba(var(--orange-rgb),0) 70%);transform:translate(-50%,-50%) scale(.2);opacity:1;animation:tapfx .55s ease-out forwards;z-index:5}
+.tapfx{position:fixed;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(var(--orange-rgb),.42) 0%,rgba(var(--orange-rgb),.12) 45%,rgba(var(--orange-rgb),0) 70%);transform:translate(-50%,-50%) scale(.2);opacity:1;animation:tapfx .55s ease-out forwards;z-index:99}
 @keyframes tapfx{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
 /* scroll reveal */
 .rv{opacity:0;transform:translateY(14px) scale(.99);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
@@ -360,13 +360,25 @@ img,svg,video{max-width:100%}
 .rb details[open] summary:after{content:"\2212"}
 .rb .bprog{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}.rb .bprog i{display:block;height:100%;background:var(--orange)}
 @media (prefers-reduced-motion:reduce){.bb-rays,.bb-medal,.bb-spark,.bb-name,.bb-pts{animation:none!important}}
+/* team + brand badges, top right on every screen */
+:root{--epc-purple:#4a2d76;--epc-purple-rgb:74,45,118;--epc-teal:#4eb0d6;--epc-teal-rgb:78,176,214}
+.hdr-badges{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.epc-chip{display:inline-flex;align-items:center;height:30px;padding:3px 8px;border-radius:10px;background:linear-gradient(135deg,var(--epc-purple),#2f1b50);box-shadow:0 0 0 1px rgba(var(--epc-teal-rgb),.55) inset,0 3px 10px rgba(var(--epc-purple-rgb),.35)}
+.epc-chip img{height:22px;width:auto;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.cpe-chip{position:relative;display:inline-flex;align-items:center;opacity:.82;transition:opacity .2s}
+.cpe-chip .cpe-logo{height:18px;width:auto;border-radius:6px;box-shadow:0 0 0 1px rgba(255,255,255,.6) inset,0 2px 6px rgba(0,0,0,.12)}
+.cpe-chip sup{position:absolute;top:-5px;right:-9px;font-size:7px;font-weight:900;letter-spacing:.3px;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 2px;line-height:9px}
+.cpe-date{margin-top:4px}
+/* tap blur in EPC Tropics purple + teal */
+.tapfx{background:radial-gradient(circle,rgba(var(--epc-teal-rgb),.55) 0%,rgba(var(--epc-teal-rgb),.22) 32%,rgba(var(--epc-purple-rgb),.28) 52%,rgba(var(--epc-purple-rgb),0) 72%)}
+.btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{box-shadow:0 0 0 4px rgba(var(--epc-teal-rgb),.25),0 6px 18px rgba(var(--epc-purple-rgb),.30)}
 </style>
 </head>
 <body>
 <img class="wm-bg" src="gs-mark.png" alt="" aria-hidden="true">
 <div id="app">
   <header class="top">
-    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><div class="cpe-date" id="hdrDate"></div></div></div>
+    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><div class="hdr-badges"><span class="epc-chip" title="EPC Tropics"><img src="epc-logo.png" alt="EPC Tropics"></span><span class="cpe-chip" title="Copy Paste Empire"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><sup>TM</sup></span></div><div class="cpe-date" id="hdrDate"></div></div></div>
     <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
     <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   </header>
@@ -448,8 +460,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.7.2";
+const APP_VERSION = "2.7.3";
 const CHANGELOG = {
+  "2.7.3": ["EPC Tropics logo on every screen, top right", "Cleaner Copy Paste Empire badge", "Tap effect now glows EPC Tropics purple and teal"],
   "2.7.2": ["Fixed: the update screen flashing and disappearing. It now stays open until you tap the button", "New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)"],
   "2.7.1": ["New How to win guide on the Score tab: every point, every badge, your progress toward each one, and a quick rules check", "Badges now unlock with an animation", "Fresh look: tighter layout, smooth scroll animations, a glow in your color when you tap, and subtle sports art", "Your custom Game Shape badge now lives on your profile (More)", "Fixed the screen sliding side to side on phones"],
   "2.7.0": ["Fresh look: tighter layout, smooth scroll animations, and a glow in your color when you tap", "Subtle sports art in the background", "Your custom Game Shape badge now lives on your profile (More, then Settings)", "Fixed the screen sliding side to side on phones"],
