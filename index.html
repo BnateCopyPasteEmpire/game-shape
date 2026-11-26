@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.1";
+const APP_VERSION = "2.6.2";
 const CHANGELOG = {
+  "2.6.2": ["New tour: everything that changed, why we asked more questions, how points and badges work, and the Season 1 prize. Find it any time in More, then How Season 1 works"],
   "2.6.1": ["Nicknames: go to More, then Settings, and add a nickname. It replaces your first name on Today, the Score tab, and the scoreboard"],
   "2.6.0": ["Game Shape Season 1: earn points and badges for everything you log, and compete for the first Game Shape shirt and beanie", "New Score tab with season standings, a breakdown for every player, and your badges", "Book quizzes: finish a book, pass 2 of 3 questions, earn 150 points", "I bought it button on books (+25, once a week)", "Affirmations check-off on Recover (+5)", "Setup now asks about days off and the games and practices you'll miss, then shows your week"],
   "2.5.1": ["Pick your workout windows: morning, late afternoon, or after the kids are down. Tap the one you used each day", "Pick where you train: Home, Brett's Gym, or YMCA, and check off what you have at home. Your exercises change to fit the equipment, and Brett gets your answers", "Your app color from your intake now shows up. Change it in Customize", "Run log and weekly scoreboard points for miles"],
@@ -935,7 +936,7 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
 /* ---------------------------- SEASON (3-month competition) ----------------------------
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 const PTS = { workout: 50, quick: 25, court: 30, mile: 10, mileCap: 60, water: 15, waterPart: 7, protein: 10, sleep: 15, sleepLog: 5, affirm: 5, readCap: 30, buy: 25, quiz: 150 };
-const DEFAULT_PRIZE = "The first Game Shape shirt and beanie (matching set)";
+const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 function seasonOf(d) {
   if (d < "2027-03-01") return { id: "S1", n: 1, start: "2026-11-30", end: "2027-02-28" };
   const [y, m] = d.split("-").map(Number), k = Math.floor(((y - 2027) * 12 + (m - 3)) / 3);   // 3-month blocks from Mar 2027
@@ -1145,6 +1146,47 @@ function applyMiss(su, prev) {
   old.forEach(k => { const [d, t] = k.split("|"); if (t === "p") S.practiceSkips = S.practiceSkips.filter(x => x !== d); });
   (S.events || []).forEach(e => { if (e.type === "game") e.skipMe = now.includes(e.date + "|g") || undefined; });
   now.forEach(k => { const [d, t] = k.split("|"); if (t === "p" && !S.practiceSkips.includes(d)) S.practiceSkips.push(d); });
+}
+/* The Season 1 tour: what changed, why we asked more questions, how scoring works, badges, and the prize. Shown once to everyone, and any time from More. */
+function tourPages() {
+  const sz = seasonOf(todayStr());
+  const p = (title, sub, body) => `<div class="done-hero" style="padding-bottom:6px"><img src="icon-512.png" alt=""><h2>${title}</h2><div class="muted">${sub}</div></div>${body}`;
+  const row = (a, b) => `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${a}</span><b class="brand">${b}</b></div>`;
+  return [
+    p("What's new in Game Shape", PID === "mark" ? "A lot changed since you joined, and Will (Coach) is in now too. Here's the quick tour." : PID === "will" ? "Welcome to the Game Shape Community, Coach. Here's everything you get." : "A lot changed since Mark and Will joined. Here's the quick tour.", `<ul class="list">
+      <li><b>Your own plan, your own link.</b> Built from your intake. Your data stays on your phone.</li>
+      <li><b>Workout windows.</b> Pick the times that work. Each day, tap the one you used.</li>
+      <li><b>Where you train.</b> Home, Brett's Gym, or the YMCA. Switch it any day on Today and the workout rebuilds for that equipment.</li>
+      <li><b>Home equipment.</b> Tell the app what you have and home workouts stay hard and still build muscle.</li>
+      <li><b>Run log.</b> Type in your miles after a run.</li>
+      <li><b>App color and nickname.</b> Your color from the intake, plus a nickname in More, then Settings.</li>
+      <li><b>Score tab.</b> Season standings, badges, and a breakdown for every player.</li>
+      <li><b>Book quizzes.</b> Finish a book, pass a quick quiz, get paid in points.</li></ul>`),
+    p("Why the extra questions", "Your intake got us started. These answers make the plan actually fit your life.", `<ul class="list">
+      <li><b>Windows:</b> so every workout lands at a time you can really train.</li>
+      <li><b>Where + home equipment:</b> so you never get an exercise you can't do. A missing machine gets swapped for a move that hits the same muscle.</li>
+      <li><b>Days off:</b> so busy days become rest or a walk instead of a missed workout.</li>
+      <li><b>Games + Tuesday 7 PM practices:</b> so heavy legs never land the day before or the day of, and missed court days become training days.</li>
+      <li><b>Your week preview:</b> you see Mon to Sun before you save.</li>
+      <li>Your answers go to Brett so he can fine-tune your plan in the next update.</li></ul>`),
+    p("How points work", "Every point comes from doing YOUR plan and hitting YOUR targets. A beginner day and a hard day count the same.", `<div>
+      ${row("Full workout", PTS.workout)}${row("15-min quick workout", PTS.quick)}${row("Practice or game", PTS.court)}${row("Runs, per mile (60 max a day)", PTS.mile)}
+      ${row("Water goal hit (7 at 75 percent)", PTS.water)}${row("Protein goal hit", PTS.protein)}${row("Sleep 7+ hours (5 for logging less)", PTS.sleep)}
+      ${row("Affirmations read", PTS.affirm)}${row("Reading, 1 per 2 min (30 max a day)", "up to " + PTS.readCap)}${row("Bought a book (1 a week)", PTS.buy)}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
+      <div class="small muted" style="margin-top:8px">Daily caps keep it fair, so nobody wins by farming one thing. Log it the day it happens.</div>`),
+    p("Badges = bonus points", "Hit a milestone, unlock a badge, and its points add to your total automatically.", `<div>${SEASON_BADGES.map(b => `<span class="bdg"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>
+      <div class="small muted" style="margin-top:8px">Book quizzes: 3 basic questions, get 2 right to verify the book. Miss it? Retake in 24 hours with new questions. Badges reset each season.</div>`),
+    p("Season " + sz.n + ": " + fmtD(sz.start) + " to " + fmtD(sz.end), "Most points at the end of the season wins.", `<div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape T-shirt and matching beanie</h2><div class="small muted">One winner. One set. First ever made.</div></div>
+      <p style="text-align:center;font-size:18px;font-weight:800;color:var(--green);margin:14px 0 4px">It's going to be a grind, but it's all for the mind.</p>
+      <p style="text-align:center;margin:0 0 6px">Log every day. Stack the small wins. Check the Score tab and watch the race.</p>
+      <div style="text-align:center;font-weight:800;color:var(--orange-ink);margin:8px 0">May the best man win.</div>`)
+  ];
+}
+function tourHTML() {
+  const pages = tourPages(), i = Math.max(0, Math.min(pages.length - 1, UI.tourPage || 0)), last = i === pages.length - 1;
+  const dots = `<div style="text-align:center;margin:10px 0">${pages.map((_, k) => `<span style="display:inline-block;width:${k === i ? 18 : 7}px;height:7px;border-radius:4px;margin:0 3px;background:${k === i ? "var(--orange)" : "var(--line)"}"></span>`).join("")}</div>`;
+  const next = last ? (needsSetup() ? `<button class="btn primary" style="flex:2" data-act="tourDone" data-v="setup">Answer the setup questions</button>` : `<button class="btn primary" style="flex:2" data-act="tourDone">Let's go</button>`) : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
+  return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>${last && !S.profile.nickname ? `<button class="btn block" style="margin-top:8px" data-act="nickGo">Add my nickname</button>` : ""}`;
 }
 function seasonPitch(isNew) {
   const sz = seasonOf(todayStr());
@@ -1423,13 +1465,14 @@ function closeSheet() { UI.sheet = null; UI.setup = null; $("sheet").classList.a
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ["tour", "flag", "How Season 1 works"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : []), ...(!PERSON ? [["crew", "flag", "Crew check-ins"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
   } else if (kind === "import") { o = back + importSheetHTML();
   } else if (kind === "review") { o = reviewHTML();
   } else if (kind === "mapper") { o = mapperHTML();
+  } else if (kind === "tour") { o = tourHTML();
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "crew") { o = back + crewHTML();
   } else if (kind === "setup") { o = (arg === "first" ? "" : back) + setupHTML();
@@ -1495,6 +1538,9 @@ function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSh
 function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
+  tourNext: () => { UI.tourPage = (UI.tourPage || 0) + 1; renderSheet(); $("sheet").scrollTop = 0; document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
+  tourBack: () => { UI.tourPage = Math.max(0, (UI.tourPage || 0) - 1); renderSheet(); document.querySelectorAll("#sheet *").forEach(e => { e.scrollTop = 0; }); },
+  tourDone: el => { S.meta.tourSeen = APP_VERSION; S.meta.seasonHello = 1; save(); closeSheet(); if (el.dataset.v === "setup") openSheet("setup", "first"); },
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
@@ -1528,11 +1574,11 @@ const ACT = {
     if ($("suNotes")) su.notes = $("suNotes").value.trim().slice(0, 200);
     if ((su.locs || []).includes("home")) su.equipDone = todayStr();
     su.weekOk = todayStr(); applyMiss(su, C().setup);
-    if (!S.meta.seasonHello) { S.meta.seasonHello = 1; setTimeout(() => openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Welcome to Season ${seasonOf(todayStr()).n}</h2><div class="muted">Your plan is set. Here's how the competition works.</div></div>${seasonPitch(true)}<button class="btn primary block" data-act="closeSheet">Let's go</button>`), 400); }
+    if (!S.meta.tourSeen) { setTimeout(() => { UI.tourPage = 0; openSheet("tour"); }, 400); }
     sendSetup(su); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
   more: () => openSheet("menu"),
-  sheet: el => openSheet(el.dataset.k, el.dataset.a),
+  sheet: el => { if (el.dataset.k === "tour") UI.tourPage = 0; openSheet(el.dataset.k, el.dataset.a); },
   closeSheet: () => closeSheet(),
   toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
   addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
@@ -2137,6 +2183,7 @@ function showWhatsNew() {
   S.meta.seenVersion = APP_VERSION; save();
   const needSetup = needsSetup();
   if (!seen && !Object.keys(S.logs).length) return false;   // brand new user: nothing to announce
+  if (!S.meta.tourSeen) { UI.tourPage = 0; openSheet("tour"); return true; }
   const pitch = !S.meta.seasonHello; S.meta.seasonHello = 1; save();
   openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
   return true;

@@ -9,7 +9,7 @@ const json = (body, status = 200) => new Response(JSON.stringify(body), { status
 const okWeek = w => /^\d{4}-\d{2}-\d{2}$/.test(String(w || ""));
 const okSeason = s => /^S\d{1,3}$/.test(String(s || ""));
 const num = (v, max) => Math.max(0, Math.min(max, Math.round(+v || 0)));
-const DEFAULT_PRIZE = "The first Game Shape shirt and beanie (matching set)";
+const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 const byScore = (a, b) => b.score - a.score;
 
 async function read(store, week, season) {
