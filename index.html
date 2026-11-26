@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.4";
+const APP_VERSION = "2.6.5";
 const CHANGELOG = {
+  "2.6.5": ["Basketball points: practice 55, game played 45, at the game but couldn't play 30. Attendance and playing is key", "New Game day and Practice day check-in card on Today"],
   "2.6.4": ["New Score tab: a card for every player with season points, today, this week, badges today, and lifetime badges", "See everyone's daily check-offs: workout, water, sleep, reading, affirmations", "ALL IN: hit all 5 in one day for the All In badge and +50 bonus points. Affirmations count here", "Bought a book? Check the box, or tap a store link and the app asks when you come back. +25 and the Book Buyer badge"],
   "2.6.3": ["New scoring: the workout is worth the most (50). Water goal is huge (40). Reading is 1 point a minute (up to 35)", "Run or bike: 40 points, once every other day. The Run log is now a Cardio log with Run and Bike", "Sleep: 7 to 8 hours is best (25). 6 to 7 or 8 to 9 hours is 15. 9+ hours is 5. Under 6 hours is 0", "Affirmations are for you now, no points"],
   "2.6.2": ["New tour: everything that changed, why we asked more questions, how points and badges work, and the Season 1 prize. Find it any time in More, then How Season 1 works"],
@@ -942,7 +943,7 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 /* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
    Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
-const PTS = { allIn: 50, workout: 50, quick: 25, court: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+const PTS = { allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
 function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
 /* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
 function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
@@ -959,6 +960,23 @@ function seasonOf(d) {
 function SSN() { if (!S.season) S.season = { bought: {}, quiz: {}, seen: {} }; ["bought", "quiz", "seen"].forEach(k => { if (!S.season[k]) S.season[k] = {}; }); return S.season; }
 /* All In: workout + water goal + sleep (6 to 9 hrs) + 10+ min reading + affirmations checked, all on the same day. */
 const ALLIN = [["workout", "Workout"], ["water", "Water goal"], ["sleep", "Sleep 6 to 9 hrs"], ["read", "Read 10+ min"], ["affirm", "Affirmations"]];
+/* Court: showing up is the point. Practice 55. Game played 45. At the game but couldn't play 30. */
+function courtPts(s) {
+  const l = S.logs[s]; if (!l || !(l.checks && l.checks.court) && !l.court) return 0;
+  const ev = courtOn(s), hasGame = ev.some(e => e.kind === "game" || e.type === "game"), hasPrac = ev.some(e => e.kind === "practice" || (e.type === "practice" && e.kind !== "game"));
+  if (l.court === "watched") return PTS.gameWatch;
+  if (l.court === "practice" || (!hasGame && hasPrac)) return PTS.practice;
+  if (hasGame) return PTS.gamePlay;
+  return PTS.practice;
+}
+function courtCardHTML(s) {
+  const ev = courtOn(s); if (!ev.length) return "";
+  const l = getL(s), game = ev.find(e => e.kind === "game" || e.type === "game"), done = !!(l.checks && l.checks.court), v = l.court || (done ? (game ? "played" : "practice") : "");
+  const opts = game ? [["played", "I played", PTS.gamePlay], ["watched", "At the game, couldn't play", PTS.gameWatch]] : [["practice", "I went to practice", PTS.practice]];
+  return `<div class="card"><div class="row between"><h2 style="margin:0">${game ? "Game day" : "Practice day"}</h2><span class="small muted">${esc((game || ev[0]).label)} ${fmtT((game || ev[0]).start)}</span></div>
+  <div class="small muted" style="margin:4px 0 8px">Attendance and playing is key. Check in after.</div>
+  ${opts.map(([k, n, p]) => `<button class="chip ${v === k ? "on" : ""}" style="display:flex;justify-content:space-between;align-items:center;width:100%;margin:6px 0" data-act="courtSet" data-v="${k}"><span>${v === k ? "✓ " : ""}${n}</span><b>+${p}</b></button>`).join("")}</div>`;
+}
 function dayChecks(s) {
   const l = S.logs[s] || null, h = l ? sleepHrs(l.sleep) : null;
   const c = { workout: !!(l && (l.done || l.mvdDone)), water: !!(l && l.water >= waterGoal(s)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10), affirm: !!(l && l.checks && l.checks.affirm) };
@@ -968,7 +986,7 @@ function dayPoints(s) {
   const l = S.logs[s], b = { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, bonus: 0 };
   if (!l) return b;
   b.workout = l.done ? PTS.workout : l.mvdDone ? PTS.quick : 0;
-  b.court = l.checks && l.checks.court ? PTS.court : 0;
+  b.court = courtPts(s);
   b.run = cardioCredit(s) ? PTS.cardio : 0;
   const wg = waterGoal(s); b.water = l.water >= wg ? PTS.water : l.water >= wg * .75 ? PTS.waterPart : 0;
   b.protein = l.protein >= S.profile.protein ? PTS.protein : 0;
@@ -1041,7 +1059,7 @@ function lifetimeBadges() { const ss = SSN(); let n = (S.meta.badges || []).leng
 const badgeInfo = id => id === "allin" ? ALLIN_BADGE : SEASON_BADGES.find(b => b[0] === id) || [id, "flag", id, 0];
 
 /* ---------------------------- SEASON STANDINGS UI ---------------------------- */
-const CAT_LABEL = [["workout", "Workouts"], ["water", "Water"], ["run", "Cardio"], ["read", "Reading"], ["sleep", "Sleep"], ["court", "Court"], ["protein", "Protein"], ["bonus", "All In bonus"], ["books", "Books"], ["badges", "Badges"]];
+const CAT_LABEL = [["workout", "Workouts"], ["water", "Water"], ["run", "Cardio"], ["read", "Reading"], ["sleep", "Sleep"], ["court", "Basketball"], ["protein", "Protein"], ["bonus", "All In bonus"], ["books", "Books"], ["badges", "Badges"]];
 function allInCardHTML(onScore) {
   const t = todayStr(), c = dayChecks(t), n = ALLIN.filter(([k]) => c[k]).length;
   return `<div class="card" style="${c.allIn ? "border:2px solid var(--green)" : ""}"><div class="row between"><h2 class="brand" style="margin:0">${c.allIn ? "ALL IN today ✓" : "Go All In today"}</h2><b class="brand">${c.allIn ? "+" + PTS.allIn : n + " of 5"}</b></div>
@@ -1088,7 +1106,7 @@ function seasonHTML(compact) {
     <h3 class="sh3" style="margin-top:12px">Lifetime</h3><div>${BADGES.map(b => `<span class="bdg ${S.meta.badges.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]]}</span>${b[2]}</span>`).join("")}</div></div>`;
   const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
-    <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice or game ${PTS.court}, protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
+    <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
     <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
   return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
@@ -1227,7 +1245,7 @@ function tourPages() {
       <li>Your answers go to Brett so he can fine-tune your plan in the next update.</li></ul>`),
     p("How points work", "Every point comes from doing YOUR plan and hitting YOUR targets. A beginner day and a hard day count the same.", `<div>
       ${row("Full workout (the big one)", PTS.workout)}${row("Water goal hit (" + PTS.waterPart + " at 75 percent)", PTS.water)}${row("Run 1+ mi or bike 3+ mi (every other day)", PTS.cardio)}
-      ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Practice or game", PTS.court)}${row("15-min quick workout", PTS.quick)}
+      ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Basketball practice", PTS.practice)}${row("Game, played", PTS.gamePlay)}${row("Game, there but couldn't play", PTS.gameWatch)}${row("15-min quick workout", PTS.quick)}
       ${row("Sleep 7 to 8 hours", PTS.sleepBest)}${row("Sleep 6 to 7 or 8 to 9 hours", PTS.sleepMid)}${row("Sleep 9+ hours", PTS.sleepLong)}${row("Sleep under 6 hours", 0)}
       ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book (1 a week)", PTS.buy)}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
       <div class="small muted" style="margin-top:8px">Daily caps keep it fair, so nobody wins by farming one thing. Log it the day it happens.</div>`),
@@ -1349,6 +1367,7 @@ function renderToday() {
   const done = l.done || l.mvdDone;
   out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
+  out += courtCardHTML(s);
   out += allInCardHTML(false);
   // workout window check (people who pick their own windows)
   const wins = myWindows();
@@ -1624,6 +1643,7 @@ const ACT = {
   suHome: el => { UI.setup.home = el.dataset.v; rerenderSetup(); },
   setupNow: () => { closeSheet(); openSheet("setup", "first"); },
   slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
+  courtSet: el => { const l = L(todayStr()), v = el.dataset.v; if (l.court === v) { l.court = null; l.checks.court = false; } else { l.court = v; l.checks.court = true; toast("+" + (v === "watched" ? PTS.gameWatch : v === "practice" ? PTS.practice : PTS.gamePlay) + ". Showing up counts."); } save(); render(); },
   cardioMode: el => { UI.cardio = el.dataset.v; render(); },
   runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || (C().features.runs ? "run" : "bike")) === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
     l[k] = Math.round(((+l[k] || 0) + v) * 10) / 10;
