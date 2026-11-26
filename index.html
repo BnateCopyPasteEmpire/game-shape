@@ -46,7 +46,7 @@
 /* ===================== BRAND (shared tokens for every Game Shape app + intake) ===================== */
 :root{
   --bg:#ffffff; --surface:#f7f8f6; --line:#e6e9e4; --ink:#0d1210; --ink-2:#55605a; --dim:#9aa39e;
-  --green:#013919; --green-2:#0e5a2e; --green-tint:#e8f1eb; --orange:#ff8200; --orange-ink:#b85c00; --orange-tint:#fff1e2; --danger:#c62828; --danger-tint:#fdecec;
+  --green:#013919; --green-2:#0e5a2e; --green-tint:#e8f1eb; --orange:#ff8200; --orange-rgb:255,130,0; --orange-ink:#b85c00; --orange-tint:#fff1e2; --danger:#c62828; --danger-tint:#fdecec;
   /* legacy aliases used by the engine's templates */
   --card:#ffffff; --card2:var(--surface); --text:var(--ink); --muted:var(--ink-2); --accent:var(--orange); --accent2:var(--green); --warn:var(--orange-ink); --bad:var(--danger);
   --LEG_DAY:#ff8200; --PRE_COURT:#0e5a2e; --GAME_DAY:#013919; --PRACTICE_DAY:#2f7a4f; --RECOVERY:#6ba37e; --FLEX:#d9a21b;
@@ -95,7 +95,7 @@ main>*{position:relative;z-index:1}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--T)}
 .badge.GAME_DAY .dot{background:var(--orange)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 20px;border-radius:14px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--ink)}
-.btn.primary{background:var(--orange);color:var(--ink);border:0;box-shadow:0 6px 16px rgba(255,130,0,.25)}
+.btn.primary{background:var(--orange);color:var(--ink);border:0;box-shadow:0 6px 16px rgba(var(--orange-rgb),.25)}
 .btn.green{background:var(--green);color:#fff;border:0}
 .btn.block{width:100%}
 .btn.sm{min-height:42px;padding:0 14px;font-size:14px;border-radius:12px}
@@ -194,7 +194,7 @@ table.t td{padding:9px 4px;border-bottom:1px solid var(--line)}
 .empty img{width:72px;height:72px;border-radius:18px;opacity:.12;display:block;margin:0 auto 10px}
 .pill-r{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--surface);color:var(--ink-2)}
 .done-hero{position:relative;text-align:center;padding:18px 0 6px}
-.done-hero:before{content:"";position:absolute;left:50%;top:6px;width:200px;height:200px;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,130,0,.22),rgba(255,130,0,0) 65%)}
+.done-hero:before{content:"";position:absolute;left:50%;top:6px;width:200px;height:200px;transform:translateX(-50%);background:radial-gradient(circle,rgba(var(--orange-rgb),.22),rgba(var(--orange-rgb),0) 65%)}
 .done-hero img{position:relative;width:96px;height:96px;border-radius:22px;box-shadow:0 10px 30px rgba(1,57,25,.25)}
 .done-hero h2{position:relative;font-size:26px;margin:14px 0 2px}
 .ver{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;color:var(--dim);font-size:12px;font-weight:700}
@@ -290,15 +290,15 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
 @keyframes gsBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes gsGlow{0%,100%{opacity:.75;transform:scale(.96)}50%{opacity:1;transform:scale(1)}}
 .tabbar{border-top:0}
-.tabbar:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#013919,#ff8200,#0e5a2e,#ff8200,#013919);background-size:300% 100%;animation:gsFlow 6s ease-in-out infinite}
+.tabbar:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#013919,var(--orange),#0e5a2e,var(--orange),#013919);background-size:300% 100%;animation:gsFlow 6s ease-in-out infinite}
 .tabbar button{isolation:isolate}
 .tabbar button svg{stroke:url(#gsTabGrad);opacity:.8;animation:gsBreathe 3.2s ease-in-out infinite;transform-origin:center}
 .tabbar button:nth-child(3) svg{animation-delay:.25s}.tabbar button:nth-child(4) svg{animation-delay:.5s}.tabbar button:nth-child(5) svg{animation-delay:.75s}.tabbar button:nth-child(6) svg{animation-delay:1s}.tabbar button:nth-child(7) svg{animation-delay:1.25s}
-.tabbar .tl{background:linear-gradient(90deg,#0f7a3f,#ff8200,#0f7a3f);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gsFlow 4s ease-in-out infinite;opacity:.8;font-weight:800}
+.tabbar .tl{background:linear-gradient(90deg,#0f7a3f,var(--orange),#0f7a3f);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gsFlow 4s ease-in-out infinite;opacity:.8;font-weight:800}
 .tabbar button.on svg{opacity:1;stroke-width:2.5}
 .tabbar button.on .tl{opacity:1;font-weight:900}
-.tabbar button.on:before{content:"";position:absolute;inset:2px 8px 10px;border-radius:16px;z-index:-1;background:linear-gradient(120deg,rgba(1,57,25,.16),rgba(255,130,0,.26),rgba(1,57,25,.16));background-size:200% 200%;animation:gsFlow 4s ease-in-out infinite,gsGlow 3.2s ease-in-out infinite;box-shadow:0 0 16px rgba(255,130,0,.25)}
-.tabbar button.on:after{background:linear-gradient(90deg,#ff8200,#0e5a2e);width:18px;height:4px;border-radius:2px}
+.tabbar button.on:before{content:"";position:absolute;inset:2px 8px 10px;border-radius:16px;z-index:-1;background:linear-gradient(120deg,rgba(1,57,25,.16),rgba(var(--orange-rgb),.26),rgba(1,57,25,.16));background-size:200% 200%;animation:gsFlow 4s ease-in-out infinite,gsGlow 3.2s ease-in-out infinite;box-shadow:0 0 16px rgba(var(--orange-rgb),.25)}
+.tabbar button.on:after{background:linear-gradient(90deg,var(--orange),#0e5a2e);width:18px;height:4px;border-radius:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.4.0";
+const APP_VERSION = "2.5.0";
 const CHANGELOG = {
+  "2.5.0": ["Your app color: the color you picked on your intake now shows up, and you can change it in Customize", "Run log: track your miles, earn scoreboard points", "Pick your own workout windows and tap which one you used each day", "Gym day option: choose days at the YMCA or a home gym and get gym workouts those days"],
   "2.4.0": ["Weekly Scoreboard: friendly competition with your crew, resets every Monday", "Game Shape now supports more than one person, each with their own link, plan, and saved data", "Hot tub mentions hide when hot tub is off in Customize"],
   "2.3.2": ["Bottom tabs now glow with a breathing green and orange gradient"],
   "2.3.1": ["New sign-off: Train. Fuel. Read. Recover. BALL out your Life."],
@@ -400,7 +401,33 @@ const CHANGELOG = {
   "2.0.1": ["Copy Paste Empire mark and today's date in the top right of every page"],
   "2.0.0": ["New clean white look with Game Shape colors and logo", "Auto-updates: new versions install themselves and keep all your data", "Branded badges, workout-complete screen, and daily splash"]
 };
-const G = "#013919", O = "#ff8200";
+/* App color: each person can pick an accent (intake "Favorite app color" or Customize). Logo, green, and white never change. */
+const ACCENTS = [["#ff8200", "Tennessee orange"], ["#3ecf7a", "Green"], ["#4cc9f0", "Ice blue"], ["#a78bfa", "Purple"], ["#ff3b5c", "Red"], ["#facc15", "Gold"]];
+function getAccent() {
+  try {
+    const P = window.GS_PERSON, k = P ? "gameShape_" + P.id + "_v1" : "gameShape_v1", d = JSON.parse(localStorage.getItem(k) || "null");
+    if (d && d.custom && d.custom.accent) return d.custom.accent;
+    if (P && P.theme && P.theme.accent) return P.theme.accent;
+  } catch (e) {}
+  return "#ff8200";
+}
+function applyAccent(hex) {
+  if (hex === "#ff8200") return;   // brand default: keep the stylesheet exactly as is
+  const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  const lum = (R, G2, B) => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(R) + .7152 * f(G2) + .0722 * f(B); };
+  let k = 1, ir = r, ig = g, ib = b;   // darken until text on white is readable (4.5:1)
+  while (k > .2 && (1.05) / (lum(ir, ig, ib) + .05) < 4.5) { k -= .04; ir = Math.round(r * k); ig = Math.round(g * k); ib = Math.round(b * k); }
+  const hx = v => v.toString(16).padStart(2, "0"), mix = v => Math.round(v + (255 - v) * .88);
+  const st = document.documentElement.style;
+  st.setProperty("--orange", hex); st.setProperty("--orange-rgb", r + "," + g + "," + b);
+  st.setProperty("--orange-ink", "#" + hx(ir) + hx(ig) + hx(ib)); st.setProperty("--orange-tint", "#" + hx(mix(r)) + hx(mix(g)) + hx(mix(b)));
+  st.setProperty("--LEG_DAY", hex); st.setProperty("--accent", hex);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  document.querySelectorAll("#gsTabGrad stop, #gsTabGrad animate").forEach(el => ["stop-color", "values"].forEach(a => { const v = el.getAttribute(a); if (v) el.setAttribute(a, v.split("#ff8200").join(hex)); }));
+}
+const ACCENT = getAccent();
+applyAccent(ACCENT);
+const G = "#013919", O = ACCENT;
 const ART = {
   court: `<svg viewBox="0 0 400 400" fill="none" stroke="${G}" stroke-width="3" opacity=".06"><circle cx="200" cy="400" r="60"/><path d="M40 0v120a160 160 0 0 0 320 0V0"/><rect x="140" y="0" width="120" height="150"/><circle cx="200" cy="150" r="60"/><path d="M175 30h50"/><circle cx="200" cy="45" r="10"/></svg>`,
   key: `<svg viewBox="0 0 400 220" fill="none" stroke="${G}" stroke-width="3" opacity=".06"><rect x="130" y="-2" width="140" height="170"/><circle cx="200" cy="168" r="62"/><path d="M0 -2h400M60 -2v40a140 140 0 0 0 280 0v-40"/></svg>`,
@@ -426,7 +453,7 @@ const I = {
   save: sv('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>')
 };
 /* "How to" links: a YouTube search for the exact exercise, so every exercise (any user, any future swap) always has a working demo. */
-const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits", lat_pulldown: "lat pulldown proper form", cable_row: "seated cable row form", db_shoulder_press: "seated dumbbell shoulder press form", db_curl: "dumbbell bicep curl form", hammer_curl: "dumbbell hammer curl form", face_pull: "face pull form", db_incline_press: "incline dumbbell press form", lateral_raise: "dumbbell lateral raise form", tri_pushdown: "tricep pushdown form", oh_tri_ext: "overhead dumbbell tricep extension form", leg_press: "leg press proper form beginner", goblet_squat: "goblet squat form", calf_raise: "standing calf raise form", knee_raise: "lying knee raise abs" };
+const HOWQ = { calf_iso: "isometric calf raise hold", calf_ecc: "eccentric calf raise on step", tib_raise: "tibialis raise against wall", ankle_mob: "knee to wall ankle mobility", first_step: "wall drive march drill", snap_down: "snap down landing drill", box_stepdown: "slow box step down", mcgill: "mcgill curl up", sl_balance: "single leg balance exercise", hk_press: "half kneeling dumbbell press", smith_squat: "smith machine box squat", hip_thrust: "smith machine hip thrust", bike_z2: "zone 2 cardio bike", bike_easy: "easy bike warm up", walk: "recovery walk benefits", bw_squat: "bodyweight squat to chair beginner", rev_lunge: "reverse lunge form beginner", adductor_rock: "adductor rock back stretch", incline_pushup: "incline push up beginner", prone_ytw: "prone y t w exercise", mb_thruster: "medicine ball squat to press", mb_halo: "medicine ball halo exercise", run_easy: "easy run pace beginner", lat_pulldown: "lat pulldown proper form", cable_row: "seated cable row form", db_shoulder_press: "seated dumbbell shoulder press form", db_curl: "dumbbell bicep curl form", hammer_curl: "dumbbell hammer curl form", face_pull: "face pull form", db_incline_press: "incline dumbbell press form", lateral_raise: "dumbbell lateral raise form", tri_pushdown: "tricep pushdown form", oh_tri_ext: "overhead dumbbell tricep extension form", leg_press: "leg press proper form beginner", goblet_squat: "goblet squat form", calf_raise: "standing calf raise form", knee_raise: "lying knee raise abs" };
 const howUrl = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " how to proper form");
 const howFor = (id, name) => howUrl(HOWQ[id] || name);
 const howText = t => howUrl(String(t).replace(/\(.*?\)/g, "").replace(/\s+x\d.*$/i, "").replace(/\s+\d+(\s*(sec|min)).*$/i, "").replace(/,.*$/, "").trim());
@@ -489,6 +516,14 @@ const LIB = {
   goblet_squat: X("DB or KB Goblet Squat", "Quads, glutes", "10", "3 sec down", 75, "20 to 35 lb", ["Weight at chest", "Sit between your heels", "Chest up, knees over toes"], "wall_sit", ["knee"], ["back-safe"]),
   calf_raise: X("Standing Calf Raise", "Calves", "15", "2 sec down", 45, "Bodyweight or hold a DB", ["Full stretch at bottom", "Pause at top", "Slow lower"], "calf_iso", ["calf", "achilles"], ["back-safe"]),
   knee_raise: X("Lying Knee Raise", "Lower abs", "12", "Slow", 45, "Bodyweight", ["Low back pressed down", "Knees to chest", "Lower slow"], "dead_bug", [], ["calf-safe", "back-safe"], false),
+  bw_squat: X("Bodyweight Squat to Chair", "Quads, glutes", "15", "2 sec down", 45, "Bodyweight. Hold the med ball at your chest when easy", ["Sit back to the chair, light touch", "Knees track over toes", "Stand tall, squeeze glutes"], "wall_sit", ["knee"], ["back-safe", "calf-safe"], false),
+  rev_lunge: X("Reverse Lunge (short step)", "Glutes, quads", "8/side", "Slow", 45, "Bodyweight, hold a counter for balance", ["Step back, not too far", "Back knee drops straight down", "Push through the front heel"], "glute_bridge", ["knee", "hip"], ["back-safe"], false),
+  adductor_rock: X("Adductor Rock-Back", "Groin, inner hips", "10/side", "Slow", 30, "Bodyweight", ["On hands and knees, one leg out to the side", "Rock hips back until a gentle groin stretch", "Never force it"], "clam", [], ["back-safe", "calf-safe", "sciatica-safe"], false),
+  incline_pushup: X("Incline Push-Up", "Chest, triceps", "15", "2 sec down", 45, "Hands on a counter or couch. Floor when easy", ["Body straight like a plank", "Chest to the edge", "Push the surface away"], null, [], ["back-safe", "calf-safe"], false),
+  prone_ytw: X("Prone Y-T-W Raise", "Upper back, posture", "8 each", "Slow", 45, "Bodyweight, face down", ["Thumbs up", "Lift arms in a Y, then T, then W", "Squeeze shoulder blades, neck relaxed"], null, [], ["back-safe", "calf-safe"], false),
+  mb_thruster: X("Med Ball Squat to Press", "Legs, shoulders", "12", "Smooth", 60, "Medicine ball", ["Ball at chest, squat to a chair", "Stand and press the ball overhead", "Ribs down, no back arch"], "bw_squat", ["knee"], ["calf-safe"], false),
+  mb_halo: X("Med Ball Halo", "Shoulders, core", "8 each way", "Slow", 30, "Medicine ball", ["Stand tall, brace your abs", "Circle the ball around your head", "Keep ribs down"], null, [], ["back-safe", "calf-safe"], false),
+  run_easy: X("Easy Run or Treadmill", "Heart, fat loss", "20 to 30 min", "Talk pace", 0, "Can still talk in short sentences", ["Log your miles in the app", "Walk breaks are fine", "Easy pace beats fast pace"], "walk", ["calf", "achilles"], ["back-safe"], false),
   walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
 };
 const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
@@ -503,7 +538,18 @@ const W_M_UP = ["Brisk walk or easy bike 4 min", "Arm circles x10 each way", "Ba
 const W_M_LEG = ["Brisk walk or easy bike 4 min", "Leg swings x10 each direction", "World's greatest stretch x4/side", "Ankle circles x10 each way", "Bodyweight squat x10", "Glute bridge x12"];
 const C_M_UP = ["Doorway chest stretch 45 sec/side", "Cross-body shoulder stretch 30 sec/side", "Lat stretch on bench 45 sec", "Biceps wall stretch 30 sec/side", "Child's pose 60 sec", "Foam roll upper back 2 min"];
 const C_M_LEG = ["Couch stretch 45 sec/side", "Figure-4 stretch 45 sec/side", "Hamstring stretch 45 sec/side", "Wall calf stretch 30 sec/side", "Foam roll quads + calves 3 min"];
+const W_W_UP = ["Treadmill walk 4 min (or easy jog)", "Cat-cow x10", "90/90 hip switches x6/side", "Adductor rock-back x8/side", "Leg swings x10 each direction", "Glute bridge x12"];
+const C_W = ["Figure-4 stretch 45 sec/side", "Butterfly groin stretch 45 sec", "Half-kneeling hip flexor stretch 45 sec/side", "Child's pose 60 sec", "Knees-to-chest 60 sec", "Foam roll or massage gun: hips, quads, calves 3 min"];
 const TPL = {
+  W_LOWER: { short: "Hips + Legs", focus: "Hips + Legs (Home)", min: 35, warm: W_W_UP, main: ["bw_squat", "glute_bridge", "rev_lunge", "adductor_rock", "clam", "calf_raise"], core: ["dead_bug", "bird_dog"], cool: C_W, tub: 0, note: "2 sets, high reps, light. Hips, groin, and low back should feel better after, not worse." },
+  W_UPPER: { short: "Upper + Core", focus: "Upper + Core (Home)", min: 30, warm: W_W_UP, main: ["incline_pushup", "prone_ytw", "mb_thruster", "mb_halo", "glute_bridge"], core: ["plank", "side_plank", "dead_bug"], cool: C_W, tub: 0, note: "Posture and a tight midsection. Smooth reps, no straining." },
+  W_FULL: { short: "Full Body", focus: "Full Body (Home)", min: 35, warm: W_W_UP, main: ["bw_squat", "incline_pushup", "glute_bridge", "prone_ytw", "mb_thruster", "calf_raise"], core: ["bird_dog", "side_plank"], cool: C_W, tub: 0, note: "Finish the week. Leave a few reps in the tank." },
+  W_RUN: { short: "Run Day", focus: "Easy Run + Hip Care", min: 35, run: true, warm: ["Brisk walk 5 min", "Leg swings x10 each direction", "Adductor rock-back x8/side"], main: [["run_easy", 1], ["glute_bridge", 2], ["adductor_rock", 2]], core: ["bird_dog"], cool: C_W, tub: 0, note: "Run at talk pace, then log your miles below. Logging 1+ mile completes today." },
+  W_PRACTICE: { short: "Court Day", focus: "Court Day: 15-Min Loosen Up", min: 15, warm: W_W_UP.slice(0, 3), main: [["glute_bridge", 2], ["adductor_rock", 2], ["calf_raise", 2]], core: ["dead_bug"], cool: C_W.slice(0, 3), tub: 0, note: "Practice tonight. Stay loose and drink water all day." },
+  W_REST: { short: "Rest Day", focus: "Sunday Off: Rest + Optional Walk", min: 20, warm: [], main: [["walk", 1]], core: [], cool: ["Foam roll or massage gun 5 min", "Figure-4 stretch 45 sec/side", "Child's pose 60 sec"], tub: 0, note: "No training. A walk and a stretch if you feel like it." },
+  WG_LEGS: { short: "Gym Legs", focus: "Gym Legs (light, high reps)", min: 40, warm: W_M_LEG, main: ["leg_press", "goblet_squat", "leg_curl", "leg_ext", "glute_bridge", "calf_raise"], core: ["dead_bug", "side_plank"], cool: C_W, tub: 0, note: "Gym day. Light weight, 2 sets of 15. Learn the machines." },
+  WG_UPPER: { short: "Gym Upper", focus: "Gym Upper (light, high reps)", min: 40, warm: W_M_UP, main: ["lat_pulldown", "cable_row", "db_incline_press", "db_shoulder_press", "db_curl", "tri_pushdown"], core: ["plank"], cool: C_M_UP, tub: 0, note: "Gym day. Light weight, 2 sets of 15." },
+  WG_FULL: { short: "Gym Full", focus: "Gym Full Body (light, high reps)", min: 40, warm: W_M_UP, main: ["goblet_squat", "lat_pulldown", "db_incline_press", "cable_row", "leg_curl", "db_curl"], core: ["dead_bug"], cool: C_W, tub: 0, note: "Gym day. Light weight, 2 sets of 15. Smooth reps." },
   M_UPPER_A: { short: "Back + Arms", focus: "Upper A: Back, Shoulders, Biceps", min: 45, warm: W_M_UP, main: ["lat_pulldown", "cable_row", "db_shoulder_press", "db_curl", "hammer_curl", "face_pull"], core: ["dead_bug"], cool: C_M_UP, tub: 0, note: "Learn the form. Light weight, slow reps. Leave 3 reps in the tank." },
   M_UPPER_B: { short: "Chest + Arms", focus: "Upper B: Chest, Shoulders, Triceps, Biceps", min: 45, warm: W_M_UP, main: ["db_incline_press", "lateral_raise", "pushup", "tri_pushdown", "db_curl", "oh_tri_ext"], core: ["plank"], cool: C_M_UP, tub: 0, note: "Wide shoulders and big arms day. Squeeze every rep." },
   M_LEGS: { short: "Legs", focus: "Legs: Quads, Hamstrings, Glutes, Calves", min: 45, warm: W_M_LEG, main: ["leg_press", "goblet_squat", "rdl", "leg_curl", "leg_ext", "calf_raise"], core: ["knee_raise", "side_plank"], cool: C_M_LEG, tub: 0, note: "Big legs need patience. Smooth reps, no grinding." },
@@ -688,7 +734,7 @@ function resolveWeek(ws) {
     courtOn(y).forEach(e => { if (toMin(e.end) >= 21 * 60) cands.push({ s, game: e.type === "game" }); });
   }
   cands.sort((a, b) => b.game - a.game);
-  if (cands.length && out[cands[0].s].type !== "GAME_DAY") out[cands[0].s].midday = true;
+  if (cands.length && out[cands[0].s].type !== "GAME_DAY" && !(PERSON && PERSON.noMidday)) out[cands[0].s].midday = true;
   for (const s in out) if (S.midDay[s] !== undefined) out[s].midday = S.midDay[s];
   weekCache[ws] = out;
   return out;
@@ -713,6 +759,8 @@ function tplKey(info) {
     if (info.type === "GAME_DAY") return "GAME_DAY";
     if (info.type === "PRACTICE_DAY") return PERSON.practiceTpl || "M_PRACTICE";
     let k = PERSON.weekPlan[dow(info.date)] || "M_EASY";
+    const su = C().setup;
+    if (PERSON.gymSwap && su && su.gym && (su.gymDays || []).includes(dow(info.date)) && PERSON.gymSwap[k]) k = PERSON.gymSwap[k];
     if (info.type === "PRE_COURT" && (PERSON.heavyLegs || []).includes(k)) k = PERSON.preCourtSwap || "M_UPPER_A";
     return k;
   }
@@ -727,6 +775,14 @@ function resolveEx(id, wk) {
   while (LIB[id] && LIB[id].area.some(a => pa.includes(a)) && LIB[id].swap && n < 4) { from = from || id; id = LIB[id].swap; n++; }
   return { id, from };
 }
+// Light-duty people: swap strength reps for high reps (10 -> 15, 8/side -> 12/side).
+function hiReps(ex) {
+  if (!PERSON || !PERSON.highReps || !ex) return ex;
+  if (/^\d+$/.test(ex.reps)) return Object.assign({}, ex, { reps: "15" });
+  if (/^\d+\/side$/.test(ex.reps)) return Object.assign({}, ex, { reps: "12/side" });
+  return ex;
+}
+function myWindows() { const su = C().setup; return su && su.windows && su.windows.length ? su.windows : (PERSON && PERSON.windowsDefault) || []; }
 function buildSession(s, mvd) {
   const info = dayInfo(s), ph = phase(weekNum(s)), key = tplKey(info), T = TPL[key];
   const calfPain = painAreas().some(a => a === "calf" || a === "achilles");
@@ -740,13 +796,16 @@ function buildSession(s, mvd) {
   let main = slots.map(([id, fixed]) => {
     const r = resolveEx(id, ph.wk), ex = LIB[r.id];
     let sets = fixed || ph.sets; if (!fixed && info.moderate) sets = Math.max(2, sets - 1);
-    return { id: r.id, from: r.from, ex, sets };
+    if (PERSON && PERSON.maxSets) sets = Math.min(sets, PERSON.maxSets);
+    return { id: r.id, from: r.from, ex: hiReps(ex), sets };
   });
   let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
   if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
   const tips = TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
+  const wins = myWindows(), lg = S.logs[s];
+  if (wins.length) { const tm = lg && lg.slot ? "Trained: " + lg.slot : wins.join(" or "); return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time: tm, note: T.note, run: !!T.run }; }
   const wt = (C().times && C().times.workout) || "05:00", wh = +wt.split(":")[0], time = info.midday ? "12:00 PM (sleep in)" : ((wh % 12) || 12) + ":" + wt.split(":")[1] + (wh < 12 ? " AM" : " PM");
-  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note };
+  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note, run: !!T.run };
 }
 
 /* ---------------------------- STATS ---------------------------- */
@@ -807,19 +866,31 @@ function weekReport(ws) {
   return { days, act, tub, read, water, prot, slp, pct: days ? Math.round(act / days * 100) : 0 };
 }
 
+/* ---------------------------- RUN LOG ---------------------------- */
+function milesIn(from, to) { let m = 0; for (const d in S.logs) if (d >= from && d <= to) m += +S.logs[d].miles || 0; return Math.round(m * 10) / 10; }
+function runCardHTML(s, sess) {
+  const l = getL(s), wk = milesIn(weekStart(s), s), all = milesIn("2000-01-01", s);
+  return `<div class="card"><div class="row between"><h2 style="margin:0">Run log</h2><span class="small muted">+5 pts per mile</span></div>
+  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v">${+(l.miles || 0).toFixed(1)}</div></div><div class="tile"><div class="k">This week</div><div class="v">${wk}</div></div><div class="tile"><div class="k">All time</div><div class="v">${all}</div></div></div>
+  <div class="row" style="margin-top:10px"><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="30" placeholder="Miles" style="flex:1"><button class="btn primary sm" data-act="runAdd">Add miles</button>${l.miles ? `<button class="btn sm" data-act="runClear">Undo</button>` : ""}</div>
+  <div class="small muted" style="margin-top:6px">${sess.run ? "Run day: logging 1+ mile completes today's workout." : "Ran before your workout? It counts as your warmup, so skip the treadmill walk."}</div></div>`;
+}
+Object.assign(window, { GS_RUN: true });
+
 /* ---------------------------- WEEKLY SCOREBOARD (friendly competition) ---------------------------- */
 function myWeekScore(ws) {
-  const t = todayStr(); const st = { workouts: 0, quick: 0, active: 0, water: 0, protein: 0, readMin: 0, sleep: 0 };
+  const t = todayStr(); const st = { workouts: 0, quick: 0, active: 0, water: 0, protein: 0, readMin: 0, sleep: 0, miles: 0 };
   for (let i = 0; i < 7; i++) {
     const s = addDays(ws, i); if (s > t) break; const l = S.logs[s]; if (!l) continue;
     if (l.done) st.workouts++; else if (l.mvdDone) st.quick++;
-    if (l.done || l.mvdDone || (l.checks && l.checks.court) || l.reading > 0) st.active++;
+    if (l.done || l.mvdDone || (l.checks && l.checks.court) || l.reading > 0 || l.miles > 0) st.active++;
+    st.milesPts = (st.milesPts || 0) + Math.min(6, +l.miles || 0) * 5; st.miles += +l.miles || 0;
     if (l.water >= waterGoal(s)) st.water++;
     if (l.protein >= S.profile.protein) st.protein++;
     st.readMin += Math.min(60, l.reading || 0);
     if (l.sleep) st.sleep++;
   }
-  const score = Math.round(st.workouts * 20 + st.quick * 10 + st.active * 5 + st.water * 3 + st.protein * 3 + st.readMin * 0.5 + st.sleep * 2);
+  const score = Math.round(st.workouts * 20 + st.quick * 10 + st.active * 5 + st.water * 3 + st.protein * 3 + st.readMin * 0.5 + st.sleep * 2 + (st.milesPts || 0)); delete st.milesPts; st.miles = Math.round(st.miles * 10) / 10;
   return { score, stats: st };
 }
 const SB = { week: null, players: null, err: false, last: 0 };
@@ -839,15 +910,32 @@ function scoreboardHTML(compact) {
   let list = (SB.players && SB.week === ws ? SB.players.slice() : []);
   list = list.filter(p => p.id !== PID); list.push({ id: PID, name: S.profile.name || PID, score: me.score, stats: me.stats });
   list.sort((a, b) => b.score - a.score);
-  const lead = list[0], rows = list.map((p, i) => `<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${i + 1}.</b> ${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && list.length > 1 && p.score > 0 ? " " + I.flame : ""}</span><b class="brand">${p.score}</b></div>`).join("");
+  const lead = list[0], rows = list.map((p, i) => `<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${i + 1}.</b> ${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && list.length > 1 && p.score > 0 ? " " + I.flame : ""}</span><span>${p.stats && p.stats.miles ? `<span class="small muted">${p.stats.miles} mi </span>` : ""}<b class="brand">${p.score}</b></span></div>`).join("");
   const others = list.length > 1;
   const gap = others ? (lead.id === PID ? "You lead by " + (lead.score - list[1].score) + " pts." : "You are " + (lead.score - me.score) + " pts behind " + esc(lead.name) + ".") : "Waiting on your friend to log in.";
   if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">This week's scoreboard</h3><button class="btn sm" data-tab="progress">Details</button></div>${rows}<div class="small muted" style="margin-top:6px">${gap}</div></div>`;
   const s = me.stats;
   return `<div class="card"><h2 class="brand">Weekly Scoreboard</h2><div class="small muted">Friendly competition. Resets every Monday.</div>${rows}<div class="small" style="margin-top:8px"><b>${gap}</b></div>
-  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Workouts</div><div class="v">${s.workouts}${s.quick ? " +" + s.quick : ""}</div></div><div class="tile"><div class="k">Water days</div><div class="v">${s.water}</div></div><div class="tile"><div class="k">Protein days</div><div class="v">${s.protein}</div></div></div>
-  <div class="small muted" style="margin-top:8px">Points: workout 20, quick 15-min 10, active day 5, water goal 3, protein goal 3, sleep log 2, reading 1 per 2 min (60 max a day).${SB.err ? " Offline right now; your score syncs when you are back online." : ""}</div></div>`;
+  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Workouts</div><div class="v">${s.workouts}${s.quick ? " +" + s.quick : ""}</div></div><div class="tile"><div class="k">Water days</div><div class="v">${s.water}</div></div><div class="tile"><div class="k">${list.some(p => p.stats && p.stats.miles) ? "Miles" : "Protein days"}</div><div class="v">${list.some(p => p.stats && p.stats.miles) ? (s.miles || 0) : s.protein}</div></div></div>
+  <div class="small muted" style="margin-top:8px">Points: workout 20, quick 15-min 10, active day 5, water goal 3, protein goal 3, sleep log 2, reading 1 per 2 min (60 max a day), run 5 per mile (30 max a day).${SB.err ? " Offline right now; your score syncs when you are back online." : ""}</div></div>`;
 }
+
+/* ---------------------------- WORKOUT SETUP (first open, per person) ---------------------------- */
+const WIN_OPTS = ["5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "Lunch 12 PM", "6 to 9 PM", "6:00 PM", "7:00 PM", "8:00 PM"];
+function setupHTML() {
+  const su = UI.setup || (UI.setup = JSON.parse(JSON.stringify(C().setup || { windows: (PERSON && PERSON.windowsDefault) || [], gym: false, gymDays: [] })));
+  const days = [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"]];
+  return `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Let's set up your workouts</h2><div class="muted">30 seconds. You can change this any time in More, then Workout setup.</div></div>
+  <h3 class="sh3">1. Pick your 2 best workout windows</h3><div class="small muted">Each day you tap which one you used.</div>
+  <div class="row wrap" style="gap:8px;margin-top:8px">${WIN_OPTS.map(w => `<button class="chip ${su.windows.includes(w) ? "on" : ""}" data-act="suWin" data-v="${w}">${w}</button>`).join("")}</div>
+  <h3 class="sh3" style="margin-top:18px">2. Open to training some days at the YMCA or Brett's gym?</h3>
+  <div class="row" style="gap:8px"><button class="chip ${su.gym ? "on" : ""}" style="flex:1" data-act="suGym" data-v="1">Yes</button><button class="chip ${!su.gym ? "on" : ""}" style="flex:1" data-act="suGym" data-v="0">No, home only</button></div>
+  ${su.gym ? `<div class="small muted" style="margin-top:10px">Which days? Gym days get machine and dumbbell workouts. Home days stay bodyweight, med ball, and treadmill.</div><div class="row wrap" style="gap:8px;margin-top:8px">${days.map(([i, d]) => `<button class="chip ${su.gymDays.includes(i) ? "on" : ""}" data-act="suDay" data-v="${i}">${d}</button>`).join("")}</div>` : ""}
+  <button class="btn primary block" style="margin-top:20px" data-act="suSave">Save my setup</button>`;
+}
+function maybeSetup() { if (PERSON && PERSON.onboard && !C().setup) openSheet("setup", "first"); }
+function rerenderSetup() { if (UI.sheet && UI.sheet.kind === "setup") { const y = $("sheet").scrollTop; renderSheet(); $("sheet").scrollTop = y; } }
+Object.assign(window, { GS_SETUP: true });
 
 /* ---------------------------- UI helpers ---------------------------- */
 let S = load();
@@ -903,6 +991,10 @@ function renderToday() {
   const done = l.done || l.mvdDone;
   out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
+  // workout window check (people who pick their own windows)
+  const wins = myWindows();
+  if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
+  if (C().features.runs) out += runCardHTML(s, sess);
   // tiles
   out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
   // weekly scoreboard (compact)
@@ -1040,7 +1132,7 @@ function chart(field, unit, color) {
   if (pts.length < 2) return emptyState("Log 2+ entries to see your trend.");
   const vals = pts.map(p => +p[field]), mn = Math.min(...vals), mx = Math.max(...vals), rg = mx - mn || 1, W = 320, H = 120;
   const xy = pts.map((p, i) => [10 + i * (W - 20) / (pts.length - 1), 10 + (H - 30) * (1 - (p[field] - mn) / rg)]);
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%">${[0, 1, 2].map(i => `<line x1="0" x2="${W}" y1="${10 + i * (H - 30) / 2}" y2="${10 + i * (H - 30) / 2}" stroke="#e6e9e4"/>`).join("")}<polyline fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" points="${xy.map(p => p.join(",")).join(" ")}"/>${xy.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="${i === xy.length - 1 ? 6 : 3.5}" fill="${i === xy.length - 1 ? "#ff8200" : color}"/>`).join("")}<text x="10" y="${H - 4}" fill="#55605a" font-size="11">${fmtShort(pts[0].date)}: ${vals[0]} ${unit}</text><text x="${W - 10}" y="${H - 4}" fill="#55605a" font-size="11" text-anchor="end">${fmtShort(pts[pts.length - 1].date)}: ${vals[vals.length - 1]} ${unit}</text></svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%">${[0, 1, 2].map(i => `<line x1="0" x2="${W}" y1="${10 + i * (H - 30) / 2}" y2="${10 + i * (H - 30) / 2}" stroke="#e6e9e4"/>`).join("")}<polyline fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" points="${xy.map(p => p.join(",")).join(" ")}"/>${xy.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="${i === xy.length - 1 ? 6 : 3.5}" fill="${i === xy.length - 1 ? "${O}" : color}"/>`).join("")}<text x="10" y="${H - 4}" fill="#55605a" font-size="11">${fmtShort(pts[0].date)}: ${vals[0]} ${unit}</text><text x="${W - 10}" y="${H - 4}" fill="#55605a" font-size="11" text-anchor="end">${fmtShort(pts[pts.length - 1].date)}: ${vals[vals.length - 1]} ${unit}</text></svg>`;
 }
 function renderProgress() {
   checkBadges();
@@ -1060,17 +1152,18 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { UI.sheet = null; $("sheet").classList.add("hidden"); }
+function closeSheet() { UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
-  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"]].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
+  if (kind === "menu") o = sheetTitle("More") + `<div class="menu">${[["hoops", "ball", "Schedule"], ["supps", "pill", "Supplements"], ["appts", "cross", "Health appointments"], ["custom", "gear", "Customize"], ["settings", "gear", "Settings"], ["backup", "save", "Backup + restore"], ["whatsnew", "flag", "What's new"], ...(PERSON && PERSON.onboard ? [["setup", "gear", "Workout setup"]] : [])].map(m => `<button data-act="sheet" data-k="${m[0]}"><span class="mi">${I[m[1]]}</span>${m[2]}<span class="chev">\u203A</span></button>`).join("")}</div><div class="ver"><img src="wordmark-on-light.png" alt="">v${APP_VERSION}</div>`;
   else if (kind === "whatsnew") o = back + whatsNewHTML();
   else if (kind === "hoops") { o = scheduleHTML();
   } else if (kind === "game") { o = eventFormHTML(arg);
   } else if (kind === "import") { o = back + importSheetHTML();
   } else if (kind === "review") { o = reviewHTML();
   } else if (kind === "mapper") { o = mapperHTML();
+  } else if (kind === "setup") { o = (arg === "first" ? "" : back) + setupHTML();
   } else if (kind === "custom") { o = customizeHTML();
   } else if (kind === "supps") { o = supplementsHTML();
   } else if (kind === "appts") {
@@ -1133,6 +1226,13 @@ function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSh
 function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 function restore(text) { try { const d = JSON.parse(text); if (!d || !d.logs || !d.profile) throw 0; S = migrate(d); invalidate(); save(); toast("Restored"); closeSheet(); render(); } catch (e) { toast("That backup did not work"); } }
 const ACT = {
+  slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
+  runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10; if (v <= 0 || v > 30) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s); l.miles = Math.round(((+l.miles || 0) + v) * 10) / 10; if (buildSession(s).run && l.miles >= 1) { l.done = true; l.checks.workout = true; } save(); toast(v + " mi logged. Nice work."); render(); },
+  runClear: () => { const s = todayStr(), l = L(s); l.miles = 0; if (buildSession(s).run) { l.done = false; l.checks.workout = false; } save(); render(); },
+  suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > 2) su.windows.shift(); } rerenderSetup(); },
+  suGym: el => { UI.setup.gym = el.dataset.v === "1"; rerenderSetup(); },
+  suDay: el => { const su = UI.setup, v = +el.dataset.v, i = su.gymDays.indexOf(v); if (i >= 0) su.gymDays.splice(i, 1); else su.gymDays.push(v); su.gymDays.sort(); rerenderSetup(); },
+  suSave: () => { const su = UI.setup; if (!su.windows.length) return toast("Pick at least 1 window"); if (!su.gym) su.gymDays = []; C().setup = su; UI.setup = null; invalidate(); save(); closeSheet(); toast("Setup saved"); render(); },
   tab: el => { if (el.dataset.tab === "reads") syncCommunity(); UI.tab = el.dataset.tab; closeSheet(); window.scrollTo(0, 0); render(); },
   more: () => openSheet("menu"),
   sheet: el => openSheet(el.dataset.k, el.dataset.a),
@@ -1247,7 +1347,8 @@ function customizeHTML() {
   <h3 class="sh3">Wind-down routine</h3>${timedEditor("wind", c.wind, "New step")}
   <h3 class="sh3">Affirmations</h3>${listEditor("aff", S.affirmations, "New affirmation")}
   <h3 class="sh3">Today screen quotes</h3><div class="small muted">One shows each day under your greeting.</div>${listEditor("idn", c.identity, "New quote")}
-  <h3 class="sh3">Features</h3>${tog("cFeat", c.features.hotTub, "Hot tub", 'data-k="hotTub"')}
+  <h3 class="sh3">App color</h3><div class="row wrap" style="gap:8px">${ACCENTS.map(([hx, nm]) => `<button class="chip ${(c.accent || ACCENT) === hx ? "on" : ""}" data-act="cAccent" data-v="${hx}"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${hx};vertical-align:-2px;margin-right:6px"></span>${nm}</button>`).join("")}</div>
+  <h3 class="sh3">Features</h3>${tog("cFeat", c.features.hotTub, "Hot tub", 'data-k="hotTub"')}${tog("cFeat", c.features.runs, "Run log (track miles)", 'data-k="runs"')}
   <h3 class="sh3">Daily targets</h3><div class="grid2"><div><label class="f">Protein (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Extra water court days (oz)</label><input type="number" value="${p.waterCourtExtra}" data-in="prof" data-k="waterCourtExtra"></div><div><label class="f">Water on waking (oz)</label><input type="number" value="${c.waterWakeOz}" data-in="cwake"></div><div><label class="f">Calories, training day</label><input type="number" value="${p.calTrain}" data-in="prof" data-k="calTrain"></div><div><label class="f">Calories, court day</label><input type="number" value="${p.calCourt}" data-in="prof" data-k="calCourt"></div></div>
   <button class="btn block" style="margin-top:18px" data-act="cReset">${UI.cResetArm ? "Tap again to restore defaults" : "Restore default times and lists"}</button>`;
 }
@@ -1264,6 +1365,7 @@ Object.assign(ACT, {
   trAdd: el => { const k = el.dataset.key, t = $("trNewT_" + k).value, l = ($("trNewL_" + k).value || "").trim(); if (!l) return toast("Type a name first"); timedRef(k).push({ id: (k === "wind" ? "wd_" : "hb_") + Date.now().toString(36), time: t || "07:00", label: l }); timedRef(k).sort((a, b) => toMin(a.time) - toMin(b.time)); save(); rerenderAll(); toast("Added"); },
   trDel: el => { timedRef(el.dataset.key).splice(+el.dataset.i, 1); save(); rerenderAll(); },
   cHide: el => { const c = C(), k = el.dataset.k; c.hide[k] = !c.hide[k]; save(); rerenderAll(); },
+  cAccent: el => { C().accent = el.dataset.v; save(); toast("Color updated"); setTimeout(() => location.reload(), 350); },
   cFeat: el => { const c = C(), k = el.dataset.k; c.features[k] = !c.features[k]; save(); rerenderAll(); },
   cReset: () => { if (!UI.cResetArm) { UI.cResetArm = true; renderSheet(); setTimeout(() => { UI.cResetArm = false; }, 4000); return; } UI.cResetArm = false; const c = C(); c.times = clone(DEFAULT_TIMES); c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] })); c.identity = IDENTITY.slice(); c.hide = {}; save(); toast("Defaults restored"); rerenderAll(); },
   suppAdd: () => { S.supplements.push({ id: uid("s"), name: "New supplement", dose: "1 serving", time: "08:00", note: "" }); save(); renderSheet(); render(); },
@@ -1743,6 +1845,7 @@ render();
 setTimeout(() => syncScore(true), 1500);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) syncScore(false); });
 showWhatsNew();
+maybeSetup();
 checkUpdate(true);
 loadBooks();
 syncCommunity();

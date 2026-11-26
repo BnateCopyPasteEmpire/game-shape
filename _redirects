@@ -1,3 +1,5 @@
 # Each person gets their own link to the same app.
 /mark    /index.html  200
 /mark/*  /index.html  200
+/will    /index.html  200
+/will/*  /index.html  200

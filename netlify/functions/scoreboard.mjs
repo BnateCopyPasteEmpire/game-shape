@@ -26,7 +26,7 @@ export default async (req) => {
   const rec = {
     id, name: String(b.name || id).replace(/[<>]/g, "").trim().slice(0, 20) || id,
     score: num(b.score, 2000),
-    stats: { workouts: num(s.workouts, 7), quick: num(s.quick, 7), active: num(s.active, 7), water: num(s.water, 7), protein: num(s.protein, 7), readMin: num(s.readMin, 2000), sleep: num(s.sleep, 7) },
+    stats: { workouts: num(s.workouts, 7), quick: num(s.quick, 7), active: num(s.active, 7), water: num(s.water, 7), protein: num(s.protein, 7), readMin: num(s.readMin, 2000), sleep: num(s.sleep, 7), miles: Math.max(0, Math.min(200, Math.round((+s.miles || 0) * 10) / 10)) },
     updated: new Date().toISOString()
   };
   const key = "week-" + b.week, data = (await store.get(key, { type: "json" })) || {};

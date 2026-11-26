@@ -2,8 +2,58 @@
    Each person's data saves on their own phone under their own storage key, so nobody's logs mix.
    To add a person: add an entry below, add "/<id>/*  /index.html  200" to _redirects, and copy manifest-mark.json to manifest-<id>.json. */
 window.GS_PROFILES = {
+  will: {
+    id: "will",
+    theme: { accent: "#3ecf7a" },   // from intake: Green
+    profile: { name: "Will", sport: "Basketball", team: "Easley Pres - B", age: 42, heightIn: 74, weight: 200, waist: 36, goalWeight: 185,
+      protein: 165, waterBase: 80, waterCourtExtra: 20, calTrain: 2200, calCourt: 2400, fiber: 30 },
+    programStart: "2026-11-23",
+    supplements: [],
+    appointments: [],
+    readsSpicy: false,
+    affirmations: [
+      "I lead my team by how I take care of myself.",
+      "Small wins every day. Down 15 and feeling good.",
+      "I don't need perfect. I need to show up."
+    ],
+    custom: {
+      times: { wake: "05:00", workout: "05:00", hottub: "05:45", breakfast: "06:30", lunch: "12:00", windDown: "21:00", read: "21:20", bed: "22:00" },
+      features: { hotTub: false, runs: true },
+      hide: { hottub: true },
+      waterWakeOz: 16,
+      wind: [
+        { id: "wd_tv", time: "21:00", label: "Phone on charger. No screens" },
+        { id: "wd_roll", time: "21:05", label: "Massage gun or foam roll 5 min: hips, groin, low back" },
+        { id: "wd_stretch", time: "21:10", label: "Figure-4 + butterfly stretch 5 min" },
+        { id: "wd_read", time: "21:20", label: "Read 15 min" },
+        { id: "wd_pray", time: "21:40", label: "Prayer, breathing, or journal 5 min" },
+        { id: "bed", time: "22:00", label: "In bed. Lights out by 10:15" }
+      ],
+      identity: [
+        "Consistency beats intensity.",
+        "Coach yourself like you coach your team.",
+        "Easy pace, every week, all year.",
+        "Less sore, more ready.",
+        "Water first. Coffee second.",
+        "One good choice, then the next one.",
+        "Strong hips, quiet back."
+      ]
+    },
+    onboard: true,
+    windowsDefault: ["5:00 AM", "6 to 9 PM"],
+    noMidday: true,
+    maxSets: 2,
+    highReps: true,
+    weekPlan: { 0: "W_REST", 1: "W_UPPER", 2: "W_UPPER", 3: "W_LOWER", 4: "W_RUN", 5: "W_FULL", 6: "W_RUN" },
+    gymSwap: { W_LOWER: "WG_LEGS", W_UPPER: "WG_UPPER", W_FULL: "WG_FULL" },
+    heavyLegs: ["W_LOWER", "WG_LEGS"],
+    preCourtSwap: "W_UPPER",
+    practiceTpl: "W_PRACTICE",
+    restDays: [0]
+  },
   mark: {
     id: "mark",
+    theme: { accent: "#4cc9f0" },   // from intake: Ice blue
     profile: { name: "Mark", sport: "Basketball", team: "Easley Pres - B", age: 35, heightIn: 75, weight: 175, waist: 32,
       protein: 160, waterBase: 100, waterCourtExtra: 25, calTrain: 3000, calCourt: 3200, fiber: 34 },
     programStart: "2026-11-23",

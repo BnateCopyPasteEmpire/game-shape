@@ -18,3 +18,5 @@
   Cache-Control: no-cache
 /manifest-mark.json
   Cache-Control: no-cache
+/manifest-will.json
+  Cache-Control: no-cache
