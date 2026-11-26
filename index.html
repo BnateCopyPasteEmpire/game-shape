@@ -387,8 +387,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.6.2";
+const APP_VERSION = "2.6.3";
 const CHANGELOG = {
+  "2.6.3": ["New scoring: the workout is worth the most (50). Water goal is huge (40). Reading is 1 point a minute (up to 35)", "Run or bike: 40 points, once every other day. The Run log is now a Cardio log with Run and Bike", "Sleep: 7 to 8 hours is best (25). 6 to 7 or 8 to 9 hours is 15. 9+ hours is 5. Under 6 hours is 0", "Affirmations are for you now, no points"],
   "2.6.2": ["New tour: everything that changed, why we asked more questions, how points and badges work, and the Season 1 prize. Find it any time in More, then How Season 1 works"],
   "2.6.1": ["Nicknames: go to More, then Settings, and add a nickname. It replaces your first name on Today, the Score tab, and the scoreboard"],
   "2.6.0": ["Game Shape Season 1: earn points and badges for everything you log, and compete for the first Game Shape shirt and beanie", "New Score tab with season standings, a breakdown for every player, and your badges", "Book quizzes: finish a book, pass 2 of 3 questions, earn 150 points", "I bought it button on books (+25, once a week)", "Affirmations check-off on Recover (+5)", "Setup now asks about days off and the games and practices you'll miss, then shows your week"],
@@ -921,12 +922,15 @@ function weekReport(ws) {
 
 /* ---------------------------- RUN LOG ---------------------------- */
 function milesIn(from, to) { let m = 0; for (const d in S.logs) if (d >= from && d <= to) m += +S.logs[d].miles || 0; return Math.round(m * 10) / 10; }
+function bikeIn(from, to) { let m = 0; for (const d in S.logs) if (d >= from && d <= to) m += +S.logs[d].bike || 0; return Math.round(m * 10) / 10; }
 function runCardHTML(s, sess) {
-  const l = getL(s), wk = milesIn(weekStart(s), s), all = milesIn("2000-01-01", s);
-  return `<div class="card"><div class="row between"><h2 style="margin:0">Run log</h2><span class="small muted">+5 pts per mile</span></div>
-  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v">${+(l.miles || 0).toFixed(1)}</div></div><div class="tile"><div class="k">This week</div><div class="v">${wk}</div></div><div class="tile"><div class="k">All time</div><div class="v">${all}</div></div></div>
-  <div class="row" style="margin-top:10px"><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="30" placeholder="Miles" style="flex:1"><button class="btn primary sm" data-act="runAdd">Add miles</button>${l.miles ? `<button class="btn sm" data-act="runClear">Undo</button>` : ""}</div>
-  <div class="small muted" style="margin-top:6px">${sess.run ? "Run day: logging 1+ mile completes today's workout." : "Ran before your workout? It counts as your warmup, so skip the treadmill walk."}</div></div>`;
+  const l = getL(s), wk = milesIn(weekStart(s), s), wkB = bikeIn(weekStart(s), s), all = milesIn("2000-01-01", s) + bikeIn("2000-01-01", s);
+  const mode = UI.cardio || (C().features.runs ? "run" : "bike"), yday = cardioCredit(addDays(s, -1)), today = cardioCredit(s);
+  const note = sess.run ? "Run day: a 1+ mile run is today's workout (" + PTS.workout + " pts)." : today ? "Cardio counted today: +" + PTS.cardio + "." : yday ? "Cardio counted yesterday, so today's miles log without points. Points are back tomorrow." : "Run 1+ mile or bike 3+ miles: +" + PTS.cardio + ". Counts once every other day.";
+  return `<div class="card"><div class="row between"><h2 style="margin:0">Cardio log</h2><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div></div>
+  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:18px">${+(l.miles || 0).toFixed(1)} run${l.bike ? "<br>" + (+l.bike).toFixed(1) + " bike" : ""}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:18px">${wk} run${wkB ? "<br>" + wkB + " bike" : ""}</div></div><div class="tile"><div class="k">All miles</div><div class="v">${Math.round(all * 10) / 10}</div></div></div>
+  <div class="row" style="margin-top:10px"><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="60" placeholder="${mode === "run" ? "Miles run" : "Miles biked"}" style="flex:1"><button class="btn primary sm" data-act="runAdd">Add</button>${l.miles || l.bike ? `<button class="btn sm" data-act="runClear">Undo</button>` : ""}</div>
+  <div class="small muted" style="margin-top:6px">${note}</div></div>`;
 }
 Object.assign(window, { GS_RUN: true });
 
@@ -935,7 +939,14 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
 
 /* ---------------------------- SEASON (3-month competition) ----------------------------
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
-const PTS = { workout: 50, quick: 25, court: 30, mile: 10, mileCap: 60, water: 15, waterPart: 7, protein: 10, sleep: 15, sleepLog: 5, affirm: 5, readCap: 30, buy: 25, quiz: 150 };
+/* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
+   Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
+const PTS = { workout: 50, quick: 25, court: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
+/* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
+function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
+function runIsWorkout(s) { const l = S.logs[s]; return !!(l && l.done && l.runDone); }
+function cardioCredit(s, depth) { if (!cardioQual(s) || runIsWorkout(s)) return false; if ((depth || 0) > 60) return true; return !cardioCredit(addDays(s, -1), (depth || 0) + 1); }
 const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 function seasonOf(d) {
   if (d < "2027-03-01") return { id: "S1", n: 1, start: "2026-11-30", end: "2027-02-28" };
@@ -950,12 +961,12 @@ function dayPoints(s) {
   if (!l) return b;
   b.workout = l.done ? PTS.workout : l.mvdDone ? PTS.quick : 0;
   b.court = l.checks && l.checks.court ? PTS.court : 0;
-  b.run = Math.min(PTS.mileCap, Math.round((+l.miles || 0) * PTS.mile));
+  b.run = cardioCredit(s) ? PTS.cardio : 0;
   const wg = waterGoal(s); b.water = l.water >= wg ? PTS.water : l.water >= wg * .75 ? PTS.waterPart : 0;
   b.protein = l.protein >= S.profile.protein ? PTS.protein : 0;
-  const h = sleepHrs(l.sleep); b.sleep = h == null ? 0 : h >= 7 ? PTS.sleep : PTS.sleepLog;
+  b.sleep = sleepPts(sleepHrs(l.sleep));
   b.affirm = l.checks && l.checks.affirm ? PTS.affirm : 0;
-  b.read = Math.min(PTS.readCap, Math.floor((l.reading || 0) / 2));
+  b.read = Math.min(PTS.readCap, Math.floor(l.reading || 0));
   return b;
 }
 const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY"];
@@ -963,14 +974,14 @@ const SEASON_BADGES = [
   ["run1", "flag", "First Run", 25], ["mi10", "flag", "10 Miles", 50], ["mi25", "flag", "25 Miles", 100], ["mi50", "flag", "50 Miles", 150], ["mi100", "flag", "100 Miles", 250], ["run5wk", "flame", "5-Mile Week", 50],
   ["water3", "drop", "Hydrated x3", 25], ["water7", "drop", "Hydration Hero", 75], ["water28", "drop", "Water Week x4", 150], ["sleep7", "moon", "Sleep 7 Nights", 75],
   ["wo10", "fire", "10 Workouts", 50], ["wo25", "fire", "25 Workouts", 100], ["wo50", "fire", "50 Workouts", 200], ["perfect", "shield", "Perfect Week", 100], ["streak7", "flame", "7-Day Streak", 50],
-  ["affirm14", "ball", "Affirmations x14", 50], ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["ironman", "hoop", "Iron Man", 100]
+  ["book1", "book", "First Book Verified", 100], ["book3", "book", "3 Books Verified", 200], ["ironman", "hoop", "Iron Man", 100]
 ];
 function seasonStats(sz) {
   const t = todayStr(), to = t < sz.end ? t : sz.end, st = { days: [], tot: { workout: 0, court: 0, run: 0, water: 0, protein: 0, sleep: 0, affirm: 0, read: 0, books: 0, badges: 0 }, miles: 0, workouts: 0, waterDays: 0, sleepGood: 0, affirmDays: 0 };
   for (let d = sz.start; d <= to; d = addDays(d, 1)) {
     const p = dayPoints(d), l = S.logs[d] || null; st.days.push([d, p, l]);
     for (const k in p) st.tot[k] += p[k];
-    if (l) { st.miles += +l.miles || 0; if (l.done || l.mvdDone) st.workouts++; if (p.water === PTS.water) st.waterDays++; if (p.sleep === PTS.sleep) st.sleepGood++; if (p.affirm) st.affirmDays++; }
+    if (l) { st.miles += +l.miles || 0; if (l.done || l.mvdDone) st.workouts++; if (p.water === PTS.water) st.waterDays++; if (p.sleep === PTS.sleepBest) st.sleepGood++; if (p.affirm) st.affirmDays++; }
   }
   const ss = SSN(), inS = d => d >= sz.start && d <= sz.end;
   const bought = Object.values(ss.bought).filter(x => inS(x.date)), passed = Object.values(ss.quiz).filter(x => x.pass && inS(x.date));
@@ -989,7 +1000,6 @@ function seasonBadges(sz, st) {
   if (st.sleepGood >= 7) add("sleep7");
   [[10, "wo10"], [25, "wo25"], [50, "wo50"]].forEach(([n, id]) => { if (st.workouts >= n) add(id); });
   if (runOf(d, (p, l) => !!(l && (l.done || l.mvdDone || (l.checks && l.checks.court) || l.miles > 0))) >= 7) add("streak7");
-  if (st.affirmDays >= 14) add("affirm14");
   if (st.booksPassed >= 1) add("book1"); if (st.booksPassed >= 3) add("book3");
   // Perfect week: a finished Mon-Sun week inside the season where every planned training day got done
   const t = todayStr();
@@ -1032,8 +1042,8 @@ function seasonHTML(compact) {
   const ss = SSN(), have = st ? st.badges : [];
   const badges = `<h3 class="sh3" style="margin-top:16px">Your Season ${sz.n} badges (${have.length}/${SEASON_BADGES.length})</h3><div>${SEASON_BADGES.map(b => `<span class="bdg ${have.includes(b[0]) ? "" : "off"}"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>`;
   const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
-    <li>Full workout ${PTS.workout}, quick 15-min ${PTS.quick}. A run of 1+ mile on a run day counts as the workout</li><li>Practice or game ${PTS.court}</li><li>Runs ${PTS.mile} per mile (${PTS.mileCap} max a day)</li>
-    <li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent), protein goal ${PTS.protein}</li><li>Sleep 7+ hours ${PTS.sleep} (${PTS.sleepLog} for logging less)</li><li>Affirmations ${PTS.affirm}, reading 1 per 2 min (${PTS.readCap} max a day)</li>
+    <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
+    <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice or game ${PTS.court}, protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points, just a better head</li>
     <li>Buy a book ${PTS.buy} (1 a week), finish it and pass the 3-question quiz ${PTS.quiz}</li><li>Every badge adds its bonus points automatically</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
   return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 6px">${head}. Tap a name for the breakdown.</div>${rows}${pre ? `<div class="small muted" style="margin-top:8px">Points start counting ${fmtD(sz.start)}. Get your setup and logging habits dialed in now.</div>` : ""}${prize}${badges}${guide}</div>`;
 }
@@ -1170,9 +1180,10 @@ function tourPages() {
       <li><b>Your week preview:</b> you see Mon to Sun before you save.</li>
       <li>Your answers go to Brett so he can fine-tune your plan in the next update.</li></ul>`),
     p("How points work", "Every point comes from doing YOUR plan and hitting YOUR targets. A beginner day and a hard day count the same.", `<div>
-      ${row("Full workout", PTS.workout)}${row("15-min quick workout", PTS.quick)}${row("Practice or game", PTS.court)}${row("Runs, per mile (60 max a day)", PTS.mile)}
-      ${row("Water goal hit (7 at 75 percent)", PTS.water)}${row("Protein goal hit", PTS.protein)}${row("Sleep 7+ hours (5 for logging less)", PTS.sleep)}
-      ${row("Affirmations read", PTS.affirm)}${row("Reading, 1 per 2 min (30 max a day)", "up to " + PTS.readCap)}${row("Bought a book (1 a week)", PTS.buy)}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
+      ${row("Full workout (the big one)", PTS.workout)}${row("Water goal hit (" + PTS.waterPart + " at 75 percent)", PTS.water)}${row("Run 1+ mi or bike 3+ mi (every other day)", PTS.cardio)}
+      ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Practice or game", PTS.court)}${row("15-min quick workout", PTS.quick)}
+      ${row("Sleep 7 to 8 hours", PTS.sleepBest)}${row("Sleep 6 to 7 or 8 to 9 hours", PTS.sleepMid)}${row("Sleep 9+ hours", PTS.sleepLong)}${row("Sleep under 6 hours", 0)}
+      ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book (1 a week)", PTS.buy)}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
       <div class="small muted" style="margin-top:8px">Daily caps keep it fair, so nobody wins by farming one thing. Log it the day it happens.</div>`),
     p("Badges = bonus points", "Hit a milestone, unlock a badge, and its points add to your total automatically.", `<div>${SEASON_BADGES.map(b => `<span class="bdg"><span class="e">${I[b[1]] || I.flag}</span>${b[2]} <b>+${b[3]}</b></span>`).join("")}</div>
       <div class="small muted" style="margin-top:8px">Book quizzes: 3 basic questions, get 2 right to verify the book. Miss it? Retake in 24 hours with new questions. Badges reset each season.</div>`),
@@ -1297,7 +1308,7 @@ function renderToday() {
   const su0 = C().setup, tl = todayLoc(s);
   if (su0 && su0.locs && su0.locs.length > 1) out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
   if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
-  if (C().features.runs) out += runCardHTML(s, sess);
+  out += runCardHTML(s, sess);
   // tiles
   out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
   // crew check-ins (Brett only, after the admin PIN is saved)
@@ -1425,7 +1436,7 @@ function renderRecover() {
   const cw = C(), wind = cw.wind.filter(w => cw.features.hotTub || !/hot tub/i.test(w.label));
   o += `<div class="card"><div class="row between"><h2 style="margin:0">Wind-down (${fmtT(cw.times.windDown)} to ${fmtT(cw.times.bed)})</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div><div class="small muted" style="margin-top:6px">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out late is OK." : ""}</div>${UI.windEdit ? timedEditor("wind", cw.wind, "New step") : wind.map(w => checkRow(s, w.id, fmtT(w.time), esc(w.id === "wd_read" ? readLabel() : w.label))).join("")}</div>`;
   const affDone = !!(getL(todayStr()).checks || {}).affirm;
-  o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today (+" + PTS.affirm + ")"}</button></div>`;
+  o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today"}</button></div>`;
   o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
   o += `${C().features.hotTub ? `<div class="card"><h2>Reading + hot tub</h2><div class="grid2"><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="tile"><div class="k">Hot tub today</div><div class="v">${l.hottub} min</div></div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button><button class="btn sm" data-act="tub" data-v="12">+12 min tub</button><button class="btn sm" data-act="tub" data-v="15">+15 min tub</button></div></div>` : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div></div>`}`;
   o += ROUTINES.map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
@@ -1544,7 +1555,7 @@ const ACT = {
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
-  affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("+" + PTS.affirm + " points"); render(); },
+  affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("Nice. Mind right."); render(); },
   buyBook: el => { const ss = SSN(), id = el.dataset.id, t = todayStr(), last = Object.values(ss.bought).filter(x => x.pts).map(x => x.date).sort().pop(); const ok = !last || between(last, t) >= 7; ss.bought[id] = { date: t, pts: ok ? PTS.buy : 0 }; save(); toast(ok ? "+" + PTS.buy + " points. Enjoy it." : "Logged. 1 book purchase a week earns points. Next one counts " + fmtD(addDays(last, 7)) + "."); renderSheet(); },
   quizOpen: el => openQuiz(el.dataset.id),
   quizPick: el => { QZ.picks[+el.dataset.i] = +el.dataset.v; renderSheet(); },
@@ -1565,8 +1576,12 @@ const ACT = {
   suHome: el => { UI.setup.home = el.dataset.v; rerenderSetup(); },
   setupNow: () => { closeSheet(); openSheet("setup", "first"); },
   slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
-  runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10; if (v <= 0 || v > 30) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s); l.miles = Math.round(((+l.miles || 0) + v) * 10) / 10; if (buildSession(s).run && l.miles >= 1) { l.done = true; l.checks.workout = true; } save(); toast(v + " mi logged. Nice work."); render(); },
-  runClear: () => { const s = todayStr(), l = L(s); l.miles = 0; if (buildSession(s).run) { l.done = false; l.checks.workout = false; } save(); render(); },
+  cardioMode: el => { UI.cardio = el.dataset.v; render(); },
+  runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || (C().features.runs ? "run" : "bike")) === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
+    l[k] = Math.round(((+l[k] || 0) + v) * 10) / 10;
+    if (!bike && buildSession(s).run && l.miles >= 1 && !l.done) { l.done = true; l.runDone = true; l.checks.workout = true; }
+    save(); toast(v + " mi " + (bike ? "biked" : "run") + (cardioCredit(s) ? ". +" + PTS.cardio : runIsWorkout(s) ? ". Workout done" : "") + ". Nice work."); render(); },
+  runClear: () => { const s = todayStr(), l = L(s); l.miles = 0; l.bike = 0; if (l.runDone) { l.done = false; l.runDone = false; l.checks.workout = false; } save(); render(); },
   suWin: el => { const su = UI.setup, v = el.dataset.v, i = su.windows.indexOf(v); if (i >= 0) su.windows.splice(i, 1); else { su.windows.push(v); if (su.windows.length > ((PERSON && PERSON.maxWindows) || 2)) su.windows.shift(); } const o = (PERSON && PERSON.windowOpts) || WIN_OPTS; su.windows.sort((a, b) => o.indexOf(a) - o.indexOf(b)); rerenderSetup(); },
   suGym: el => { UI.setup.gym = el.dataset.v === "1"; rerenderSetup(); },
   suDay: el => { const su = UI.setup, v = +el.dataset.v, i = su.gymDays.indexOf(v); if (i >= 0) su.gymDays.splice(i, 1); else su.gymDays.push(v); su.gymDays.sort(); rerenderSetup(); },
