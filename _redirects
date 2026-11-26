@@ -1,5 +1,9 @@
 # Each person gets their own link to the same app.
+# /mark/ and /will/ open the app; any file asked for under them (logo, script, icon) is served from the site root
+# instead of a second copy of the whole app.
 /mark    /index.html  200
-/mark/*  /index.html  200
+/mark/   /index.html  200
+/mark/*  /:splat      200
 /will    /index.html  200
-/will/*  /index.html  200
+/will/   /index.html  200
+/will/*  /:splat      200

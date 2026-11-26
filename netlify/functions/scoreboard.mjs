@@ -11,7 +11,7 @@ const okSeason = s => /^S\d{1,3}$/.test(String(s || ""));
 const num = (v, max) => Math.max(0, Math.min(max, Math.round(+v || 0)));
 const DEFAULT_PRIZE = "The first-ever Game Shape T-shirt and matching beanie";
 const byScore = (a, b) => b.score - a.score;
-const CATS = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus"], CHECKS = ["workout", "water", "sleep", "read", "affirm", "allIn"];
+const CATS = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus"], CHECKS = ["workout", "water", "sleep", "read", "protein", "affirm", "allIn"];
 function weeks(w) {
   const out = {}; if (!w || typeof w !== "object") return out;
   Object.keys(w).filter(okWeek).sort().slice(-20).forEach(ws => { const x = w[ws] || {}; out[ws] = { hits: num(x.hits, 35), pts: num(x.pts, 5000), tier: TV[x.tier] != null ? x.tier : null }; });

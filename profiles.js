@@ -48,7 +48,7 @@ window.GS_PROFILES = {
     noMidday: true,
     maxSets: 2,
     highReps: true,
-    weekPlan: { 0: "W_REST", 1: "W_UPPER", 2: "W_UPPER", 3: "W_LOWER", 4: "W_RUN", 5: "W_FULL", 6: "W_RUN" },
+    weekPlan: { 0: "W_REST", 1: "W_UPPER", 2: "W_UPPER", 3: "W_FULL", 4: "W_RUN", 5: "W_LOWER", 6: "W_RUN" },
     gymSwap: { W_LOWER: "WG_LEGS", W_UPPER: "WG_UPPER", W_FULL: "WG_FULL" },
     heavyLegs: ["W_LOWER", "WG_LEGS"],
     preCourtSwap: "W_UPPER",

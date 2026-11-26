@@ -395,10 +395,6 @@ img,svg,video{max-width:100%}
 .mb-sub{margin-top:8px;font-size:16px;opacity:.9;max-width:320px;position:relative;animation:bbUp .5s .35s both}
 .m-bronze .mb-sub,.m-silver .mb-sub{opacity:.7}
 .mini-poop{position:absolute;top:-60px;animation:fall linear forwards;opacity:.9}
-.gtb{position:relative;display:inline-grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff7cf,#ffd75e 28%,#e3a20b 60%,#8a5a00);box-shadow:0 0 0 4px rgba(255,236,170,.5),0 0 40px rgba(255,200,60,.8),inset 0 -8px 18px rgba(120,70,0,.5);overflow:hidden}
-.gtb:before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(90deg,transparent 48.5%,rgba(110,60,0,.55) 48.5% 51.5%,transparent 51.5%),radial-gradient(circle at 50% -40%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%),radial-gradient(circle at 50% 140%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%)}
-.gtb:after{content:"";position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.65) 50%,transparent 60%);animation:pbShine 3s ease-in-out infinite}
-.gtb img{position:relative;z-index:1;width:76%;height:auto;border-radius:12%;box-shadow:0 0 0 2px rgba(255,236,170,.9),0 3px 8px rgba(0,0,0,.45)}
 .medal-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .medal-row .mc{display:inline-flex;align-items:center;gap:3px;font-weight:900}
 .wkdots{display:flex;gap:6px;margin-top:10px}
@@ -479,7 +475,6 @@ img,svg,video{max-width:100%}
 .allin-bar{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:2px;font-size:13px}
 .allin-bar.on{background:var(--green);color:#fff;animation:bump .5s ease}
 /* bigger Tropics logo on the Golden badge */
-.gtb img{width:94%!important;border-radius:14%!important}
 /* final score scene */
 .final-stack{display:flex;flex-direction:column;gap:8px}
 .fs-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:#fff;opacity:0;animation:bbUp .45s both}
@@ -488,6 +483,77 @@ img,svg,video{max-width:100%}
 .fs-row em{font-style:normal;font-weight:900;color:var(--orange-ink);font-size:17px}
 .fs-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,var(--green),#0e5a2e);color:#fff;opacity:0;animation:bbPop .6s both;margin-top:4px}
 .fs-total span{font-weight:800;letter-spacing:.5px;text-transform:uppercase;font-size:13px}.fs-total b{font-size:34px;font-weight:900;letter-spacing:-1px}
+
+/* v2.9.4: golden plaque, check splash, live rivals, cleaner workout mode */
+.gtb2{position:relative;display:inline-block;width:calc(var(--s)*1.6);height:var(--s);vertical-align:middle;flex:none}
+.gtb2 .g-frame{position:absolute;inset:0;border-radius:calc(var(--s)*.2);padding:calc(var(--s)*.065);background:linear-gradient(145deg,#fff8d2 0%,#ffd84f 20%,#c88700 46%,#ffe78f 60%,#b37400 80%,#ffd24a 100%);box-shadow:0 0 0 max(1px,calc(var(--s)*.018)) #6b4300,0 calc(var(--s)*.04) calc(var(--s)*.22) rgba(255,186,30,.65),inset 0 max(1px,calc(var(--s)*.02)) 0 rgba(255,255,255,.75);overflow:hidden}
+.gtb2 .g-frame:after{content:"";position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.8) 50%,transparent 58%);animation:gSheen 3.4s ease-in-out infinite;pointer-events:none}
+.gtb2 img{display:block;width:100%;height:100%;object-fit:contain;background:#3b2867;border-radius:calc(var(--s)*.14);box-shadow:0 0 0 max(1px,calc(var(--s)*.014)) #5a3a00}
+.gtb2 .g-stars{position:absolute;left:50%;top:calc(var(--s)*-.2);transform:translateX(-50%);color:#ffd75e;font-size:calc(var(--s)*.17);line-height:1;letter-spacing:.12em;text-shadow:0 0 6px #ffb300,0 1px 0 #7a4d00;white-space:nowrap}
+.gtb2 .g-rib{position:absolute;left:50%;bottom:calc(var(--s)*-.17);transform:translateX(-50%);background:linear-gradient(#ffe682,#d79800);color:#3a2200;font:900 calc(var(--s)*.115)/1 system-ui,sans-serif;letter-spacing:.16em;padding:calc(var(--s)*.055) calc(var(--s)*.17);border-radius:999px;border:1px solid #7a4d00;box-shadow:0 2px 8px rgba(0,0,0,.35);white-space:nowrap}
+.gtb2 .g-tw{position:absolute;color:#fff6c8;font-size:calc(var(--s)*.16);text-shadow:0 0 8px #ffd75e;animation:gTw 1.8s ease-in-out infinite}
+@keyframes gSheen{0%{transform:translateX(-60%)}55%,100%{transform:translateX(60%)}}
+@keyframes gTw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+.fs-ic .gtb2{--s:22px!important}
+.splash{position:fixed;z-index:120;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%) scale(.1);background:radial-gradient(circle,rgba(255,255,255,.9) 0 12%,var(--sp1) 13% 38%,var(--sp2) 39% 58%,transparent 60%);opacity:.95;animation:splashGo .6s cubic-bezier(.15,.8,.3,1) forwards}
+.splash.ring{background:none;border:4px solid var(--sp1);animation:splashRing .7s ease-out forwards}
+@keyframes splashGo{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+@keyframes splashRing{to{transform:translate(-50%,-50%) scale(1.25);opacity:0;border-width:1px}}
+.plus-fly{position:fixed;z-index:121;pointer-events:none;font:900 22px/1 system-ui,sans-serif;color:var(--sp1);text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.9);transform:translate(-50%,-50%);animation:plusFly 1s ease-out forwards}
+@keyframes plusFly{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-80%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-260%) scale(1)}}
+.flood{position:fixed;inset:0;z-index:130;display:grid;place-items:center;align-content:center;gap:10px;text-align:center;color:#fff;background:radial-gradient(circle at 50% 45%,var(--sp1),var(--sp2) 70%);animation:floodIn .35s ease-out both}
+.flood.out{animation:floodOut .4s ease-in forwards}
+.flood svg{width:150px;height:150px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.25))}
+.flood svg circle{stroke-dasharray:440;stroke-dashoffset:440;animation:drawC .55s .1s ease-out forwards}
+.flood svg path{stroke-dasharray:120;stroke-dashoffset:120;animation:drawC .4s .55s ease-out forwards}
+.flood b{font:900 34px/1.05 system-ui,sans-serif;letter-spacing:-.01em;animation:bbUp .4s .5s both}
+.flood span{font-weight:800;font-size:18px;opacity:.95;animation:bbUp .4s .7s both}
+@keyframes floodIn{from{clip-path:circle(0% at var(--fx,50%) var(--fy,50%))}to{clip-path:circle(150% at var(--fx,50%) var(--fy,50%))}}
+@keyframes floodOut{to{opacity:0}}
+@keyframes drawC{to{stroke-dashoffset:0}}
+.live-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:4px 9px;border-radius:999px;white-space:nowrap}
+.live-pill i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:livePulse 1.8s infinite}
+.live-pill.off i{background:#c8ccc9;animation:none}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.rv-row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+.rv-row:last-of-type{border-bottom:0}
+.rv-name{font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px;min-width:0}
+.rv-name .dot{width:11px;height:11px;border-radius:50%;flex:none}
+.rv-today{text-align:right;font-weight:900;font-size:24px;line-height:1}
+.rv-today small{display:block;font-size:10px;font-weight:700;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.rv-sub{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.rv-dots{display:flex;gap:5px}
+.rv-dots span{font-size:11px;font-weight:800;padding:3px 7px;border-radius:999px;background:var(--surface);color:var(--dim);border:1px solid var(--line)}
+.rv-dots span.on{background:var(--c);border-color:var(--c);color:#fff}
+.rv-feed{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.rv-feed div{font-size:13px;padding:3px 0;animation:bbUp .4s both}
+.rv-feed .ago{color:var(--dim);font-size:11px;margin-left:4px}
+.wo-top{position:sticky;top:calc(-1 * (var(--st) + 10px));z-index:6;margin:-10px -16px 12px;padding:calc(var(--st) + 10px) 16px 10px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.wo-prog{flex:1;min-width:0}
+.wo-prog .t{display:flex;justify-content:space-between;font-size:13px;font-weight:800;gap:8px}
+.wo-prog .t b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wo-bar{height:9px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:5px}
+.wo-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--epc-teal),var(--orange));transition:width .35s}
+.wo-top .seg{width:118px!important;flex:none}
+.ex.cur{border:2px solid var(--orange);box-shadow:0 6px 20px rgba(var(--orange-rgb),.18)}
+.ex.done{background:var(--green-tint);border-color:transparent}
+.ex.done .nm:after{content:" ✓";color:var(--green)}
+.ex.done .exmore,.ex.done .meta2{display:none}
+.ex .set{width:58px;height:58px;font-size:18px}
+.ex .set.on{transform:scale(1.04);box-shadow:0 0 0 4px rgba(var(--orange-rgb),.22)}
+.exmore{margin-top:6px;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.exmore>summary{font-size:13px;font-weight:800;color:var(--green);cursor:pointer;list-style:none;display:inline-flex;padding:8px 0;min-height:0;justify-content:flex-start}.exmore>summary:after{content:none!important}
+.exmore summary::-webkit-details-marker{display:none}
+.exmore summary:before{content:"+ "}
+.exmore[open] summary:before{content:"− "}
+.exl{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.exl:last-child{border-bottom:0}
+.exl .nm{font-weight:800}
+.exl .rx{font-weight:900;white-space:nowrap;color:var(--ink)}
+.wo-finish{position:sticky;bottom:calc(var(--sb) + 12px);z-index:6;min-height:62px!important;font-size:18px!important;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.wo-finish.ready{animation:finGlow 1.4s ease-in-out infinite}
+@keyframes finGlow{0%,100%{box-shadow:0 0 0 0 rgba(var(--orange-rgb),.55),0 10px 30px rgba(0,0,0,.18)}50%{box-shadow:0 0 0 10px rgba(var(--orange-rgb),0),0 10px 30px rgba(0,0,0,.18)}}
+@media (prefers-reduced-motion:reduce){.splash,.plus-fly,.flood,.flood *,.gtb2 *,.live-pill i,.wo-finish.ready{animation:none!important}.flood svg circle,.flood svg path{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
@@ -576,8 +642,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.3";
+const APP_VERSION = "2.9.4";
 const CHANGELOG = {
+  "2.9.4": ["Live scoreboard on Today: see Mark, Will, and Brett's points and checks for today, updated about every 30 seconds while the app is open", "Every check-off now splashes in your colors with a click, and the points float up. Finish a workout for the big one", "Cleaner workout mode: a progress bar for your sets, the next exercise highlighted, cues tucked under one tap", "New Golden Tropics badge: a bigger jersey logo in a gold frame", "Turn the click sound off in More, then Settings"],
   "2.9.3": ["The score show now ends with the final score: daily points + Golden badges + books bought + Book Test Week = your season total. Find it in More, then How Season 1 works", "New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points. Protein is a simple 50 g check", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics +300: best medal record of the month, then most points", "Book Tests happen the last week of the season: +67 per book read and passed"],
   "2.9.2": ["New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300", "Book buys score the day you buy. Book Tests happen the last week of the season: +67 per book read and passed", "Calories removed"],
   "2.9.1": ["New Today's scorecard: every point on the table with one-tap checks. Water, workout, run or bike, reading, sleep, protein, affirmations", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g a day check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300. Bigger Tropics logo on the badge", "Calories removed"],
@@ -1299,7 +1366,7 @@ function checkWeekly() {
 function medalSVG(t, size) {
   size = size || 44;
   if (t === "poop") return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 8c6 8 2 14-4 16 12 0 20 8 16 18 12 2 18 12 14 22 10 4 14 14 8 22-4 6-12 8-20 8H30c-10 0-18-4-20-12-2-8 4-16 12-18-4-10 2-20 14-22-4-10 4-18 14-18-2-6 0-12 0-16z" fill="#7a4a22" stroke="#4a2a10" stroke-width="3"/><circle cx="38" cy="62" r="6" fill="#fff"/><circle cx="62" cy="62" r="6" fill="#fff"/><circle cx="38" cy="64" r="3" fill="#222"/><circle cx="62" cy="64" r="3" fill="#222"/><path d="M38 84q12-10 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M29 57l14-6M71 57l-14-6" stroke="#222" stroke-width="3" stroke-linecap="round"/><path d="M33 72q-3 6 0 9q3-3 0-9z" fill="#6ec6ff"/></svg>`;
-  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-tropics.jpg?v=282" alt=""></span>`;
+  if (t === "golden") return `<span class="gtb2" style="--s:${size}px" title="Golden Tropics Basketball">${size >= 50 ? `<span class="g-stars">★★★</span>` : ""}<span class="g-frame"><img src="epc-tropics.jpg?v=282" alt="Golden Tropics"></span>${size >= 80 ? `<span class="g-tw" style="left:-6%;top:8%">✦</span><span class="g-tw" style="right:-5%;top:55%;animation-delay:.6s">✦</span><span class="g-tw" style="left:12%;bottom:-6%;animation-delay:1.1s">✦</span><span class="g-rib">GOLDEN</span>` : ""}</span>`;
   const c = TIERS[t].c, d = t === "gold" ? "#a87a12" : t === "silver" ? "#7d8792" : "#7a4518";
   return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M30 4h14l8 26H38zM70 4H56l-8 26h14z" fill="${t === "gold" ? "#0e5a2e" : t === "silver" ? "#4a2d76" : "#555"}"/><circle cx="50" cy="60" r="34" fill="${c}" stroke="${d}" stroke-width="5"/><circle cx="50" cy="60" r="24" fill="none" stroke="${d}" stroke-width="2" opacity=".6"/><text x="50" y="70" text-anchor="middle" font-size="28" font-weight="900" fill="${d}" font-family="Arial">${t === "gold" ? "1" : t === "silver" ? "2" : "3"}</text></svg>`;
 }
@@ -1328,7 +1395,7 @@ function nextBurst() {
 function medalOverlay(m) {
   const t = m.medal, w = document.createElement("div"); w.className = "mburst m-" + t;
   const big = t === "golden" || t === "poop";
-  w.innerHTML = `${t === "gold" || t === "golden" ? `<div class="mb-rays"></div>` : ""}<div class="mb-medal">${medalSVG(t, big ? 220 : 170)}</div><div class="mb-eyebrow">${t === "golden" ? "Monthly award" : "End of week"}</div><div class="mb-name">${esc(m.title)}</div><div class="mb-sub">${esc(m.sub)}</div><div class="bb-tap">Tap to keep going</div>`;
+  w.innerHTML = `${t === "gold" || t === "golden" ? `<div class="mb-rays"></div>` : ""}<div class="mb-medal">${medalSVG(t, t === "golden" ? 185 : big ? 220 : 170)}</div><div class="mb-eyebrow">${t === "golden" ? "Monthly award" : "End of week"}</div><div class="mb-name">${esc(m.title)}</div><div class="mb-sub">${esc(m.sub)}</div><div class="bb-tap">Tap to keep going</div>`;
   document.body.appendChild(w);
   const spark = (n, cols, cls) => { for (let i = 0; i < n; i++) { const c = document.createElement("i"); c.className = cls; const a = Math.random() * 6.283, r = 140 + Math.random() * 160; c.style.cssText = `--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r}px;background:${cols[i % cols.length]};animation-delay:${.1 + Math.random() * .3}s`; w.appendChild(c); } };
   if (t === "golden") { spark(70, ["#ffd75e", "#fff4c2", "#f6a800", "#4eb0d6", "#4a2d76"], "bb-spark"); for (let i = 0; i < 60; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${["#ffd75e", "#4eb0d6", "#4a2d76", "#fff"][i % 4]};animation-duration:${2.4 + Math.random() * 2}s;animation-delay:${Math.random() * .6}s`; w.appendChild(c); } }
@@ -1459,7 +1526,7 @@ function seasonHTML(compact) {
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
     <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
     <li>Buy a book: 1 point per $2 you paid, the day you buy it. Season-end Book Test: +${PTS.quiz} per book read and passed</li><li>Weekly medals: Gold ${TIERS.gold.min}+ hits, Silver ${TIERS.silver.min}+, Bronze ${TIERS.bronze.min}+, Poop under ${TIERS.bronze.min} (5 goals a day, ${WK_MAX} a week)</li><li>Golden Tropics: best medal record each month (then most points) wins +${PTS.golden}</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
-  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div><button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
+  return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="row between" style="margin:6px 0 0;gap:8px;align-items:center"><div class="small muted">${head}</div>${livePill()}</div>${LIVE.feed.length ? `<div class="rv-feed">${LIVE.feed.slice(0, 4).map(f => `<div><b style="color:${esc(f.accent || "#ff8200")}">${esc(f.name)}</b> ${esc(f.msg)}${f.pts ? ` <b>+${f.pts}</b>` : ""}<span class="ago" data-at="${f.at}">${agoTxt(f.at)}</span></div>`).join("")}</div>` : ""}<button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
 
@@ -1490,24 +1557,59 @@ function syncScore(force) {
   const st = todayStr() >= sz.start ? seasonStats(sz) : null;
   const season = Object.assign(st ? { id: sz.id, points: st.points - (st.tot.badges || 0), tot: st.tot, badges: st.badges, miles: st.miles, books: st.booksPassed, allInDays: st.allInDays } : { id: sz.id, points: 0, tot: {}, badges: [], miles: 0, books: 0, allInDays: 0 }, myExtras());
   fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: PID, name: myName(), accent: ACCENT, week: ws, score: me.score, stats: me.stats, season }) })
-    .then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.week = ws; SB.players = d.players || []; SB.season = sz.id; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE; const hadG = JSON.stringify(SB.goldens || {}); SB.goldens = d.goldens || {}; if (JSON.stringify(SB.goldens) !== hadG) setTimeout(checkWeekly, 300); SB.err = false; if (UI.tab === "today" || UI.tab === "progress") { const y = window.scrollY; render(); window.scrollTo(0, y); } })
-    .catch(() => { SB.err = true; });
+    .then(r => r.ok ? r.json() : Promise.reject()).then(d => applyBoard(d, ws, sz.id))
+    .catch(() => { SB.err = true; liveAge(); });
 }
-function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncScore(true), 4000); }
-function scoreboardHTML(compact) {
-  const ws = weekStart(todayStr()), me = myWeekScore(ws);
-  let list = (SB.players && SB.week === ws ? SB.players.slice() : []);
-  list = list.filter(p => p.id !== PID); list.push({ id: PID, name: myName(), score: me.score, stats: me.stats });
-  list.sort((a, b) => b.score - a.score);
-  const lead = list[0], rows = list.map((p, i) => `<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line)"><span><b>${i + 1}.</b> ${esc(p.name)}${p.id === PID ? " (you)" : ""}${i === 0 && list.length > 1 && p.score > 0 ? " " + I.flame : ""}</span><span>${p.stats && p.stats.miles ? `<span class="small muted">${p.stats.miles} mi </span>` : ""}<b class="brand">${p.score}</b></span></div>`).join("");
+function queueScore() { clearTimeout(sbTimer); sbTimer = setTimeout(() => syncScore(true), 1200); }
+
+/* ---------------------------- LIVE RIVALS (v2.9.4) ----------------------------
+   While the app is open: every check-off syncs in about a second, and opponents are pulled every 30 seconds
+   (and the moment you come back to the app). New check-offs show up as "Mark just hit his water goal, +60". */
+const LIVE = { at: 0, feed: [], prev: null, sig: "" };
+const LIVE_MSG = { workout: ["finished his workout", "workout"], water: ["hit his water goal", "water"], sleep: ["logged a solid night of sleep", "sleep"], read: ["got his reading in", "read"], protein: ["hit his protein", "protein"], affirm: ["did his affirmations", null], allIn: ["went ALL IN today", "bonus"] };
+function applyBoard(d, ws, szId) {
+  const t = todayStr(), prev = LIVE.prev, fresh = [];
+  (d.standings || []).forEach(p => {
+    if (p.id === PID || !p.today || p.today.date !== t || !prev) return;
+    const o = prev[p.id], oc = o && o.today && o.today.date === t ? o.today.checks || {} : {};
+    Object.keys(LIVE_MSG).forEach(k => { if (p.today.checks && p.today.checks[k] && !oc[k]) { const c = LIVE_MSG[k][1], pts = c ? (p.today.cats || {})[c] || 0 : 0; fresh.push({ id: p.id, name: p.name, accent: p.accent, msg: LIVE_MSG[k][0], pts, at: Date.now() }); } });
+    const op = o && o.today && o.today.date === t ? o.today.pts : 0;
+    if (!fresh.some(f => f.id === p.id) && p.today.pts > op && o) fresh.push({ id: p.id, name: p.name, accent: p.accent, msg: "picked up points", pts: p.today.pts - op, at: Date.now() });
+  });
+  LIVE.prev = {}; (d.standings || []).forEach(p => { LIVE.prev[p.id] = p; });
+  if (fresh.length) { LIVE.feed = fresh.concat(LIVE.feed).slice(0, 8); const f = fresh[0]; toast(`${f.name} just ${f.msg}${f.pts ? ", +" + f.pts : ""}${fresh.length > 1 ? " (+" + (fresh.length - 1) + " more)" : ""}`); }
+  if (d.players) { SB.week = ws; SB.players = d.players; }
+  SB.season = szId; SB.standings = d.standings || null; SB.prize = d.prize || DEFAULT_PRIZE;
+  const hadG = JSON.stringify(SB.goldens || {}); SB.goldens = d.goldens || {}; if (JSON.stringify(SB.goldens) !== hadG) setTimeout(checkWeekly, 300);
+  SB.err = false; LIVE.at = Date.now();
+  const sig = JSON.stringify((d.standings || []).map(p => [p.id, p.points, p.weekPts, p.weekHits, p.today && p.today.pts, p.today && p.today.checks]));
+  const busy = UI.sheet || UI.wo || (document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName));
+  if (sig !== LIVE.sig && !busy && (UI.tab === "today" || UI.tab === "progress")) { const y = window.scrollY; render(); window.scrollTo(0, y); }
+  LIVE.sig = sig; liveAge();
+}
+function pollBoard() {
+  if (location.protocol === "file:" || document.hidden || !navigator.onLine) return;
+  const t = todayStr(), ws = weekStart(t), sz = seasonOf(t);
+  fetch(`/.netlify/functions/scoreboard?week=${ws}&season=${sz.id}`, { cache: "no-store" }).then(r => r.ok ? r.json() : Promise.reject()).then(d => applyBoard(d, ws, sz.id)).catch(() => { SB.err = true; liveAge(); });
+}
+function agoTxt(ms) { const s = Math.max(0, Math.round((Date.now() - ms) / 1000)); return s < 60 ? s + "s ago" : s < 3600 ? Math.floor(s / 60) + "m ago" : Math.floor(s / 3600) + "h ago"; }
+function liveAge() { document.querySelectorAll(".live-pill").forEach(e => { const off = SB.err || !LIVE.at; e.classList.toggle("off", off); const a = e.querySelector(".live-age"); if (a) a.textContent = !LIVE.at ? (SB.err ? "offline" : "connecting") : (SB.err ? "offline, last " : "updated ") + agoTxt(LIVE.at); }); document.querySelectorAll(".rv-feed .ago[data-at]").forEach(e => { e.textContent = agoTxt(+e.dataset.at); }); }
+function livePill() { return `<span class="live-pill ${SB.err || !LIVE.at ? "off" : ""}"><i></i>LIVE <span class="live-age">${LIVE.at ? (SB.err ? "offline, last " : "updated ") + agoTxt(LIVE.at) : "connecting"}</span></span>`; }
+const RV_KEYS = [["workout", "Work"], ["water", "Water"], ["sleep", "Sleep"], ["read", "Read"], ["protein", "Prot"]];
+function rivalsHTML() {
+  const { sz, pre, list } = standingsList(), t = todayStr();
+  const rows = list.map(p => { const td = p.today && p.today.date === t ? p.today : null, c = esc(p.accent || "#ff8200");
+    return `<div class="rv-row"><div class="rv-name"><span class="dot" style="background:${c}"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}${p.id === PID ? ' <span class="small muted">(you)</span>' : ""}</span>${td && td.checks && td.checks.allIn ? '<span class="tg shelf">All In</span>' : ""}</div><div class="rv-today">${td ? td.pts : 0}<small>today</small></div>
+    <div class="rv-sub"><div class="rv-dots" style="--c:${c}">${RV_KEYS.map(([k, n]) => `<span class="${td && td.checks && td.checks[k] ? "on" : ""}">${n}</span>`).join("")}</div><span class="small muted">wk <b style="color:var(--ink)">${p.weekPts || 0}</b> • ${pre ? "season starts " + fmtShort(sz.start) : `season <b style="color:var(--ink)">${p.points}</b>`}</span></div></div>`; }).join("");
+  const feed = LIVE.feed.filter(f => between(new Date(f.at).toISOString().slice(0, 10), t) <= 0).slice(0, 3);
   const others = list.length > 1;
-  const gap = others ? (lead.id === PID ? "You lead by " + (lead.score - list[1].score) + " pts." : "You are " + (lead.score - me.score) + " pts behind " + esc(lead.name) + ".") : "Waiting on your friend to log in.";
-  if (compact) return `<div class="card"><div class="row between"><h3 style="margin:0">This week's scoreboard</h3><button class="btn sm" data-tab="progress">Details</button></div>${rows}<div class="small muted" style="margin-top:6px">${gap}</div></div>`;
-  const s = me.stats;
-  return `<div class="card"><h2 class="brand">Weekly Scoreboard</h2><div class="small muted">Friendly competition. Resets every Monday.</div>${rows}<div class="small" style="margin-top:8px"><b>${gap}</b></div>
-  <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Workouts</div><div class="v">${s.workouts}${s.quick ? " +" + s.quick : ""}</div></div><div class="tile"><div class="k">Water days</div><div class="v">${s.water}</div></div><div class="tile"><div class="k">${list.some(p => p.stats && p.stats.miles) ? "Miles" : "Protein days"}</div><div class="v">${list.some(p => p.stats && p.stats.miles) ? (s.miles || 0) : s.protein}</div></div></div>
-  <div class="small muted" style="margin-top:8px">Points: workout 20, quick 15-min 10, active day 5, water goal 3, protein goal 3, sleep log 2, reading 1 per 2 min (60 max a day), run 5 per mile (30 max a day).${SB.err ? " Offline right now; your score syncs when you are back online." : ""}</div></div>`;
+  return `<div class="card"><div class="row between" style="align-items:center"><h3 style="margin:0">Live scoreboard</h3>${livePill()}</div>${rows}${!others ? `<div class="small muted" style="margin-top:6px">Mark and Will show up here the first time their app syncs.</div>` : ""}${feed.length ? `<div class="rv-feed">${feed.map(f => `<div><b style="color:${esc(f.accent || "#ff8200")}">${esc(f.name)}</b> ${esc(f.msg)}${f.pts ? ` <b>+${f.pts}</b>` : ""}<span class="ago" data-at="${f.at}">${agoTxt(f.at)}</span></div>`).join("")}</div>` : ""}<button class="btn sm block" style="margin-top:10px" data-tab="progress">Full standings</button></div>`;
 }
+setInterval(pollBoard, 30000);
+setInterval(liveAge, 5000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { pollBoard(); syncScore(true); } });
+window.addEventListener("focus", () => pollBoard());
+window.addEventListener("online", () => syncScore(true));
 
 /* ---------------------------- WORKOUT SETUP (first open, per person) ---------------------------- */
 const WIN_OPTS = ["5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "Lunch 12 PM", "6 to 9 PM", "6:00 PM", "7:00 PM", "8:00 PM"];
@@ -1636,7 +1738,7 @@ function showPages() {
     p("5. The final score", "Here's how a season total adds up on Feb 28. Example numbers.", (() => {
       const ex = [["Daily points", "91 days of checking the boxes", 16380, "scorecard"], ["Golden Tropics badges", "2 months won x " + PTS.golden, 2 * PTS.golden, "golden"], ["Books bought", "$90 spent, 1 point per $2", 45, "buy"], ["Book Test Week", "4 books read and passed x " + PTS.quiz, 4 * PTS.quiz, "test"]];
       const tot = ex.reduce((a, r) => a + r[2], 0);
-      return `<div class="final-stack">${ex.map((r, i) => `<div class="fs-row" style="animation-delay:${.15 + i * .35}s"><span class="fs-ic">${r[3] === "golden" ? medalSVG("golden", 34) : r[3] === "scorecard" ? "✓" : r[3] === "buy" ? "$" : "📖"}</span><div class="fs-t"><b>${r[0]}</b><small>${r[1]}</small></div><em>+${r[2].toLocaleString()}</em></div>`).join("")}
+      return `<div class="final-stack">${ex.map((r, i) => `<div class="fs-row" style="animation-delay:${.15 + i * .35}s"><span class="fs-ic">${r[3] === "golden" ? medalSVG("golden", 22) : r[3] === "scorecard" ? "✓" : r[3] === "buy" ? "$" : "📖"}</span><div class="fs-t"><b>${r[0]}</b><small>${r[1]}</small></div><em>+${r[2].toLocaleString()}</em></div>`).join("")}
       <div class="fs-total" style="animation-delay:${.2 + ex.length * .35}s"><span>Season total</span><b id="finalTotal" data-fmt="1" data-to="${tot}">0</b></div></div>
       <div class="small muted" style="text-align:center;margin-top:10px">Book buys count the day you buy. Book Tests open the last week of the season (Feb 22 to 28): pass 2 of 3 questions on each book you read for +${PTS.quiz}.</div>
       <div style="text-align:center;font-weight:900;color:var(--green);margin-top:12px">Most points wins the first-ever Game Shape merch. May the best man win.</div>`;
@@ -1769,13 +1871,58 @@ document.addEventListener("pointerdown", e => {
   fx.className = "tapfx"; fx.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${sz}px;height:${sz}px`;
   document.body.appendChild(fx); setTimeout(() => fx.remove(), 600);
 }, { passive: true });
+
+/* v2.9.4 check-off feel: a color splash in your colors, a soft click, a buzz, and the points floating up. Big flood + check for a finished workout. */
+let AC = null;
+function snd(kind) {
+  if (S.meta.sound === false) return;
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume();
+    const notes = kind === "big" ? [[660, 0], [880, .07], [1320, .14]] : kind === "mid" ? [[740, 0], [1110, .05]] : [[1200, 0]];
+    notes.forEach(([f, at]) => { const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + at; o.type = kind === "small" ? "triangle" : "sine"; o.frequency.setValueAtTime(f, t0); o.frequency.exponentialRampToValueAtTime(f * 1.5, t0 + .05); g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(kind === "big" ? .22 : .16, t0 + .008); g.gain.exponentialRampToValueAtTime(.0001, t0 + (kind === "big" ? .32 : .12)); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + .4); });
+  } catch (e) {}
+}
+function popFx(r, kind, plus) {
+  const x = r.left + r.width / 2, y = r.top + r.height / 2, cols = [ACCENT, "#4eb0d6", "#4a2d76", "#ffd75e"];
+  try { navigator.vibrate && navigator.vibrate(kind === "big" ? [18, 40, 28] : kind === "mid" ? [14, 30, 14] : 12); } catch (e) {}
+  snd(kind);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const sz = kind === "big" ? 340 : kind === "mid" ? 230 : 150;
+  [["splash", sz], ["splash ring", sz * .8]].forEach(([c, d]) => { const e = document.createElement("div"); e.className = c; e.style.cssText = `left:${x}px;top:${y}px;width:${d}px;height:${d}px;--sp1:${c.includes("ring") ? ACCENT : "rgba(78,176,214,.55)"};--sp2:${hexA(ACCENT, .35)}`; document.body.appendChild(e); setTimeout(() => e.remove(), 800); });
+  const n = kind === "big" ? 22 : kind === "mid" ? 14 : 8;
+  for (let i = 0; i < n; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / n * 6.283 + Math.random() * .3, rr = (kind === "small" ? 40 : 70) + Math.random() * (kind === "small" ? 30 : 70); c.style.cssText = `position:fixed;z-index:121;top:${y}px;left:${x}px;width:${kind === "small" ? 6 : 8}px;height:${kind === "small" ? 6 : 8}px;--x:${Math.cos(a) * rr}px;--y:${Math.sin(a) * rr}px;background:${cols[i % 4]}`; document.body.appendChild(c); setTimeout(() => c.remove(), 1000); }
+  if (plus) { const f = document.createElement("div"); f.className = "plus-fly"; f.textContent = plus; f.style.cssText = `left:${x}px;top:${y}px;--sp1:${ACCENT}`; document.body.appendChild(f); setTimeout(() => f.remove(), 1050); }
+}
+function hexA(h, a) { const m = /^#?([0-9a-f]{6})$/i.exec(h || ""); if (!m) return `rgba(255,130,0,${a})`; const n = parseInt(m[1], 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; }
+function floodFx(title, sub) {
+  try { navigator.vibrate && navigator.vibrate([20, 50, 30, 50, 60]); } catch (e) {}
+  snd("big"); setTimeout(() => snd("mid"), 260);
+  const w = document.createElement("div"); w.className = "flood"; w.style.cssText = `--sp1:${ACCENT};--sp2:#4a2d76`;
+  w.innerHTML = `<svg viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M48 82l22 22 44-48" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg><b>${esc(title)}</b><span>${esc(sub)}</span>`;
+  document.body.appendChild(w);
+  for (let i = 0; i < 46; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;z-index:131;background:${[ACCENT, "#4eb0d6", "#ffd75e", "#fff"][i % 4]};animation-duration:${1.8 + Math.random() * 1.6}s;animation-delay:${Math.random() * .4}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 4000); }
+  const bye = () => { if (w._gone) return; w._gone = 1; w.classList.add("out"); setTimeout(() => w.remove(), 420); };
+  w.onclick = bye; setTimeout(bye, 1700);
+}
+/* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
+const POP_ACTS = new Set(["set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd"]);
+function withPop(el, fn) {
+  const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
+  fn();
+  if (a === "set" || a === "toggle") { if (!on0) popFx(r, "small"); return; }
+  const c1 = dayChecks(t), p1 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0), newly = Object.keys(c1).filter(k => c1[k] && !c0[k]), gain = p1 - p0;
+  if (newly.includes("allIn")) { popFx(r, "big", gain > 0 ? "+" + gain : ""); setTimeout(() => toast("ALL IN today. +" + PTS.allIn + " bonus"), 300); }
+  else if (newly.includes("workout")) popFx(r, "big", gain > 0 ? "+" + gain : "");
+  else if (newly.length || (a === "courtSet" && !on0)) popFx(r, "mid", gain > 0 ? "+" + gain : "");
+  else if (gain > 0) popFx(r, "small", "+" + gain);
+}
 /* Welcome surprise: the open AFTER all updates, the tour, and the setup questions are done. One time. */
 function isReady() { return !!(S.meta.tourSeen && !needsSetup() && (!ME || !ME.onboard || C().setup)); }
 function markReady() { if (isReady() && !S.meta.readyAt) { S.meta.readyAt = Date.now(); save(); } }
 function badgeHTML(big) { return ME && ME.badgeImg ? `<div class="pbadge${big ? " big" : ""}"><img src="${ME.badgeImg}" alt="${esc(ME.fullName || S.profile.name)} Game Shape badge"></div>` : ""; }
 function maybeWelcome() {
-  if (!ME || !ME.badgeImg || S.meta.welcomed) return false;
-  if (!S.meta.readyAt || S.meta.readyAt >= LOAD_AT) { markReady(); return false; }
+  if (!ME || !ME.badgeImg || S.meta.welcomed || UI.sheet || UI.wo || document.querySelector(".welcome,.mburst,.bburst")) return false;
+  if (!isReady()) return false; markReady();
   const w = document.createElement("div"); w.className = "welcome";
   w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(ME.fullName || myName())}</h2><p>You're all set up. Your plan, your badge, your season.</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
   document.body.appendChild(w);
@@ -1857,11 +2004,11 @@ function renderToday() {
   if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
 
   // tiles
-  out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
+  out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">This week</div><div class="v">${weekHits(weekStart(s)).hits}<span class="small muted">/${WK_MAX}</span></div><div class="small muted">medal hits</div></div></div>`;
   // crew check-ins (Brett only, after the admin PIN is saved)
   if (!PERSON && R().adminPin) { if (!CREW.people && !CREW.err) loadCrew(() => { if (UI.tab === "today" && crewNew().length) render(); }); const nw = crewNew(); if (nw.length) out += `<div class="banner info"><b>New crew check-in</b>${esc(nw.map(p => p.name).join(" and "))} sent their workout setup.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="crew">View</button></div></div>`; }
   // weekly scoreboard (compact)
-  out += seasonHTML(true);
+  out += rivalsHTML();
   // Sunday review
   if (dow(s) === 0) out += weeklyReview(s);
   if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
@@ -1902,8 +2049,9 @@ function sessionHTML(se, live) {
   if (!live) o += `<button class="btn primary block" style="margin-top:14px" data-act="openWO" data-date="${se.date}">${se.date === todayStr() ? "Start" : "Open"} workout</button>`;
   o += `</div>`;
   if (se.warm.length) o += `<div class="card"><h2>Warmup + stretch</h2>${se.warm.map((w, i) => `<div class="wrow">${live ? checkRow(se.date, "w" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;flex:1">${esc(w)}</div>`}<a class="hq" href="${howText(w)}" target="_blank" rel="noopener" aria-label="How to">\u25B6</a></div>`).join("")}</div>`;
-  o += `<div class="card"><h2 class="brand">Main</h2>${se.main.map(m => exHTML(se, m, live)).join("")}</div>`;
-  if (se.core.length) o += `<div class="card"><h2>Core</h2>${se.core.map(m => exHTML(se, m, live)).join("")}</div>`;
+  const lg = getL(se.date), curId = live ? ((se.main.concat(se.core)).find(m => (lg.sets[m.id] || []).slice(0, m.sets).filter(Boolean).length < m.sets) || {}).id : null;
+  o += `<div class="card"><h2 class="brand">Main</h2>${se.main.map(m => exHTML(se, m, live, m.id === curId)).join("")}</div>`;
+  if (se.core.length) o += `<div class="card"><h2>Core</h2>${se.core.map(m => exHTML(se, m, live, m.id === curId)).join("")}</div>`;
   o += `<div class="card"><h2>Cooldown</h2>${se.cool.map((w, i) => `<div class="wrow">${live ? checkRow(se.date, "c" + i, "", esc(w)) : `<div class="small" style="padding:6px 0;flex:1">${esc(w)}</div>`}<a class="hq" href="${howText(w)}" target="_blank" rel="noopener" aria-label="How to">\u25B6</a></div>`).join("")}</div>`;
   o += `<div class="card"><h2>${C().features.hotTub ? "Hot tub" : "Recovery"}</h2><div>${C().features.hotTub ? se.tub + " min. Drink 12 to 16 oz water while you are in." : "10 min easy walk, then a warm shower. Drink 16 oz water."}</div><h3>Today's tip</h3><div class="small">${esc(se.tip)}</div></div>`;
   return o;
@@ -1916,19 +2064,19 @@ function suggestion(id) {
   else if (last.r === "hard") s += ". Hold or drop to " + Math.round(last.w * 0.95 / 2.5) * 2.5 + " lb";
   return s;
 }
-function exHTML(se, m, live) {
-  const ex = m.ex, l = getL(se.date), sets = (l.sets[m.id] || []), ph = se.ph;
-  let o = `<div class="ex"><div class="row between"><div class="nm">${esc(ex.name)}</div>${ex.rest ? `<button class="btn sm" data-act="rest" data-s="${ex.rest}">⏱ ${ex.rest}s</button>` : ""}</div>`;
-  o += `<div class="meta">${m.sets} x ${esc(ex.reps)} • ${esc(ex.tempo)} • ${esc(ex.target)}</div>`;
-  o += `<div class="meta">Load: ${esc(ex.load)}${ph.wk >= 3 && ex.track ? ". Up to +5 to 10% vs week 2" : ""}${ph.deload ? ". Use 80% of last week" : ""}</div>`;
+function exHTML(se, m, live, cur) {
+  const ex = m.ex, l = getL(se.date), sets = (l.sets[m.id] || []), ph = se.ph, nDone = sets.slice(0, m.sets).filter(Boolean).length;
+  const load = `Load: ${esc(ex.load)}${ph.wk >= 3 && ex.track ? ". Up to +5 to 10% vs week 2" : ""}${ph.deload ? ". Use 80% of last week" : ""}`;
+  const more = `<details class="exmore"><summary>Cues + video</summary><div class="meta" style="margin-top:6px">${esc(ex.tempo)} • ${esc(ex.target)}</div><ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul><a class="howto" href="${howFor(m.id, ex.name)}" target="_blank" rel="noopener">▶ Watch how to do it</a></details>`;
+  if (!live) return `<div class="exl"><div style="min-width:0"><div class="nm">${esc(ex.name)}</div><div class="meta">${esc(ex.target)}</div>${m.from ? `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>` : ""}${more}</div><div class="rx">${m.sets} x ${esc(ex.reps)}</div></div>`;
+  const done = nDone >= m.sets;
+  let o = `<div class="ex ${done ? "done" : cur ? "cur" : ""}" data-ex="${m.id}"><div class="row between"><div class="nm">${esc(ex.name)}</div>${ex.rest && !done ? `<button class="btn sm" data-act="rest" data-s="${ex.rest}" aria-label="Start ${ex.rest} second rest">⏱ ${ex.rest}s</button>` : ""}</div>`;
+  o += `<div class="meta"><b style="color:var(--ink)">${m.sets} x ${esc(ex.reps)}</b>${done ? "" : " • " + load}</div>`;
   if (m.from) o += `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>`;
-  const sug = ex.track ? suggestion(m.id) : ""; if (sug) o += `<div class="small" style="color:var(--accent2)">${esc(sug)}</div>`;
-  o += `<ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul><a class="howto" href="${howFor(m.id, ex.name)}" target="_blank" rel="noopener">\u25B6 Watch how to do it</a>`;
-  if (live) {
-    o += `<div class="sets">${Array.from({ length: m.sets }, (_, i) => `<button class="set ${sets[i] ? "on" : ""}" data-act="set" data-id="${m.id}" data-i="${i}" data-rest="${ex.rest}">${sets[i] ? "✓" : i + 1}</button>`).join("")}</div>`;
-    if (ex.track) o += `<div class="row" style="margin-top:10px"><input type="number" inputmode="decimal" placeholder="Weight (lb)" value="${l.weights[m.id] || ""}" data-in="weight" data-id="${m.id}" style="max-width:160px"><span class="small muted">lb</span></div>`;
-  }
-  return o + `</div>`;
+  const sug = ex.track ? suggestion(m.id) : ""; if (sug && !done) o += `<div class="small meta2" style="color:var(--accent2)">${esc(sug)}</div>`;
+  o += `<div class="sets">${Array.from({ length: m.sets }, (_, i) => `<button class="set ${sets[i] ? "on" : ""}" data-act="set" data-id="${m.id}" data-i="${i}" data-rest="${ex.rest}" aria-label="Set ${i + 1}${sets[i] ? " done" : ""}">${sets[i] ? "✓" : i + 1}</button>`).join("")}</div>`;
+  if (ex.track) o += `<div class="row meta2" style="margin-top:10px"><input type="number" inputmode="decimal" placeholder="Weight (lb)" value="${l.weights[m.id] || ""}" data-in="weight" data-id="${m.id}" style="max-width:160px" aria-label="${esc(ex.name)} weight"><span class="small muted">lb</span></div>`;
+  return o + (done ? "" : more) + `</div>`;
 }
 
 /* ---------------------------- WORKOUT MODE ---------------------------- */
@@ -1937,9 +2085,10 @@ function closeWO() { UI.wo = null; $("workout").classList.add("hidden"); documen
 function renderWO() {
   if (!UI.wo) return; const se = buildSession(UI.wo, UI.mvd), l = getL(UI.wo);
   const sc = $("workout").scrollTop;
-  $("workout").innerHTML = `<div class="row between" style="margin-bottom:12px"><button class="iconbtn" data-act="closeWO" aria-label="Close">✕</button><img class="wo-mark" src="gs-mark.png" alt=""><div class="seg" style="width:200px"><button class="${UI.mvd ? "" : "on"}" data-act="mvd" data-v="0">Full</button><button class="${UI.mvd ? "on" : ""}" data-act="mvd" data-v="1">15 min</button></div></div>`
+  const all = se.main.concat(se.core), tot = all.reduce((a, m) => a + m.sets, 0), dn = all.reduce((a, m) => a + Math.min(m.sets, (l.sets[m.id] || []).filter(Boolean).length), 0), pct = tot ? Math.round(dn / tot * 100) : 0, ready = tot && dn >= tot;
+  $("workout").innerHTML = `<div class="wo-top"><button class="iconbtn" data-act="closeWO" aria-label="Close workout">✕</button><div class="wo-prog"><div class="t"><b>${esc(se.focus)}</b><span>${dn}/${tot} sets</span></div><div class="wo-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div></div><div class="seg"><button class="${UI.mvd ? "" : "on"}" data-act="mvd" data-v="0">Full</button><button class="${UI.mvd ? "on" : ""}" data-act="mvd" data-v="1">15 min</button></div></div>`
     + sessionHTML(se, true)
-    + `<button class="btn primary block" style="min-height:60px;font-size:18px" data-act="finish">${l.done || l.mvdDone ? "Update log" : "Finish workout"}</button>`;
+    + `<button class="btn primary block wo-finish ${ready && !(l.done || l.mvdDone) ? "ready" : ""}" data-act="finish">${l.done || l.mvdDone ? "Update log" : ready ? "All sets done. Finish workout ✓" : "Finish workout"}</button>`;
   $("workout").scrollTop = sc;
 }
 function startRest(sec) {
@@ -2002,10 +2151,9 @@ function chart(field, unit, color) {
 function renderProgress() {
   checkBadges();
   const r = weekReport(weekStart(todayStr())), st = streak(), x = xp();
-  let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Level</div><div class="v">${Math.floor(x / 300) + 1}</div></div></div>`;
+  let o = `<div class="grid3"><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div></div><div class="tile"><div class="k">This week</div><div class="v">${r.pct}%</div></div><div class="tile"><div class="k">Medal hits</div><div class="v">${weekHits(weekStart(todayStr())).hits}<span class="small muted">/${WK_MAX}</span></div></div></div>`;
   checkSeasonBadges();
   o = seasonHTML(false) + o;
-  o += scoreboardHTML(false);
   o += `<div class="small muted" style="text-align:center;margin:4px 0 12px">Never miss twice: 1 grace day per week keeps your streak alive.</div>`;
   o += `<div class="card"><h2>Body</h2><div class="grid2"><div><label class="f">Weight (lb)</label><input id="bW" type="number" inputmode="decimal" placeholder="${S.profile.weight}"></div><div><label class="f">Waist (in)</label><input id="bWa" type="number" inputmode="decimal" placeholder="${S.profile.waist}"></div></div><button class="btn primary block" style="margin-top:12px" data-act="logBody">Log today</button><h3>Weight</h3>${chart("weight", "lb", "#013919")}<h3>Waist</h3>${chart("waist", "in", "#0e5a2e")}</div>`;
   const lifts = Object.entries(S.exHist).filter(([, h]) => h.length);
@@ -2019,7 +2167,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); }
+function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -2041,7 +2189,7 @@ function renderSheet() {
     o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
   } else if (kind === "settings") {
     const p = S.profile;
-    o = back + `${sheetTitle("Settings")}${badgeHTML(false)}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+    o = back + `${sheetTitle("Settings")}${badgeHTML(false)}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Feel</h3><button class="toggle ${S.meta.sound === false ? "" : "on"}" data-act="sndTog">Click sound on check-offs<span class="sw"></span></button><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
   } else if (kind === "backup") {
     o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
   } else if (kind === "book") o = bookSheet(arg);
@@ -2075,10 +2223,11 @@ function submitFeedback() {
   const flags = Object.keys(f.flags).filter(k => f.flags[k]);
   flags.forEach(k => { const r = RED_FLAGS.find(x => x[0] === k); msgs.push(r[1] + ": " + r[2]); });
   S.alert = msgs.length ? { date: s, flags, msgs } : S.alert;
-  checkBadges(); save(); buzz();
+  checkBadges(); save();
   $("workout").classList.add("hidden"); document.body.style.overflow = ""; stopRest(); UI.wo = null;
+  floodFx(UI.mvd ? "15-min done!" : "Workout done!", "+" + (UI.mvd ? PTS.quick : PTS.workout) + " points. Keep checking boxes."); queueScore();
   const painNow = Object.keys(S.pain);
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Session logged</h2><div class="muted"><b style="color:var(--orange-ink)">${UI.mvd ? "+25" : "+50"} XP</b> \u2022 Streak ${streak()} ${I.flame}</div><div class="swoosh-under"></div></div>${msgs.length ? `<div class="banner bad"><b>See a doctor or PT</b>${msgs.map(esc).join("<br>")}</div>` : ""}${painNow.length ? `<div class="banner warn"><b>Backing off next 3 sessions</b>${painNow.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")} exercises will be swapped.</div>` : ""}<div class="small muted">${f.rating === "easy" ? "Felt easy. If it is easy again next time, the app will suggest +5 percent." : f.rating === "hard" ? "Felt hard. Hold weights steady next time. Recovery is part of the plan." : "Right where we want it. Consistency wins."}</div><div class="card" style="background:var(--card2);margin-top:14px"><b>Now:</b> hot tub, water, shower. Streak: ${streak()} ${I.flame}</div><button class="btn primary block" data-act="closeSheet">Done</button>`);
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Session logged</h2><div class="muted"><b style="color:var(--orange-ink)">+${UI.mvd ? PTS.quick : PTS.workout} points</b> \u2022 Streak ${streak()} ${I.flame}</div><div class="swoosh-under"></div></div>${msgs.length ? `<div class="banner bad"><b>See a doctor or PT</b>${msgs.map(esc).join("<br>")}</div>` : ""}${painNow.length ? `<div class="banner warn"><b>Backing off next 3 sessions</b>${painNow.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")} exercises will be swapped.</div>` : ""}<div class="small muted">${f.rating === "easy" ? "Felt easy. If it is easy again next time, the app will suggest +5 percent." : f.rating === "hard" ? "Felt hard. Hold weights steady next time. Recovery is part of the plan." : "Right where we want it. Consistency wins."}</div><div class="card" style="background:var(--card2);margin-top:14px"><b>Now:</b> hot tub, water, shower. Streak: ${streak()} ${I.flame}</div><button class="btn primary block" data-act="closeSheet">Done</button>`);
   render();
 }
 
@@ -2175,7 +2324,8 @@ const ACT = {
   openWO: el => openWO(el.dataset.date, el.dataset.mvd === "1"),
   closeWO: () => closeWO(),
   mvd: el => { UI.mvd = el.dataset.v === "1"; L(UI.wo).mvd = UI.mvd; save(); renderWO(); },
-  set: el => { const l = L(UI.wo), id = el.dataset.id, i = +el.dataset.i; l.sets[id] = l.sets[id] || []; l.sets[id][i] = !l.sets[id][i]; save(); buzz(); if (l.sets[id][i]) startRest(+el.dataset.rest); renderWO(); },
+  set: el => { const l = L(UI.wo), id = el.dataset.id, i = +el.dataset.i; l.sets[id] = l.sets[id] || []; l.sets[id][i] = !l.sets[id][i]; save(); if (l.sets[id][i]) startRest(+el.dataset.rest); renderWO();
+    const ex = $("workout").querySelector(`.ex[data-ex="${id}"]`); if (l.sets[id][i] && ex && ex.classList.contains("done")) { const nx = $("workout").querySelector(".ex.cur"); if (nx) setTimeout(() => nx.scrollIntoView({ behavior: "smooth", block: "center" }), 350); } },
   rest: el => startRest(+el.dataset.s),
   rest15: () => { if (UI.rest) UI.rest.end += 15000; },
   stopRest: () => stopRest(),
@@ -2184,6 +2334,7 @@ const ACT = {
   fbA: el => { const a = el.dataset.v, v = UI.fb.areas[a]; if (!v) UI.fb.areas[a] = "soreness"; else if (v === "soreness") UI.fb.areas[a] = "pain"; else delete UI.fb.areas[a]; renderSheet(); },
   fbF: el => { UI.fb.flags[el.dataset.v] = !UI.fb.flags[el.dataset.v]; renderSheet(); },
   fbSave: () => submitFeedback(),
+  sndTog: () => { S.meta.sound = S.meta.sound === false; save(); if (S.meta.sound) snd("mid"); openSheet("settings"); },
   dismissAlert: () => { S.alert = null; save(); render(); },
   wkPrev: () => { UI.trainOff--; UI.trainSel = null; render(); },
   wkNext: () => { UI.trainOff++; UI.trainSel = null; render(); },
@@ -2209,7 +2360,8 @@ const ACT = {
 };
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-tab]"); if (t && !t.dataset.act) { ACT.tab(t); return; }
-  const el = e.target.closest("[data-act]"); if (el && ACT[el.dataset.act]) ACT[el.dataset.act](el, e);
+  const el = e.target.closest("[data-act]"); if (!el || !ACT[el.dataset.act]) return;
+  if (POP_ACTS.has(el.dataset.act)) withPop(el, () => ACT[el.dataset.act](el, e)); else ACT[el.dataset.act](el, e);
 });
 document.addEventListener("change", e => {
   const el = e.target, k = el.dataset.in; if (!k) return;
