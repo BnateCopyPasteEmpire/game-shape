@@ -398,7 +398,7 @@ img,svg,video{max-width:100%}
 .gtb{position:relative;display:inline-grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff7cf,#ffd75e 28%,#e3a20b 60%,#8a5a00);box-shadow:0 0 0 4px rgba(255,236,170,.5),0 0 40px rgba(255,200,60,.8),inset 0 -8px 18px rgba(120,70,0,.5);overflow:hidden}
 .gtb:before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(90deg,transparent 48.5%,rgba(110,60,0,.55) 48.5% 51.5%,transparent 51.5%),radial-gradient(circle at 50% -40%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%),radial-gradient(circle at 50% 140%,transparent 62%,rgba(110,60,0,.55) 62.5% 64.5%,transparent 65%)}
 .gtb:after{content:"";position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.65) 50%,transparent 60%);animation:pbShine 3s ease-in-out infinite}
-.gtb img{position:relative;z-index:1;width:72%;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.gtb img{position:relative;z-index:1;width:76%;height:auto;border-radius:12%;box-shadow:0 0 0 2px rgba(255,236,170,.9),0 3px 8px rgba(0,0,0,.45)}
 .medal-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .medal-row .mc{display:inline-flex;align-items:center;gap:3px;font-weight:900}
 .wkdots{display:flex;gap:6px;margin-top:10px}
@@ -411,13 +411,20 @@ img,svg,video{max-width:100%}
 @keyframes goldenIn{0%{transform:scale(.1) rotate(-540deg);opacity:0}70%{transform:scale(1.15) rotate(10deg);opacity:1}100%{transform:none}}
 @keyframes shine{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.mburst *{animation:none!important}}
+/* EPC Tropics jersey logo pop */
+.tropics-pop{margin:4px auto 12px;border-radius:16px;overflow:hidden;box-shadow:0 0 0 2px rgba(var(--epc-teal-rgb),.55),0 10px 26px rgba(var(--epc-purple-rgb),.38);animation:tropPop .6s cubic-bezier(.2,1.5,.4,1) both}
+.tropics-pop img{display:block;width:100%;height:auto}
+@keyframes tropPop{0%{transform:scale(.6) rotate(-4deg);opacity:0}100%{transform:none;opacity:1}}
+/* close X on every pop-up sheet */
+.sheet-x{position:sticky;top:0;float:right;z-index:6;width:38px;height:38px;margin:2px -2px 0 8px;border-radius:50%;display:grid;place-items:center;font-size:26px;line-height:1;font-weight:400;color:var(--ink);background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+@media (prefers-reduced-motion:reduce){.tropics-pop{animation:none}}
 </style>
 </head>
 <body>
 <img class="wm-bg" src="gs-mark.png" alt="" aria-hidden="true">
 <div id="app">
   <header class="top">
-    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><div class="hdr-badges"><span class="epc-chip" title="EPC Tropics"><img src="epc-logo.png" alt="EPC Tropics"></span><span class="cpe-chip" title="Copy Paste Empire"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><sup>TM</sup></span></div><div class="cpe-date" id="hdrDate"></div></div></div>
+    <div class="brandrow"><img src="wordmark-on-light.png" alt="Game Shape"><div class="cpe"><div class="hdr-badges"><span class="cpe-chip" title="Copy Paste Empire"><img class="cpe-logo" src="cpe-logo.png" alt="Copy Paste Empire"><sup>TM</sup></span></div><div class="cpe-date" id="hdrDate"></div></div></div>
     <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
     <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   </header>
@@ -499,8 +506,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.8.0";
+const APP_VERSION = "2.8.1";
 const CHANGELOG = {
+  "2.8.1": ["Every pop-up screen (like More) now has an X to close it and get back to the app", "The EPC Tropics logo now pops up on game days, practice days, court days in Train, and the Schedule"],
   "2.8.0": ["Simpler badges: every week ends in a Gold, Silver, Bronze, or Poop medal. 4 goals a day, 28 a week. Streaks win weeks", "New Golden Tropics Basketball badge: the best medal record each month (Dec, Jan, Feb) wins +900 points", "Books now score 1 point for every $2 you paid", "New This week's medal card on Today shows your 7 days and what you need for the next medal"],
   "2.7.4": ["Setup answers now show a summary after you save, go to Brett automatically, and can be texted with one tap", "Brett's app now gets the same tour, setup questions, and welcome badge as everyone else"],
   "2.7.3": ["EPC Tropics logo on every screen, top right", "Cleaner Copy Paste Empire badge", "Tap effect now glows EPC Tropics purple and teal"],
@@ -1088,11 +1096,13 @@ function courtPts(s) {
   if (hasGame) return PTS.gamePlay;
   return PTS.practice;
 }
+/* EPC Tropics jersey logo: shows up (medium, with a pop) anywhere basketball comes up: game and practice cards, the schedule, court days in Train. */
+const tropicsHTML = (w) => `<div class="tropics-pop" style="max-width:${w || 220}px"><img src="epc-jersey.jpg" alt="EPC Tropics"></div>`;
 function courtCardHTML(s) {
   const ev = courtOn(s); if (!ev.length) return "";
   const l = getL(s), game = ev.find(e => e.kind === "game" || e.type === "game"), done = !!(l.checks && l.checks.court), v = l.court || (done ? (game ? "played" : "practice") : "");
   const opts = game ? [["played", "I played", PTS.gamePlay], ["watched", "At the game, couldn't play", PTS.gameWatch]] : [["practice", "I went to practice", PTS.practice]];
-  return `<div class="card"><div class="row between"><h2 style="margin:0">${game ? "Game day" : "Practice day"}</h2><span class="small muted">${esc((game || ev[0]).label)} ${fmtT((game || ev[0]).start)}</span></div>
+  return `<div class="card">${tropicsHTML(200)}<div class="row between"><h2 style="margin:0">${game ? "Game day" : "Practice day"}</h2><span class="small muted">${esc((game || ev[0]).label)} ${fmtT((game || ev[0]).start)}</span></div>
   <div class="small muted" style="margin:4px 0 8px">Attendance and playing is key. Check in after.</div>
   ${opts.map(([k, n, p]) => `<button class="chip ${v === k ? "on" : ""}" style="display:flex;justify-content:space-between;align-items:center;width:100%;margin:6px 0" data-act="courtSet" data-v="${k}"><span>${v === k ? "✓ " : ""}${n}</span><b>+${p}</b></button>`).join("")}</div>`;
 }
@@ -1210,7 +1220,7 @@ function checkWeekly() {
 function medalSVG(t, size) {
   size = size || 44;
   if (t === "poop") return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 8c6 8 2 14-4 16 12 0 20 8 16 18 12 2 18 12 14 22 10 4 14 14 8 22-4 6-12 8-20 8H30c-10 0-18-4-20-12-2-8 4-16 12-18-4-10 2-20 14-22-4-10 4-18 14-18-2-6 0-12 0-16z" fill="#7a4a22" stroke="#4a2a10" stroke-width="3"/><circle cx="38" cy="62" r="6" fill="#fff"/><circle cx="62" cy="62" r="6" fill="#fff"/><circle cx="38" cy="64" r="3" fill="#222"/><circle cx="62" cy="64" r="3" fill="#222"/><path d="M38 84q12-10 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M29 57l14-6M71 57l-14-6" stroke="#222" stroke-width="3" stroke-linecap="round"/><path d="M33 72q-3 6 0 9q3-3 0-9z" fill="#6ec6ff"/></svg>`;
-  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-logo.png" alt=""></span>`;
+  if (t === "golden") return `<span class="gtb" style="width:${size}px;height:${size}px"><img src="epc-jersey.jpg" alt=""></span>`;
   const c = TIERS[t].c, d = t === "gold" ? "#a87a12" : t === "silver" ? "#7d8792" : "#7a4518";
   return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M30 4h14l8 26H38zM70 4H56l-8 26h14z" fill="${t === "gold" ? "#0e5a2e" : t === "silver" ? "#4a2d76" : "#555"}"/><circle cx="50" cy="60" r="34" fill="${c}" stroke="${d}" stroke-width="5"/><circle cx="50" cy="60" r="24" fill="none" stroke="${d}" stroke-width="2" opacity=".6"/><text x="50" y="70" text-anchor="middle" font-size="28" font-weight="900" fill="${d}" font-family="Arial">${t === "gold" ? "1" : t === "silver" ? "2" : "3"}</text></svg>`;
 }
@@ -1729,7 +1739,7 @@ function renderTrain() {
 function sessionHTML(se, live) {
   const l = getL(se.date), info = se.info;
   let o = `<div class="card"><div class="row between wrap"><div class="eyebrow">${fmtD(se.date)} • ${se.time}</div>${badgeFor(info)}</div><h2 style="margin-top:8px">${esc(se.focus)}</h2>`;
-  if (info.court.length) o += `<div class="small" style="color:var(--green);font-weight:700">${I.ball} ${info.court.map(e => esc(e.label) + " " + fmtT(e.start)).join(", ")}</div>`;
+  if (info.court.length) o += `${tropicsHTML(170)}<div class="small" style="color:var(--green);font-weight:700;text-align:center">${I.ball} ${info.court.map(e => esc(e.label) + " " + fmtT(e.start)).join(", ")}</div>`;
   if (info.moderate) o += `<div class="small muted">Moderate day: one less set, RPE capped at 6.</div>`;
   o += `<div class="small muted" style="margin-top:4px">${esc(se.note)}</div>`;
   if (!live) o += `<button class="btn primary block" style="margin-top:14px" data-act="openWO" data-date="${se.date}">${se.date === todayStr() ? "Start" : "Open"} workout</button>`;
@@ -1881,7 +1891,8 @@ function renderSheet() {
   else if (kind === "recommend") o = recommendSheet();
   else if (kind === "feedback") o = feedbackHTML();
   else if (kind === "result") o = arg;
-  $("sheetBody").innerHTML = o;
+  const locked = (kind === "tour") || (kind === "setup" && arg === "first") || !!UI.wnPending;
+  $("sheetBody").innerHTML = (locked ? "" : `<button class="sheet-x" data-act="closeSheet" aria-label="Close">&times;</button>`) + o;
 }
 function feedbackHTML() {
   const f = UI.fb;
@@ -2527,7 +2538,7 @@ function calAdd(evs) {
 /* ---------- Schedule screen (replaces Hoops) ---------- */
 function scheduleHTML() {
   const t = todayStr(), up = upcomingEvents(), past = (S.events || []).filter(e => e.date < t).length;
-  let o = back + `${sheetTitle("Schedule")}<button class="btn primary block" data-act="sheet" data-k="import">Import schedule</button>`;
+  let o = back + `${sheetTitle("Schedule")}${tropicsHTML(240)}<div class="small muted" style="text-align:center;margin:-4px 0 12px">Easley Pres Mens II B • Tuesday practice 7 PM</div><button class="btn primary block" data-act="sheet" data-k="import">Import schedule</button>`;
   o += `<div class="row" style="margin:10px 0"><button class="btn sm" style="flex:1" data-act="sheet" data-k="game">+ Add event</button><button class="btn sm" style="flex:1" data-act="calAll" ${up.length ? "" : "disabled"}>Add all to my calendar</button></div>`;
   if (!up.length) o += emptyState("No upcoming events. Import your schedule or add one.");
   let mon = "";
