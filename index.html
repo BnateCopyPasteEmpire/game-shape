@@ -403,7 +403,7 @@ img,svg,video{max-width:100%}
 .medal-row .mc{display:inline-flex;align-items:center;gap:3px;font-weight:900}
 .wkdots{display:flex;gap:6px;margin-top:10px}
 .wkdots span{flex:1;height:34px;border-radius:9px;background:var(--line);display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink-2)}
-.wkdots span.h4{background:var(--green);color:#fff}.wkdots span.h3{background:#2f7a4f;color:#fff}.wkdots span.h2{background:#8bb89a;color:#fff}.wkdots span.h1{background:#d9e6dd}
+.wkdots span.h5{background:var(--green);color:#fff}.wkdots span.h4{background:#2f7a4f;color:#fff}.wkdots span.h3{background:#8bb89a;color:#fff}.wkdots span.h2,.wkdots span.h1{background:#d9e6dd}
 @keyframes goldGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,215,94,.6))}50%{filter:drop-shadow(0 0 28px rgba(255,215,94,1))}}
 @keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 @keyframes poopDrop{0%{transform:translateY(-120vh) scale(1.4)}70%{transform:translateY(20px) scale(1.1,.85)}100%{transform:none}}
@@ -436,7 +436,7 @@ img,svg,video{max-width:100%}
 .week-demo{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .wd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:12px;background:var(--surface);border:1px solid var(--line);transition:background .25s}
 .wd small{font-weight:800;color:var(--ink-2)}.wd b{font-size:18px}.wd i{font-style:normal;font-size:8px;letter-spacing:1px;color:var(--green)}
-.wd.h3{background:#cfe6d6}.wd.h4{background:var(--green);color:#fff}.wd.h4 small,.wd.h4 i{color:#fff}
+.wd.h3,.wd.h4{background:#cfe6d6}.wd.h5{background:var(--green);color:#fff}.wd.h5 small,.wd.h5 i{color:#fff}
 .ladder{display:flex;gap:8px}.ladder-step{flex:1;display:flex;align-items:center;gap:6px;padding:8px;border-radius:12px;border:1px dashed var(--line);opacity:.45;filter:grayscale(.8);transition:all .3s}
 .ladder-step.lit{opacity:1;filter:none;border-style:solid;border-color:var(--green);background:var(--green-tint)}
 .ladder-step.pop{animation:bump .5s ease}
@@ -462,6 +462,24 @@ img,svg,video{max-width:100%}
 @keyframes dangle{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-3px)}}
 .odcount{text-align:center}.odcount .n{font-size:44px;font-weight:900;color:var(--green);line-height:1}
 .sheet-panel.tall{min-height:88vh}
+/* Today's scorecard */
+.scorecard .sc-total{font-size:40px;font-weight:900;color:var(--green);line-height:1;letter-spacing:-1px}
+.scr{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px;transition:background .25s,border-color .25s}
+.scr.ok{border-color:var(--green);background:var(--green-tint)}
+.scr-top{display:flex;align-items:center;gap:10px}
+.scr-ck{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:900;color:#fff;font-size:14px}
+.scr.ok .scr-ck{background:var(--green);border-color:var(--green);animation:bump .35s ease}
+.scr-t{flex:1;min-width:0}.scr-t b{display:block;font-size:15px}.scr-t small{color:var(--ink-2);font-size:12px}
+.scr-top em{font-style:normal;font-weight:900;color:var(--orange-ink);white-space:nowrap}
+.scr-ctl{margin-top:8px}.scr-ctl .chip{min-height:40px;padding:0 10px}
+.scr.water{border-width:2px;border-color:rgba(var(--epc-teal-rgb),.7);background:linear-gradient(135deg,rgba(var(--epc-teal-rgb),.12),#fff)}
+.scr.water.ok{background:linear-gradient(135deg,rgba(var(--epc-teal-rgb),.28),var(--green-tint))}
+.scr.water .scr-top em{font-size:18px}
+.wbar{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:2px}.wbar i{display:block;height:100%;background:linear-gradient(90deg,#4eb0d6,#2b8fc0);transition:width .5s ease}
+.allin-bar{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:2px;font-size:13px}
+.allin-bar.on{background:var(--green);color:#fff;animation:bump .5s ease}
+/* bigger Tropics logo on the Golden badge */
+.gtb img{width:94%!important;border-radius:14%!important}
 </style>
 </head>
 <body>
@@ -550,8 +568,10 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "2.9.0";
+const APP_VERSION = "2.9.2";
 const CHANGELOG = {
+  "2.9.2": ["New Today's scorecard: every point on the table with one-tap checks", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300", "Book buys score the day you buy. Book Tests happen the last week of the season: +67 per book read and passed", "Calories removed"],
+  "2.9.1": ["New Today's scorecard: every point on the table with one-tap checks. Water, workout, run or bike, reading, sleep, protein, affirmations", "Water is the big one: 60 points for hitting your goal", "Protein is now a simple 50 g a day check (+10) and counts toward your weekly medal", "Weekly medals: 5 goals a day, 35 a week. Gold 30+, Silver 23+, Bronze 14+", "Golden Tropics: best medal record of the month, then most points, wins +300. Bigger Tropics logo on the badge", "Calories removed"],
   "2.9.0": ["Opening Day is Monday, Nov 30. Season 1 runs through Feb 28", "New interactive show: how points, weekly medals, the Golden Tropics badge, and the season all fit together", "3 Golden Tropics badges are up for grabs (Dec, Jan, Feb), each worth +300 points", "Chase the medal: your Bronze, Silver, and Gold targets and today's small wins, right on Today", "2 quick questions: where you'll work out the most and your best times. Sent to Brett"],
   "2.8.2": ["Fixed images not loading (question mark boxes)", "New Copy Paste Empire logo, small, top right", "Sharper EPC Tropics logo on game days, practices, and the schedule"],
   "2.8.1": ["Every pop-up screen (like More) now has an X to close it and get back to the app", "The EPC Tropics logo now pops up on game days, practice days, court days in Train, and the Schedule"],
@@ -1116,7 +1136,9 @@ const myName = () => ((S.profile.nickname || "").trim() || S.profile.name || PID
    Points come from doing YOUR plan, measured against YOUR targets, so everyone competes on effort, not size. */
 /* Scoring (v2.6.3): workout is king, water is close behind, cardio just under a workout (every other day), reading about the same as water.
    Sleep: 7 to 8 hrs is the sweet spot. Affirmations are for you, not for points. */
-const PTS = { golden: 300, perDollar: 0.5, allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 40, waterPart: 20, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 150 };
+const PTS = { proteinG: 50, golden: 300, perDollar: 0.5, allIn: 50, workout: 50, quick: 25, court: 30, practice: 55, gamePlay: 45, gameWatch: 30, cardio: 40, water: 60, waterPart: 30, protein: 10, sleepBest: 25, sleepMid: 15, sleepLong: 5, affirm: 0, readCap: 35, buy: 25, quiz: 67 };
+function sleepOf(l) { return l ? (l.sleepH != null ? +l.sleepH : sleepHrs(l.sleep)) : null; }
+const proteinHit = l => !!(l && (l.protein50 || (l.protein || 0) >= PTS.proteinG));
 function sleepPts(h) { if (h == null || h < 6 || h > 14) return 0; if (h < 7) return PTS.sleepMid; if (h < 8) return PTS.sleepBest; if (h < 9) return PTS.sleepMid; return PTS.sleepLong; }
 /* Cardio (run or bike) counts once every other day: a cardio day earns points only if yesterday's cardio didn't. */
 function cardioQual(s) { const l = S.logs[s]; return !!(l && ((+l.miles || 0) >= 1 || (+l.bike || 0) >= 3)); }
@@ -1132,7 +1154,7 @@ function seasonOf(d) {
 }
 function SSN() { if (!S.season) S.season = { bought: {}, quiz: {}, seen: {} }; ["bought", "quiz", "seen"].forEach(k => { if (!S.season[k]) S.season[k] = {}; }); return S.season; }
 /* All In: workout + water goal + sleep (6 to 9 hrs) + 10+ min reading + affirmations checked, all on the same day. */
-const ALLIN = [["workout", "Workout"], ["water", "Water goal"], ["sleep", "Sleep 6 to 9 hrs"], ["read", "Read 10+ min"], ["affirm", "Affirmations"]];
+const ALLIN = [["workout", "Workout"], ["water", "Water goal"], ["sleep", "Sleep 6 to 9 hrs"], ["read", "Read 10+ min"], ["protein", "Protein 50 g"], ["affirm", "Affirmations"]];
 /* Court: showing up is the point. Practice 55. Game played 45. At the game but couldn't play 30. */
 function courtPts(s) {
   const l = S.logs[s]; if (!l || !(l.checks && l.checks.court) && !l.court) return 0;
@@ -1153,8 +1175,8 @@ function courtCardHTML(s) {
   ${opts.map(([k, n, p]) => `<button class="chip ${v === k ? "on" : ""}" style="display:flex;justify-content:space-between;align-items:center;width:100%;margin:6px 0" data-act="courtSet" data-v="${k}"><span>${v === k ? "✓ " : ""}${n}</span><b>+${p}</b></button>`).join("")}</div>`;
 }
 function dayChecks(s) {
-  const l = S.logs[s] || null, h = l ? sleepHrs(l.sleep) : null;
-  const c = { workout: !!(l && (l.done || l.mvdDone)), water: !!(l && l.water >= waterGoal(s)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10), affirm: !!(l && l.checks && l.checks.affirm) };
+  const l = S.logs[s] || null, h = sleepOf(l);
+  const c = { workout: !!(l && (l.done || l.mvdDone)), water: !!(l && l.water >= waterGoal(s)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10), protein: proteinHit(l), affirm: !!(l && l.checks && l.checks.affirm) };
   c.allIn = ALLIN.every(([k]) => c[k]); return c;
 }
 function dayPoints(s) {
@@ -1164,8 +1186,8 @@ function dayPoints(s) {
   b.court = courtPts(s);
   b.run = cardioCredit(s) ? PTS.cardio : 0;
   const wg = waterGoal(s); b.water = l.water >= wg ? PTS.water : l.water >= wg * .75 ? PTS.waterPart : 0;
-  b.protein = l.protein >= S.profile.protein ? PTS.protein : 0;
-  b.sleep = sleepPts(sleepHrs(l.sleep));
+  b.protein = proteinHit(l) ? PTS.protein : 0;
+  b.sleep = sleepPts(sleepOf(l));
   b.affirm = l.checks && l.checks.affirm ? PTS.affirm : 0;
   b.read = Math.min(PTS.readCap, Math.floor(l.reading || 0));
   b.bonus = dayChecks(s).allIn ? PTS.allIn : 0;
@@ -1236,21 +1258,22 @@ function checkSeasonBadges() {
   else if (dayHits(t).n === 4 && ss.fourToast !== t) { ss.fourToast = t; toast("4 for 4 today. That's a Gold-pace day."); }
 }
 /* ---------------------------- WEEKLY MEDALS + GOLDEN TROPICS ----------------------------
-   Each Mon to Sun week scores 4 goals a day (workout or court, water goal, sleep 6 to 9 hrs, read 10+ min) = 28 possible.
-   Gold 24+, Silver 18+, Bronze 11+, Poop under 11. Planned rest days count the workout goal as done.
+   Each Mon to Sun week scores 5 goals a day (workout or court, water goal, sleep 6 to 9 hrs, read 10+ min, protein 50 g) = 35 possible.
+   Gold 30+, Silver 23+, Bronze 14+, Poop under 14. Planned rest days count the workout goal as done.
    Golden Tropics Basketball badge: each month (Dec, Jan, Feb) the best medal average wins +900 points. Ties share it. */
-const TIERS = { gold: { name: "Gold", v: 3, min: 24, c: "#f6c445" }, silver: { name: "Silver", v: 2, min: 18, c: "#c7ced6" }, bronze: { name: "Bronze", v: 1, min: 11, c: "#c27a3c" }, poop: { name: "Poop", v: 0, min: 0, c: "#7a4a22" } };
-const tierOf = h => h >= 24 ? "gold" : h >= 18 ? "silver" : h >= 11 ? "bronze" : "poop";
+const WK_MAX = 35, DAY_GOALS = 5;
+const TIERS = { gold: { name: "Gold", v: 3, min: 30, c: "#f6c445" }, silver: { name: "Silver", v: 2, min: 23, c: "#c7ced6" }, bronze: { name: "Bronze", v: 1, min: 14, c: "#c27a3c" }, poop: { name: "Poop", v: 0, min: 0, c: "#7a4a22" } };
+const tierOf = h => h >= TIERS.gold.min ? "gold" : h >= TIERS.silver.min ? "silver" : h >= TIERS.bronze.min ? "bronze" : "poop";
 function isPlannedRest(d) { const info = dayInfo(d), k = tplKey(info); return REST_KEYS.includes(k) && info.type !== "GAME_DAY" || isOffDay(d); }
 function dayHits(d) {
-  const l = S.logs[d] || null, h = l ? sleepHrs(l.sleep) : null;
-  const g = { workout: !!(l && (l.done || l.mvdDone || l.runDone || (l.checks && l.checks.court))) || isPlannedRest(d), water: !!(l && l.water >= waterGoal(d)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10) };
-  g.n = (g.workout ? 1 : 0) + (g.water ? 1 : 0) + (g.sleep ? 1 : 0) + (g.read ? 1 : 0); return g;
+  const l = S.logs[d] || null, h = sleepOf(l);
+  const g = { workout: !!(l && (l.done || l.mvdDone || l.runDone || (l.checks && l.checks.court))) || isPlannedRest(d), water: !!(l && l.water >= waterGoal(d)), sleep: h != null && h >= 6 && h < 9.01, read: !!(l && (l.reading || 0) >= 10), protein: proteinHit(l) };
+  g.n = ["workout", "water", "sleep", "read", "protein"].filter(k => g[k]).length; return g;
 }
 function weekHits(ws) { const t = todayStr(); let hits = 0, days = 0; const per = []; for (let i = 0; i < 7; i++) { const d = addDays(ws, i); if (d > t) { per.push(null); continue; } const g = dayHits(d); hits += g.n; days++; per.push(g); } return { ws, hits, days, per }; }
 function seasonWeeks(sz) {
   const out = {}, t = todayStr(); if (t < sz.start) return out;
-  for (let ws = weekStart(sz.start); ws <= sz.end && ws <= t; ws = addDays(ws, 7)) { const w = weekHits(ws), done = addDays(ws, 6) < t; out[ws] = { hits: w.hits, tier: done ? tierOf(w.hits) : null, live: !done }; }
+  for (let ws = weekStart(sz.start); ws <= sz.end && ws <= t; ws = addDays(ws, 7)) { const w = weekHits(ws), done = addDays(ws, 6) < t; let pts = 0; for (let i = 0; i < 7; i++) { const d = addDays(ws, i); if (d <= t) pts += Object.values(dayPoints(d)).reduce((a, v) => a + v, 0); } out[ws] = { hits: w.hits, pts, tier: done ? tierOf(w.hits) : null, live: !done }; }
   return out;
 }
 const monthOfWeek = ws => addDays(ws, 3).slice(0, 7);   // the week belongs to the month its Thursday is in
@@ -1274,8 +1297,8 @@ function medalSVG(t, size) {
 /* Medal animations: Gold = bright and cool. Silver = okay, a little sad. Bronze = blah. Poop = huge and sad. Golden Tropics = the biggest. */
 function medalBurst(t, hits, month) {
   const MSG = { golden: ["Golden Tropics Basketball", "Best of " + (month ? MONTH_NAME(month) : "the month") + ". +" + PTS.golden + " points. The jersey earned it."],
-    gold: ["Gold week!", hits + " of 28. Streak locked in. Keep it rolling."], silver: ["Silver week", hits + " of 28. So close. Gold was right there."],
-    bronze: ["Bronze week", hits + " of 28. It counts... barely. Let's go."], poop: ["Poop week", hits + " of 28. Oof. Fresh week, fresh start."] };
+    gold: ["Gold week!", hits + " of " + WK_MAX + ". Streak locked in. Keep it rolling."], silver: ["Silver week", hits + " of " + WK_MAX + ". So close. Gold was right there."],
+    bronze: ["Bronze week", hits + " of " + WK_MAX + ". It counts... barely. Let's go."], poop: ["Poop week", hits + " of " + WK_MAX + ". Oof. Fresh week, fresh start."] };
   BURST.q.push({ medal: t, title: MSG[t][0], sub: MSG[t][1] }); if (!BURST.on) nextBurst();
 }
 
@@ -1318,7 +1341,7 @@ function rulebookHTML() {
   const sz = seasonOf(todayStr()), st = todayStr() >= sz.start ? seasonStats(sz) : seasonStats({ id: "PRE", n: 0, start: todayStr(), end: todayStr() });
   const row = (a, b, c) => `<div class="row between small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${a}${c ? `<div class="muted" style="font-size:12px">${c}</div>` : ""}</span><b class="brand">${b}</b></div>`;
   const perfect = PTS.workout + PTS.practice + PTS.water + PTS.readCap + PTS.sleepBest + PTS.protein + PTS.allIn;
-  const q = UI.rq || {}, qs = [["What's worth the most on a normal day?", ["Reading", "A full workout", "Affirmations"], 1], ["What wins the monthly Golden Tropics badge (+900)?", ["Most points that month", "Best weekly medal record that month", "Most miles run"], 1], ["You ran yesterday and got cardio points. You run again today. Points?", ["Yes, 40 more", "No, cardio counts every other day", "Only if it's 5+ miles"], 1]];
+  const q = UI.rq || {}, qs = [["What's worth the most on a normal day?", ["Reading", "Hitting your water goal", "Affirmations"], 1], ["What wins the monthly Golden Tropics badge (+900)?", ["Most points that month", "Best weekly medal record that month", "Most miles run"], 1], ["You ran yesterday and got cardio points. You run again today. Points?", ["Yes, 40 more", "No, cardio counts every other day", "Only if it's 5+ miles"], 1]];
   return `${sheetTitle("How to win Season " + sz.n)}<div class="rb">
   <div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape merch</h2><div>Matching Game Shape T-shirt and beanie. One winner.</div><div class="small muted" style="margin-top:6px">Season ${sz.n}: ${fmtD(sz.start)} to ${fmtD(sz.end)}. Most points wins.</div></div>
   <details open><summary>1. How the game works</summary><ul class="list small"><li>Every day you log your plan, you stack points.</li><li>Points are measured against YOUR plan and YOUR targets. Mark's beginner day, Will's light day, and Brett's leg day all score the same.</li><li>Points + badges = your season total on the Score tab. Everyone can see everyone.</li><li>Log it the day it happens. The app counts the day you log it.</li></ul></details>
@@ -1326,18 +1349,36 @@ function rulebookHTML() {
     ${row("Basketball practice", PTS.practice, "Show up to Tuesday 7 PM practice. Check in on Today.")}${row("Full workout", PTS.workout, "Finish today's session. The 15-min version is " + PTS.quick + ".")}${row("Game, played", PTS.gamePlay, "At the game but couldn't play: " + PTS.gameWatch + ".")}
     ${row("Water goal", PTS.water, PTS.waterPart + " if you hit 75 percent. Tap the water buttons on Fuel.")}${row("Run or bike", PTS.cardio, "Run 1+ mile or bike 3+ miles. Counts once every other day.")}${row("Reading", "up to " + PTS.readCap, "1 point per minute. Log minutes on Reads.")}
     ${row("Sleep 7 to 8 hours", PTS.sleepBest, "6 to 7 or 8 to 9 hours: " + PTS.sleepMid + ". 9+: " + PTS.sleepLong + ". Under 6: 0. Log it on Recover.")}${row("Protein goal", PTS.protein, "Your own grams target on Fuel.")}${row("Affirmations", 0, "No points alone, but you need them for All In.")}
-    ${row("Bought a book", "1 per $2", "Enter what you paid. A $20 book = 10 points. Brett checks the affiliate report.")}${row("Finished + passed the quiz", PTS.quiz, "3 easy questions, get 2 right.")}
+    ${row("Bought a book", "1 per $2", "Enter what you paid. A $20 book = 10 points. Brett checks the affiliate report.")}${row("Book Test (season-end)", PTS.quiz + " per book", "In the last week of the season, pass a 3-question test on each book you read. Get 2 of 3 right.")}
     <div class="banner info" style="margin-top:10px"><b>A perfect practice day = ${perfect} points</b>Workout, practice, water, 35 min reading, 7 to 8 hrs sleep, protein, plus the All In bonus.</div></details>
-  <details><summary>3. All In: the daily bonus</summary><div class="small">Hit all 5 in one day: <b>workout, water goal, 6 to 9 hrs sleep, 10+ min reading, affirmations</b>. You get <b>+${PTS.allIn}</b> bonus points. This is where accountability turns into points.</div></details>
+  <details><summary>3. All In: the daily bonus</summary><div class="small">Hit all 6 in one day: <b>workout, water goal, 6 to 9 hrs sleep, 10+ min reading, 50 g protein, affirmations</b>. You get <b>+${PTS.allIn}</b> bonus points. This is where accountability turns into points.</div></details>
   <details open><summary>4. Weekly medals + the Golden Tropics badge</summary>
-    <div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. Each day has <b>4 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, and 10+ minutes of reading. That's <b>28 hits</b> a week. Streaks win weeks: miss a day and you lose up to 4 hits.</div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under 11 hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
-    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most hits, then share it.</div></div></div></div>
+    <div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. <b>Days are your main points. Weeks are your momentum.</b> Each day has <b>5 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, 10+ minutes of reading, and 50 g of protein. That's <b>${WK_MAX} hits</b> a week. Everyone can earn Gold the same week: it's you against the checklist.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under " + TIERS.bronze.min + " hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
+    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to the most points that month, then share it.</div></div></div></div>
     <div class="small muted" style="margin-top:8px">Medals don't add points by themselves. They decide who takes the Golden Tropics +${PTS.golden} each month, and that can swing the season.</div>
     <button class="btn block" style="margin-top:10px" data-act="burstDemo">Preview the medal animations</button></details>
-  <details><summary>5. Fair play</summary><ul class="list small"><li>Daily caps so nobody wins by farming one thing.</li><li>Cardio counts every other day. Rest matters.</li><li>Book buys are honor system: 1 point per $2 you paid. Brett can see affiliate sales.</li><li>Book reads need the quiz. Retake in 24 hours with new questions.</li><li>Sleep scores best at 7 to 8 hours, not 10. Recovery, not hibernation.</li></ul></details>
+  <details><summary>5. Fair play</summary><ul class="list small"><li>Daily caps so nobody wins by farming one thing.</li><li>Cardio counts every other day. Rest matters.</li><li>Book buys are honor system: 1 point per $2 you paid. Brett can see affiliate sales.</li><li>Book Tests open the last week of the season (+${PTS.quiz} per book). Retake in 24 hours with new questions.</li><li>Sleep scores best at 7 to 8 hours, not 10. Recovery, not hibernation.</li></ul></details>
   <details><summary>6. Quick check: do you know the rules?</summary>${qs.map(([qq, opts, ans], i) => `<div style="margin:8px 0"><b class="small">${qq}</b>${opts.map((o, j) => { const picked = q[i] === j, right = j === ans; return `<button class="chip ${picked ? "on" : ""}" style="display:block;width:100%;text-align:left;margin:5px 0;${picked ? (right ? "background:var(--green);color:#fff" : "background:var(--danger-tint)") : ""}" data-act="rq" data-i="${i}" data-v="${j}">${picked ? (right ? "✓ " : "✗ ") : ""}${esc(o)}</button>`; }).join("")}</div>`).join("")}${qs.every((x, i) => q[i] === x[2]) ? `<div class="banner info"><b>3 for 3. You're ready.</b>Now go stack points.</div>` : ""}</details>
   <div style="text-align:center;font-weight:900;color:var(--green);margin:14px 0 4px">It's a grind, but it's all for the mind.</div><div style="text-align:center;font-weight:800;color:var(--orange-ink)">May the best man win.</div></div>`;
+}
+/* ===== Today's scorecard: every point on the table, one tap each ===== */
+function scorecardHTML(s) {
+  const l = getL(s), p = dayPoints(s), tot = Object.values(p).reduce((a, v) => a + v, 0), c = dayChecks(s), wg = waterGoal(s), pct = Math.min(100, Math.round((l.water || 0) / wg * 100));
+  const h = sleepOf(l), court = courtOn(s), mode = UI.cardio || (C().features.runs ? "run" : "bike"), cdt = cardioCredit(s), ycd = cardioCredit(addDays(s, -1));
+  const row = (ok, title, pts, sub, ctrl, cls) => `<div class="scr ${ok ? "ok" : ""} ${cls || ""}"><div class="scr-top"><span class="scr-ck">${ok ? "✓" : ""}</span><div class="scr-t"><b>${title}</b>${sub ? `<small>${sub}</small>` : ""}</div><em>${pts}</em></div>${ctrl ? `<div class="scr-ctl">${ctrl}</div>` : ""}</div>`;
+  const nAll = ALLIN.filter(([k]) => c[k]).length;
+  UI.scPrev = UI.scPrev == null ? tot : UI.scPrev;
+  return `<div class="card scorecard"><div class="row between" style="align-items:flex-end"><div><h2 class="brand" style="margin:0">Today's scorecard</h2><div class="small muted">Tap as you go. Days are your main points.</div></div><div style="text-align:right"><div class="sc-total" id="scTotal" data-from="${UI.scPrev}" data-to="${tot}">${tot}</div><div class="small muted">points today</div></div></div>
+  ${row(c.water, "Water: " + (l.water || 0) + " of " + wg + " oz", "+" + PTS.water, "The big one. " + PTS.waterPart + " points at 75 percent.", `<div class="wbar"><i style="width:${pct}%"></i></div><div class="row" style="gap:6px;margin-top:8px"><button class="chip" style="flex:1" data-act="addW" data-v="8">+8</button><button class="chip" style="flex:1" data-act="addW" data-v="16">+16</button><button class="chip" style="flex:1" data-act="addW" data-v="20">+20</button><button class="chip ${c.water ? "on" : ""}" style="flex:1.4" data-act="scWater">${c.water ? "✓ Hit it" : "Hit my goal"}</button></div>`, "water")}
+  ${row(c.workout, "Workout", "+" + (l.mvdDone && !l.done ? PTS.quick : PTS.workout), l.done ? "Done. Nice work." : l.mvdDone ? "15-min version done" : "Use Train for the full session, or check it here when you finish.", `<div class="row" style="gap:6px"><button class="chip ${l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="full">${l.done ? "✓ " : ""}Full workout</button><button class="chip ${l.mvdDone && !l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="quick">${l.mvdDone && !l.done ? "✓ " : ""}15-min</button><button class="chip" data-tab="train">Train ›</button></div>`)}
+  ${court.length ? row(p.court > 0, "Basketball: " + esc(court[0].label), "+" + (p.court || (court.some(e => e.kind === "game" || e.type === "game") ? PTS.gamePlay : PTS.practice)), "Check in on the game or practice card.", "") : ""}
+  ${row(cdt, "Run or bike", "+" + PTS.cardio, cdt ? "Counted today." : ycd ? "Counted yesterday. Miles still log, points come back tomorrow." : "Run 1+ mile or bike 3+ miles. Every other day.", `<div class="row" style="gap:6px"><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="60" placeholder="Miles" style="flex:1;min-height:44px"><button class="chip" data-act="runAdd">Add</button></div>${l.miles || l.bike ? `<div class="small muted" style="margin-top:4px">${l.miles ? l.miles + " mi run " : ""}${l.bike ? l.bike + " mi bike" : ""} <button class="small" style="text-decoration:underline" data-act="runClear">undo</button></div>` : ""}`)}
+  ${row(c.read, "Read: " + (l.reading || 0) + " min", "up to +" + PTS.readCap, "1 point a minute. 10+ minutes counts for your medal.", `<div class="row" style="gap:6px"><button class="chip" style="flex:1" data-act="read" data-v="10">+10 min</button><button class="chip" style="flex:1" data-act="read" data-v="20">+20 min</button><button class="chip" style="flex:1" data-act="read" data-v="35">+35 min</button></div>`)}
+  ${row(c.sleep, "Sleep last night" + (h != null ? ": " + (Math.round(h * 10) / 10) + " hrs" : ""), "+" + (p.sleep || PTS.sleepBest), "7 to 8 hrs is best (" + PTS.sleepBest + "). Under 6 is 0.", `<div class="row" style="gap:6px">${[[5, "5"], [6, "6"], [7, "7"], [8, "8"], [9, "9+"]].map(([v, n]) => `<button class="chip ${h != null && Math.floor(h) === v || (v === 9 && h >= 9) ? "on" : ""}" style="flex:1" data-act="scSleep" data-v="${v}">${n}</button>`).join("")}</div>`)}
+  ${row(c.protein, "Protein " + PTS.proteinG + " g", "+" + PTS.protein, "Counts for your medal too.", `<button class="chip ${c.protein ? "on" : ""}" style="width:100%" data-act="scProtein">${c.protein ? "✓ Got my " + PTS.proteinG + " g" : "I hit " + PTS.proteinG + " g today"}</button>`)}
+  ${row(c.affirm, "Affirmations", "0", "No points alone. Needed for All In.", `<button class="chip ${c.affirm ? "on" : ""}" style="width:100%" data-act="affCheck">${c.affirm ? "✓ Read them" : "I read my affirmations"}</button>`)}
+  <div class="allin-bar ${c.allIn ? "on" : ""}"><b>${c.allIn ? "ALL IN today! +" + PTS.allIn : "All In: " + nAll + " of 6"}</b><span>${c.allIn ? "Every box checked." : "Workout, water, sleep, read, protein, affirmations = +" + PTS.allIn}</span></div></div>`;
 }
 function weekCardHTML() {
   const t = todayStr(), sz = seasonOf(t);
@@ -1345,21 +1386,21 @@ function weekCardHTML() {
   const ws = weekStart(t), w = weekHits(ws), today = dayHits(t), dleft = 6 - ((dow(t) + 6) % 7);
   const got = ["bronze", "silver", "gold"].filter(k => w.hits >= TIERS[k].min), nextK = ["bronze", "silver", "gold"].find(k => w.hits < TIERS[k].min);
   const ladder = ["bronze", "silver", "gold"].map(k => `<div class="ms ${got.includes(k) ? "got" : ""} ${k === nextK ? "next" : ""}">${medalSVG(k, 36)}<b>${TIERS[k].name}</b><small>${got.includes(k) ? "locked ✓" : (TIERS[k].min - w.hits) + " to go"}</small></div>`).join("");
-  const wins = [["workout", "Workout"], ["water", "Water"], ["sleep", "Sleep"], ["read", "Read"]].map(([k, n]) => `<span class="tg ${today[k] ? "shelf" : ""}" style="${today[k] ? "" : "opacity:.6"}">${today[k] ? "✓" : "○"} ${n}</span>`).join(" ");
-  return `<div class="card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Chase the medal</h2><b class="brand">${w.hits}/28</b></div>
+  const wins = [["water", "Water"], ["workout", "Workout"], ["sleep", "Sleep"], ["read", "Read"], ["protein", "Protein"]].map(([k, n]) => `<span class="tg ${today[k] ? "shelf" : ""}" style="${today[k] ? "" : "opacity:.6"}">${today[k] ? "✓" : "○"} ${n}</span>`).join(" ");
+  return `<div class="card"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Chase the medal</h2><b class="brand">${w.hits}/${WK_MAX}</b></div>
   <div class="small muted" style="margin-top:2px">${nextK ? `${TIERS[nextK].min - w.hits} more hits for ${TIERS[nextK].name}${dleft ? ", " + dleft + " day" + (dleft === 1 ? "" : "s") + " left" : ", last day"}. Every box counts.` : "Gold is locked. Keep the streak alive."}</div>
   <div class="mladder">${ladder}</div>
   <div class="wkdots">${w.per.map((g, i) => `<span class="${g ? "h" + g.n : ""}">${["M", "T", "W", "T", "F", "S", "S"][i]}${g ? "<br>" + g.n : ""}</span>`).join("")}</div>
-  <div class="small" style="margin-top:10px"><b>Today's small wins (${today.n}/4):</b> ${wins}</div></div>`;
+  <div class="small" style="margin-top:10px"><b>Today's medal goals (${today.n}/5):</b> ${wins}</div></div>`;
 }
 function medalsCardHTML(list) {
   const t = todayStr(), sz = seasonOf(t), me = list.find(p => p.id === PID) || {}, mc = medalCounts(me.weeks), m = (sz.start > t ? sz.start : t).slice(0, 7);
-  const race = list.map(p => { let v = 0, h = 0; Object.entries(p.weeks || {}).forEach(([ws, w]) => { if (w.tier && monthOfWeek(ws) === m) { v += TIERS[w.tier].v; h += +w.hits || 0; } }); return { p, v, h }; }).sort((a, b) => b.v - a.v || b.h - a.h);
+  const race = list.map(p => { let v = 0, h = 0; Object.entries(p.weeks || {}).forEach(([ws, w]) => { if (monthOfWeek(ws) === m) { if (w.tier) v += TIERS[w.tier].v; h += +w.pts || 0; } }); return { p, v, h }; }).sort((a, b) => b.v - a.v || b.h - a.h);
   return `<div class="card"><h2 class="brand" style="margin:0">Medals</h2><div class="small muted" style="margin:4px 0 10px">Every Mon to Sun week ends in Gold, Silver, Bronze, or Poop. Streaks win weeks.</div>
     <div style="display:flex;justify-content:space-around;text-align:center">${["gold", "silver", "bronze", "poop"].map(k => `<div>${medalSVG(k, 46)}<div style="font-weight:900;font-size:20px">${mc[k]}</div><div class="small muted">${TIERS[k].name}</div></div>`).join("")}</div>
     <div class="card" style="margin:14px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 64)}<div><b style="font-size:17px">Golden Tropics Basketball</b><div class="small" style="opacity:.85">${MONTH_NAME(m)}'s best medal record wins +${PTS.golden} points. Up for grabs in December, January, and February.</div></div></div>
-    <div style="margin-top:10px">${race.map((r, i) => `<div class="row between small" style="padding:5px 0;border-top:1px solid rgba(255,255,255,.15)"><span>${i + 1}. ${esc(r.p.name)}${r.p.id === PID ? " (you)" : ""}</span><span>${r.v} medal pts • ${r.h} hits</span></div>`).join("")}</div>
-    <div class="small" style="opacity:.75;margin-top:6px">Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most goal hits.</div></div></div>`;
+    <div style="margin-top:10px">${race.map((r, i) => `<div class="row between small" style="padding:5px 0;border-top:1px solid rgba(255,255,255,.15)"><span>${i + 1}. ${esc(r.p.name)}${r.p.id === PID ? " (you)" : ""}</span><span>${r.v} medal pts • ${r.h} pts</span></div>`).join("")}</div>
+    <div class="small" style="opacity:.75;margin-top:6px">Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to the most points that month.</div></div></div>`;
 }
 function allInCardHTML(onScore) {
   const t = todayStr(), c = dayChecks(t), n = ALLIN.filter(([k]) => c[k]).length;
@@ -1391,14 +1432,14 @@ function seasonHTML(compact) {
     const td = todayOf(p), open = UI.sbOpen === p.id, tot = p.tot || {}, max = Math.max(1, ...CAT_LABEL.map(([k]) => tot[k] || 0));
     const checks = `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${ALLIN.map(([k, n]) => { const ok = td && td.checks && td.checks[k]; return `<span class="tg ${ok ? "shelf" : ""}" style="${ok ? "" : "opacity:.55"}">${ok ? "✓" : "○"} ${n.split(" ")[0]}</span>`; }).join("")}${td && td.checks.allIn ? `<span class="tg" style="background:var(--green);color:#fff">ALL IN +${PTS.allIn}</span>` : ""}</div>`;
     const mc = medalCounts(p.weeks), gc = p.id === PID ? myGoldens(seasonOf(t)).length : (p.goldenCount || 0), pace = tierOf(Math.round((p.weekHits || 0) / Math.max(1, (dow(t) + 6) % 7 + 1) * 7));
-    const btHTML = `<div class="row between" style="margin-top:10px;align-items:center">${medalsInline(mc, 22)}${gc ? `<span class="mc" style="font-weight:900">${medalSVG("golden", 24)} x${gc}</span>` : ""}</div><div class="small muted" style="margin-top:4px">${(p.weekHits || 0) >= 24 ? "Gold locked this week" : "Chasing " + TIERS[["bronze", "silver", "gold"].find(k => (p.weekHits || 0) < TIERS[k].min)].name + " this week"}</div>`;
+    const btHTML = `<div class="row between" style="margin-top:10px;align-items:center">${medalsInline(mc, 22)}${gc ? `<span class="mc" style="font-weight:900">${medalSVG("golden", 24)} x${gc}</span>` : ""}</div><div class="small muted" style="margin-top:4px">${(p.weekHits || 0) >= TIERS.gold.min ? "Gold locked this week" : "Chasing " + TIERS[["bronze", "silver", "gold"].find(k => (p.weekHits || 0) < TIERS[k].min)].name + " this week"}</div>`;
     const detail = open ? `<div style="margin-top:12px">${CAT_LABEL.map(([k, n]) => `<div class="small" style="display:flex;align-items:center;gap:8px;margin:5px 0"><span style="width:92px">${n}</span><span style="flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:${Math.round((tot[k] || 0) / max * 100)}%;background:${esc(p.accent || "#ff8200")}"></span></span><b style="width:42px;text-align:right">${tot[k] || 0}</b></div>`).join("")}
       <div class="small muted" style="margin-top:8px">${p.miles || 0} cardio miles • ${p.books || 0} books verified • ${p.allInDays || 0} All In days</div>
       <div class="small" style="margin-top:8px"><b>Weeks:</b> ${Object.keys(p.weeks || {}).sort().map(ws => { const w = p.weeks[ws]; return w.tier ? `<span title="${fmtD(ws)}">${medalSVG(w.tier, 20)}</span>` : ""; }).join(" ") || "No finished weeks yet."}</div></div>` : "";
     return `<div class="card" style="border-left:5px solid ${esc(p.accent || "#ff8200")}">
       <button data-act="sbOpen" data-id="${esc(p.id)}" style="display:block;width:100%;text-align:left">
       <div class="row between"><span style="font-size:18px"><b>${medal(i)}</b> ${dot(p.accent)}<b>${esc(p.name)}</b>${p.id === PID ? ` <span class="small muted">(you)</span>` : ""}</span><span style="text-align:right"><b class="brand" style="font-size:26px">${p.points}</b><div class="small muted" style="margin-top:-4px">season pts</div></span></div>
-      <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">Week pts</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekHits || 0}<span class="small muted">/28</span></div></div></div>
+      <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:20px">${td ? td.pts : 0}</div></div><div class="tile"><div class="k">Week pts</div><div class="v" style="font-size:20px">${p.weekPts || 0}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:20px">${p.weekHits || 0}<span class="small muted">/${WK_MAX}</span></div></div></div>
       ${checks}${btHTML}
       <div class="small muted" style="margin-top:8px">${open ? "Tap to close" : "Tap for the full breakdown"}${td ? "" : " • not synced today yet"}</div></button>${detail}</div>`;
   }).join("");
@@ -1408,7 +1449,7 @@ function seasonHTML(compact) {
   const guide = `<details style="margin-top:12px"><summary class="small"><b>How points work</b></summary><ul class="list small">
     <li>Full workout ${PTS.workout} (the biggest daily points), quick 15-min ${PTS.quick}. On a run day, a 1+ mile run is the workout</li><li>Water goal ${PTS.water} (${PTS.waterPart} at 75 percent)</li><li>Run or bike ${PTS.cardio}, once every other day (run 1+ mile or bike 3+ miles)</li>
     <li>Reading 1 per minute (${PTS.readCap} max a day)</li><li>Practice ${PTS.practice}, game played ${PTS.gamePlay}, at the game but couldn't play ${PTS.gameWatch}</li><li>Protein goal ${PTS.protein}</li><li>Sleep: 7 to 8 hrs ${PTS.sleepBest}, 6 to 7 or 8 to 9 hrs ${PTS.sleepMid}, 9+ hrs ${PTS.sleepLong}, under 6 hrs 0</li><li>Affirmations are for you. No points alone, but they count toward All In</li><li><b>All In:</b> workout + water goal + sleep 6 to 9 hrs + 10 min reading + affirmations in one day = All In badge and +${PTS.allIn}</li>
-    <li>Buy a book: 1 point per $2 you paid. Finish it and pass the 3-question quiz: ${PTS.quiz}</li><li>Weekly medals: Gold 24+ hits, Silver 18+, Bronze 11+, Poop under 11 (4 goals a day, 28 a week)</li><li>Golden Tropics: best medal record each month wins +${PTS.golden}</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
+    <li>Buy a book: 1 point per $2 you paid, the day you buy it. Season-end Book Test: +${PTS.quiz} per book read and passed</li><li>Weekly medals: Gold ${TIERS.gold.min}+ hits, Silver ${TIERS.silver.min}+, Bronze ${TIERS.bronze.min}+, Poop under ${TIERS.bronze.min} (5 goals a day, ${WK_MAX} a week)</li><li>Golden Tropics: best medal record each month (then most points) wins +${PTS.golden}</li><li>Every goal is YOUR target, so a beginner day and a hard day count the same</li></ul></details>`;
   return `<div class="card"><h2 class="brand" style="margin:0">Season ${sz.n} Standings</h2><div class="small muted" style="margin:4px 0 0">${head}. Everyone's numbers update when they open the app.</div><button class="btn primary block" style="margin-top:12px" data-act="sheet" data-k="rules">How to win: points, medals, and streaks</button>${pre ? `<div class="small muted" style="margin-top:6px">Points start counting ${fmtD(sz.start)}. Today and This week show practice points until then.</div>` : ""}${prize}</div>`
     + cards + allInCardHTML(true) + mine + `<div class="card">${guide.replace(/^<details[^>]*>/, "<details open>")}</div>`;
 }
@@ -1548,11 +1589,11 @@ function tourPages() {
       ${row("Full workout (the big one)", PTS.workout)}${row("Water goal hit (" + PTS.waterPart + " at 75 percent)", PTS.water)}${row("Run 1+ mi or bike 3+ mi (every other day)", PTS.cardio)}
       ${row("Reading, 1 per minute", "up to " + PTS.readCap)}${row("Basketball practice", PTS.practice)}${row("Game, played", PTS.gamePlay)}${row("Game, there but couldn't play", PTS.gameWatch)}${row("15-min quick workout", PTS.quick)}
       ${row("Sleep 7 to 8 hours", PTS.sleepBest)}${row("Sleep 6 to 7 or 8 to 9 hours", PTS.sleepMid)}${row("Sleep 9+ hours", PTS.sleepLong)}${row("Sleep under 6 hours", 0)}
-      ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book", "1 per $2")}${row("Finished a book + passed the quiz", PTS.quiz)}</div>
+      ${row("Protein goal hit", PTS.protein)}${row("Affirmations (for you, not points)", 0)}${row("Bought a book", "1 per $2")}${row("Season-end Book Test, per book", PTS.quiz)}</div>
       <div class="small muted" style="margin-top:8px">Daily caps keep it fair, so nobody wins by farming one thing. Log it the day it happens.</div>`),
-    p("Weekly medals", "Streaks win weeks. Every week ends in Gold, Silver, Bronze, or Poop.", `<div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. Each day has <b>4 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, and 10+ minutes of reading. That's <b>28 hits</b> a week. Streaks win weeks: miss a day and you lose up to 4 hits.</div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under 11 hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
-    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to most hits, then share it.</div></div></div></div>
+    p("Weekly medals", "Streaks win weeks. Every week ends in Gold, Silver, Bronze, or Poop.", `<div class="small" style="margin-bottom:10px">Every Mon to Sun week ends in a medal. <b>Days are your main points. Weeks are your momentum.</b> Each day has <b>5 goals</b>: a workout (or practice, game, or a planned rest day), your water goal, 6 to 9 hours of sleep, 10+ minutes of reading, and 50 g of protein. That's <b>${WK_MAX} hits</b> a week. Everyone can earn Gold the same week: it's you against the checklist.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">${["gold", "silver", "bronze", "poop"].map(k => `<div class="tile" style="text-align:center">${medalSVG(k, 50)}<div style="font-weight:900">${TIERS[k].name}</div><div class="small muted">${k === "poop" ? "under " + TIERS.bronze.min + " hits" : TIERS[k].min + "+ hits"}</div></div>`).join("")}</div>
+    <div class="card" style="margin:12px 0 0;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0"><div class="row" style="gap:12px;align-items:center">${medalSVG("golden", 60)}<div><b>Golden Tropics Basketball badge</b><div class="small" style="opacity:.85">Each month (December, January, February) the best medal record wins <b>+${PTS.golden} points</b>. Gold 3, Silver 2, Bronze 1, Poop 0. Ties go to the most points that month, then share it.</div></div></div></div>
     <div class="small muted" style="margin-top:8px">Medals don't add points by themselves. They decide who takes the Golden Tropics +${PTS.golden} each month, and that can swing the season.</div>`),
     p("Season " + sz.n + ": " + fmtD(sz.start) + " to " + fmtD(sz.end), "Most points at the end of the season wins.", `<div class="card" style="text-align:center;background:var(--card2)"><div class="eyebrow">The prize</div><h2 style="margin:6px 0">The first-ever Game Shape T-shirt and matching beanie</h2><div class="small muted">One winner. One set. First ever made.</div></div>
       <p style="text-align:center;font-size:18px;font-weight:800;color:var(--green);margin:14px 0 4px">It's going to be a grind, but it's all for the mind.</p>
@@ -1562,10 +1603,10 @@ function tourPages() {
 }
 const TOUR_V = "opening-2026";
 /* ===== Opening Day: interactive "how the score works" show (daily > weekly > monthly > season), then a 2-question intake ===== */
-const DEMO_TASKS = [["workout", "Workout", 50], ["practice", "Practice", 55], ["water", "Water goal", 40], ["cardio", "Run or bike", 40], ["read", "Read 35 min", 35], ["sleep", "Sleep 7 to 8 hrs", 25], ["protein", "Protein", 10]];
+const DEMO_TASKS = [["water", "Water goal", 60], ["practice", "Practice", 55], ["workout", "Workout", 50], ["cardio", "Run or bike", 40], ["read", "Read 35 min", 35], ["sleep", "Sleep 7 to 8 hrs", 25], ["protein", "Protein 50 g", 10]];
 const SLOT_OPTS = ["Early (5 to 6 AM)", "Morning (6 to 8 AM)", "Lunch (11 to 1)", "Afternoon (3 to 5 PM)", "Evening (6 to 8 PM)", "Late (8 to 10 PM)"];
 function D() { return UI.demo || (UI.demo = { day: {}, week: [0, 0, 0, 0, 0, 0, 0], shown: 0, mi: { place: (C().setup && C().setup.home) || null, slots: ((C().setup && C().setup.windows) || []).filter(w => SLOT_OPTS.includes(w)) } }); }
-function demoDayPts() { const d = D().day; let p = DEMO_TASKS.reduce((a, [k, , v]) => a + (d[k] ? v : 0), 0); const all = d.workout && d.water && d.sleep && d.read; if (all) p += PTS.allIn; return { p, all }; }
+function demoDayPts() { const d = D().day; let p = DEMO_TASKS.reduce((a, [k, , v]) => a + (d[k] ? v : 0), 0); const all = d.workout && d.water && d.sleep && d.read && d.protein; if (all) p += PTS.allIn; return { p, all }; }
 function showPages() {
   const d = D(), dp = demoDayPts(), wh = d.week.reduce((a, b) => a + b, 0), wt = tierOf(wh), sz = seasonOf(todayStr());
   const ladder = ["bronze", "silver", "gold"].map(k => `<div class="ladder-step ${wh >= TIERS[k].min ? "lit" : ""}">${medalSVG(k, 40)}<div><b>${TIERS[k].name}</b><div class="small muted">${TIERS[k].min}+ hits</div></div></div>`).join("");
@@ -1573,12 +1614,12 @@ function showPages() {
   return [
     p("1. Every day: stack points", "Tap the things you'd do in a day and watch your points add up.", `<div class="show-total"><span id="dayPts" data-to="${dp.p}">${dp.p}</span><small>points today</small></div>
       <div class="task-grid">${DEMO_TASKS.map(([k, n, v]) => `<button class="task ${d.day[k] ? "on" : ""}" data-act="demoTask" data-v="${k}"><span>${d.day[k] ? "✓" : "+"}</span><b>${n}</b><em>+${v}</em></button>`).join("")}</div>
-      <div class="allin-hint ${dp.all ? "on" : ""}">${dp.all ? "ALL IN! Workout + water + sleep + reading (and affirmations) = +" + PTS.allIn + " bonus" : "Hit workout, water, sleep, and reading together for the All In +" + PTS.allIn + " bonus"}</div>`),
-    p("2. Every week: earn a medal", "4 goals a day (workout, water, sleep 6 to 9 hrs, read 10 min). Tap a day to add a goal. Fill the week.", `<div class="week-demo">${d.week.map((h, i) => `<button class="wd h${h}" data-act="demoDay" data-i="${i}"><small>${"MTWTFSS"[i]}</small><b>${h}</b><i>${"●".repeat(h)}${"○".repeat(4 - h)}</i></button>`).join("")}</div>
-      <div class="row between" style="margin:10px 0 6px"><b>${wh} of 28 hits</b><button class="btn sm" data-act="demoAuto">Auto-fill a great week</button></div>
+      <div class="allin-hint ${dp.all ? "on" : ""}">${dp.all ? "ALL IN! Workout + water + sleep + reading + protein (and affirmations) = +" + PTS.allIn + " bonus" : "Hit workout, water, sleep, reading, and protein together for the All In +" + PTS.allIn + " bonus"}</div>`),
+    p("2. Every week: earn a medal", "Days are your main points. Weeks are your momentum. 5 goals a day (workout, water, sleep 6 to 9 hrs, read 10 min, protein 50 g). Tap a day to add a goal.", `<div class="week-demo">${d.week.map((h, i) => `<button class="wd h${h}" data-act="demoDay" data-i="${i}"><small>${"MTWTFSS"[i]}</small><b>${h}</b><i>${"●".repeat(h)}${"○".repeat(DAY_GOALS - h)}</i></button>`).join("")}</div>
+      <div class="row between" style="margin:10px 0 6px"><b>${wh} of ${WK_MAX} hits</b><button class="btn sm" data-act="demoAuto">Auto-fill a great week</button></div>
       <div class="ladder">${ladder}</div>
-      <div class="small muted" style="margin-top:8px">${wh >= 24 ? "Gold locked. That's a streak week." : wh >= 18 ? (24 - wh) + " more hits to reach Gold." : wh >= 11 ? (18 - wh) + " more for Silver, " + (24 - wh) + " for Gold." : (11 - wh) + " more hits to lock Bronze. Under 11 at the end of the week is the dreaded Poop."}</div>`),
-    p("3. Every month: the Golden Tropics badge", "Medals add up all month. Best medal record wins the badge and +" + PTS.golden + " points.", `<div class="month-demo">${[["You", ["gold", "gold", "silver", "gold"]], ["Mark", ["silver", "gold", "bronze", "silver"]], ["Will", ["bronze", "silver", "silver", "poop"]]].map(([n, ms], r) => `<div class="md-row" style="animation-delay:${r * .15}s"><b>${n}</b>${ms.map((m, j) => `<span class="md-m" style="animation-delay:${.3 + r * .15 + j * .12}s">${medalSVG(m, 30)}</span>`).join("")}<em>${ms.reduce((a, m) => a + TIERS[m].v, 0)} pts</em></div>`).join("")}</div>
+      <div class="small muted" style="margin-top:8px">${wh >= TIERS.gold.min ? "Gold locked. That's a streak week." : wh >= TIERS.silver.min ? (TIERS.gold.min - wh) + " more hits to reach Gold." : wh >= TIERS.bronze.min ? (TIERS.silver.min - wh) + " more for Silver, " + (TIERS.gold.min - wh) + " for Gold." : (TIERS.bronze.min - wh) + " more hits to lock Bronze. Under " + TIERS.bronze.min + " at the end of the week is the dreaded Poop."}</div>`),
+    p("3. Every month: the Golden Tropics badge", "Medals are your momentum. The best medal record in the month (then the most points) wins the badge and +" + PTS.golden + " points.", `<div class="month-demo">${[["You", ["gold", "gold", "silver", "gold"]], ["Mark", ["silver", "gold", "bronze", "silver"]], ["Will", ["bronze", "silver", "silver", "poop"]]].map(([n, ms], r) => `<div class="md-row" style="animation-delay:${r * .15}s"><b>${n}</b>${ms.map((m, j) => `<span class="md-m" style="animation-delay:${.3 + r * .15 + j * .12}s">${medalSVG(m, 30)}</span>`).join("")}<em>${ms.reduce((a, m) => a + TIERS[m].v, 0)} pts</em></div>`).join("")}</div>
       <div class="golden-win">${medalSVG("golden", 92)}<div><b>Golden Tropics Basketball</b><div class="small">Goes to the best month. <b>+${PTS.golden} points.</b> Gold 3, Silver 2, Bronze 1, Poop 0.</div></div></div>`),
     p("4. The season: Nov 30 to Feb 28", "3 Golden Tropics badges are up for grabs. Each one is +" + PTS.golden + ". Grab one to have the best shot at the end.", `<div class="season-line">${[["Dec", "Golden #1"], ["Jan", "Golden #2"], ["Feb", "Golden #3"]].map(([m, g], i) => `<div class="sl-step" style="animation-delay:${i * .2}s">${medalSVG("golden", 54)}<b>${m}</b><small>${g}<br>+${PTS.golden}</small></div>`).join("")}</div>
       <div class="season-flow"><span>Daily points</span><i>+</i><span>Golden badges</span><i>=</i><span class="win">Season total</span></div>
@@ -1605,6 +1646,7 @@ function tourHTML() {
   const next = last ? `<button class="btn primary" style="flex:2;${ready ? "" : "opacity:.5"}" data-act="miDone">${ready ? "Save + send to Brett" : "Answer both to finish"}</button>` : `<button class="btn primary" style="flex:2" data-act="tourNext">Next</button>`;
   return pages[i] + dots + `<div class="row" style="gap:8px">${i ? `<button class="btn" style="flex:1" data-act="tourBack">Back</button>` : ""}${next}</div>`;
 }
+function scSave() { save(); buzz(); checkSeasonBadges(); const y = window.scrollY; render(); window.scrollTo(0, y); }
 function rerenderTour() { const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop; renderSheet(); pn.scrollTop = y; }
 function countUp(el, from, to) { if (!el) return; const t0 = performance.now(), dur = 600; el.textContent = from; const f = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else { el.parentNode.classList.remove("bump"); void el.offsetWidth; el.parentNode.classList.add("bump"); } }; requestAnimationFrame(f); }
 function burstAt(el) { const r = el.getBoundingClientRect(); for (let i = 0; i < 16; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / 16 * 6.283, rr = 50 + Math.random() * 50; c.style.cssText = `position:fixed;z-index:99;top:${r.top + r.height / 2}px;left:${r.left + r.width / 2}px;--x:${Math.cos(a) * rr}px;--y:${Math.sin(a) * rr}px;background:${["#ffd75e", ACCENT, "#4eb0d6"][i % 3]}`; document.body.appendChild(c); setTimeout(() => c.remove(), 1100); } }
@@ -1788,13 +1830,14 @@ function renderToday() {
   <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
   out += courtCardHTML(s);
   out += weekCardHTML();
-  out += allInCardHTML(false);
+  if (testOpen() && booksReady().length) out += `<div class="card" style="border:2px solid var(--orange)"><h2 class="brand" style="margin:0">Book Test Week</h2><div class="small muted" style="margin:4px 0 8px">Pass a 3-question test on each book you read for +${PTS.quiz} each. Ends ${fmtD(testWindow().close)}.</div>${booksReady().map(id => { const b = bookById(id); return b ? `<button class="chip" style="display:block;width:100%;text-align:left;margin:5px 0" data-act="quizOpen" data-id="${esc(id)}">${esc(b.title)} <b style="float:right">Take test ›</b></button>` : ""; }).join("")}</div>`;
+  out += scorecardHTML(s);
   // workout window check (people who pick their own windows)
   const wins = myWindows();
   const su0 = C().setup, tl = todayLoc(s);
   if (su0 && su0.locs && su0.locs.length > 1) out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
   if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
-  out += runCardHTML(s, sess);
+
   // tiles
   out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">Level ${lvl}</div><div class="v">${x}</div><div class="xpbar"><i style="width:${(x % 300) / 3}%"></i></div></div></div>`;
   // crew check-ins (Brett only, after the admin PIN is saved)
@@ -1804,8 +1847,8 @@ function renderToday() {
   // Sunday review
   if (dow(s) === 0) out += weeklyReview(s);
   if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
-  // fuel quick
-  out += `<div class="card"><div class="row between"><h2>Fuel</h2><button class="small muted" data-tab="fuel">Open ›</button></div><div class="row" style="justify-content:space-around">${ring(l.protein, S.profile.protein, "var(--accent)", "protein", "g")}${ring(l.water, waterGoal(s), "var(--accent2)", "water", "oz")}</div><div class="row" style="margin-top:12px"><button class="btn sm" style="flex:1" data-act="addP" data-v="25">+25 g</button><button class="btn sm" style="flex:1" data-act="addP" data-v="40">+40 g</button><button class="btn sm" style="flex:1" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" style="flex:1" data-act="addW" data-v="20">+20 oz</button></div></div>`;
+  // fuel quick card retired in v2.9.1: water and protein live on the scorecard
+
   // checklist
   out += `<div class="card"><h2 class="brand">Today's checklist</h2>${dayChecklist(s).map(i => checkRow(s, i[0], fmtT(i[1]), i[2])).join("")}</div>`;
   return out;
@@ -1894,7 +1937,7 @@ function renderFuel() {
   const s = todayStr(), l = getL(s), court = isCourt(s), p = S.profile;
   let o = `<div class="card"><div class="row between"><h2 class="brand">Today's targets</h2><span class="small muted">${court ? "Court day" : "Training day"}</span></div><div class="row" style="justify-content:space-around">${ring(l.protein, p.protein, "var(--accent)", "protein", "g")}${ring(l.water, waterGoal(s), "var(--accent2)", "water", "oz")}</div>
   <div class="grid2" style="margin-top:12px"><button class="btn sm" data-act="addP" data-v="20">+20 g</button><button class="btn sm" data-act="addP" data-v="35">+35 g</button><button class="btn sm" data-act="addW" data-v="8">+8 oz</button><button class="btn sm" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" data-act="addP" data-v="-10">Undo 10 g</button><button class="btn sm" data-act="addW" data-v="-8">Undo 8 oz</button></div>
-  <table class="t" style="margin-top:12px"><tr><td>Calories (approx)</td><td style="text-align:right"><b>${court ? p.calCourt : p.calTrain}</b></td></tr><tr><td>Protein</td><td style="text-align:right"><b>${p.protein} g</b> (4 x 35 to 50 g)</td></tr><tr><td>Fiber</td><td style="text-align:right"><b>30 to 38 g</b></td></tr><tr><td>Water</td><td style="text-align:right"><b>${waterGoal(s)} oz</b></td></tr></table></div>`;
+  <table class="t" style="margin-top:12px"><tr><td>Protein (scores at ${PTS.proteinG} g)</td><td style="text-align:right"><b>${PTS.proteinG} g+</b> (aim for ${p.protein} g)</td></tr><tr><td>Fiber</td><td style="text-align:right"><b>30 to 38 g</b></td></tr><tr><td>Water</td><td style="text-align:right"><b>${waterGoal(s)} oz</b></td></tr></table></div>`;
   o += `<details open><summary>Quick breakfasts (5 min)</summary><div class="in">${BREAKFASTS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div><button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${b.p}">Ate this (+${b.p} g)</button></div>`).join("")}</div></details>`;
   o += `<details><summary>Office backup kit</summary><div class="in"><div class="banner warn"><b>When work orders food</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></details>`;
   o += `<details><summary>Drinks</summary><div class="in"><table class="t">${DRINKS.map(d => `<tr><td><b>${d[0]}</b></td><td class="small">${esc(d[1])}</td></tr>`).join("")}</table></div></details>`;
@@ -2032,6 +2075,7 @@ function render() {
   $("view").insertAdjacentHTML("beforeend", `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`);
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
   setTimeout(revealCards, 0);
+  const st = $("scTotal"); if (st && +st.dataset.from !== +st.dataset.to) { countUp(st, +st.dataset.from, +st.dataset.to); } UI.scPrev = st ? +st.dataset.to : UI.scPrev;
 }
 function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSheet(); }
 
@@ -2042,8 +2086,8 @@ const ACT = {
   rq: el => { UI.rq = UI.rq || {}; UI.rq[+el.dataset.i] = +el.dataset.v; const pn = $("sheet").querySelector(".sheet-panel"), y = pn.scrollTop, open = [...pn.querySelectorAll(".rb details")].map(d => d.open); renderSheet(); pn.querySelectorAll(".rb details").forEach((d, i) => { d.open = !!open[i]; }); pn.scrollTop = y; },
   burstDemo: () => { medalBurst("gold", 25); medalBurst("silver", 19); medalBurst("bronze", 12); medalBurst("poop", 7); medalBurst("golden", 0, "2026-12"); },
   demoTask: el => { const d = D(), k = el.dataset.v, before = demoDayPts().p; d.day[k] = !d.day[k]; rerenderTour(); countUp($("dayPts"), before, demoDayPts().p); if (demoDayPts().all && !d.allToast) { d.allToast = 1; burstAt(el); } },
-  demoDay: el => { const d = D(), i = +el.dataset.i, before = tierOf(d.week.reduce((a, b) => a + b, 0)); d.week[i] = (d.week[i] + 1) % 5; rerenderTour(); const after = tierOf(d.week.reduce((a, b) => a + b, 0)); if (TIERS[after].v > TIERS[before].v) { const lit = document.querySelectorAll(".ladder-step.lit"); const lastLit = lit[lit.length - 1]; if (lastLit) { lastLit.classList.add("pop"); burstAt(lastLit); } } },
-  demoAuto: () => { const d = D(), plan = [4, 4, 3, 4, 4, 3, 4]; let i = 0; const step = () => { if (i >= 7 || !UI.sheet || UI.sheet.kind !== "tour") return; d.week[i] = plan[i]; i++; rerenderTour(); setTimeout(step, 260); }; d.week = [0, 0, 0, 0, 0, 0, 0]; step(); },
+  demoDay: el => { const d = D(), i = +el.dataset.i, before = tierOf(d.week.reduce((a, b) => a + b, 0)); d.week[i] = (d.week[i] + 1) % (DAY_GOALS + 1); rerenderTour(); const after = tierOf(d.week.reduce((a, b) => a + b, 0)); if (TIERS[after].v > TIERS[before].v) { const lit = document.querySelectorAll(".ladder-step.lit"); const lastLit = lit[lit.length - 1]; if (lastLit) { lastLit.classList.add("pop"); burstAt(lastLit); } } },
+  demoAuto: () => { const d = D(), plan = [5, 5, 4, 5, 4, 4, 5]; let i = 0; const step = () => { if (i >= 7 || !UI.sheet || UI.sheet.kind !== "tour") return; d.week[i] = plan[i]; i++; rerenderTour(); setTimeout(step, 260); }; d.week = [0, 0, 0, 0, 0, 0, 0]; step(); },
   miPlace: el => { D().mi.place = el.dataset.v; rerenderTour(); },
   miSlot: el => { const s2 = D().mi.slots, v = el.dataset.v, i = s2.indexOf(v); if (i >= 0) s2.splice(i, 1); else { s2.push(v); if (s2.length > 3) s2.shift(); } s2.sort((a, b) => SLOT_OPTS.indexOf(a) - SLOT_OPTS.indexOf(b)); rerenderTour(); },
   miCopy: () => { const t2 = miSummary(); (navigator.clipboard ? navigator.clipboard.writeText(t2) : Promise.reject()).then(() => toast("Copied. Paste it to Brett.")).catch(() => toast("Select the text and copy it")); },
@@ -2079,6 +2123,10 @@ const ACT = {
   setupNow: () => { closeSheet(); openSheet("setup", "first"); },
   slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
   courtSet: el => { const l = L(todayStr()), v = el.dataset.v; if (l.court === v) { l.court = null; l.checks.court = false; } else { l.court = v; l.checks.court = true; toast("+" + (v === "watched" ? PTS.gameWatch : v === "practice" ? PTS.practice : PTS.gamePlay) + ". Showing up counts."); } save(); render(); },
+  scWorkout: el => { const l = L(todayStr()), full = el.dataset.v === "full"; if (full) { l.done = !l.done; if (l.done) l.mvdDone = false; } else { l.mvdDone = !l.mvdDone; if (l.mvdDone) l.done = false; } l.checks.workout = !!(l.done || l.mvdDone); scSave(); },
+  scWater: () => { const l = L(todayStr()), g = waterGoal(todayStr()); l.water = l.water >= g ? Math.round(g * .5) : g; scSave(); },
+  scSleep: el => { const l = L(todayStr()), v = +el.dataset.v; l.sleepH = l.sleepH === v ? null : v; scSave(); },
+  scProtein: () => { const l = L(todayStr()); l.protein50 = !proteinHit(l); if (!l.protein50 && l.protein >= PTS.proteinG) l.protein = 0; scSave(); },
   cardioMode: el => { UI.cardio = el.dataset.v; render(); },
   runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || (C().features.runs ? "run" : "bike")) === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
     l[k] = Math.round(((+l[k] || 0) + v) * 10) / 10;
@@ -2211,7 +2259,7 @@ function customizeHTML() {
   <h3 class="sh3">Today screen quotes</h3><div class="small muted">One shows each day under your greeting.</div>${listEditor("idn", c.identity, "New quote")}
   <h3 class="sh3">App color</h3><div class="row wrap" style="gap:8px">${ACCENTS.map(([hx, nm]) => `<button class="chip ${(c.accent || ACCENT) === hx ? "on" : ""}" data-act="cAccent" data-v="${hx}"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${hx};vertical-align:-2px;margin-right:6px"></span>${nm}</button>`).join("")}</div>
   <h3 class="sh3">Features</h3>${tog("cFeat", c.features.hotTub, "Hot tub", 'data-k="hotTub"')}${tog("cFeat", c.features.runs, "Run log (track miles)", 'data-k="runs"')}
-  <h3 class="sh3">Daily targets</h3><div class="grid2"><div><label class="f">Protein (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Extra water court days (oz)</label><input type="number" value="${p.waterCourtExtra}" data-in="prof" data-k="waterCourtExtra"></div><div><label class="f">Water on waking (oz)</label><input type="number" value="${c.waterWakeOz}" data-in="cwake"></div><div><label class="f">Calories, training day</label><input type="number" value="${p.calTrain}" data-in="prof" data-k="calTrain"></div><div><label class="f">Calories, court day</label><input type="number" value="${p.calCourt}" data-in="prof" data-k="calCourt"></div></div>
+  <h3 class="sh3">Daily targets</h3><div class="grid2"><div><label class="f">Protein (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Extra water court days (oz)</label><input type="number" value="${p.waterCourtExtra}" data-in="prof" data-k="waterCourtExtra"></div><div><label class="f">Water on waking (oz)</label><input type="number" value="${c.waterWakeOz}" data-in="cwake"></div></div>
   <button class="btn block" style="margin-top:18px" data-act="cReset">${UI.cResetArm ? "Tap again to restore defaults" : "Restore default times and lists"}</button>`;
 }
 function supplementsHTML() {
@@ -2330,7 +2378,12 @@ function renderReads() {
 /* Book quiz: 3 questions, pass with 2. Questions come from the server; grading happens there too. */
 const QZ = { id: null, qid: null, questions: null, picks: [], loading: false, err: "", result: null };
 function deviceId() { let d = ""; try { d = localStorage.getItem("gs_device") || ""; if (!d) { d = Math.random().toString(36).slice(2, 12); localStorage.setItem("gs_device", d); } } catch (e) {} return d || "anon"; }
+/* Book tests happen at the END of the season (its last 7 days). Buy points land the day you buy. Pass the test = +67 per book read. */
+function testWindow() { const sz = seasonOf(todayStr()); return { sz, open: addDays(sz.end, -6), close: sz.end }; }
+function testOpen() { const w = testWindow(), t = todayStr(); return t >= w.open && t <= w.close; }
+function booksReady() { const rd = R(), ss = SSN(); return Object.keys(rd.shelf || {}).filter(id => rd.shelf[id] === "done" && !(ss.quiz[id] && ss.quiz[id].pass)); }
 function openQuiz(id) {
+  if (!testOpen()) { const w = testWindow(); return openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Finished! Nice read.</h2><div class="muted">This book is now ready for the season-end Book Test.</div></div><div class="card" style="background:var(--card2);text-align:center"><b>Book Test Week: ${fmtD(w.open)} to ${fmtD(w.close)}</b><div class="small muted" style="margin-top:4px">Pass a quick 3-question test on each book you read this season for +${PTS.quiz} points per book. Final reading points to help win the season.</div></div><button class="btn primary block" data-act="closeSheet">Got it</button>`); }
   const ss = SSN(), q = ss.quiz[id];
   if (q && q.pass) return openSheet("book", id);
   if (q && q.failDate && Date.now() - new Date(q.failDate).getTime() < 864e5) { const h = Math.ceil((864e5 - (Date.now() - new Date(q.failDate).getTime())) / 36e5); return openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>Retake in ${h} hr</h2><div class="muted">You can retake the quiz 24 hours after your last try. New questions each time.</div></div><button class="btn primary block" data-act="closeSheet">OK</button>`); }
@@ -2359,7 +2412,7 @@ function buyPriceHTML(id) {
 function bookSeasonHTML(id, sh) {
   const ss = SSN(), bo = ss.bought[id], q = ss.quiz[id];
   const buy = bo ? `<span class="tg shelf">☑ Bought ${fmtD(bo.date)}${bo.price ? " for $" + bo.price : ""}${bo.pts ? " (+" + bo.pts + ")" : ""}</span>` : `<button class="btn sm" data-act="buyBook" data-id="${id}">☐ I bought it (1 pt per $2)</button>`;
-  const quiz = q && q.pass ? `<span class="tg shelf">✓ Book Verified (+${PTS.quiz})</span>` : sh === "done" ? `<button class="btn primary sm" data-act="quizOpen" data-id="${id}">${q && q.failDate ? "Retake the quiz" : "Take the quiz"} (+${PTS.quiz})</button>` : `<span class="small muted">Finish it, pass a 3-question quiz, earn ${PTS.quiz}.</span>`;
+  const quiz = q && q.pass ? `<span class="tg shelf">✓ Book Verified (+${PTS.quiz})</span>` : sh === "done" && !testOpen() ? `<span class="tg">Ready for Book Test Week (${fmtD(testWindow().open)}): +${PTS.quiz}</span>` : sh === "done" ? `<button class="btn primary sm" data-act="quizOpen" data-id="${id}">${q && q.failDate ? "Retake the quiz" : "Take the quiz"} (+${PTS.quiz})</button>` : `<span class="small muted">Read it this season, then pass its test in the last week for +${PTS.quiz}.</span>`;
   return `<div class="row wrap" style="gap:8px;margin-top:12px;align-items:center">${buy}${quiz}</div>`;
 }
 function bookSheet(id) {

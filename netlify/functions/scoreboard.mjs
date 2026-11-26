@@ -14,7 +14,7 @@ const byScore = (a, b) => b.score - a.score;
 const CATS = ["workout", "court", "run", "water", "protein", "sleep", "affirm", "read", "bonus"], CHECKS = ["workout", "water", "sleep", "read", "affirm", "allIn"];
 function weeks(w) {
   const out = {}; if (!w || typeof w !== "object") return out;
-  Object.keys(w).filter(okWeek).sort().slice(-20).forEach(ws => { const x = w[ws] || {}; out[ws] = { hits: num(x.hits, 28), tier: TV[x.tier] != null ? x.tier : null }; });
+  Object.keys(w).filter(okWeek).sort().slice(-20).forEach(ws => { const x = w[ws] || {}; out[ws] = { hits: num(x.hits, 35), pts: num(x.pts, 5000), tier: TV[x.tier] != null ? x.tier : null }; });
   return out;
 }
 function today(t) {
@@ -29,7 +29,7 @@ const TV = { gold: 3, silver: 2, bronze: 1, poop: 0 }, GOLDEN = 300;
 function thursdayMonth(ws) { const d = new Date(ws + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + 3); return d.toISOString().slice(0, 7); }
 function goldens(recs) {
   const nowM = new Date().toISOString().slice(0, 7), by = {};
-  recs.forEach(r => Object.entries(r.weeks || {}).forEach(([ws, w]) => { if (!w || !w.tier) return; const m = thursdayMonth(ws); if (m >= nowM) return; by[m] = by[m] || {}; const e = by[m][r.id] = by[m][r.id] || { v: 0, h: 0 }; e.v += TV[w.tier] || 0; e.h += +w.hits || 0; }));
+  recs.forEach(r => Object.entries(r.weeks || {}).forEach(([ws, w]) => { if (!w || !w.tier) return; const m = thursdayMonth(ws); if (m >= nowM) return; by[m] = by[m] || {}; const e = by[m][r.id] = by[m][r.id] || { v: 0, h: 0 }; e.v += TV[w.tier] || 0; e.h += +w.pts || 0; }));
   const out = {};
   for (const m in by) { const es = Object.entries(by[m]); const best = Math.max(...es.map(([, e]) => e.v)); if (best <= 0) continue; const top = es.filter(([, e]) => e.v === best), bh = Math.max(...top.map(([, e]) => e.h)); out[m] = top.filter(([, e]) => e.h === bh).map(([id]) => id); }
   return out;
@@ -81,7 +81,7 @@ export default async (req) => {
     const sk = "season-" + se.id, sdata = (await store.get(sk, { type: "json" })) || {};
     sdata[id] = { id, name, accent, points: num(se.points, 60000), tot, badges: (Array.isArray(se.badges) ? se.badges : []).slice(0, 40).map(x => String(x).slice(0, 12)),
       miles: Math.max(0, Math.min(3000, Math.round((+se.miles || 0) * 10) / 10)), books: num(se.books, 100), allInDays: num(se.allInDays, 400),
-      today: today(se.today), weekPts: num(se.weekPts, 5000), weekHits: num(se.weekHits, 28), weeks: weeks(se.weeks), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
+      today: today(se.today), weekPts: num(se.weekPts, 5000), weekHits: num(se.weekHits, 35), weeks: weeks(se.weeks), badgesToday: (Array.isArray(se.badgesToday) ? se.badgesToday : []).slice(0, 20).map(x => String(x).slice(0, 12)),
       lifetime: num(se.lifetime, 5000), allInEver: num(se.allInEver, 5000), updated: rec.updated };
     await store.setJSON(sk, sdata);
   }
