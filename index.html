@@ -169,6 +169,8 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .rd-dots i.on{width:20px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple))}
 .rd-n{float:right;font-size:12px;font-weight:800;color:var(--epc-purple)}
 @media (max-width:400px){.rd-car{margin:0 -12px 12px;padding:0 12px;scroll-padding:0 12px}}
+.wn-v{padding:10px 0;border-bottom:1px solid var(--line)}.wn-v:last-child{border-bottom:0}.wn-v .list{margin-top:4px}
+.wn-more summary{min-height:44px;display:flex;align-items:center;font-weight:800;color:var(--epc-purple)}
 /* v3.1.4 Walmart cart view */
 .wm-view{margin-top:10px;min-height:48px;font-weight:800;color:var(--epc-purple);border:1.5px solid rgba(var(--epc-purple-rgb),.3);background:#fff}
 .fuel-cats .fc-cart{border-color:rgba(var(--epc-purple-rgb),.35);color:var(--epc-purple)}
@@ -862,8 +864,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.4";
+const APP_VERSION = "3.1.5";
 const CHANGELOG = {
+  "3.1.5": ["The update screen now lists every change since you last opened the app, not just the newest one"],
   "3.1.4": ["New Walmart cart view: see every item you sent, how many, and an estimated total before tax", "Smoother scrolling: the Fuel category bar stays put and the top bar no longer flickers"],
   "3.1.3": ["Send your grocery list to your own Walmart cart in one tap. Review it first, uncheck what you have, then sign in on Walmart", "Reads: keep up to 4 books going and swipe between them", "A smaller, softer tap splash"],
   "3.1.2": ["A slim Game Shape bar slides in at the top when you scroll back up"],
@@ -3893,6 +3896,13 @@ const cmpVer = (a, b) => { const x = String(a).split(".").map(Number), y = Strin
 function whatsNewHTML() {
   return sheetTitle("What's new") + Object.keys(CHANGELOG).sort((a, b) => cmpVer(b, a)).map(v => `<div class="card"><div class="eyebrow">Version ${v}</div><ul class="list">${CHANGELOG[v].map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("") + `<div class="small muted">Updates install on their own. Your workouts, logs, and settings stay saved on your phone.</div>`;
 }
+/* v3.1.5: show every update since the version this phone last saw, newest first (not just the latest). */
+function wnSinceHTML(seen) {
+  const vs = Object.keys(CHANGELOG).filter(v => !seen || cmpVer(v, seen) > 0).sort((a, b) => cmpVer(b, a));
+  if (vs.length <= 1) return `<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  const blk = v => `<div class="wn-v"><div class="eyebrow">Version ${v}</div><ul class="list">${CHANGELOG[v].map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  return `<div class="small muted" style="margin:4px 0 8px">${vs.length} updates since you last opened the app:</div>` + vs.slice(0, 4).map(blk).join("") + (vs.length > 4 ? `<details class="wn-more"><summary>${vs.length - 4} earlier update${vs.length - 4 === 1 ? "" : "s"}</summary>${vs.slice(4).map(blk).join("")}</details>` : "");
+}
 function showWhatsNew() {
   const seen = S.meta.seenVersion; if (seen === APP_VERSION) return;
   UI.wnPending = APP_VERSION;   // saved as seen only when they close it, so a reload can't eat it
@@ -3900,7 +3910,7 @@ function showWhatsNew() {
   if (!seen && !Object.keys(S.logs).length) { S.meta.seenVersion = APP_VERSION; UI.wnPending = null; save(); return false; }   // brand new user: nothing to announce
   if (S.meta.tourSeen !== TOUR_V) { UI.tourPage = 0; UI.demo = null; openSheet("tour"); return true; }
   const pitch = !S.meta.seasonHello; S.meta.seasonHello = 1; save();
-  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}<ul class="list">${(CHANGELOG[APP_VERSION] || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
+  openSheet("result", `<div class="done-hero"><img src="icon-512.png" alt=""><h2>${pitch ? "Game Shape Season 1 is here" : "New update: v" + APP_VERSION}</h2><div class="muted">v${APP_VERSION}. All your data is still here. Same link, same home screen icon.</div></div>${pitch ? seasonPitch(false) : ""}${wnSinceHTML(seen)}${!S.profile.nickname ? `<button class="btn block" style="margin-top:6px" data-act="nickGo">Add my nickname</button>` : ""}${needSetup ? `<button class="btn primary block" style="margin-top:14px" data-act="setupNow">Answer 3 quick questions</button>` : `<button class="btn primary block" style="margin-top:14px" data-act="closeSheet">Let's go</button>`}`);
   return true;
 }
 async function applyUpdate() {
