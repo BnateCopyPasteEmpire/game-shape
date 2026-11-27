@@ -734,7 +734,7 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.8";
+const APP_VERSION = "3.0.9";
 const CHANGELOG = {
   "3.0.8": ["Smoother Today: tap a circle to check it off, tap a title to open that tab, nothing jumps when you tap. Extras live under More for today"],
   "3.0.7": ["Cleaner Today: a daily verse up top, tap any circle to check it off, tap any title to jump to that tab"],
@@ -1588,7 +1588,7 @@ function nextBurst() {
   document.body.appendChild(w);
   for (let i = 0; i < 26; i++) { const c = document.createElement("i"); c.className = "bb-spark"; const a = i / 26 * 6.283, r = 120 + Math.random() * 90; c.style.cssText = `--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r}px;background:${[ACCENT, "#ff8200", "#fff"][i % 3]};animation-delay:${.15 + Math.random() * .15}s`; w.appendChild(c); }
   try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch (e) {}
-  let gone = false; const close = () => { if (gone) return; gone = true; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
+  let gone = false; const close = () => { if (gone) return; gone = true; window.__tapGuard = Date.now() + 320; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
   w.onclick = close; setTimeout(close, 2800);
 }
 function medalOverlay(m) {
@@ -1602,7 +1602,7 @@ function medalOverlay(m) {
   if (t === "silver") spark(12, ["#e5e9ee", "#aab3bd"], "bb-spark");
   if (t === "poop") for (let i = 0; i < 18; i++) { const c = document.createElement("div"); c.className = "mini-poop"; c.style.cssText = `left:${Math.random() * 100}vw;animation-duration:${2.6 + Math.random() * 2}s;animation-delay:${Math.random() * .8}s`; c.innerHTML = medalSVG("poop", 26 + Math.random() * 18); w.appendChild(c); }
   try { navigator.vibrate && navigator.vibrate(t === "golden" ? [40, 60, 40, 60, 120] : t === "poop" ? [200] : t === "gold" ? [30, 40, 60] : [20]); } catch (e) {}
-  let gone = false; const close = () => { if (gone) return; gone = true; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
+  let gone = false; const close = () => { if (gone) return; gone = true; window.__tapGuard = Date.now() + 320; w.classList.add("out"); setTimeout(() => { w.remove(); nextBurst(); }, 320); };
   w.onclick = close; setTimeout(close, t === "golden" ? 6500 : t === "poop" ? 4500 : t === "gold" ? 4000 : 3200);
 }
 function badgesToday() { const sz = seasonOf(todayStr()), t = todayStr(), w = ((SSN().when || {})[sz.id]) || {}; const ids = Object.keys(w).filter(id => w[id] === t); if (dayChecks(t).allIn) ids.unshift("allin"); return ids; }
@@ -2203,10 +2203,14 @@ function floodFx(title, sub) {
   w.innerHTML = `<svg viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M48 82l22 22 44-48" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg><b>${esc(title)}</b><span>${esc(sub)}</span>`;
   document.body.appendChild(w);
   for (let i = 0; i < 46; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;z-index:131;background:${[ACCENT, "#4eb0d6", "#ffd75e", "#fff"][i % 4]};animation-duration:${1.8 + Math.random() * 1.6}s;animation-delay:${Math.random() * .4}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 4000); }
-  const bye = () => { if (w._gone) return; w._gone = 1; w.classList.add("out"); setTimeout(() => w.remove(), 420); };
+  const bye = () => { if (w._gone) return; w._gone = 1; window.__tapGuard = Date.now(); w.classList.add("out"); setTimeout(() => w.remove(), 420); };
   w.onclick = bye; setTimeout(bye, 1700);
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
+/* Buttons that log points. A tap that started on a popup or the update bar can "fall through" onto these right after it closes. */
+const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep"]);
+window.__tapGuard = Date.now();
+try { history.scrollRestoration = "manual"; } catch (e) {}
 const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
@@ -2231,7 +2235,7 @@ function showWelcome(launch, then) {
   w.innerHTML = `${badgeHTML(true)}<h2>Welcome to the Game Shape Community, ${esc(ME.fullName || myName())}</h2><p>${launch ? "Season 1 starts " + fmtD(seasonOf(todayStr()).start) + ". Let's show you how to play and how to win." : "You're all set up. Your plan, your badge, your season."}</p><p style="font-weight:800;color:var(--orange)">It's a grind, but it's all for the mind.</p><button class="btn primary" id="wGo">Let's go</button><div style="margin-top:10px;font-size:12px;opacity:.7">Your badge lives on your profile in More.</div>`;
   document.body.appendChild(w);
   for (let i = 0; i < 70; i++) { const c = document.createElement("i"); c.className = "confetti"; c.style.cssText = `left:${Math.random() * 100}vw;background:${[ACCENT, "#ff8200", "#ffffff", "#0e5a2e"][i % 4]};animation-duration:${2.2 + Math.random() * 2.2}s;animation-delay:${Math.random() * .8}s`; document.body.appendChild(c); setTimeout(() => c.remove(), 5500); }
-  w.querySelector("#wGo").onclick = () => { S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => { w.remove(); if (then) then(); }, 360); };
+  w.querySelector("#wGo").onclick = () => { window.__tapGuard = Date.now(); S.meta.welcomed = new Date().toISOString(); save(); w.style.transition = "opacity .35s"; w.style.opacity = "0"; setTimeout(() => { w.remove(); if (then) then(); }, 360); };
   return true;
 }
 
@@ -2474,7 +2478,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
+function closeSheet() { window.__tapGuard = Date.now(); if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -2669,7 +2673,7 @@ const ACT = {
   wgStep: el => { S.profile.waterBase = Math.max(40, Math.min(200, (S.profile.waterBase || 100) + +el.dataset.v)); save(); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
   read: el => { const l = L(todayStr()); l.reading += +el.dataset.v; l.checks.wd_read = true; save(); buzz(); render(); },
   readUndo: el => { const l = L(todayStr()), v = el.dataset.v === "all" ? l.reading : Math.min(l.reading, +el.dataset.v), rd = R(); if (!v) return;
-    l.reading -= v; if (!l.reading) l.checks.wd_read = false;
+    l.reading -= v; l.checks.wd_read = l.reading >= 10;
     if (rd.current && rd.minutes && rd.minutes[rd.current]) rd.minutes[rd.current] = Math.max(0, rd.minutes[rd.current] - v);
     save(); toast("Removed " + v + " min of reading"); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
   tub: el => { const l = L(todayStr()); l.hottub += +el.dataset.v; l.checks.hottub = true; save(); buzz(); render(); },
@@ -2719,6 +2723,7 @@ const ACT = {
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-tab]"); if (t && !t.dataset.act) { ACT.tab(t); return; }
   const el = e.target.closest("[data-act]"); if (!el || !ACT[el.dataset.act]) return;
+  if (LOG_ACTS.has(el.dataset.act) && Date.now() - (window.__tapGuard || 0) < 500) return;   // v3.0.9: ignore the "ghost" tap that lands after a reload, update, or a popup closing
   if (POP_ACTS.has(el.dataset.act)) withPop(el, () => ACT[el.dataset.act](el, e)); else ACT[el.dataset.act](el, e);
 });
 document.addEventListener("change", e => {
@@ -2831,7 +2836,7 @@ const CAT_COLOR = { mindset: ["#ff8200", "#1a0d00"], discipline: ["#013919", "#f
 let BOOKDATA = { categories: {}, books: [] };
 try { const c = localStorage.getItem("gs_books_cache"); if (c) BOOKDATA = JSON.parse(c); } catch (e) {}
 const RUI = { q: "", chip: "all", shelf: "all", limit: 30 };
-function readLabel() { const b = S.reads && S.reads.current && bookById(S.reads.current); return "Read 20 min" + (b ? ": " + b.title : ""); }
+function readLabel() { const b = S.reads && S.reads.current && bookById(S.reads.current); return "Read 10+ min" + (b ? ": " + b.title : ""); }
 function R() { if (!S.reads) S.reads = clone(fresh().reads); return S.reads; }
 async function loadBooks() {
   try { const r = await fetch("books.json", { cache: "no-cache" }); if (r.ok) { BOOKDATA = await r.json(); try { localStorage.setItem("gs_books_cache", JSON.stringify(BOOKDATA)); } catch (e) {} if (UI.tab === "reads") render(); } } catch (e) {}
@@ -3308,7 +3313,7 @@ function showWhatsNew() {
   return true;
 }
 async function applyUpdate() {
-  save(); window.__gsUpdating = true;
+  save(); window.__gsUpdating = true; window.__tapGuard = Date.now() + 60000; window.scrollTo(0, 0);
   try {
     if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) for (const r of await navigator.serviceWorker.getRegistrations()) { await r.update(); if (r.waiting) r.waiting.postMessage("SKIP_WAITING"); }
     if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
