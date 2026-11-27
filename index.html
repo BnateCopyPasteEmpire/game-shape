@@ -169,6 +169,21 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .rd-dots i.on{width:20px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple))}
 .rd-n{float:right;font-size:12px;font-weight:800;color:var(--epc-purple)}
 @media (max-width:400px){.rd-car{margin:0 -12px 12px;padding:0 12px;scroll-padding:0 12px}}
+/* v3.1.4 Walmart cart view */
+.wm-view{margin-top:10px;min-height:48px;font-weight:800;color:var(--epc-purple);border:1.5px solid rgba(var(--epc-purple-rgb),.3);background:#fff}
+.fuel-cats .fc-cart{border-color:rgba(var(--epc-purple-rgb),.35);color:var(--epc-purple)}
+.wm-tot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink-2);margin-bottom:10px}
+.wm-tot b{font-size:18px;color:var(--ink);font-weight:800}
+.wm-tot.big b{font-size:22px;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm-sum{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:16px;background:rgba(var(--epc-purple-rgb),.06);border:1px solid rgba(var(--epc-purple-rgb),.18);margin:4px 0 6px}
+.wm-sum>div:first-child{display:flex;flex-direction:column}.wm-sum span{font-size:12.5px;color:var(--ink-2)}
+.wm-sum .wm-tot{margin:0;flex-direction:column;align-items:flex-end;gap:0;font-size:11px}
+.wm-sum.sm{background:var(--surface);border-color:var(--line);margin-top:8px}
+.wm-line{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.wm-line:last-child{border-bottom:0}.wm-line>div{flex:1;min-width:0}
+.wm-qty{flex:none;min-width:34px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple))}
+.wm-lt{flex:none;font-weight:800;font-size:14px}
+.wm-old{margin-top:14px}.wm-old summary{min-height:44px;display:flex;align-items:center;font-weight:800;color:var(--epc-purple)}
 /* v3.1.3 Walmart cart: one button under the grocery list, a review sheet, one add-to-cart link */
 .wm-send{margin-top:14px;min-height:52px;font-weight:800;font-size:15px;color:#fff;border:0;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));box-shadow:0 6px 18px rgba(var(--epc-purple-rgb),.28);display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
 .wm-send.sent{background:#fff;color:var(--epc-purple);border:1.5px solid rgba(var(--epc-purple-rgb),.35);box-shadow:none}
@@ -213,8 +228,8 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .slimbar b{flex:1;font-size:17px;font-weight:800;letter-spacing:-.2px;padding-left:10px;border-left:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .slimbar .iconbtn.sm{width:38px;height:38px;min-height:38px;display:grid;place-items:center}
 @media (min-width:660px){.slimbar{padding-left:calc(50vw - 306px);padding-right:calc(50vw - 306px)}}
-.fuel-cats{transition:top .28s cubic-bezier(.2,.8,.2,1)}
-body.slim .fuel-cats{top:50px}
+/* v3.1.4: on Fuel the category bar is the pinned bar, so the slim bar stays away and nothing moves under your thumb */
+.fuel-cats{transform:translateZ(0);will-change:transform}
 .chip.pain.on{background:var(--danger);border-color:var(--danger);color:#fff}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -847,8 +862,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.3";
+const APP_VERSION = "3.1.4";
 const CHANGELOG = {
+  "3.1.4": ["New Walmart cart view: see every item you sent, how many, and an estimated total before tax", "Smoother scrolling: the Fuel category bar stays put and the top bar no longer flickers"],
   "3.1.3": ["Send your grocery list to your own Walmart cart in one tap. Review it first, uncheck what you have, then sign in on Walmart", "Reads: keep up to 4 books going and swipe between them", "A smaller, softer tap splash"],
   "3.1.2": ["A slim Game Shape bar slides in at the top when you scroll back up"],
   "3.1.1": ["Fresher Fuel: your protein and water up top, a sticky category bar, swipe rows for meals, and recipes that open in one tap", "A teal and purple splash on every tap, everywhere in the app"],
@@ -2282,13 +2298,18 @@ function revealCards() {
 /* v3.1.1 tap splash: EPC Tropics teal + purple on every tap, everywhere in the app.
    Buttons and links get the full splash + ring the instant you touch. Anywhere else gets a soft ripple (on tap, not on scroll). */
 /* v3.1.2 slim bar: show on scroll up once the big header is gone, hide on scroll down or near the top. */
-let slimY = 0;
+let slimY = 0, slimAcc = 0, slimT = 0;
 function slimSync(force) {
   const bar = $("slimBar"), hd = document.querySelector("header.top"); if (!bar || !hd) return;
-  const y = scrollY, past = y > hd.offsetHeight + 10, dy = y - slimY; let show = bar.classList.contains("show");
-  if (!past || force === false) show = false; else if (dy < -6) show = true; else if (dy > 6) show = false;
-  if (Math.abs(dy) > 6 || !past || force != null) slimY = y;
-  bar.classList.toggle("show", show); document.body.classList.toggle("slim", show); bar.setAttribute("aria-hidden", show ? "false" : "true");
+  const y = scrollY, max = document.documentElement.scrollHeight - innerHeight, past = y > hd.offsetHeight + 10, dy = y - slimY; slimY = y;
+  let show = bar.classList.contains("show");
+  if (!past || force === false || UI.tab === "fuel") { show = false; slimAcc = 0; }
+  else if (y < 0 || y > max - 2) { /* iOS rubber-band at the top or bottom: ignore */ }
+  else {
+    slimAcc = (dy && Math.sign(dy) === Math.sign(slimAcc)) ? slimAcc + dy : dy;   // v3.1.4: needs a real 28 px push in one direction, no flip-flopping
+    if (Date.now() - slimT > 250) { if (slimAcc < -28) show = true; else if (slimAcc > 28) show = false; }
+  }
+  if (show !== bar.classList.contains("show")) { slimT = Date.now(); bar.classList.toggle("show", show); document.body.classList.toggle("slim", show); bar.setAttribute("aria-hidden", show ? "false" : "true"); }
   const t = $("slimTitle"); if (t && TITLES[UI.tab] && t.textContent !== TITLES[UI.tab]) t.textContent = TITLES[UI.tab];
 }
 window.addEventListener("scroll", () => slimSync(), { passive: true });
@@ -2569,7 +2590,8 @@ function renderFuel() {
   <div class="fq-row"><span class="fq-k">Water</span><button class="chip" data-act="addW" data-v="8">+8 oz</button><button class="chip" data-act="addW" data-v="16">+16 oz</button><button class="chip" data-act="addW" data-v="24">+24 oz</button></div>
   <div class="fq-row"><span class="fq-k">Undo</span>${(l.pLog || []).length ? `<button class="chip" data-act="fuelUndo">↶ Last ${l.pLog[l.pLog.length - 1]} g</button>` : ""}<button class="chip" data-act="addP" data-v="-10" ${pg ? "" : "disabled"}>−10 g</button><button class="chip" data-act="addW" data-v="-8" ${l.water ? "" : "disabled"}>−8 oz</button></div></div>
   <div class="small muted" style="margin-top:8px">Aim for ${p.protein} g protein, 30 to 38 g fiber, and ${wg} oz water.</div></div>`;
-  o += `<nav class="fuel-cats" id="fuelCats">${FUEL_CATS.map(([id, ic, n]) => `<button class="chip ${UI.fuelCat === id ? "on" : ""}" data-act="fuelCat" data-v="${id}"><span>${ic}</span>${n}${id === "groc" && left ? ` <b class="fc-badge">${left}</b>` : ""}</button>`).join("")}</nav>`;
+  const wl = wmLog()[0], cartN = wl ? wl.items.length : 0;
+  o += `<nav class="fuel-cats" id="fuelCats">${FUEL_CATS.map(([id, ic, n]) => `<button class="chip ${UI.fuelCat === id ? "on" : ""}" data-act="fuelCat" data-v="${id}"><span>${ic}</span>${n}${id === "groc" && left ? ` <b class="fc-badge">${left}</b>` : ""}</button>` + (id === "groc" ? `<button class="chip fc-cart" data-act="wmCart"><span>🧺</span>Cart${cartN ? ` <b class="fc-badge">${cartN}</b>` : ""}</button>` : "")).join("")}</nav>`;
   o += `<div class="card fuel-search"><input id="fuelQ" type="search" placeholder="🔎 Find a meal: chicken, eggs, tuna..." value="${esc(UI.fuelQ || "")}" autocomplete="off"><div id="fuelResults">${fuelResultsHTML()}</div></div>`;
   o += fuelSec("bfast", "Quick breakfasts", "5 min · swipe →", `<div class="fcar">${BREAKFASTS.map(x => fuelMealCard(x)).join("")}</div>`);
   o += fuelSec("lunch", "Quick lunches", "No cooking · swipe →", `<div class="fcar">${LUNCHES.map(x => fuelMealCard(x)).join("")}</div>`);
@@ -2608,7 +2630,7 @@ function groceryHTML() {
   if (S.grocery.kit) OFFICE_KIT.forEach(i => add(i[0], "", i[1]));
   const cats = {}; Object.values(map).forEach(i => (cats[i.cat] = cats[i.cat] || []).push(i));
   let o = `<button class="check ${S.grocery.kit ? "on" : ""}" data-act="kit"><span class="lbl">Add office snack + breakfast kit</span><span class="box">${CHK}</span></button>`;
-  if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.");
+  if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.") + (wmLog().length ? `<button class="btn block wm-view" data-act="wmCart">🧺 View my Walmart cart</button>` : "");
   ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"].forEach(c => { if (!cats[c]) return; o += `<h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:14px 0 4px">${c}</h3>` + cats[c].map(i => { const on = S.grocery.checked[i.name]; return `<button class="check ${on ? "on" : ""}" data-act="gchk" data-n="${esc(i.name)}"><span class="lbl">${esc(i.name)}${i.q.length ? ` <span class="small muted">${esc(i.q.join(" + "))}</span>` : ""}</span><span class="box">${CHK}</span></button>`; }).join(""); });
   return o + wmBtnHTML() + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">${UI.gclearArm ? "Tap again to clear the list" : "Clear list"}</button>`;
 }
@@ -2747,17 +2769,18 @@ function wmSentNow(cart) { const w = S.grocery.wm; return w && cart.length && w.
 function wmBtnHTML() {
   const b = wmBuild(); if (!b.list.length) return "";
   const sent = wmSentNow(b.cart), n = b.cart.length;
-  return `<button class="btn wm-send ${sent ? "sent" : ""}" data-act="wmOpen"><span class="wm-ic">🛒</span>${sent ? "Sent to Walmart " + wmTime(sent) : `Send to Walmart (${n} item${n === 1 ? "" : "s"})`}</button>`;
+  const tt = wmPricesOn() && n ? wmTotal(b.cart.map(x => [x.k, x.q])) : null;
+  return `<button class="btn wm-send ${sent ? "sent" : ""}" data-act="wmOpen"><span class="wm-ic">🛒</span>${sent ? "Sent to Walmart " + wmTime(sent) : `Send to Walmart (${n} item${n === 1 ? "" : "s"}${tt ? " · " + (tt.est ? "~" : "") + wmMoney(tt.t) : ""})`}</button>${wmLog().length ? `<button class="btn block wm-view" data-act="wmCart">🧺 View my Walmart cart</button>` : ""}`;
 }
 function wmFootHTML() {
   const b = wmBuild(), n = b.cart.length, sent = wmSentNow(b.cart), aff = wmAffId();
   const disc = aff ? `<div class="wm-disc"><b>Paid link.</b> Game Shape may earn a small commission from Walmart purchases. Your price doesn't change.</div>` : "";
   const go = `<a class="wm-go" id="wmGo" href="${esc(wmLink(b.cart))}" target="_blank" rel="noopener" data-act="wmGo" ${n ? "" : 'aria-disabled="true"'}>${sent ? "Send anyway" : `Open my Walmart cart (${n})`}</a>`;
-  let o = disc;
+  let o = disc + (n ? wmTotalHTML(b.cart.map(x => [x.k, x.q])) : "");
   if (sent && !UI.wmArm) o += `<button class="wm-go" data-act="wmArm">✓ Sent to Walmart ${wmTime(sent)} · Send again?</button>`;
   else if (sent) o += `<div class="wm-again"><b>This adds the items again.</b> Send anyway?<div class="row">${go.replace('class="wm-go"', 'class="wm-go" style="min-height:48px"')}<button class="btn" data-act="wmDisarm">Cancel</button></div></div>`;
   else o += n ? go : `<a class="wm-go" aria-disabled="true">Pick at least 1 item</a>`;
-  return o + `<div class="wm-fine">Walmart shows your prices and stock. Meat and produce are sold by weight.</div>`;
+  return o + `<div class="wm-fine">${wmPricesOn() ? "Before tax. Prices are Walmart.com estimates; meat and produce are sold by weight (~)." : "Walmart shows your prices and stock. Meat and produce are sold by weight."}</div>`;
 }
 function wmSheetHTML() {
   const b = wmBuild(), g = S.grocery, w = g.wm, sent = wmSentNow(b.cart);
@@ -2766,7 +2789,7 @@ function wmSheetHTML() {
   const carted = b.list.filter(x => x.p[0]);
   WM_CATS.forEach(c => {
     const rows = carted.filter(x => x.p[4] === c); if (!rows.length) return;
-    o += `<h3 class="wm-cat"><span>${c}</span><span>${rows.filter(x => x.on).length}/${rows.length}</span></h3>` + rows.map(x => `<div class="wm-row"><button class="check ${x.on ? "on" : ""}" data-act="wmTog" data-k="${x.k}"><span class="lbl"><span class="wm-n">${esc(x.p[1])}${x.p[5] ? `<span class="wm-tag">pantry staple</span>` : ""}</span><span class="wm-s">${esc(x.p[2])} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</span><span class="box">${CHK}</span></button><div class="wm-q"><button data-act="wmQty" data-k="${x.k}" data-v="-1" aria-label="One less">−</button><b id="wmq-${x.k}">${x.q}</b><button data-act="wmQty" data-k="${x.k}" data-v="1" aria-label="One more">+</button></div></div>`).join("");
+    o += `<h3 class="wm-cat"><span>${c}</span><span>${rows.filter(x => x.on).length}/${rows.length}</span></h3>` + rows.map(x => `<div class="wm-row"><button class="check ${x.on ? "on" : ""}" data-act="wmTog" data-k="${x.k}"><span class="lbl"><span class="wm-n">${esc(x.p[1])}${x.p[5] ? `<span class="wm-tag">pantry staple</span>` : ""}</span><span class="wm-s">${esc(x.p[2])}${wmPrice(x.k) ? " · " + (wmPrice(x.k)[1] ? "~" : "") + wmMoney(wmPrice(x.k)[0]) : ""} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</span><span class="box">${CHK}</span></button><div class="wm-q"><button data-act="wmQty" data-k="${x.k}" data-v="-1" aria-label="One less">−</button><b id="wmq-${x.k}">${x.q}</b><button data-act="wmQty" data-k="${x.k}" data-v="1" aria-label="One more">+</button></div></div>`).join("");
   });
   const find = b.list.filter(x => !x.p[0]);
   if (find.length) o += `<h3 class="wm-cat"><span>Search on Walmart</span><span>${find.length}</span></h3><div class="small muted" style="margin-bottom:4px">No solid item match, so these open a Walmart search instead of going in the cart link.</div>` + find.map(x => `<div class="wm-find"><div><span class="wm-n">${esc(x.p[1])}</span><span class="wm-s">${esc(x.p[2])} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</div><a class="btn sm" href="${esc(wmSearch(x.p[6]))}" target="_blank" rel="noopener">Search ›</a></div>`).join("");
@@ -2775,6 +2798,34 @@ function wmSheetHTML() {
 }
 /* Small in-place updates so nothing jumps and no other check re-animates. */
 function wmSync() { const f = $("wmFoot"); if (f) f.innerHTML = wmFootHTML(); document.querySelectorAll("#sheetBody .wm-cat").forEach(h => { const rows = []; let n = h.nextElementSibling; while (n && n.classList.contains("wm-row")) { rows.push(n); n = n.nextElementSibling; } if (rows.length) h.lastElementChild.textContent = rows.filter(r => r.firstElementChild.classList.contains("on")).length + "/" + rows.length; }); }
+/* v3.1.4 estimated Walmart.com prices (checked Nov 27, 2026). [price, 1 = sold by weight so it's an average]. Search items have no price.
+   Walmart's affiliate terms want shown prices refreshed within 24 h, so once the affiliate ID is on these hide unless WM_PRICED is today. */
+const WM_PRICED = "2026-11-27";
+const WM_PRICE = { thighs: [13.97, 1], breast: [12.85, 1], turkey93: [5.56], beef90: [16.18, 1], salmon: [12.47], sirloin: [17.55, 1], rotis: [7.97], shrimp: [15.96], tsausage: [4.97], pork: [9.53, 1], csausage: [5.97], jerky: [13.84], tuna: [9.48],
+  bellred: [1.38], broccoli: [1.92, 1], redonion: [1.04, 1], babypot: [4.18], lettuce: [2.32], yonion: [3.64], lemon: [.68], sweetpot: [2.88], greenbeans: [2.47], asparagus: [4.27], zucchini: [.83, 1], spinach: [1.97], romaine: [3.63], avocado: [.73], greenonion: [1.10], grapetom: [2.27], garlic: [.72], bcarrot: [1.96], saladkit: [3.58], apples: [2.98], bananas: [.20, 1],
+  eggs: [2.47], yogurt: [3.28], cheese: [3.58], parm: [3.18], tzatziki: [5.96], butter: [3.98], string: [6.34], oikos: [4.97], oj: [3.96], corn: [.98], stirfry: [2.84],
+  evoo: [6.12], garlicp: [1.06], paprika: [2.14], taco: [.50], blackbeans: [.92], brownrice: [1.37], jasmine: [1.37], quinoa: [2.83], salsa: [3.84], kidney: [.92], pinto: [.92], dicedtom: [.96], tomsauce: [.96], chili: [.92], soy: [1.73], honey: [3.72], italian: [1.06], sesame: [2.18],
+  banza: [3.42], marinara: [2.54], tortilla: [2.12], greek: [5.12], broth: [1.54], lipton: [2.38], crumbs: [1.27], fajita: [.78], lentils: [1.92], lemonp: [1.08], premier: [9.58], almonds: [9.48] };
+function wmPricesOn() { return !wmAffId() || WM_PRICED === todayStr(); }
+function wmPrice(k) { return wmPricesOn() && WM_PRICE[k] ? WM_PRICE[k] : null; }
+function wmMoney(n) { return "$" + n.toFixed(2); }
+function wmTotal(items) { let t = 0, est = false, miss = 0; items.forEach(([k, q]) => { const p = wmPrice(k); if (!p) { miss++; return; } t += p[0] * q; if (p[1]) est = true; }); return { t, est, miss }; }
+function wmTotalHTML(items, cls) { if (!wmPricesOn()) return ""; const r = wmTotal(items); return `<div class="wm-tot ${cls || ""}"><span>Est. subtotal before tax</span><b>${r.est ? "~" : ""}${wmMoney(r.t)}</b></div>`; }
+/* What was sent, kept even after the grocery list is cleared (last 6 sends). */
+function wmLog() { S.meta.wmLog = S.meta.wmLog || []; return S.meta.wmLog; }
+function wmCartSheetHTML() {
+  const log = wmLog(), b = wmBuild(), last = log[0], cur = b.cart.map(x => [x.k, x.q]);
+  let o = `${sheetTitle("My Walmart cart")}<div class="wm-intro">Everything Game Shape sent to your Walmart cart, with counts and an estimated total. Changes you make on Walmart itself won't show here.</div>`;
+  const rowsHTML = items => WM_CATS.map(c => { const rs = items.filter(([k]) => WM[k] && WM[k][4] === c); if (!rs.length) return ""; return `<h3 class="wm-cat"><span>${c}</span><span>${rs.reduce((a, r) => a + r[1], 0)}</span></h3>` + rs.map(([k, q]) => { const p = WM[k], pr = wmPrice(k); return `<div class="wm-line"><b class="wm-qty">${q}×</b><div><span class="wm-n">${esc(p[1])}</span><span class="wm-s">${esc(p[2])}${pr ? " · " + (pr[1] ? "~" : "") + wmMoney(pr[0]) + " each" : ""}</span></div>${pr ? `<span class="wm-lt">${pr[1] ? "~" : ""}${wmMoney(pr[0] * q)}</span>` : ""}</div>`; }).join(""); }).join("");
+  if (last) {
+    const units = last.items.reduce((a, r) => a + r[1], 0);
+    o += `<div class="wm-sum"><div><b>Sent ${wmTime(last.at)}</b><span>${last.items.length} items · ${units} total</span></div>${wmTotalHTML(last.items, "big")}</div>` + rowsHTML(last.items);
+    if (log.length > 1) o += `<details class="wm-old"><summary>Earlier sends (${log.length - 1})</summary>${log.slice(1).map(l => `<div class="wm-sum sm"><div><b>${wmTime(l.at)}</b><span>${l.items.length} items</span></div>${wmTotalHTML(l.items)}</div>`).join("")}<div class="small muted">Each send adds on top of what was already in your Walmart cart.</div></details>`;
+  } else o += `<div class="banner info" style="margin:0 0 8px"><b>Nothing sent yet</b>${cur.length ? "Here's what your grocery list will send. Review it, then send." : "Add prep meals or the office kit to your grocery list first."}</div>` + (cur.length ? `<div class="wm-sum"><div><b>Ready to send</b><span>${cur.length} items</span></div>${wmTotalHTML(cur, "big")}</div>` + rowsHTML(cur) : "");
+  const pend = last && b.cart.length && !wmSentNow(b.cart);
+  o += `<div class="wm-foot">${pend ? `<button class="wm-go" data-act="wmOpen" style="margin-bottom:10px">Your list changed · review and send</button>` : !last && cur.length ? `<button class="wm-go" data-act="wmOpen" style="margin-bottom:10px">Review and send (${cur.length})</button>` : ""}<a class="btn block" href="${esc(wmWrap("https://www.walmart.com/cart"))}" target="_blank" rel="noopener" style="min-height:48px;display:flex;align-items:center;justify-content:center;text-decoration:none">Open my cart on Walmart ›</a>${wmPricesOn() ? `<div class="wm-fine">Prices are Walmart.com estimates from ${fmtD(WM_PRICED)}. Meat and produce are sold by weight (~). Your store sets the final price.</div>` : ""}</div>`;
+  return o;
+}
 function wmAdminHTML() {
   if (PERSON || !R().adminPin) return "";
   return `<h3 class="sh3" style="margin-top:22px">Walmart affiliate</h3><label class="f">Impact publisher ID (test on this phone only)</label><input value="${esc(S.meta.wmAff || "")}" placeholder="Leave empty for plain Walmart links" inputmode="numeric" data-in="wmAff"><div class="small muted">${WM_AFF.id ? "Live for all 3 apps: " + esc(WM_AFF.id) + "." : "Not live. To switch it on for all 3 apps, set WM_AFF.id in index.html."} The paid-link note shows in the Walmart sheet whenever an ID is on.</div>`;
@@ -2992,6 +3043,7 @@ function renderSheet() {
   } else if (kind === "routine") { o = routineHTML();
   } else if (kind === "recipe") { o = recipeSheetHTML(arg);
   } else if (kind === "wm") { o = wmSheetHTML();
+  } else if (kind === "wmcart") { o = wmCartSheetHTML();
   } else if (kind === "pb") { o = playbookSheetHTML(arg);
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "health") { o = healthSheetHTML();
@@ -3183,7 +3235,7 @@ const ACT = {
   addP: el => { const l = L(todayStr()), v = +el.dataset.v; l.protein = Math.max(0, l.protein + v); if (v > 0) { l.pLog = (l.pLog || []).concat(v).slice(-20); } if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); fuelBump(0); },
   fuelUndo: () => { const l = L(todayStr()), v = (l.pLog || []).pop(); if (!v) return; l.protein = Math.max(0, l.protein - v); if (l.protein < PTS.proteinG && l.protein50 && !l.pLog.length) l.protein50 = false; save(); toast("Removed " + v + " g"); rerenderAll(); fuelBump(0); },
   fuelCat: el => { const id = el.dataset.v, sec = $("fc-" + id), bar = $("fuelCats"); UI.fuelCat = id; UI.fuelLock = Date.now() + 900; if (bar) { bar.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.v === id)); bar.scrollTo({ left: el.offsetLeft - 16, behavior: "smooth" }); }
-    if (sec) { let y = sec.getBoundingClientRect().top + scrollY - (bar ? bar.getBoundingClientRect().height : 0) - 8; if (y < scrollY) y -= 50; scrollTo({ top: y, behavior: "smooth" }); sec.classList.remove("flash"); void sec.offsetWidth; sec.classList.add("flash"); } },
+    if (sec) { let y = sec.getBoundingClientRect().top + scrollY - (bar ? bar.getBoundingClientRect().height : 0) - 8; scrollTo({ top: y, behavior: "smooth" }); sec.classList.remove("flash"); void sec.offsetWidth; sec.classList.add("flash"); } },
   fuelRecipe: el => openSheet("recipe", el.dataset.id),
   fuelPb: el => { openSheet("pb", +el.dataset.i); $("sheet").scrollTop = 0; },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); fuelBump(1); },
@@ -3224,11 +3276,12 @@ const ACT = {
   kit: () => { S.grocery.kit = !S.grocery.kit; save(); render(); },
   gchk: el => { const n = el.dataset.n; S.grocery.checked[n] = !S.grocery.checked[n]; save(); buzz(); render(); },
   wmOpen: () => { UI.wmArm = false; openSheet("wm"); },
+  wmCart: () => openSheet("wmcart"),
   wmTog: el => { const g = wmG(), k = el.dataset.k; if (g.wmOff[k]) delete g.wmOff[k]; else g.wmOff[k] = 1; save(); buzz(); const on = !g.wmOff[k]; el.classList.toggle("on", on); const bx = el.querySelector(".box"); bx.classList.remove("anim"); if (on) { void bx.offsetWidth; bx.classList.add("anim"); } UI.wmArm = false; wmSync(); render(); },
   wmQty: el => { const g = wmG(), k = el.dataset.k, b = wmBuild(), x = b.list.find(i => i.k === k); if (!x) return; const q = Math.max(1, Math.min(12, x.q + +el.dataset.v)); if (q === x.auto) delete g.wmQ[k]; else g.wmQ[k] = q; save(); const s = $("wmq-" + k); if (s) { s.textContent = q; s.classList.remove("pop"); void s.offsetWidth; s.classList.add("pop"); } UI.wmArm = false; wmSync(); render(); },
   wmArm: () => { UI.wmArm = true; wmSync(); },
   wmDisarm: () => { UI.wmArm = false; wmSync(); },
-  wmGo: (el, e) => { const b = wmBuild(); if (!b.cart.length) { if (e) e.preventDefault(); return; } S.grocery.wm = { at: Date.now(), sig: wmSig(b.cart), n: b.cart.length }; save(); popFx(el.getBoundingClientRect(), "mid"); toast("Opening Walmart. Sign in there to see your cart."); UI.wmArm = false; setTimeout(() => { wmSync(); render(); }, 350); },
+  wmGo: (el, e) => { const b = wmBuild(); if (!b.cart.length) { if (e) e.preventDefault(); return; } S.grocery.wm = { at: Date.now(), sig: wmSig(b.cart), n: b.cart.length }; const lg = wmLog(); lg.unshift({ at: S.grocery.wm.at, items: b.cart.map(x => [x.k, x.q]) }); lg.length = Math.min(lg.length, 6); save(); popFx(el.getBoundingClientRect(), "mid"); toast("Sent. Tap Cart on Fuel any time to see what you added."); UI.wmArm = false; setTimeout(() => { wmSync(); render(); }, 350); },
   gclear: () => { if (!UI.gclearArm) { UI.gclearArm = true; render(); setTimeout(() => { if (UI.gclearArm) { UI.gclearArm = false; render(); } }, 4000); return; } UI.gclearArm = false; S.grocery = { sel: {}, kit: false, checked: {} }; save(); toast("List cleared"); render(); },
   logBody: () => { const w = parseFloat($("bW").value), wa = parseFloat($("bWa").value); if (!w && !wa) return toast("Enter weight or waist"); const s = todayStr(), e = S.body.find(b => b.date === s) || (S.body.push({ date: s }), S.body[S.body.length - 1]); if (w) { e.weight = w; S.profile.weight = w; } if (wa) { e.waist = wa; S.profile.waist = wa; } save(); toast("Logged"); render(); },
   checkin: () => { const c = { date: todayStr(), weight: parseFloat($("ciW").value) || null, waist: parseFloat($("ciWa").value) || null, sore: $("ciS").value, win: $("ciWin").value, change: $("ciC").value }; S.checkins.push(c); if (c.weight || c.waist) { const e = S.body.find(b => b.date === c.date) || (S.body.push({ date: c.date }), S.body[S.body.length - 1]); if (c.weight) e.weight = c.weight; if (c.waist) e.waist = c.waist; } save(); toast("Check-in saved"); render(); },
