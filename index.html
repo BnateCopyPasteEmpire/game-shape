@@ -55,7 +55,7 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.4;overscroll-behavior-y:none}
-body{min-height:100vh;overflow-x:hidden}
+body{min-height:100vh;overflow-x:clip}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;width:100%;min-height:48px}
 textarea{min-height:90px;resize:vertical}
@@ -119,6 +119,45 @@ details.tip{box-shadow:none;margin-bottom:8px}details.tip>summary{font-size:15px
 .chip.pain:not(.on){border-color:var(--danger);color:var(--danger)}
 #affCard>summary{padding:16px}
 .st-item .howto,#sheetBody .howto{min-height:44px}#stretchCard .chiprow .chip{min-height:44px}#windCard .btn.sm,#affCard .btn.sm,#sleepCard .btn.sm{min-height:44px}
+/* v3.1.1 tap splash: teal core, purple ring */
+.tapfx{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.15);opacity:1;background:radial-gradient(circle,rgba(255,255,255,.85) 0 7%,rgba(var(--epc-teal-rgb),.7) 8% 30%,rgba(var(--epc-purple-rgb),.45) 31% 52%,rgba(var(--epc-purple-rgb),0) 70%);animation:tapfx2 .5s cubic-bezier(.15,.8,.3,1) forwards}
+.tapfx.soft{background:radial-gradient(circle,rgba(var(--epc-teal-rgb),.35) 0 30%,rgba(var(--epc-purple-rgb),.18) 31% 55%,rgba(var(--epc-purple-rgb),0) 70%);animation-duration:.45s}
+.tapring{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.3);border:3px solid rgba(var(--epc-purple-rgb),.75);box-shadow:0 0 12px rgba(var(--epc-teal-rgb),.7),inset 0 0 10px rgba(var(--epc-teal-rgb),.5);animation:tapring2 .5s ease-out forwards}
+@keyframes tapfx2{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+@keyframes tapring2{to{transform:translate(-50%,-50%) scale(1.45);opacity:0;border-width:1px}}
+summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-bar:active{transform:scale(.98)}
+@media (prefers-reduced-motion:reduce){.tapfx,.tapring{display:none}}
+/* v3.1.1 Fuel */
+.fuel-rings{display:flex;justify-content:space-around;margin:8px 0 4px}
+.ring.bump{animation:ringBump .45s cubic-bezier(.2,1.6,.4,1)}@keyframes ringBump{40%{transform:scale(1.08)}}
+.ring circle{transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)!important}
+.fuel-pt{margin:6px 0 10px;font-size:13px;font-weight:700;color:var(--ink-2)}.fuel-pt>i{display:block;height:8px;border-radius:8px;background:var(--surface);overflow:hidden;margin-top:5px}.fuel-pt>i>i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.fuel-pt.hit{color:var(--green)}
+.fq-row{display:flex;align-items:center;gap:6px;margin-top:8px}.fq-row .chip{flex:1;min-height:44px;padding:0 6px;font-size:14px}.fq-row .chip:disabled{opacity:.4}
+.fq-k{width:58px;flex:none;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-2)}
+.fuel-cats{position:sticky;top:0;z-index:15;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -12px 12px;padding:calc(var(--st,0px) + 8px) 12px 8px;background:linear-gradient(var(--bg) 82%,rgba(255,255,255,0));-webkit-overflow-scrolling:touch}
+.fuel-cats::-webkit-scrollbar,.fcar::-webkit-scrollbar{display:none}
+.fuel-cats .chip{flex:none;white-space:nowrap;min-height:44px;gap:6px;display:inline-flex;align-items:center;transition:background .25s,color .25s,transform .15s,box-shadow .25s}
+.fuel-cats .chip.on{background:linear-gradient(135deg,var(--epc-purple),#2f1b50);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(var(--epc-purple-rgb),.35),0 0 0 2px rgba(var(--epc-teal-rgb),.5)}
+.fc-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--epc-teal);color:#fff;font-size:11px}
+.fuel-search{padding:10px 12px}.fuel-search input{width:100%;min-height:46px}
+.fsec{margin-bottom:18px;border-radius:18px}.fsec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 2px 8px}.fsec-h h2{margin:0;font-size:19px}.fsec-h .small{text-align:right}
+.fsec.flash{animation:secFlash .9s ease}@keyframes secFlash{25%{box-shadow:0 0 0 3px rgba(var(--epc-teal-rgb),.55)}}
+.fcar{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 10px;scroll-padding:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.fcard{flex:0 0 76%;max-width:300px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow);transition:transform .15s}
+.fsec.rv .fcard{opacity:0;transform:translateX(24px)}.fsec.rv.in .fcard{opacity:1;transform:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.fsec.rv.in .fcard:nth-child(2){transition-delay:.06s}.fsec.rv.in .fcard:nth-child(3){transition-delay:.12s}
+.fc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.fc-top b{font-size:15px;line-height:1.25}
+.fc-p{flex:none;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));border-radius:999px;padding:3px 9px}
+.fc-d{font-size:13px;color:var(--ink-2);line-height:1.4;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.fc-ate,.fc-rec{min-height:44px!important;width:100%}
+.fc-mac{display:flex;flex-wrap:wrap;gap:5px}.fc-mac span{font-size:11px;font-weight:700;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+.fc-step{display:flex;align-items:center;gap:8px}.fc-step .btn{min-width:44px;min-height:44px!important;padding:0;font-size:20px}.fc-step span{flex:1;text-align:center;font-size:13px;font-weight:700;color:var(--ink-2)}.fc-step span.on{color:var(--green)}
+.pb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pb-tile{display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 12px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);text-align:left;color:var(--ink)}.pb-tile span{font-size:22px}.pb-tile b{font-size:13px;line-height:1.25}
+.pb-list li{margin:8px 0;font-size:15px}
+.drink{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line)}.drink:last-child{border-bottom:0}
+.fgroc .btn.sm{min-height:44px}
 .chip.pain.on{background:var(--danger);border-color:var(--danger);color:#fff}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -321,6 +360,7 @@ ol.aff li{margin:8px 0;font-size:16px;font-weight:600}
 html{overflow-x:clip}
 body{touch-action:pan-y pinch-zoom}
 main{padding:0 12px calc(var(--sb) + 100px);overflow-x:clip}
+header.top{position:relative}   /* v3.1.1: header scrolls away like before; only the Fuel category bar sticks */
 .top{padding:calc(var(--st) + 12px) 14px 10px}
 .card{padding:14px;margin:0 0 12px;border-radius:18px}
 .grid3,.grid2{gap:8px}
@@ -329,7 +369,6 @@ img,svg,video{max-width:100%}
 .btn,.chip,.iconbtn,.tile,.menu button,.sbrow,.tabbar button,a.btn,[data-act]{-webkit-tap-highlight-color:transparent;transition:transform .12s ease,box-shadow .25s ease,background-color .2s ease}
 .btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{transform:scale(.97);box-shadow:0 0 0 4px rgba(var(--orange-rgb),.22),0 6px 18px rgba(var(--orange-rgb),.28)}
 .tabbar button:active{transform:scale(.94)}
-.tapfx{position:fixed;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(var(--orange-rgb),.42) 0%,rgba(var(--orange-rgb),.12) 45%,rgba(var(--orange-rgb),0) 70%);transform:translate(-50%,-50%) scale(.2);opacity:1;animation:tapfx .55s ease-out forwards;z-index:99}
 @keyframes tapfx{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
 /* scroll reveal */
 .rv{opacity:0;transform:translateY(14px) scale(.99);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
@@ -387,7 +426,6 @@ img,svg,video{max-width:100%}
 .cpe-chip sup{position:absolute;top:-5px;right:-9px;font-size:7px;font-weight:900;letter-spacing:.3px;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 2px;line-height:9px}
 .cpe-date{margin-top:4px}
 /* tap blur in EPC Tropics purple + teal */
-.tapfx{background:radial-gradient(circle,rgba(var(--epc-teal-rgb),.55) 0%,rgba(var(--epc-teal-rgb),.22) 32%,rgba(var(--epc-purple-rgb),.28) 52%,rgba(var(--epc-purple-rgb),0) 72%)}
 .btn:active,.chip:active,.iconbtn:active,.menu button:active,a.btn:active,.tile:active{box-shadow:0 0 0 4px rgba(var(--epc-teal-rgb),.25),0 6px 18px rgba(var(--epc-purple-rgb),.30)}
 /* weekly medals */
 .mburst{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:24px;animation:wIn .3s ease;overflow:hidden}
@@ -751,8 +789,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.0";
+const APP_VERSION = "3.1.1";
 const CHANGELOG = {
+  "3.1.1": ["Fresher Fuel: your protein and water up top, a sticky category bar, swipe rows for meals, and recipes that open in one tap", "A teal and purple splash on every tap, everywhere in the app"],
   "3.1.0": ["New Recover tab: log or fix any night of sleep in one tap, a wind-down that counts, and a stretch library with videos and timed routines"],
   "3.0.8": ["Smoother Today: tap a circle to check it off, tap a title to open that tab, nothing jumps when you tap. Extras live under More for today"],
   "3.0.7": ["Cleaner Today: a daily verse up top, tap any circle to check it off, tap any title to jump to that tab"],
@@ -2174,18 +2213,26 @@ let revealIO = null;
 function revealCards() {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
   if (!revealIO) revealIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px", threshold: .06 });
-  document.querySelectorAll("#view > .card, #view > .grid3, #view > .grid2, #view > .banner").forEach((el, i) => {
+  document.querySelectorAll("#view > .card, #view > .grid3, #view > .grid2, #view > .banner, #view > .fsec").forEach((el, i) => {
     if (el.dataset.rv) return; el.dataset.rv = "1";
     const r = el.getBoundingClientRect(); if (r.top < innerHeight * .9) return;   // already on screen: no flicker
     el.classList.add("rv"); el.style.transitionDelay = Math.min(i % 4, 3) * 40 + "ms"; revealIO.observe(el);
   });
 }
+/* v3.1.1 tap splash: EPC Tropics teal + purple on every tap, everywhere in the app.
+   Buttons and links get the full splash + ring the instant you touch. Anywhere else gets a soft ripple (on tap, not on scroll). */
+const TAP_SEL = ".btn,.chip,.iconbtn,.tabbar button,.menu button,a,[data-act],[data-tab],summary,.check,label,input,select,textarea,[role=button],.fcard,.pb-tile,.rt-btn,.sl-bar";
+function tapFx(x, y, sz, soft) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const a = document.createElement("span"); a.className = "tapfx" + (soft ? " soft" : ""); a.style.cssText = `left:${x}px;top:${y}px;width:${sz}px;height:${sz}px`; document.body.appendChild(a); setTimeout(() => a.remove(), 560);
+  if (soft) return;
+  const b = document.createElement("span"); b.className = "tapring"; b.style.cssText = `left:${x}px;top:${y}px;width:${sz * .7}px;height:${sz * .7}px`; document.body.appendChild(b); setTimeout(() => b.remove(), 560);
+}
 document.addEventListener("pointerdown", e => {
-  const el = e.target.closest(".btn,.chip,.iconbtn,.tabbar button,.menu button,a,[data-act],[data-tab]"); if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const r = el.getBoundingClientRect(), sz = Math.min(220, Math.max(r.width, r.height) * 1.6), fx = document.createElement("span");
-  fx.className = "tapfx"; fx.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${sz}px;height:${sz}px`;
-  document.body.appendChild(fx); setTimeout(() => fx.remove(), 600);
-}, { passive: true });
+  const el = e.target.closest(TAP_SEL); if (!el || el.disabled) return;
+  const r = el.getBoundingClientRect(); tapFx(e.clientX, e.clientY, Math.min(240, Math.max(90, Math.max(r.width, r.height) * 1.5)));
+}, { passive: true, capture: true });
+document.addEventListener("click", e => { if (e.target.closest(TAP_SEL) || e.clientX == null || (!e.clientX && !e.clientY)) return; tapFx(e.clientX, e.clientY, 110, true); }, { passive: true, capture: true });
 
 /* v2.9.4 check-off feel: a color splash in your colors, a soft click, a buzz, and the points floating up. Big flood + check for a finished workout. */
 let AC = null;
@@ -2221,20 +2268,23 @@ function floodFx(title, sub) {
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
 /* Buttons that log points. A tap that started on a popup or the update bar can "fall through" onto these right after it closes. */
-const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ"]);
+const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ", "fuelUndo", "groc", "gchk", "kit", "gclear"]);
 window.__tapGuard = Date.now();
 try { history.scrollRestoration = "manual"; } catch (e) {}
-const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut"]);
+const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut", "addP", "gchk", "kit", "groc"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
   fn();
-  if (a === "set" || a === "toggle") { if (!on0) popFx(r, "small"); return; }
+  if (a === "set" || a === "toggle" || a === "gchk" || a === "kit") { if (!on0) popFx(r, "small"); return; }
+  if (a === "groc") { if (+el.dataset.v > 0) popFx(r, "small", "+1"); return; }
   const c1 = dayChecks(t), p1 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0), newly = Object.keys(c1).filter(k => c1[k] && !c0[k]), gain = p1 - p0;
   if (newly.includes("allIn")) { popFx(r, "big", gain > 0 ? "+" + gain : ""); setTimeout(() => toast("ALL IN today. +" + PTS.allIn + " bonus"), 300); }
   else if (newly.includes("workout")) popFx(r, "big", gain > 0 ? "+" + gain : "");
   else if (newly.length || (a === "courtSet" && !on0)) popFx(r, "mid", gain > 0 ? "+" + gain : "");
   else if (gain > 0) popFx(r, "small", "+" + gain);
+  else if ((a === "addP" || a === "addW") && +el.dataset.v > 0) popFx(r, "small", "+" + el.dataset.v + (a === "addP" ? " g" : " oz"));
 }
+function fuelBump(i) { const rg = document.querySelectorAll("#fuelHero .ring")[i]; if (!rg) return; rg.classList.remove("bump"); void rg.offsetWidth; rg.classList.add("bump"); }
 /* Welcome surprise: the open AFTER all updates, the tour, and the setup questions are done. One time. */
 function isReady() { return !!(S.meta.tourSeen && !needsSetup() && (!ME || !ME.onboard || C().setup)); }
 function markReady() { if (isReady() && !S.meta.readyAt) { S.meta.readyAt = Date.now(); save(); } }
@@ -2419,23 +2469,67 @@ function startRest(sec) {
 function stopRest() { if (UI.rest) clearInterval(UI.rest.h); UI.rest = null; $("restbar").classList.add("hidden"); }
 
 /* ---------------------------- FUEL ---------------------------- */
+/* v3.1.1 Fuel: your numbers up top, a sticky category bar, swipe rows for meals, and recipes + playbook open in a sheet. Nothing removed. */
+const FUEL_CATS = [["bfast", "🍳", "Breakfast"], ["lunch", "🥪", "Lunch"], ["snack", "🍎", "Snacks"], ["prep", "🥘", "Prep meals"], ["groc", "🛒", "Grocery"], ["play", "📘", "Playbook"], ["office", "💼", "Office kit"], ["drinks", "🥤", "Drinks"]];
+const PB_ICON = ["🍽️", "⏰", "💪", "🏀", "🫐", "🧠", "😴", "🔥", "🍔", "💊"];
+function fuelMealCard(x, kind) {
+  return `<div class="fcard"><div class="fc-top"><b>${esc(x.n)}</b>${x.p ? `<span class="fc-p">${x.p} g</span>` : ""}</div><div class="fc-d">${esc(x.d || x.why || "")}</div>${x.p ? `<button class="btn sm fc-ate" data-act="addP" data-v="${x.p}" data-src="${esc(x.n)}">Ate this +${x.p} g</button>` : `<div class="fc-tag small muted">${kind === "snack" ? "Smart pick" : ""}</div>`}</div>`;
+}
+function fuelPrepCard(r) {
+  const n = S.grocery.sel[r.id] || 0;
+  return `<div class="fcard prep"><div class="fc-top"><b>${esc(r.n)}</b></div><div class="fc-mac"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time.split(" (")[0])}</span><span>${r.srv} servings</span></div>
+  <button class="btn sm fc-rec" data-act="fuelRecipe" data-id="${r.id}">Ingredients + steps</button>
+  <div class="fc-step"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" aria-label="Remove one" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? n + "x on list" : "Add to list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1" aria-label="Add one">+</button></div></div>`;
+}
+function fuelResultsHTML() {
+  const q = (UI.fuelQ || "").trim().toLowerCase(); if (q.length < 2) return "";
+  const hit = x => (x.n + " " + (x.d || x.why || "")).toLowerCase().includes(q);
+  const res = [...BREAKFASTS.filter(hit).map(x => ["Breakfast", fuelMealCard(x)]), ...LUNCHES.filter(hit).map(x => ["Lunch", fuelMealCard(x)]), ...SNACKS.filter(hit).map(x => ["Snack", fuelMealCard(x, "snack")]), ...RECIPES.filter(r => (r.n + " " + r.ing.map(i => i[0]).join(" ")).toLowerCase().includes(q)).map(r => ["Prep meal", fuelPrepCard(r)])];
+  return res.length ? `<div class="small muted" style="margin:10px 0 6px">${res.length} match${res.length === 1 ? "" : "es"}</div><div class="fcar">${res.map(([k, h]) => h.replace('<div class="fcard', `<div data-k="${k}" class="fcard`)).join("")}</div>` : `<div class="small muted" style="margin-top:10px">Nothing matches "${esc(UI.fuelQ)}". Try chicken, eggs, tuna, or yogurt.</div>`;
+}
+function fuelSec(id, title, sub, body) { return `<section class="fsec" id="fc-${id}"><div class="fsec-h"><h2>${title}</h2>${sub ? `<span class="small muted">${sub}</span>` : ""}</div>${body}</section>`; }
 function renderFuel() {
-  const s = todayStr(), l = getL(s), court = isCourt(s), p = S.profile;
-  let o = `<div class="card"><div class="row between"><h2 class="brand">Today's targets</h2><span class="small muted">${court ? "Court day" : "Training day"}</span></div><div class="row" style="justify-content:space-around">${ring(l.protein, p.protein, "var(--accent)", "protein", "g")}${ring(l.water, waterGoal(s), "var(--accent2)", "water", "oz")}</div>
-  <div class="grid2" style="margin-top:12px"><button class="btn sm" data-act="addP" data-v="20">+20 g</button><button class="btn sm" data-act="addP" data-v="35">+35 g</button><button class="btn sm" data-act="addW" data-v="8">+8 oz</button><button class="btn sm" data-act="addW" data-v="16">+16 oz</button><button class="btn sm" data-act="addP" data-v="-10">Undo 10 g</button><button class="btn sm" data-act="addW" data-v="-8">Undo 8 oz</button></div>
-  <table class="t" style="margin-top:12px"><tr><td>Protein (scores at ${PTS.proteinG} g)</td><td style="text-align:right"><b>${PTS.proteinG} g+</b> (aim for ${p.protein} g)</td></tr><tr><td>Fiber</td><td style="text-align:right"><b>30 to 38 g</b></td></tr><tr><td>Water</td><td style="text-align:right"><b>${waterGoal(s)} oz</b></td></tr></table></div>`;
-  o += `<details open><summary>Quick breakfasts (5 min)</summary><div class="in">${BREAKFASTS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div><button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${b.p}">Ate this (+${b.p} g)</button></div>`).join("")}</div></details>`;
-  const ateBtn = x => `<button class="btn sm" style="margin-top:8px" data-act="addP" data-v="${x.p}">Ate this (+${x.p} g)</button>`;
-  o += `<details><summary>Quick lunches (no cooking)</summary><div class="in">${LUNCHES.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b><span class="macros"><span>${b.p} g protein</span></span></div><div class="small muted">${esc(b.d)}</div>${ateBtn(b)}</div>`).join("")}</div></details>`;
-  o += `<details><summary>Snacks that fuel you</summary><div class="in">${SNACKS.map(b => `<div class="recipe"><div class="row between"><b>${esc(b.n)}</b>${b.p ? `<span class="macros"><span>${b.p} g protein</span></span>` : ""}</div><div class="small muted">${esc(b.why)}</div>${b.p ? ateBtn(b) : ""}</div>`).join("")}</div></details>`;
-  o += `<div class="card"><h2 class="brand" style="margin:0 0 4px">Fuel playbook</h2><div class="small muted">How to eat for strong workouts, fresh legs on the court, a clear head, and better sleep.</div></div>`;
-  o += PLAYBOOK.map(pb => `<details><summary>${esc(pb.n)}</summary><div class="in"><ul class="list">${pb.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div></details>`).join("");
-  o += `<details><summary>Office backup kit</summary><div class="in"><div class="banner warn"><b>When work orders food</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></details>`;
-  o += `<details><summary>Drinks</summary><div class="in"><table class="t">${DRINKS.map(d => `<tr><td><b>${d[0]}</b></td><td class="small">${esc(d[1])}</td></tr>`).join("")}</table></div></details>`;
-  o += `<details><summary>Easy prep meals</summary><div class="in"><div class="small muted">Make one on Sunday, one midweek. Leftovers cover lunches.</div>${RECIPES.map(r => { const n = S.grocery.sel[r.id] || 0; return `<div class="recipe"><b>${esc(r.n)}</b><div class="macros"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time)}</span><span>${r.srv} servings</span></div><details style="background:var(--card2);margin:8px 0"><summary style="font-size:14px;min-height:44px;padding:10px 14px">Ingredients + steps</summary><div class="in"><ul class="list small">${r.ing.map(i => `<li>${esc(i[0])}: ${esc(i[1])}</li>`).join("")}</ul><ol class="list small">${r.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><div class="small muted">Reheat: ${esc(r.reheat)}</div></div></details><div class="row"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1">−</button><span style="min-width:90px;text-align:center" class="small">${n ? n + "x on list" : "Not on list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div></div>`; }).join("")}</div></details>`;
-  o += `<details ${Object.keys(S.grocery.sel).length || S.grocery.kit ? "open" : ""}><summary>Grocery list</summary><div class="in">${groceryHTML()}</div></details>`;
+  const s = todayStr(), l = getL(s), court = isCourt(s), p = S.profile, pg = l.protein || 0, wg = waterGoal(s), ph = proteinHit(l), ppct = Math.min(100, Math.round(pg / PTS.proteinG * 100));
+  const items = Object.keys(S.grocery.sel).length + (S.grocery.kit ? 1 : 0), left = groceryCount();
+  let o = `<div class="card" id="fuelHero"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Today's fuel</h2><span class="tg">${court ? "🏀 Court day" : "💪 Training day"}</span></div>
+  <div class="fuel-rings">${ring(pg, p.protein, "var(--accent)", "protein", "g")}${ring(l.water, wg, "var(--accent2)", "water", "oz")}</div>
+  <div class="fuel-pt ${ph ? "hit" : ""}"><span>${ph ? "✓ Protein point locked (+" + PTS.protein + ")" : "Protein point at " + PTS.proteinG + " g"}</span><i><i style="width:${ph ? 100 : ppct}%"></i></i></div>
+  <div class="fuel-q"><div class="fq-row"><span class="fq-k">Protein</span><button class="chip" data-act="addP" data-v="10">+10 g</button><button class="chip" data-act="addP" data-v="20">+20 g</button><button class="chip" data-act="addP" data-v="35">+35 g</button></div>
+  <div class="fq-row"><span class="fq-k">Water</span><button class="chip" data-act="addW" data-v="8">+8 oz</button><button class="chip" data-act="addW" data-v="16">+16 oz</button><button class="chip" data-act="addW" data-v="24">+24 oz</button></div>
+  <div class="fq-row"><span class="fq-k">Undo</span>${(l.pLog || []).length ? `<button class="chip" data-act="fuelUndo">↶ Last ${l.pLog[l.pLog.length - 1]} g</button>` : ""}<button class="chip" data-act="addP" data-v="-10" ${pg ? "" : "disabled"}>−10 g</button><button class="chip" data-act="addW" data-v="-8" ${l.water ? "" : "disabled"}>−8 oz</button></div></div>
+  <div class="small muted" style="margin-top:8px">Aim for ${p.protein} g protein, 30 to 38 g fiber, and ${wg} oz water.</div></div>`;
+  o += `<nav class="fuel-cats" id="fuelCats">${FUEL_CATS.map(([id, ic, n]) => `<button class="chip ${UI.fuelCat === id ? "on" : ""}" data-act="fuelCat" data-v="${id}"><span>${ic}</span>${n}${id === "groc" && left ? ` <b class="fc-badge">${left}</b>` : ""}</button>`).join("")}</nav>`;
+  o += `<div class="card fuel-search"><input id="fuelQ" type="search" placeholder="🔎 Find a meal: chicken, eggs, tuna..." value="${esc(UI.fuelQ || "")}" autocomplete="off"><div id="fuelResults">${fuelResultsHTML()}</div></div>`;
+  o += fuelSec("bfast", "Quick breakfasts", "5 min · swipe →", `<div class="fcar">${BREAKFASTS.map(x => fuelMealCard(x)).join("")}</div>`);
+  o += fuelSec("lunch", "Quick lunches", "No cooking · swipe →", `<div class="fcar">${LUNCHES.map(x => fuelMealCard(x)).join("")}</div>`);
+  o += fuelSec("snack", "Snacks that fuel you", "Swipe →", `<div class="fcar">${SNACKS.map(x => fuelMealCard(x, "snack")).join("")}</div>`);
+  o += fuelSec("prep", "Easy prep meals", "Make one Sunday, one midweek", `<div class="fcar">${RECIPES.map(fuelPrepCard).join("")}</div>`);
+  o += fuelSec("groc", "Grocery list", items ? left + " to grab" : "Add prep meals with +", `<div class="card fgroc">${groceryHTML()}</div>`);
+  o += fuelSec("play", "Fuel playbook", "Tap a topic", `<div class="pb-grid">${PLAYBOOK.map((pb, i) => `<button class="pb-tile" data-act="fuelPb" data-i="${i}"><span>${PB_ICON[i] || "📘"}</span><b>${esc(pb.n)}</b></button>`).join("")}</div>`);
+  o += fuelSec("office", "Office backup kit", "When work orders food", `<div class="card"><div class="banner warn" style="margin-bottom:10px"><b>The 4 rules</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`);
+  o += fuelSec("drinks", "Drinks", "", `<div class="card">${DRINKS.map(d => `<div class="drink"><b>${d[0]}</b><span class="small">${esc(d[1])}</span></div>`).join("")}</div>`);
   return o;
 }
+function groceryCount() { const m = new Set(); Object.entries(S.grocery.sel).forEach(([id]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => m.add(i[0])); }); if (S.grocery.kit) OFFICE_KIT.forEach(i => m.add(i[0])); return [...m].filter(n => !S.grocery.checked[n]).length; }
+function recipeSheetHTML(id) {
+  const r = RECIPES.find(x => x.id === id); if (!r) return ""; const n = S.grocery.sel[r.id] || 0;
+  return `<div style="margin-right:48px"><div class="small muted">Prep meal</div><h2 style="margin:2px 0 8px">${esc(r.n)}</h2></div><div class="fc-mac" style="margin-bottom:12px"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time)}</span><span>${r.srv} servings</span></div>
+  <h3 class="sh3">Ingredients</h3><ul class="list">${r.ing.map(i => `<li>${esc(i[0])}: <b>${esc(i[1])}</b></li>`).join("")}</ul><h3 class="sh3">Steps</h3><ol class="list">${r.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><div class="banner info" style="margin-top:12px"><b>Reheat</b>${esc(r.reheat)}</div>
+  <div class="fc-step" style="margin-top:6px"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? n + "x on grocery list" : "Add to grocery list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div>
+  <button class="btn primary block" style="margin-top:12px" data-act="addP" data-v="${r.p}" data-src="${esc(r.n)}">Ate a serving +${r.p} g</button>`;
+}
+function playbookSheetHTML(i) { const pb = PLAYBOOK[i]; return `<div style="margin-right:48px"><div class="small muted">Fuel playbook</div><h2 style="margin:2px 0 10px">${PB_ICON[i] || ""} ${esc(pb.n)}</h2></div><ul class="list pb-list">${pb.items.map(x => `<li>${esc(x)}</li>`).join("")}</ul><div class="row" style="gap:8px;margin-top:14px"><button class="btn" style="flex:1" data-act="fuelPb" data-i="${(i + PLAYBOOK.length - 1) % PLAYBOOK.length}">‹ Prev</button><button class="btn" style="flex:1" data-act="fuelPb" data-i="${(i + 1) % PLAYBOOK.length}">Next ›</button></div>`; }
+/* sticky bar: follow the scroll */
+let fuelSpyT = 0;
+window.addEventListener("scroll", () => { if (UI.tab !== "fuel" || Date.now() < (UI.fuelLock || 0)) return; clearTimeout(fuelSpyT); fuelSpyT = setTimeout(() => {
+  const bar = $("fuelCats"); if (!bar) return; const top = bar.getBoundingClientRect().bottom + 10; let cur = null;
+  FUEL_CATS.forEach(([id]) => { const e = $("fc-" + id); if (e && e.getBoundingClientRect().top <= top + 40) cur = id; });
+  if (cur !== UI.fuelCat) { UI.fuelCat = cur; bar.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.v === cur)); const a = bar.querySelector(".chip.on"); if (a) bar.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" }); }
+}, 60); }, { passive: true });
+document.addEventListener("input", e => { if (e.target.id !== "fuelQ") return; UI.fuelQ = e.target.value; const r = $("fuelResults"); if (r) r.innerHTML = fuelResultsHTML(); });
+function hdrH() { const h = document.querySelector("header.top"); document.documentElement.style.setProperty("--hdrH", (h ? h.offsetHeight - 14 : 0) + "px"); }
+window.addEventListener("resize", hdrH);
+
 function groceryHTML() {
   const map = {};
   const add = (name, qty, cat) => { const k = cat + "|" + name; if (!map[k]) map[k] = { name, cat, q: [] }; if (qty) map[k].q.push(qty); };
@@ -2445,7 +2539,7 @@ function groceryHTML() {
   let o = `<button class="check ${S.grocery.kit ? "on" : ""}" data-act="kit"><span class="lbl">Add office snack + breakfast kit</span><span class="box">${CHK}</span></button>`;
   if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.");
   ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"].forEach(c => { if (!cats[c]) return; o += `<h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:14px 0 4px">${c}</h3>` + cats[c].map(i => { const on = S.grocery.checked[i.name]; return `<button class="check ${on ? "on" : ""}" data-act="gchk" data-n="${esc(i.name)}"><span class="lbl">${esc(i.name)}${i.q.length ? ` <span class="small muted">${esc(i.q.join(" + "))}</span>` : ""}</span><span class="box">${CHK}</span></button>`; }).join(""); });
-  return o + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">Clear list</button>`;
+  return o + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">${UI.gclearArm ? "Tap again to clear the list" : "Clear list"}</button>`;
 }
 
 /* ---------------------------- RECOVER (v3.1.0) ----------------------------
@@ -2658,6 +2752,8 @@ function renderSheet() {
   } else if (kind === "tour") { o = tourHTML();
   } else if (kind === "rules") { o = `<button class="btn sm" data-act="closeSheet" style="margin-bottom:10px">‹ Close</button>` + rulebookHTML();
   } else if (kind === "routine") { o = routineHTML();
+  } else if (kind === "recipe") { o = recipeSheetHTML(arg);
+  } else if (kind === "pb") { o = playbookSheetHTML(arg);
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "health") { o = healthSheetHTML();
   } else if (kind === "crew") { o = back + crewHTML();
@@ -2719,7 +2815,7 @@ function render() {
   const nd = new Date(); $("hdrDate").textContent = nd.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
   const ta = TAB_ART[UI.tab];
   const html = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]() + `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`;
-  patchView($("view"), html, UI.lastTab === UI.tab); UI.lastTab = UI.tab;
+  patchView($("view"), html, UI.lastTab === UI.tab); UI.lastTab = UI.tab; hdrH();
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
   setTimeout(revealCards, 0);
   const st = $("scTotal"); if (st && +st.dataset.from !== +st.dataset.to) { countUp(st, +st.dataset.from, +st.dataset.to); } UI.scPrev = st ? +st.dataset.to : UI.scPrev;
@@ -2845,8 +2941,13 @@ const ACT = {
   sheet: el => { if (el.dataset.k === "tour") UI.tourPage = 0; openSheet(el.dataset.k, el.dataset.a); },
   closeSheet: el => { if (el && el.classList && el.classList.contains("sheet-bg") && UI.sheet && (UI.wnPending || UI.sheet.kind === "tour" || (UI.sheet.kind === "setup" && UI.sheet.arg === "first"))) return; closeSheet(); },
   toggle: el => { if (el.dataset.id === "bed" && el.dataset.date === todayStr()) return lightsOut(); if (el.dataset.id === "wd_read") return readToggle(el.dataset.date); const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
-  addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
-  addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
+  addP: el => { const l = L(todayStr()), v = +el.dataset.v; l.protein = Math.max(0, l.protein + v); if (v > 0) { l.pLog = (l.pLog || []).concat(v).slice(-20); } if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); fuelBump(0); },
+  fuelUndo: () => { const l = L(todayStr()), v = (l.pLog || []).pop(); if (!v) return; l.protein = Math.max(0, l.protein - v); if (l.protein < PTS.proteinG && l.protein50 && !l.pLog.length) l.protein50 = false; save(); toast("Removed " + v + " g"); rerenderAll(); fuelBump(0); },
+  fuelCat: el => { const id = el.dataset.v, sec = $("fc-" + id), bar = $("fuelCats"); UI.fuelCat = id; UI.fuelLock = Date.now() + 900; if (bar) { bar.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.v === id)); bar.scrollTo({ left: el.offsetLeft - 16, behavior: "smooth" }); }
+    if (sec) { const y = sec.getBoundingClientRect().top + scrollY - (bar ? bar.getBoundingClientRect().height : 0) - 8; scrollTo({ top: y, behavior: "smooth" }); sec.classList.remove("flash"); void sec.offsetWidth; sec.classList.add("flash"); } },
+  fuelRecipe: el => openSheet("recipe", el.dataset.id),
+  fuelPb: el => { openSheet("pb", +el.dataset.i); $("sheet").scrollTop = 0; },
+  addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); fuelBump(1); },
   verseTog: () => { UI.verseOpen = !UI.verseOpen; const y = window.scrollY; render(); window.scrollTo(0, y); },
   wgEdit: () => { UI.wgEdit = !UI.wgEdit; const y = window.scrollY; render(); window.scrollTo(0, y); },
   wgStep: el => { S.profile.waterBase = Math.max(40, Math.min(200, (S.profile.waterBase || 100) + +el.dataset.v)); save(); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
@@ -2883,7 +2984,7 @@ const ACT = {
   groc: el => { const id = el.dataset.id, n = Math.max(0, (S.grocery.sel[id] || 0) + +el.dataset.v); if (n) S.grocery.sel[id] = n; else delete S.grocery.sel[id]; save(); render(); },
   kit: () => { S.grocery.kit = !S.grocery.kit; save(); render(); },
   gchk: el => { const n = el.dataset.n; S.grocery.checked[n] = !S.grocery.checked[n]; save(); buzz(); render(); },
-  gclear: () => { S.grocery = { sel: {}, kit: false, checked: {} }; save(); render(); },
+  gclear: () => { if (!UI.gclearArm) { UI.gclearArm = true; render(); setTimeout(() => { if (UI.gclearArm) { UI.gclearArm = false; render(); } }, 4000); return; } UI.gclearArm = false; S.grocery = { sel: {}, kit: false, checked: {} }; save(); toast("List cleared"); render(); },
   logBody: () => { const w = parseFloat($("bW").value), wa = parseFloat($("bWa").value); if (!w && !wa) return toast("Enter weight or waist"); const s = todayStr(), e = S.body.find(b => b.date === s) || (S.body.push({ date: s }), S.body[S.body.length - 1]); if (w) { e.weight = w; S.profile.weight = w; } if (wa) { e.waist = wa; S.profile.waist = wa; } save(); toast("Logged"); render(); },
   checkin: () => { const c = { date: todayStr(), weight: parseFloat($("ciW").value) || null, waist: parseFloat($("ciWa").value) || null, sore: $("ciS").value, win: $("ciWin").value, change: $("ciC").value }; S.checkins.push(c); if (c.weight || c.waist) { const e = S.body.find(b => b.date === c.date) || (S.body.push({ date: c.date }), S.body[S.body.length - 1]); if (c.weight) e.weight = c.weight; if (c.waist) e.waist = c.waist; } save(); toast("Check-in saved"); render(); },
   gameSave: el => { const id = el.dataset.a, g = { id: id || "g" + Date.now(), date: $("gD").value, time: $("gT").value || "18:30", opp: $("gO").value || "Game", gym: $("gG").value }; if (!g.date) return toast("Pick a date"); const i = S.games.findIndex(x => x.id === id); i >= 0 ? S.games[i] = g : S.games.push(g); invalidate(); save(); toast("Saved. Plan updated."); openSheet("hoops"); render(); },
