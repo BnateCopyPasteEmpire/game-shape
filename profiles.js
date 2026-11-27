@@ -96,9 +96,14 @@ window.GS_PROFILES = {
       ]
     },
     // Training plan by weekday (0 = Sunday). Game and practice days override this automatically.
-    weekPlan: { 0: "M_REST", 1: "M_UPPER_A", 2: "M_EASY", 3: "M_UPPER_B", 4: "M_EASY", 5: "M_LEGS", 6: "M_FULL" },
-    heavyLegs: ["M_LEGS"],          // never the day before or day of a game or practice
-    preCourtSwap: "M_UPPER_A",      // what a leg day becomes when court is tomorrow
+    // v3.1.7 plan from his intake: Pull, Push, Legs + Jump, Saturday Builder. Tue = practice (arm pump), Thu = games (engine day when there's no game).
+    weekPlan: { 0: "M_REST", 1: "M_PULL", 2: "M_PUMP", 3: "M_PUSH", 4: "M_ENGINE", 5: "M_LEGS", 6: "M_BUILD" },
+    weekPlanFrom: "2026-11-27",     // days before this keep the first plan so his history stays true
+    weekPlanOld: { 0: "M_REST", 1: "M_UPPER_A", 2: "M_EASY", 3: "M_UPPER_B", 4: "M_EASY", 5: "M_LEGS", 6: "M_FULL" },
+    heavyLegs: ["M_LEGS", "M_BUILD"],   // never the day before or day of a game or practice
+    preCourtSwap: "M_PUMP",         // what a leg day becomes when court is tomorrow
+    gameTpl: "M_GAME",
+    locsDefault: ["home", "brett", "ymca"],   // toggle on every workout, even before setup is finished
     onboard: true,                  // asks the workout setup questions on next open
     setupMode: "locations",         // pick windows + where he trains (Home, Brett's Gym, YMCA)
     windowOpts: ["Morning (5 to 7 AM)", "Late afternoon (4 to 6 PM)", "After kids (8 to 10 PM)"],
@@ -106,7 +111,7 @@ window.GS_PROFILES = {
     maxWindows: 3,
     homeEquipDefault: { equip: ["db", "kb", "bike", "roller"], maxDB: 25 },   // from intake; he confirms on setup
     noMidday: true,
-    practiceTpl: "M_PRACTICE",
+    practiceTpl: "M_COURT",
     restTpl: "M_EASY",            // days he says he can't train: walk + mobility
     restDays: [0]                   // Sundays off: they never break the streak
   }

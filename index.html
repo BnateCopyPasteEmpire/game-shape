@@ -883,8 +883,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.6";
+const APP_VERSION = "3.1.7";
 const CHANGELOG = {
+  "3.1.7": ["Mark: a brand new training plan built from your intake. Pull, Push, Legs + Jump, and a Saturday Builder, with an arm pump on practice days", "Mark: every workout has its own Home, Brett's Gym, and YMCA version. Tap where you are and the workout changes", "Mark: Week A and Week B swap the exercises every other week so it never gets stale", "Fewer pop-ups: closing the welcome tour counts as seen, and the health check and setup questions ask once a day at most if you skip them"],
   "3.1.6": ["Every breakfast, lunch, snack, and prep meal now has + Add to cart. One tap adds its Walmart items", "Shop by aisle: add any single item, like eggs or chicken, with + and minus", "The grocery list is gone. Your Cart holds everything, with a price total, and the cart button follows you down the Fuel page"],
   "3.1.5": ["The update screen now lists every change since you last opened the app, not just the newest one"],
   "3.1.4": ["New Walmart cart view: see every item you sent, how many, and an estimated total before tax", "Smoother scrolling: the Fuel category bar stays put and the top bar no longer flickers"],
@@ -1081,6 +1082,25 @@ const LIB = {
   cardio_mix: X("Run, Walk + Stairs Mix", "Aerobic base, fat loss", "20 to 25 min", "Steady", 0, "Talk in short sentences", ["5 min brisk walk to warm up", "Then 4 rounds: 3 min easy jog + 2 min stairs or bench step-ups", "Finish with 3 min walk"], "walk", [], ["back-safe"], false),
   bench_jump: X("Bench Jump + Step Down", "Explosive legs, first step", "5", "Jump up, step down", 60, "Low bench or step. Quality over height", ["Swing arms, jump up soft", "Land quiet in athletic stance", "Step down, never jump down"], "snap_down", ["knee", "ankle"], [], false),
   hurdle_step: X("Bench Hurdle Strides", "Hips, rhythm, footwork", "6/side", "Smooth", 45, "Bodyweight", ["Line up beside the bench", "Lift knee high and step over", "Stay tall, quick feet"], "lat_shuffle", ["hip"], [], false),
+  /* v3.1.7 Mark's plan: gym and home builders */
+  smith_row: X("Smith Bent-Over Row", "Upper back, lats", "10", "2 sec down", 90, "Bar + 10 lb/side to start", ["Hinge to about 45 degrees, flat back", "Pull the bar to your belly button", "Squeeze the shoulder blades, lower slow"], "db_row", ["back"], ["calf-safe"]),
+  rear_delt_fly: X("DB Rear Delt Fly", "Rear delts, upper back", "15", "2 sec down", 60, "8 to 15 lb DBs", ["Hinge forward, flat back", "Arms out wide, slight bend in the elbows", "Lead with the elbows, no swinging"], "prone_ytw", [], ["calf-safe"]),
+  db_shrug: X("DB Shrug", "Traps", "12", "1 sec hold at top", 60, "Heaviest DBs you have", ["Stand tall, arms long", "Shoulders straight up toward your ears", "Hold 1 sec, lower slow"], "prone_ytw", [], ["calf-safe", "back-safe"]),
+  incline_curl: X("Incline DB Curl", "Biceps (long head)", "10", "3 sec down", 60, "Go lighter than standing curls", ["Bench at 45 degrees, arms hang straight down", "Curl without moving the elbows", "Full stretch at the bottom"], "db_curl", [], ["calf-safe", "back-safe"]),
+  conc_curl: X("Concentration Curl", "Biceps peak", "10/side", "2 sec squeeze", 45, "15 to 25 lb DB", ["Sit, elbow braced on the inside of your thigh", "Curl up and turn the pinky up", "Slow down, full stretch"], "db_curl", [], ["calf-safe", "back-safe"]),
+  cable_curl: X("Cable Curl", "Biceps", "12", "2 sec down", 60, "Moderate, smooth", ["Elbows pinned to your sides", "Squeeze hard at the top", "Constant tension, no swinging"], "db_curl", [], ["calf-safe", "back-safe"]),
+  assist_pullup: X("Assisted Pull-Up Machine", "Lats, biceps", "8 to 10", "3 sec down", 90, "Pick the assist that gives you 8 clean reps", ["Full hang at the bottom", "Pull your chest to the bar", "Use less assist as you get stronger"], "lat_pulldown", [], ["calf-safe"]),
+  db_bench: X("Flat DB Bench Press", "Chest, triceps", "10", "2 sec down", 90, "30 to 45 lb DBs to start", ["Shoulder blades pinched into the bench", "Lower to mid-chest, elbows at 45 degrees", "Press up and slightly in"], "floor_press", [], ["calf-safe", "back-safe"]),
+  smith_incline: X("Smith Incline Press", "Upper chest, shoulders", "10", "2 sec down", 90, "Bar + 10 lb/side to start", ["Bench at 30 degrees", "Bar touches your upper chest", "Press straight up, smooth lockout"], "db_incline_press", [], ["calf-safe", "back-safe"]),
+  chest_press: X("Machine Chest Press", "Chest", "10", "2 sec down", 75, "Last 2 reps should be hard", ["Handles at mid-chest height", "Press out, don't slam the lockout", "Slow on the way back"], "db_bench", [], ["calf-safe", "back-safe"]),
+  chest_fly: X("Cable or Pec Deck Fly", "Chest", "12", "2 sec squeeze", 60, "Light. Feel the stretch", ["Slight bend in the elbows", "Hug a big tree", "Squeeze 2 sec in the middle"], "pushup", [], ["calf-safe", "back-safe"]),
+  arnold_press: X("DB Arnold Press", "All 3 parts of the shoulder", "10", "2 sec down", 75, "15 to 25 lb DBs", ["Start palms facing you at chin height", "Turn the palms out as you press up", "Reverse it on the way down"], "db_shoulder_press", [], ["calf-safe"]),
+  cable_lateral: X("Cable Lateral Raise", "Side delts", "12/side", "2 sec down", 45, "Light. Shoulders, not traps", ["Cable on the low setting, handle in the far hand", "Raise out to shoulder height", "Slow lower, no swinging"], "lateral_raise", [], ["calf-safe", "back-safe"]),
+  skull_crusher: X("DB Skull Crusher", "Triceps", "12", "3 sec down", 60, "15 to 25 lb DBs", ["Lie on a bench or the floor, DBs over your shoulders", "Bend only at the elbows, DBs beside your head", "Straighten all the way, squeeze the triceps"], "oh_tri_ext", [], ["calf-safe", "back-safe"]),
+  cg_pushup: X("Close-Grip Push-Up", "Triceps, chest", "10", "2 sec down", 60, "Bodyweight. Hands on a bench if needed", ["Hands under the shoulders, elbows tight to the ribs", "Chest to the floor", "Lock out and squeeze the triceps"], "incline_pushup", [], ["calf-safe", "back-safe"]),
+  kb_swing: X("KB Swing", "Hips, hamstrings, power", "15", "Snap the hips", 75, "25 to 35 lb KB", ["Hike the bell back like a football snap", "Snap the hips forward. Arms are just ropes", "Bell floats to chest height, stand tall and squeeze"], "kb_swing_lite", ["back", "hamstring"], ["calf-safe"]),
+  squat_jump: X("Squat Jump (soft landing)", "Vertical jump, power", "4", "Max effort up, quiet landing", 75, "Bodyweight. Rest fully between sets", ["Quarter squat and swing the arms", "Jump straight up as high as you can", "Land soft, knees out, stick it 2 sec"], "snap_down", ["knee", "ankle"], [], false),
+  bike_pickups: X("Bike Pickups", "Engine, legs", "6 x 30 sec", "30 sec strong, 90 sec easy", 0, "Strong = you can only say 2 or 3 words", ["5 min easy first", "6 rounds: 30 sec strong, 90 sec easy", "Finish with 5 min easy"], "bike_z2", [], ["back-safe"], false),
   walk: X("Easy Walk", "Recovery", "20 to 30 min", "Easy", 0, "Conversational", ["Outside if you can", "Swing your arms", "Easy pace"], null, [], ["back-safe", "calf-safe", "sciatica-safe"], false)
 };
 const CALF_IDS = ["calf_iso", "calf_ecc", "seated_calf"];
@@ -1113,6 +1133,41 @@ const TPL = {
   M_FULL: { short: "Full Body", focus: "Full Body: Squat, Row, Press, Arms", min: 40, warm: W_M_UP, main: ["goblet_squat", "db_row", "pushup", "db_shoulder_press", "db_curl", "tri_pushdown"], core: ["dead_bug"], cool: C_M_LEG, tub: 0, note: "Saturday full body. Finish the week strong, not wrecked." },
   M_PRACTICE: { short: "Court Day", focus: "Court Day: 15-Min Loosen Up", min: 15, warm: W_M_LEG.slice(0, 3), main: [["calf_raise", 2], ["pushup", 2], ["face_pull", 2]], core: ["dead_bug"], cool: C_M_LEG.slice(0, 3), tub: 0, note: "Court tonight. Stay fresh. Bring water." },
   M_EASY: { short: "Easy Day", focus: "Easy Day: Walk + Mobility + Abs", min: 30, warm: [], main: [["walk", 1]], core: ["dead_bug", "plank"], cool: ["Cat-cow x10", "World's greatest stretch x4/side", "Hip flexor stretch 45 sec/side", "Doorway chest stretch 45 sec", "Foam roll 5 min"], tub: 0, note: "Muscle grows on rest days. Move easy, eat your protein." },
+  /* v3.1.7 Mark's plan, built from his intake: new to lifting, "keep it simple, build muscle", bigger arms, back, shoulders, and legs, jump higher.
+     Each day has a Home (DBs up to 25, KBs, bike), Brett's Gym (DBs to 50, Smith, bench, leg curl/ext), and YMCA version. Odd weeks = A, even weeks = B. */
+  M_PULL: { short: "Back + Biceps", focus: "Pull: Back + Biceps", min: 45, warm: W_M_UP, core: ["knee_raise"], cool: C_M_UP, tub: 0, note: "Pull with your back, not your hands. Squeeze the shoulder blades on every rep, then finish the arms.",
+    tips: ["Protein at breakfast: 3 eggs + a shake gets you 50 g before work.", "Water by noon: 50 oz. Back and arms grow when you're hydrated.", "Dinner: chicken, rice, veggies, a roll. That's a muscle-building plate."],
+    byLoc: { home: { A: ["db_row", "kb_row", "rear_delt_fly", "db_shrug", "db_curl", "hammer_curl"], B: ["kb_row", "db_row", "prone_ytw", "db_shrug", "conc_curl", "hammer_curl"] },
+      brett: { A: ["smith_row", "db_row", "db_pullover", "rear_delt_fly", "incline_curl", "hammer_curl"], B: ["db_row", "smith_row", "db_shrug", "rear_delt_fly", "db_curl", "incline_curl"] },
+      ymca: { A: ["lat_pulldown", "cable_row", "db_row", "face_pull", "cable_curl", "hammer_curl"], B: ["assist_pullup", "cable_row", "db_pullover", "face_pull", "incline_curl", "cable_curl"] } } },
+  M_PUSH: { short: "Chest + Shoulders", focus: "Push: Chest, Shoulders, Triceps", min: 45, warm: W_M_UP, core: ["plank"], cool: C_M_UP, tub: 0, note: "Wide shoulders and big triceps day. Control the lowering, push hard on the way up.",
+    tips: ["Shoulders grow on protein: 160 g today. Count your shakes.", "Coffee #2 by noon so you sleep well tonight.", "Snack: Greek yogurt + granola. 25 g protein in 2 minutes."],
+    byLoc: { home: { A: ["floor_press", "db_shoulder_press", "pushup", "lateral_raise", "oh_tri_ext", "db_kickback"], B: ["decline_pushup", "arnold_press", "floor_press", "lateral_raise", "skull_crusher", "cg_pushup"] },
+      brett: { A: ["db_bench", "smith_incline", "db_shoulder_press", "lateral_raise", "skull_crusher", "oh_tri_ext"], B: ["smith_incline", "db_bench", "arnold_press", "lateral_raise", "bench_dip", "db_kickback"] },
+      ymca: { A: ["chest_press", "db_incline_press", "db_shoulder_press", "cable_lateral", "tri_pushdown", "oh_tri_ext"], B: ["db_bench", "chest_fly", "arnold_press", "lateral_raise", "skull_crusher", "tri_pushdown"] } } },
+  M_LEGS: { short: "Legs + Jump", focus: "Legs + Jump: Quads, Hamstrings, Calves, Vertical", min: 45, warm: W_M_LEG, core: ["knee_raise", "side_plank"], cool: C_M_LEG, tub: 0, note: "Jumps first while you're fresh: few reps, full rest, land quiet. Then build the legs. Smooth reps, no grinding.",
+    tips: ["Leg day carbs: oats or a banana before, rice at lunch.", "Big legs need big plates. Add a roll or a potato at dinner.", "Drink 20 oz in the first hour after training."],
+    byLoc: { home: { A: ["JUMP", "goblet_squat", "rdl", "bulgarian_ss", "slider_curl", "calf_raise"], B: ["JUMP", "kb_swing", "rev_lunge", "sl_rdl", "step_up", "calf_raise"] },
+      brett: { A: ["JUMP", "smith_squat", "rdl", "leg_ext", "leg_curl", "calf_raise"], B: ["JUMP", "split_squat", "hip_thrust", "rdl", "leg_curl", "seated_calf"] },
+      ymca: { A: ["JUMP", "leg_press", "rdl", "leg_curl", "leg_ext", "calf_raise"], B: ["JUMP", "smith_squat", "bulgarian_ss", "leg_curl", "leg_ext", "seated_calf"] } } },
+  M_BUILD: { short: "Builder", focus: "Saturday Builder: Full Body + Arms", min: 45, warm: W_M_UP, core: ["dead_bug"], cool: C_M_LEG, tub: 0, note: "One move for everything, then arms to finish the week. Leave a rep or two in the tank. Sunday is off.",
+    tips: ["Saturday: get outside, walk with the kids. Easy steps count.", "Weekend rule: 2 drinks max. Muscle and alcohol don't mix.", "Sunday is rest. Eat like it's a training day anyway: protein at every meal."],
+    byLoc: { home: { A: ["rev_lunge", "kb_swing", "db_shoulder_press", "db_row", "db_curl", "oh_tri_ext"], B: ["step_up", "rdl", "pushup", "kb_row", "hammer_curl", "db_kickback"] },
+      brett: { A: ["goblet_squat", "db_bench", "db_row", "arnold_press", "incline_curl", "skull_crusher"], B: ["step_up", "smith_row", "smith_incline", "lateral_raise", "db_curl", "bench_dip"] },
+      ymca: { A: ["leg_press", "assist_pullup", "db_incline_press", "cable_lateral", "cable_curl", "tri_pushdown"], B: ["goblet_squat", "lat_pulldown", "chest_press", "arnold_press", "hammer_curl", "oh_tri_ext"] } } },
+  M_PUMP: { short: "Shoulders + Arms", focus: "Shoulders + Arms Pump", min: 40, warm: W_M_UP, core: ["dead_bug", "plank"], cool: C_M_UP, tub: 0, note: "Court is coming, so the legs rest. Light weight, slow reps, chase the pump.",
+    tips: ["Court soon: front-load water today.", "Protein shake after this one.", "Caffeine cutoff 1 PM so you sleep before court."],
+    byLoc: { home: { A: ["lateral_raise", "rear_delt_fly", "db_curl", "oh_tri_ext", "hammer_curl", "db_kickback"], B: ["arnold_press", "rear_delt_fly", "conc_curl", "skull_crusher", "hammer_curl", "cg_pushup"] },
+      brett: { A: ["lateral_raise", "rear_delt_fly", "incline_curl", "skull_crusher", "hammer_curl", "bench_dip"], B: ["arnold_press", "rear_delt_fly", "db_curl", "oh_tri_ext", "incline_curl", "db_kickback"] },
+      ymca: { A: ["cable_lateral", "face_pull", "cable_curl", "tri_pushdown", "hammer_curl", "oh_tri_ext"], B: ["lateral_raise", "face_pull", "incline_curl", "skull_crusher", "cable_curl", "tri_pushdown"] } } },
+  M_COURT: { short: "Court Night", focus: "Court Night: 20-Min Arm Pump (optional)", min: 20, warm: W_M_UP.slice(0, 4), main: [["db_curl", 2], ["oh_tri_ext", 2], ["lateral_raise", 2], ["hammer_curl", 2]], core: ["dead_bug"], cool: C_M_UP.slice(0, 3), tub: 0, note: "Practice tonight. Upper pump only, nothing for the legs. Short on time? Skip it. The court is the workout.",
+    tips: ["Practice night: electrolytes or a sports drink at 6 PM, then water through practice.", "Real dinner by 5:30 so it settles by 7.", "Shake after practice, then lights out by 10."],
+    byLoc: { ymca: { A: [["cable_curl", 2], ["tri_pushdown", 2], ["cable_lateral", 2], ["hammer_curl", 2]] } } },
+  M_ENGINE: { short: "Engine + Core", focus: "Engine + Core: Bike, Abs, Mobility", min: 35, warm: ["Easy bike or walk 3 min", "Cat-cow x10", "World's greatest stretch x4/side", "Leg swings x10 each direction"], core: ["side_plank", "dead_bug", "knee_raise"], cool: ["Couch stretch 45 sec/side", "Hamstring stretch 45 sec/side", "Child's pose 60 sec", "Foam roll 5 min"], tub: 0, note: "Build the gas tank for the 4th quarter. Moderate effort. Legs stay fresh for tomorrow.",
+    tips: ["Fiber check: veggies at lunch AND dinner.", "Swap one soda or drink for sparkling water.", "Water goal: 100 oz. Keep a bottle on the desk."],
+    byLoc: { home: { A: [["bike_z2", 1]], B: [["bike_pickups", 1]] } } },
+  M_GAME: { short: "Game Day", focus: "Game Day: 10-Min Loosen Up", min: 10, warm: ["Brisk walk 5 min", "Arm circles x10 each way", "Leg swings x10 each direction", "Ankle circles x10 each way"], main: [["sl_balance", 1], ["dead_bug", 1]], core: [], cool: ["Hip flexor stretch 30 sec/side", "Doorway chest stretch 30 sec"], tub: 0, note: "Game tonight. No lifting. Move, hydrate, eat a real meal 3 hours before tip.",
+    tips: ["Game day water: 125 oz. Electrolytes 60 min before tip.", "Real meal 3 to 4 hours before: chicken, rice, veggies.", "After the game: 40 g protein and 20 oz water before bed."] },
   M_REST: { short: "Rest Day", focus: "Sunday Off: Rest + Optional Walk", min: 20, warm: [], main: [["walk", 1]], core: [], cool: ["Foam roll 5 min", "Child's pose 60 sec", "Couch stretch 45 sec/side"], tub: 0, note: "No training today. A walk and a stretch if you feel like it. Recharge." },
   PRE_PRACTICE: { focus: "Pre-Court: Glutes, Hamstrings, Core", min: 40, warm: W_STD, main: ["glute_bridge", "leg_curl", "db_row", "pushup", "sl_balance"], core: ["dead_bug", "side_plank"], cool: C_STD, tub: 12, note: "Practice tomorrow. Keep the legs fresh: moderate weight, no grinding reps." },
   PRE_GAME: { focus: "Pre-Game: Core, Mobility, Landing", min: 35, warm: W_STD, main: [["bike_easy", 1], "glute_bridge", "box_stepdown", "sl_balance", "db_row", "pushup"], core: ["bird_dog", "side_plank"], cool: C_STD, tub: 12, note: "Game tomorrow. Stay fresh. Landing work is bodyweight only." },
@@ -1388,9 +1443,10 @@ function phase(wk) {
 }
 function tplKey(info) {
   if (PERSON && PERSON.weekPlan) {
-    if (info.type === "GAME_DAY") return "GAME_DAY";
+    if (info.type === "GAME_DAY") return PERSON.gameTpl || "GAME_DAY";
     if (info.type === "PRACTICE_DAY") return PERSON.practiceTpl || "M_PRACTICE";
-    let k = PERSON.weekPlan[dow(info.date)] || "M_EASY";
+    const wp = PERSON.weekPlanOld && PERSON.weekPlanFrom && info.date < PERSON.weekPlanFrom ? PERSON.weekPlanOld : PERSON.weekPlan;
+    let k = wp[dow(info.date)] || "M_EASY";
     if (isOffDay(info.date)) return PERSON.restTpl || "M_REST";
     const su = C().setup;
     const lc = todayLoc(info.date);
@@ -1421,19 +1477,25 @@ const LOCS = { home: "Home", brett: "Brett's Gym", ymca: "YMCA" };
 /* Equipment: what each place has, what each move needs (any one item in a group), and muscle-matched backups in order. */
 const EQUIP_OPTS = [["db", "Dumbbells"], ["kb", "Kettlebells"], ["bench", "Bench"], ["pullup", "Pull-up bar"], ["bands", "Resistance bands"], ["barbell", "Barbell + rack"], ["smith", "Smith machine"], ["legmachine", "Leg curl / extension"], ["cable", "Cable machine"], ["mb", "Medicine ball"], ["treadmill", "Treadmill"], ["bike", "Bike"], ["roller", "Foam roller"]];
 const DB_OPTS = [10, 15, 20, 25, 30, 35, 40, 50, 60];
-const EQUIP_AT = { brett: ["db", "kb", "bench", "smith", "legmachine", "mb", "roller"], ymca: ["db", "kb", "bench", "pullup", "bands", "barbell", "smith", "legmachine", "legpress", "cable", "mb", "treadmill", "bike", "roller"] };
+const EQUIP_AT = { brett: ["db", "kb", "bench", "smith", "legmachine", "mb", "roller"], ymca: ["db", "kb", "bench", "pullup", "bands", "barbell", "smith", "legmachine", "legpress", "cable", "machines", "mb", "treadmill", "bike", "roller"] };
 const NEEDS = { lat_pulldown: [["cable"]], cable_row: [["cable"]], face_pull: [["cable", "bands"]], tri_pushdown: [["cable", "bands"]], leg_press: [["legpress"]], smith_squat: [["smith", "barbell"]], hip_thrust: [["smith", "barbell"]], leg_curl: [["legmachine"]], leg_ext: [["legmachine"]],
   db_incline_press: [["db"], ["bench"]], db_pullover: [["db"], ["bench"]], floor_press: [["db"]], db_shoulder_press: [["db"]], db_curl: [["db"]], hammer_curl: [["db"]], lateral_raise: [["db"]], oh_tri_ext: [["db", "kb"]], db_kickback: [["db"]], db_row: [["db"]], rdl: [["db"]], goblet_squat: [["db", "kb"]], kb_swing_lite: [["kb", "db"]], kb_row: [["kb"]], kb_press: [["kb"]], sl_rdl: [["kb", "db"]],
-  pullup: [["pullup"]], chinup: [["pullup"]], band_pulldown: [["bands"]], band_row: [["bands"]], band_curl: [["bands"]], band_lateral: [["bands"]], mb_thruster: [["mb"]], mb_halo: [["mb"]], bike_z2: [["bike", "treadmill"]], bike_easy: [["bike", "treadmill"]] };
+  pullup: [["pullup"]], chinup: [["pullup"]], band_pulldown: [["bands"]], band_row: [["bands"]], band_curl: [["bands"]], band_lateral: [["bands"]], mb_thruster: [["mb"]], mb_halo: [["mb"]], bike_z2: [["bike", "treadmill"]], bike_easy: [["bike", "treadmill"]],
+  smith_row: [["smith", "barbell"]], smith_incline: [["smith", "barbell"], ["bench"]], db_bench: [["db"], ["bench"]], incline_curl: [["db"], ["bench"]], cable_curl: [["cable"]], cable_lateral: [["cable"]], chest_press: [["machines"]], chest_fly: [["cable", "machines"]], assist_pullup: [["machines"]],
+  rear_delt_fly: [["db"]], db_shrug: [["db", "kb"]], conc_curl: [["db"]], arnold_press: [["db"]], skull_crusher: [["db"]], kb_swing: [["kb"]], bike_pickups: [["bike", "treadmill"]] };
 const ALTS = { lat_pulldown: ["pullup", "band_pulldown", "db_pullover", "db_row", "kb_row", "table_row"], cable_row: ["db_row", "kb_row", "band_row", "table_row"], db_row: ["kb_row", "band_row", "table_row"], db_pullover: ["db_row", "band_pulldown", "kb_row", "table_row"],
   face_pull: ["prone_ytw"], tri_pushdown: ["db_kickback", "oh_tri_ext", "bench_dip"], oh_tri_ext: ["db_kickback", "bench_dip"], db_kickback: ["oh_tri_ext", "bench_dip"],
   db_incline_press: ["floor_press", "decline_pushup"], floor_press: ["decline_pushup"], db_shoulder_press: ["kb_press", "pike_pushup"], lateral_raise: ["band_lateral", "pike_pushup"],
   db_curl: ["band_curl", "chinup", "table_row"], hammer_curl: ["band_curl", "chinup", "table_row"],
   leg_press: ["smith_squat", "goblet_squat", "bulgarian_ss"], smith_squat: ["goblet_squat", "bulgarian_ss"], hip_thrust: ["glute_bridge"], goblet_squat: ["bulgarian_ss", "bw_squat"], rdl: ["kb_swing_lite", "slider_curl", "glute_bridge"], kb_swing_lite: ["slider_curl", "glute_bridge"], sl_rdl: ["glute_bridge"],
-  leg_curl: ["slider_curl", "glute_bridge"], leg_ext: ["bulgarian_ss", "wall_sit"], mb_thruster: ["goblet_squat", "bw_squat"], mb_halo: ["dead_bug"], bike_z2: ["cardio_mix"], bike_easy: ["walk_jog"] };
-function equipFor(loc) { if (loc === "home") { const su = C().setup || {}; return su.equip || []; } return EQUIP_AT[loc] || null; }
+  leg_curl: ["slider_curl", "glute_bridge"], leg_ext: ["bulgarian_ss", "wall_sit"], mb_thruster: ["goblet_squat", "bw_squat"], mb_halo: ["dead_bug"], bike_z2: ["cardio_mix"], bike_easy: ["walk_jog"],
+  smith_row: ["db_row", "kb_row", "table_row"], smith_incline: ["db_incline_press", "floor_press", "decline_pushup"], db_bench: ["floor_press", "pushup"], incline_curl: ["db_curl", "conc_curl", "band_curl"], cable_curl: ["db_curl", "band_curl"], cable_lateral: ["lateral_raise", "band_lateral"],
+  chest_press: ["db_bench", "floor_press", "pushup"], chest_fly: ["pushup"], assist_pullup: ["lat_pulldown", "pullup", "db_row"], rear_delt_fly: ["prone_ytw"], db_shrug: ["prone_ytw"], conc_curl: ["band_curl"], arnold_press: ["db_shoulder_press", "kb_press", "pike_pushup"],
+  skull_crusher: ["oh_tri_ext", "cg_pushup"], kb_swing: ["rdl", "glute_bridge"], bike_pickups: ["cardio_mix"] };
+function equipFor(loc) { if (loc === "home") { const su = C().setup || {}; return su.equipDone || (su.equip && su.equip.length) ? (su.equip || []) : ((PERSON && PERSON.homeEquipDefault && PERSON.homeEquipDefault.equip) || []); } return EQUIP_AT[loc] || null; }
+function myLocs() { const su = C().setup; return su && su.locs && su.locs.length ? su.locs : (PERSON && PERSON.locsDefault) || []; }
 function canDo(id, eq) { const n = NEEDS[id]; return !n || n.every(g => g.some(x => eq.includes(x))); }
-function todayLoc(s) { const su = C().setup; if (!su || !su.locs || !su.locs.length) return null; const l = S.logs[s]; return (l && l.loc && su.locs.includes(l.loc)) ? l.loc : (su.home || su.locs[0]); }
+function todayLoc(s) { const su = C().setup || {}, locs = myLocs(); if (!locs.length) return null; const l = S.logs[s]; return (l && l.loc && locs.includes(l.loc)) ? l.loc : (su.home && locs.includes(su.home) ? su.home : locs[0]); }
 function locSwap(main, loc) {
   const eq = equipFor(loc); if (!eq) return main;
   const used = new Set(main.map(m => m.id));
@@ -1441,7 +1503,7 @@ function locSwap(main, loc) {
     if (canDo(m.id, eq)) return m;
     const pick = (ALTS[m.id] || []).find(o => canDo(o, eq) && !used.has(o)) || (ALTS[m.id] || []).find(o => canDo(o, eq));
     if (!pick) return m;
-    used.add(pick); return Object.assign({}, m, { id: pick, ex: hiReps(LIB[pick]), from: m.id });
+    used.add(pick); return Object.assign({}, m, { id: pick, ex: hiReps(LIB[pick]), from: m.id, locSw: true });
   });
 }
 /* v3.0.6: Brett at the YMCA gets the full gym: machines and cables in, plus a bonus move. */
@@ -1459,9 +1521,13 @@ function myWindows() { const su = C().setup; return su && su.windows && su.windo
 function buildSession(s, mvd) {
   const info = dayInfo(s), ph = phase(weekNum(s)), key = tplKey(info), T = TPL[key];
   const calfPain = painAreas().some(a => a === "calf" || a === "achilles");
+  const loc0 = todayLoc(s), wkB = weekNum(s) > 0 && weekNum(s) % 2 === 0;
+  let src = T.main, abTag = "";
+  if (T.byLoc) { const v = T.byLoc[loc0] || T.byLoc.home; if (v) { src = wkB && v.B ? v.B : v.A; if (v.B) abTag = wkB ? " (Week B)" : " (Week A)"; } }
   let slots = [];
-  T.main.forEach(m => {
+  src.forEach(m => {
     let id = Array.isArray(m) ? m[0] : m, fixed = Array.isArray(m) ? m[1] : null;
+    if (id === "JUMP") { id = ph.wk <= 2 ? "snap_down" : wkB ? "squat_jump" : "bench_jump"; fixed = ph.wk <= 2 ? 2 : 3; }
     if (id === "CALF") id = ph.calf === "ecc" && !calfPain ? "calf_ecc" : "calf_iso";
     if (id === "AGIL") { const a = ph.agil === 0 ? ["sl_balance"] : ph.agil === 1 ? ["lat_shuffle", "hurdle_step"] : ["first_step", "bench_jump"]; a.forEach(x => slots.push([x, null])); return; }
     slots.push([id, fixed]);
@@ -1476,11 +1542,11 @@ function buildSession(s, mvd) {
   const su9 = C().setup || {}, lightNote = loc === "home" && (su9.equip || []).includes("db") && +su9.maxDB > 0 && +su9.maxDB < 30 && !(PERSON && PERSON.highReps) ? " Light dumbbells at home: 3 sec lowering, pause at the bottom, and take sets to 1 or 2 reps from failure." : "";
   let warm = T.warm.slice(), core = T.core.map(id => ({ id, ex: LIB[id], sets: Math.min(2, ph.sets) })), cool = T.cool.slice();
   if (mvd) { warm = warm.slice(0, 3); main = main.slice(0, 3).map(m => Object.assign({}, m, { sets: Math.min(2, m.sets) })); core = core.slice(0, 1); cool = cool.slice(0, 3); }
-  const tips = TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
+  const tips = T.tips || TIPS[info.type] || TIPS.FLEX, tip = tips[pd(s).getDate() % tips.length];
   const wins = myWindows(), lg = S.logs[s];
-  if (wins.length) { const tm = (lg && lg.slot ? "Trained: " + lg.slot : wins.length > 2 ? "Pick today's window" : wins.join(" or ")) + (loc ? " • " + LOCS[loc] : ""); return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time: tm, note: T.note + lightNote + (lg && /after kids|8 to 10/i.test(lg.slot || "") ? " Late session: finish 60 min before bed and skip caffeine." : ""), run: !!T.run }; }
+  if (wins.length) { const tm = (lg && lg.slot ? "Trained: " + lg.slot : wins.length > 2 ? "Pick today's window" : wins.join(" or ")) + (loc ? " • " + LOCS[loc] : ""); return { date: s, info, ph, key, focus: T.focus + abTag, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time: tm, note: T.note + lightNote + (lg && /after kids|8 to 10/i.test(lg.slot || "") ? " Late session: finish 60 min before bed and skip caffeine." : ""), run: !!T.run }; }
   const wt = (C().times && C().times.workout) || "05:00", wh = +wt.split(":")[0], time = info.midday ? "12:00 PM (sleep in)" : ((wh % 12) || 12) + ":" + wt.split(":")[1] + (wh < 12 ? " AM" : " PM");
-  return { date: s, info, ph, key, focus: T.focus, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note + lightNote, run: !!T.run };
+  return { date: s, info, ph, key, focus: T.focus + abTag, min: mvd ? 15 : T.min, warm, main, core, cool, tub: T.tub, tip, time, note: T.note + lightNote, run: !!T.run };
 }
 
 /* ---------------------------- STATS ---------------------------- */
@@ -1619,7 +1685,8 @@ function dayPoints(s) {
   b.bonus = dayChecks(s).allIn ? PTS.allIn : 0;
   return b;
 }
-const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY"];
+const REST_KEYS = ["RECOVERY", "M_REST", "W_REST", "GAME_DAY", "M_GAME"];
+Object.values(TPL).forEach(t => { if (t.byLoc && !t.main) t.main = t.byLoc.home.A; });
 const SEASON_BADGES = [];   // v2.8: replaced by weekly Gold / Silver / Bronze / Poop + the monthly Golden Tropics badge
 const ALLIN_BADGE = ["allin", "shield", "All In (daily)", 50];
 const BADGE_HOW = {
@@ -2251,7 +2318,7 @@ function setupSentHTML(su) {
   <button class="btn primary block" style="margin-top:8px" data-act="closeSheet">Done</button>`;
 }
 function needsSetup() { const su = C().setup; return !!(ME && ME.onboard && (!su || (ME.setupMode === "locations" && (!su.locs || !su.weekOk || ((su.locs || []).includes("home") && !su.equipDone))))); }
-function maybeSetup() { if (needsSetup()) openSheet("setup", "first"); }
+function maybeSetup() { if (!needsSetup() || S.meta.setupAsk === todayStr()) return; S.meta.setupAsk = todayStr(); save(); openSheet("setup", "first"); }
 /* Send the answers to Brett so he can see what everyone has and fine-tune their plan. */
 function sendSetup(su) {
   if (location.protocol === "file:") return;
@@ -2490,7 +2557,7 @@ function renderToday() {
   out += rivalsMiniHTML();
   // everything else lives in one folded section
   const wins = myWindows(), su0 = C().setup;
-  if (su0 && su0.locs && su0.locs.length > 1) more += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
+  if (myLocs().length > 1) more += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${myLocs().map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
   if (wins.length) more += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
   if (!upcomingEvents().length) more += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
   if (!S.meta.lastBackup || between(S.meta.lastBackup, s) >= 7) more += `<div class="banner info"><b>Back up your data</b>iPhone can clear app storage. Takes 5 seconds. <div style="margin-top:10px"><button class="btn sm" data-act="export">Export backup</button></div></div>`;
@@ -2520,7 +2587,7 @@ function renderTrain() {
   out += `<div class="week">${Object.values(wk).map(d => `<button class="day ${d.date === sel ? "sel" : ""} ${d.date === t ? "today" : ""}" data-act="selDay" data-date="${d.date}"><div class="d">${DOW[dow(d.date)]}</div><div class="n">${pd(d.date).getDate()}</div><div class="ty" style="background:var(--${d.type})"></div><div class="mk">${courtOn(d.date).length ? I.ball : d.midday ? "Zz" : ""}</div></button>`).join("")}</div>`;
   out += `<div class="banner info"><b>${esc(ph.label)}</b>${esc(ph.note)}</div>`;
   const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Pain swaps active</b>${pa.map(a => AREAS.find(x => x[0] === a)[1]).join(", ")}</div>`;
-  const suL = C().setup; if (suL && suL.locs && suL.locs.length > 1) { const cur = todayLoc(sel); out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training ${sel === t ? "today" : fmtShort(sel)}?</h3><div class="row">${suL.locs.map(k => `<button class="chip ${cur === k ? "on" : ""}" style="flex:1" data-act="locDay" data-date="${sel}" data-v="${k}">${cur === k ? "✓ " : ""}${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Pick the YMCA and that day's workout uses the full gym.</div></div>`; }
+  if (myLocs().length > 1) { const cur = todayLoc(sel); out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training ${sel === t ? "today" : fmtShort(sel)}?</h3><div class="row">${myLocs().map(k => `<button class="chip ${cur === k ? "on" : ""}" style="flex:1" data-act="locDay" data-date="${sel}" data-v="${k}">${cur === k ? "✓ " : ""}${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">${PERSON && PERSON.locsDefault ? "Each place has its own workout. Tap where you are and it changes." : "Pick the YMCA and that day's workout uses the full gym."}</div></div>`; }
   out += sessionHTML(buildSession(sel), false);
   return out;
 }
@@ -2552,11 +2619,11 @@ function exHTML(se, m, live, cur) {
   const ex = m.ex, l = getL(se.date), sets = (l.sets[m.id] || []), ph = se.ph, nDone = sets.slice(0, m.sets).filter(Boolean).length;
   const load = `Load: ${esc(ex.load)}${ph.wk >= 3 && ex.track ? ". Up to +5 to 10% vs week 2" : ""}${ph.deload ? ". Use 80% of last week" : ""}`;
   const more = `<details class="exmore"><summary>Cues + video</summary><div class="meta" style="margin-top:6px">${esc(ex.tempo)} • ${esc(ex.target)}</div><ul class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul><a class="howto" href="${howFor(m.id, ex.name)}" target="_blank" rel="noopener">▶ Watch how to do it</a></details>`;
-  if (!live) return `<div class="exl"><div style="min-width:0"><div class="nm">${esc(ex.name)}</div><div class="meta">${esc(ex.target)}</div>${m.from ? `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>` : ""}${more}</div><div class="rx">${m.sets} x ${esc(ex.reps)}</div></div>`;
+  if (!live) return `<div class="exl"><div style="min-width:0"><div class="nm">${esc(ex.name)}</div><div class="meta">${esc(ex.target)}</div>${m.from ? `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (${m.gym ? "gym upgrade" : m.locSw ? "equipment here" : "pain"})</div>` : ""}${more}</div><div class="rx">${m.sets} x ${esc(ex.reps)}</div></div>`;
   const done = nDone >= m.sets;
   let o = `<div class="ex ${done ? "done" : cur ? "cur" : ""}" data-ex="${m.id}"><div class="row between"><div class="nm">${esc(ex.name)}</div>${ex.rest && !done ? `<button class="btn sm" data-act="rest" data-s="${ex.rest}" aria-label="Start ${ex.rest} second rest">⏱ ${ex.rest}s</button>` : ""}</div>`;
   o += `<div class="meta"><b style="color:var(--ink)">${m.sets} x ${esc(ex.reps)}</b>${done ? "" : " • " + load}</div>`;
-  if (m.from) o += `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (pain)</div>`;
+  if (m.from) o += `<div class="small" style="color:var(--warn)">Swapped from ${esc(LIB[m.from].name)} (${m.gym ? "gym upgrade" : m.locSw ? "equipment here" : "pain"})</div>`;
   const sug = ex.track ? suggestion(m.id) : ""; if (sug && !done) o += `<div class="small meta2" style="color:var(--accent2)">${esc(sug)}</div>`;
   o += `<div class="sets">${Array.from({ length: m.sets }, (_, i) => `<button class="set ${sets[i] ? "on" : ""}" data-act="set" data-id="${m.id}" data-i="${i}" data-rest="${ex.rest}" aria-label="Set ${i + 1}${sets[i] ? " done" : ""}">${sets[i] ? "✓" : i + 1}</button>`).join("")}</div>`;
   if (ex.track) o += `<div class="row meta2" style="margin-top:10px"><input type="number" inputmode="decimal" placeholder="Weight (lb)" value="${l.weights[m.id] || ""}" data-in="weight" data-id="${m.id}" style="max-width:160px" aria-label="${esc(ex.name)} weight"><span class="small muted">lb</span></div>`;
@@ -3176,7 +3243,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { window.__tapGuard = Date.now(); if (typeof rtStop === "function") rtStop(); if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
+function closeSheet() { window.__tapGuard = Date.now(); if (UI.sheet && UI.sheet.kind === "tour" && S.meta.tourSeen !== TOUR_V) { S.meta.tourSeen = TOUR_V; S.meta.seasonHello = 1; S.meta.seenVersion = APP_VERSION; UI.wnPending = null; save(); if (typeof markReady === "function") markReady(); } if (typeof rtStop === "function") rtStop(); if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health && S.meta.healthAsk !== todayStr()) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) { S.meta.healthAsk = todayStr(); save(); openSheet("health"); } }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -4110,7 +4177,7 @@ function askBought() {
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(askBought, 600); });
 paintSportsArt();
 if (S.meta.tourSeen !== TOUR_V) startLaunch(); else if (!maybeWelcome() && !showWhatsNew()) maybeSetup();
-if (!UI.sheet && S.meta.tourSeen && !S.meta.health && !document.querySelector(".welcome")) openSheet("health");
+if (!UI.sheet && S.meta.tourSeen && !S.meta.health && S.meta.healthAsk !== todayStr() && !document.querySelector(".welcome")) { S.meta.healthAsk = todayStr(); save(); openSheet("health"); }
 checkUpdate(true);
 loadBooks();
 syncCommunity();
