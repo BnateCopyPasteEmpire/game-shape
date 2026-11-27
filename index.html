@@ -173,7 +173,25 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .wn-more summary{min-height:44px;display:flex;align-items:center;font-weight:800;color:var(--epc-purple)}
 /* v3.1.4 Walmart cart view */
 .wm-view{margin-top:10px;min-height:48px;font-weight:800;color:var(--epc-purple);border:1.5px solid rgba(var(--epc-purple-rgb),.3);background:#fff}
-.fuel-cats .fc-cart{border-color:rgba(var(--epc-purple-rgb),.35);color:var(--epc-purple)}
+.fuel-cats .fc-cart{border-color:rgba(var(--epc-purple-rgb),.35);color:var(--epc-purple);background:#fff}
+.fcard .fc-step{margin-top:auto;padding-top:4px}.fcard .fc-ate+.fc-step{margin-top:0}
+.fcard .fc-step span{font-size:13px}
+.shop-aisle{border-bottom:1px solid var(--line)}.shop-aisle:last-child{border-bottom:0}
+.shop-aisle>summary{display:flex;justify-content:space-between;align-items:center;min-height:52px;font-weight:800;cursor:pointer;list-style:none}
+.shop-aisle>summary::-webkit-details-marker{display:none}.shop-aisle>summary::after{content:"›";margin-left:8px;color:var(--muted);transition:transform .2s}.shop-aisle[open]>summary::after{transform:rotate(90deg)}
+.shop-aisle>summary>span:first-child{flex:1}
+.shop-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.shop-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.shop-row .wm-q b.on{color:var(--epc-purple)}.wm-q button:disabled{opacity:.35}
+.shop-hits{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 12px}
+.fshop .check{margin-bottom:4px}
+.cart-src{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.cart-src>div:first-child{flex:1;min-width:0;display:flex;flex-direction:column}
+.cart-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:16px 4px}.cart-empty .ce-ic{font-size:44px}.cart-empty>span{color:var(--ink-2);margin-bottom:8px}.cart-empty .btn{width:100%}
+.wm-for{color:var(--muted)}
+.wm-tot em{display:block;font-style:normal;font-size:11px;color:var(--muted);font-weight:600}
+.cart-pill{position:fixed;left:50%;bottom:calc(var(--sb) + 78px);transform:translateX(-50%);z-index:29;display:flex;align-items:center;gap:8px;min-height:48px;padding:0 8px 0 16px;border:0;border-radius:24px;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));color:#fff;font-weight:800;font-size:14px;box-shadow:0 10px 26px rgba(var(--epc-purple-rgb),.35);white-space:nowrap;max-width:calc(100% - 24px)}
+.cart-pill.hidden{display:none}.cart-pill .cp-ic{font-size:18px}.cart-pill .cp-go{background:rgba(255,255,255,.2);border-radius:16px;padding:6px 10px;font-size:13px}
+.cart-pill.bump{animation:cpBump .35s cubic-bezier(.2,1.5,.4,1)}@keyframes cpBump{50%{transform:translateX(-50%) scale(1.06)}}
 .wm-tot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink-2);margin-bottom:10px}
 .wm-tot b{font-size:18px;color:var(--ink);font-weight:800}
 .wm-tot.big b{font-size:22px;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -801,6 +819,7 @@ button.scr-t{background:none;border:0;padding:4px 0;text-align:left;color:inheri
 <div id="sheet" class="sheet hidden"><div class="sheet-bg" data-act="closeSheet"></div><div class="sheet-panel"><div class="grab"></div><div id="sheetBody"></div></div></div>
 <div id="workout" class="overlay hidden"></div>
 <div id="restbar" class="restbar hidden"></div>
+<button id="cartPill" class="cart-pill hidden" data-act="wmCart" aria-label="Open my cart"></button>
 <div id="toast"></div>
 <div id="splash" class="hidden"><img src="icon-512.png" alt=""><img class="wm" src="wordmark-on-light.png" alt="Game Shape"></div>
 <div id="updateBar" class="hidden"></div>
@@ -864,8 +883,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.5";
+const APP_VERSION = "3.1.6";
 const CHANGELOG = {
+  "3.1.6": ["Every breakfast, lunch, snack, and prep meal now has + Add to cart. One tap adds its Walmart items", "Shop by aisle: add any single item, like eggs or chicken, with + and minus", "The grocery list is gone. Your Cart holds everything, with a price total, and the cart button follows you down the Fuel page"],
   "3.1.5": ["The update screen now lists every change since you last opened the app, not just the newest one"],
   "3.1.4": ["New Walmart cart view: see every item you sent, how many, and an estimated total before tax", "Smoother scrolling: the Fuel category bar stays put and the top bar no longer flickers"],
   "3.1.3": ["Send your grocery list to your own Walmart cart in one tap. Review it first, uncheck what you have, then sign in on Walmart", "Reads: keep up to 4 books going and swipe between them", "A smaller, softer tap splash"],
@@ -1109,7 +1129,7 @@ const TIPS = {
   PRE_COURT: ["Front-load water today. Calves cramp when you are behind on fluids.", "Hit your protein target. Muscle grows on recovery days too.", "Caffeine cutoff 1:00 PM. Court tomorrow needs good sleep tonight."],
   LEG_DAY: ["Biggest protein day: 40 g at breakfast with creatine.", "Leg day carbs go around training: oats or fruit after, rice at lunch.", "Add a pinch of salt or electrolytes to your morning water."],
   FLEX: ["Fiber check: veg at lunch AND dinner today.", "Swap one snack for an apple + jerky.", "Sparkling water instead of soda. Every time."],
-  RECOVERY: ["Sunday: boil 12 eggs (15 min) for the week.", "Pick 2 prep meals for the week and build the grocery list in Fuel.", "Weigh in and log it. Same scale, same time, after the bathroom."]
+  RECOVERY: ["Sunday: boil 12 eggs (15 min) for the week.", "Pick 2 prep meals for the week and add them to your cart in Fuel.", "Weigh in and log it. Same scale, same time, after the bathroom."]
 };
 
 /* ---------------------------- MEALS ---------------------------- */
@@ -2099,7 +2119,7 @@ function appTourPages() {
   const tab = (k, n, items) => `<div class="at-tab"><div class="at-hd"><span class="at-ico">${tabIco(k)}</span><b>${n}</b></div>${items.map(([a, b]) => `<div class="at-row"><span>${a}</span>${b ? `<em>${b}</em>` : ""}</div>`).join("")}</div>`;
   return [
     p("Today: your scorecard", "Open the app, check the boxes. This is where most points come from.", tab("today", "Today", [["Tap your water as you drink", "+" + PTS.water], ["Mark your workout done (full or 15-min)", "+" + PTS.workout + " / +" + PTS.quick], ["Tap your sleep hours", "up to +" + PTS.sleepBest], ["Tap reading minutes", "up to +" + PTS.readCap], ["Hit 50 g protein", "+" + PTS.protein], ["Practice, game, run, or bike", "+" + PTS.gamePlay + " to +" + PTS.practice], ["All 5 goals + affirmations = All In", "+" + PTS.allIn]]) + `<div class="small muted" style="margin-top:8px">Below the scorecard: your weekly medal chase and the live scoreboard.</div>`),
-    p("Train + Fuel", "Your workout and your food, built around your schedule.", tab("train", "Train", [["Start workout, tap each set as you finish it", ""], ["Short on time? Switch to 15 min", "+" + PTS.quick], ["Finish workout for the big splash", "+" + PTS.workout], ["Something hurts? Tell the app and it swaps the move", ""]]) + tab("fuel", "Fuel", [["+8 / +16 oz buttons for water", "goal = +" + PTS.water], ["Protein buttons and 'Ate this' on every meal", "50 g = +" + PTS.protein], ["Prep meals build your grocery list", ""], ["Fuel playbook: what to eat and when", ""]])),
+    p("Train + Fuel", "Your workout and your food, built around your schedule.", tab("train", "Train", [["Start workout, tap each set as you finish it", ""], ["Short on time? Switch to 15 min", "+" + PTS.quick], ["Finish workout for the big splash", "+" + PTS.workout], ["Something hurts? Tell the app and it swaps the move", ""]]) + tab("fuel", "Fuel", [["+8 / +16 oz buttons for water", "goal = +" + PTS.water], ["Protein buttons and 'Ate this' on every meal", "50 g = +" + PTS.protein], ["+ Add puts any meal or item in your Walmart cart", ""], ["Fuel playbook: what to eat and when", ""]])),
     p("Reads + Recover", "Feed the mind, protect the body.", tab("reads", "Reads", [["Pick a book, tap Start reading, log minutes", "1 pt per min"], ["Bought it? Enter the price", "2 pts per $1"], ["Finish it, pass the Book Test in the last week", "+" + PTS.quiz], ["Suggest a book for everyone", ""]]) + tab("recover", "Recover", [["Log bedtime and wake time", "sleep points"], ["Nightly wind-down and affirmations", ""], ["Calf, back, and full-body care routines", ""], ["Red flags: when to see a doctor", ""]])),
     p("Score + More", "See the race and make the app yours.", tab("progress", "Score", [["Head to head: Day, Week, Month, Season graphs", ""], ["Season standings with everyone's checks today", ""], ["How to win: the full rulebook", ""]]) + `<div class="at-tab"><div class="at-hd"><span class="at-ico" style="font-weight:900">•••</span><b>More (top right)</b></div><div class="at-row"><span>Settings: name, nickname, color, click sound</span></div><div class="at-row"><span>Your plan, schedule, and backups</span></div></div>`),
     p("How it all adds up", "Every small box feeds the big prize.", `<div class="climb">
@@ -2363,15 +2383,15 @@ function floodFx(title, sub) {
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
 /* Buttons that log points. A tap that started on a popup or the update bar can "fall through" onto these right after it closes. */
-const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ", "fuelUndo", "groc", "gchk", "kit", "gclear", "wmTog", "wmQty"]);
+const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ", "fuelUndo", "groc", "kit", "wmTog", "wmQty", "mealCart", "wmAdd", "cartClear"]);
 window.__tapGuard = Date.now();
 try { history.scrollRestoration = "manual"; } catch (e) {}
-const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut", "addP", "gchk", "kit", "groc", "wmTog"]);
+const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut", "addP", "kit", "groc", "wmTog", "mealCart", "wmAdd"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
   fn();
-  if (a === "set" || a === "toggle" || a === "gchk" || a === "kit" || a === "wmTog") { if (!on0) popFx(r, "small"); return; }
-  if (a === "groc") { if (+el.dataset.v > 0) popFx(r, "small", "+1"); return; }
+  if (a === "set" || a === "toggle" || a === "kit" || a === "wmTog") { if (!on0) popFx(r, "small"); return; }
+  if (a === "groc" || a === "mealCart" || a === "wmAdd") { if (+el.dataset.v > 0) popFx(r, "small", "+1"); return; }
   const c1 = dayChecks(t), p1 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0), newly = Object.keys(c1).filter(k => c1[k] && !c0[k]), gain = p1 - p0;
   if (newly.includes("allIn")) { popFx(r, "big", gain > 0 ? "+" + gain : ""); setTimeout(() => toast("ALL IN today. +" + PTS.allIn + " bonus"), 300); }
   else if (newly.includes("workout")) popFx(r, "big", gain > 0 ? "+" + gain : "");
@@ -2565,27 +2585,46 @@ function stopRest() { if (UI.rest) clearInterval(UI.rest.h); UI.rest = null; $("
 
 /* ---------------------------- FUEL ---------------------------- */
 /* v3.1.1 Fuel: your numbers up top, a sticky category bar, swipe rows for meals, and recipes + playbook open in a sheet. Nothing removed. */
-const FUEL_CATS = [["bfast", "🍳", "Breakfast"], ["lunch", "🥪", "Lunch"], ["snack", "🍎", "Snacks"], ["prep", "🥘", "Prep meals"], ["groc", "🛒", "Grocery"], ["play", "📘", "Playbook"], ["office", "💼", "Office kit"], ["drinks", "🥤", "Drinks"]];
+const FUEL_CATS = [["bfast", "🍳", "Breakfast"], ["lunch", "🥪", "Lunch"], ["snack", "🍎", "Snacks"], ["prep", "🥘", "Prep meals"], ["shop", "🛒", "Shop by aisle"], ["play", "📘", "Playbook"], ["office", "💼", "Office kit"], ["drinks", "🥤", "Drinks"]];
 const PB_ICON = ["🍽️", "⏰", "💪", "🏀", "🫐", "🧠", "😴", "🔥", "🍔", "💊"];
+function cartStepHTML(x) {
+  const b = MEAL_BUY[x.n]; if (!b) return "";
+  if (b.rec) { const n = (S.grocery.sel || {})[b.rec] || 0; return `<div class="fc-step"><button class="btn sm" data-act="groc" data-id="${b.rec}" data-v="-1" aria-label="Remove one batch" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? "🧺 " + n + " batch" + (n > 1 ? "es" : "") + " in cart" : "+ Add batch to cart"}</span><button class="btn sm" data-act="groc" data-id="${b.rec}" data-v="1" aria-label="Add a batch">+</button></div>`; }
+  const k = mealKey(x.n), n = (S.grocery.meals || {})[k] || 0;
+  return `<div class="fc-step"><button class="btn sm" data-act="mealCart" data-id="${k}" data-v="-1" aria-label="Remove one serving" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? "🧺 " + n + " in cart" : "+ Add to cart"}</span><button class="btn sm" data-act="mealCart" data-id="${k}" data-v="1" aria-label="Add one serving">+</button></div>`;
+}
 function fuelMealCard(x, kind) {
-  return `<div class="fcard"><div class="fc-top"><b>${esc(x.n)}</b>${x.p ? `<span class="fc-p">${x.p} g</span>` : ""}</div><div class="fc-d">${esc(x.d || x.why || "")}</div>${x.p ? `<button class="btn sm fc-ate" data-act="addP" data-v="${x.p}" data-src="${esc(x.n)}">Ate this +${x.p} g</button>` : `<div class="fc-tag small muted">${kind === "snack" ? "Smart pick" : ""}</div>`}</div>`;
+  return `<div class="fcard"><div class="fc-top"><b>${esc(x.n)}</b>${x.p ? `<span class="fc-p">${x.p} g</span>` : ""}</div><div class="fc-d">${esc(x.d || x.why || "")}</div>${x.p ? `<button class="btn sm fc-ate" data-act="addP" data-v="${x.p}" data-src="${esc(x.n)}">Ate this +${x.p} g</button>` : `<div class="fc-tag small muted">${kind === "snack" ? "Smart pick" : ""}</div>`}${cartStepHTML(x)}</div>`;
+}
+/* Shop by aisle: every Walmart item, + and minus adds singles on top of meals. */
+function shopRowHTML(k) {
+  const p = WM[k], q = (S.grocery.extra || {})[k] || 0, pr = wmPrice(k);
+  return `<div class="shop-row"><div class="shop-t"><span class="wm-n">${esc(p[1])}</span><span class="wm-s">${esc(p[2])}${pr ? " · " + (pr[1] ? "~" : "") + wmMoney(pr[0]) : p[0] ? "" : " · search item"}</span></div><div class="wm-q"><button data-act="wmAdd" data-k="${k}" data-v="-1" aria-label="One less" ${q ? "" : "disabled"}>−</button><b class="${q ? "on" : ""}">${q}</b><button data-act="wmAdd" data-k="${k}" data-v="1" aria-label="One more">+</button></div></div>`;
+}
+function shopHTML() {
+  const g = wmG(), keys = Object.keys(WM);
+  let o = `<button class="check ${g.kit ? "on" : ""}" data-act="kit"><span class="lbl">Office snack + breakfast kit <span class="small muted">11 desk staples in one tap</span></span><span class="box">${CHK}</span></button>`;
+  WM_CATS.forEach((c, i) => { const ks = keys.filter(k => WM[k][4] === c).sort((a, b) => WM[a][1].localeCompare(WM[b][1])), n = ks.filter(k => g.extra[k]).length; o += `<details class="shop-aisle" ${UI.shopOpen === c ? "open" : ""} data-aisle="${c}"><summary><span>${c}</span><span class="small muted">${n ? n + " added · " : ""}${ks.length} items</span></summary>${ks.map(shopRowHTML).join("")}</details>`; });
+  return o;
 }
 function fuelPrepCard(r) {
   const n = S.grocery.sel[r.id] || 0;
   return `<div class="fcard prep"><div class="fc-top"><b>${esc(r.n)}</b></div><div class="fc-mac"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time.split(" (")[0])}</span><span>${r.srv} servings</span></div>
   <button class="btn sm fc-rec" data-act="fuelRecipe" data-id="${r.id}">Ingredients + steps</button>
-  <div class="fc-step"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" aria-label="Remove one" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? n + "x on list" : "Add to list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1" aria-label="Add one">+</button></div></div>`;
+  <div class="fc-step"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" aria-label="Remove one" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? "🧺 " + n + " batch" + (n > 1 ? "es" : "") + " in cart" : "+ Add to cart"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1" aria-label="Add one">+</button></div></div>`;
 }
 function fuelResultsHTML() {
   const q = (UI.fuelQ || "").trim().toLowerCase(); if (q.length < 2) return "";
   const hit = x => (x.n + " " + (x.d || x.why || "")).toLowerCase().includes(q);
   const res = [...BREAKFASTS.filter(hit).map(x => ["Breakfast", fuelMealCard(x)]), ...LUNCHES.filter(hit).map(x => ["Lunch", fuelMealCard(x)]), ...SNACKS.filter(hit).map(x => ["Snack", fuelMealCard(x, "snack")]), ...RECIPES.filter(r => (r.n + " " + r.ing.map(i => i[0]).join(" ")).toLowerCase().includes(q)).map(r => ["Prep meal", fuelPrepCard(r)])];
-  return res.length ? `<div class="small muted" style="margin:10px 0 6px">${res.length} match${res.length === 1 ? "" : "es"}</div><div class="fcar">${res.map(([k, h]) => h.replace('<div class="fcard', `<div data-k="${k}" class="fcard`)).join("")}</div>` : `<div class="small muted" style="margin-top:10px">Nothing matches "${esc(UI.fuelQ)}". Try chicken, eggs, tuna, or yogurt.</div>`;
+  const items = Object.keys(WM).filter(k => (WM[k][1] + " " + k).toLowerCase().includes(q)).slice(0, 12);
+  const shop = items.length ? `<div class="small muted" style="margin:12px 0 2px">Walmart items</div><div class="shop-hits">${items.map(shopRowHTML).join("")}</div>` : "";
+  if (!res.length && shop) return shop;
+  return res.length ? `<div class="small muted" style="margin:10px 0 6px">${res.length} match${res.length === 1 ? "" : "es"}</div><div class="fcar">${res.map(([k, h]) => h.replace('<div class="fcard', `<div data-k="${k}" class="fcard`)).join("")}</div>` + shop : `<div class="small muted" style="margin-top:10px">Nothing matches "${esc(UI.fuelQ)}". Try chicken, eggs, tuna, or yogurt.</div>`;
 }
 function fuelSec(id, title, sub, body) { return `<section class="fsec" id="fc-${id}"><div class="fsec-h"><h2>${title}</h2>${sub ? `<span class="small muted">${sub}</span>` : ""}</div>${body}</section>`; }
 function renderFuel() {
   const s = todayStr(), l = getL(s), court = isCourt(s), p = S.profile, pg = l.protein || 0, wg = waterGoal(s), ph = proteinHit(l), ppct = Math.min(100, Math.round(pg / PTS.proteinG * 100));
-  const items = Object.keys(S.grocery.sel).length + (S.grocery.kit ? 1 : 0), left = groceryCount();
   let o = `<div class="card" id="fuelHero"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">Today's fuel</h2><span class="tg">${court ? "🏀 Court day" : "💪 Training day"}</span></div>
   <div class="fuel-rings">${ring(pg, p.protein, "var(--accent)", "protein", "g")}${ring(l.water, wg, "var(--accent2)", "water", "oz")}</div>
   <div class="fuel-pt ${ph ? "hit" : ""}"><span>${ph ? "✓ Protein point locked (+" + PTS.protein + ")" : "Protein point at " + PTS.proteinG + " g"}</span><i><i style="width:${ph ? 100 : ppct}%"></i></i></div>
@@ -2593,25 +2632,24 @@ function renderFuel() {
   <div class="fq-row"><span class="fq-k">Water</span><button class="chip" data-act="addW" data-v="8">+8 oz</button><button class="chip" data-act="addW" data-v="16">+16 oz</button><button class="chip" data-act="addW" data-v="24">+24 oz</button></div>
   <div class="fq-row"><span class="fq-k">Undo</span>${(l.pLog || []).length ? `<button class="chip" data-act="fuelUndo">↶ Last ${l.pLog[l.pLog.length - 1]} g</button>` : ""}<button class="chip" data-act="addP" data-v="-10" ${pg ? "" : "disabled"}>−10 g</button><button class="chip" data-act="addW" data-v="-8" ${l.water ? "" : "disabled"}>−8 oz</button></div></div>
   <div class="small muted" style="margin-top:8px">Aim for ${p.protein} g protein, 30 to 38 g fiber, and ${wg} oz water.</div></div>`;
-  const wl = wmLog()[0], cartN = wl ? wl.items.length : 0;
-  o += `<nav class="fuel-cats" id="fuelCats">${FUEL_CATS.map(([id, ic, n]) => `<button class="chip ${UI.fuelCat === id ? "on" : ""}" data-act="fuelCat" data-v="${id}"><span>${ic}</span>${n}${id === "groc" && left ? ` <b class="fc-badge">${left}</b>` : ""}</button>` + (id === "groc" ? `<button class="chip fc-cart" data-act="wmCart"><span>🧺</span>Cart${cartN ? ` <b class="fc-badge">${cartN}</b>` : ""}</button>` : "")).join("")}</nav>`;
+  const cartN = wmCount().n;
+  o += `<nav class="fuel-cats" id="fuelCats"><button class="chip fc-cart" data-act="wmCart"><span>🧺</span>Cart${cartN ? ` <b class="fc-badge">${cartN}</b>` : ""}</button>${FUEL_CATS.map(([id, ic, n]) => `<button class="chip ${UI.fuelCat === id ? "on" : ""}" data-act="fuelCat" data-v="${id}"><span>${ic}</span>${n}</button>`).join("")}</nav>`;
   o += `<div class="card fuel-search"><input id="fuelQ" type="search" placeholder="🔎 Find a meal: chicken, eggs, tuna..." value="${esc(UI.fuelQ || "")}" autocomplete="off"><div id="fuelResults">${fuelResultsHTML()}</div></div>`;
   o += fuelSec("bfast", "Quick breakfasts", "5 min · swipe →", `<div class="fcar">${BREAKFASTS.map(x => fuelMealCard(x)).join("")}</div>`);
   o += fuelSec("lunch", "Quick lunches", "No cooking · swipe →", `<div class="fcar">${LUNCHES.map(x => fuelMealCard(x)).join("")}</div>`);
   o += fuelSec("snack", "Snacks that fuel you", "Swipe →", `<div class="fcar">${SNACKS.map(x => fuelMealCard(x, "snack")).join("")}</div>`);
   o += fuelSec("prep", "Easy prep meals", "Make one Sunday, one midweek", `<div class="fcar">${RECIPES.map(fuelPrepCard).join("")}</div>`);
-  o += fuelSec("groc", "Grocery list", items ? left + " to grab" : "Add prep meals with +", `<div class="card fgroc">${groceryHTML()}</div>`);
+  o += fuelSec("shop", "Shop by aisle", "Add any single item", `<div class="card fshop">${shopHTML()}</div>`);
   o += fuelSec("play", "Fuel playbook", "Tap a topic", `<div class="pb-grid">${PLAYBOOK.map((pb, i) => `<button class="pb-tile" data-act="fuelPb" data-i="${i}"><span>${PB_ICON[i] || "📘"}</span><b>${esc(pb.n)}</b></button>`).join("")}</div>`);
   o += fuelSec("office", "Office backup kit", "When work orders food", `<div class="card"><div class="banner warn" style="margin-bottom:10px"><b>The 4 rules</b>1. Protein and veg first. 2. Half the bread, rice, or fries. 3. Water, not soda. 4. Still hungry? Hit the kit.</div><ul class="list">${OFFICE.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`);
   o += fuelSec("drinks", "Drinks", "", `<div class="card">${DRINKS.map(d => `<div class="drink"><b>${d[0]}</b><span class="small">${esc(d[1])}</span></div>`).join("")}</div>`);
   return o;
 }
-function groceryCount() { const m = new Set(); Object.entries(S.grocery.sel).forEach(([id]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => m.add(i[0])); }); if (S.grocery.kit) OFFICE_KIT.forEach(i => m.add(i[0])); return [...m].filter(n => !S.grocery.checked[n]).length; }
 function recipeSheetHTML(id) {
   const r = RECIPES.find(x => x.id === id); if (!r) return ""; const n = S.grocery.sel[r.id] || 0;
   return `<div style="margin-right:48px"><div class="small muted">Prep meal</div><h2 style="margin:2px 0 8px">${esc(r.n)}</h2></div><div class="fc-mac" style="margin-bottom:12px"><span>${r.p} g protein</span><span>${r.cal} cal</span><span>${r.fib} g fiber</span><span>${esc(r.time)}</span><span>${r.srv} servings</span></div>
   <h3 class="sh3">Ingredients</h3><ul class="list">${r.ing.map(i => `<li>${esc(i[0])}: <b>${esc(i[1])}</b></li>`).join("")}</ul><h3 class="sh3">Steps</h3><ol class="list">${r.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><div class="banner info" style="margin-top:12px"><b>Reheat</b>${esc(r.reheat)}</div>
-  <div class="fc-step" style="margin-top:6px"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? n + "x on grocery list" : "Add to grocery list"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div>
+  <div class="fc-step" style="margin-top:6px"><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="-1" ${n ? "" : "disabled"}>−</button><span class="${n ? "on" : ""}">${n ? "🧺 " + n + " batch" + (n > 1 ? "es" : "") + " in cart" : "+ Add to cart"}</span><button class="btn sm" data-act="groc" data-id="${r.id}" data-v="1">+</button></div>
   <button class="btn primary block" style="margin-top:12px" data-act="addP" data-v="${r.p}" data-src="${esc(r.n)}">Ate a serving +${r.p} g</button>`;
 }
 function playbookSheetHTML(i) { const pb = PLAYBOOK[i]; return `<div style="margin-right:48px"><div class="small muted">Fuel playbook</div><h2 style="margin:2px 0 10px">${PB_ICON[i] || ""} ${esc(pb.n)}</h2></div><ul class="list pb-list">${pb.items.map(x => `<li>${esc(x)}</li>`).join("")}</ul><div class="row" style="gap:8px;margin-top:14px"><button class="btn" style="flex:1" data-act="fuelPb" data-i="${(i + PLAYBOOK.length - 1) % PLAYBOOK.length}">‹ Prev</button><button class="btn" style="flex:1" data-act="fuelPb" data-i="${(i + 1) % PLAYBOOK.length}">Next ›</button></div>`; }
@@ -2622,21 +2660,11 @@ window.addEventListener("scroll", () => { if (UI.tab !== "fuel" || Date.now() < 
   FUEL_CATS.forEach(([id]) => { const e = $("fc-" + id); if (e && e.getBoundingClientRect().top <= top + 40) cur = id; });
   if (cur !== UI.fuelCat) { UI.fuelCat = cur; bar.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.v === cur)); const a = bar.querySelector(".chip.on"); if (a) bar.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" }); }
 }, 60); }, { passive: true });
+document.addEventListener("toggle", e => { const d = e.target; if (d.classList && d.classList.contains("shop-aisle")) { if (d.open) UI.shopOpen = d.dataset.aisle; else if (UI.shopOpen === d.dataset.aisle) UI.shopOpen = null; } }, true);
 document.addEventListener("input", e => { if (e.target.id !== "fuelQ") return; UI.fuelQ = e.target.value; const r = $("fuelResults"); if (r) r.innerHTML = fuelResultsHTML(); });
 function hdrH() { const h = document.querySelector("header.top"); document.documentElement.style.setProperty("--hdrH", (h ? h.offsetHeight - 14 : 0) + "px"); }
 window.addEventListener("resize", hdrH);
 
-function groceryHTML() {
-  const map = {};
-  const add = (name, qty, cat) => { const k = cat + "|" + name; if (!map[k]) map[k] = { name, cat, q: [] }; if (qty) map[k].q.push(qty); };
-  Object.entries(S.grocery.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => add(i[0], n > 1 ? i[1] + " x" + n : i[1], i[2])); });
-  if (S.grocery.kit) OFFICE_KIT.forEach(i => add(i[0], "", i[1]));
-  const cats = {}; Object.values(map).forEach(i => (cats[i.cat] = cats[i.cat] || []).push(i));
-  let o = `<button class="check ${S.grocery.kit ? "on" : ""}" data-act="kit"><span class="lbl">Add office snack + breakfast kit</span><span class="box">${CHK}</span></button>`;
-  if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.") + (wmLog().length ? `<button class="btn block wm-view" data-act="wmCart">🧺 View my Walmart cart</button>` : "");
-  ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"].forEach(c => { if (!cats[c]) return; o += `<h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:14px 0 4px">${c}</h3>` + cats[c].map(i => { const on = S.grocery.checked[i.name]; return `<button class="check ${on ? "on" : ""}" data-act="gchk" data-n="${esc(i.name)}"><span class="lbl">${esc(i.name)}${i.q.length ? ` <span class="small muted">${esc(i.q.join(" + "))}</span>` : ""}</span><span class="box">${CHK}</span></button>`; }).join(""); });
-  return o + wmBtnHTML() + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">${UI.gclearArm ? "Tap again to clear the list" : "Clear list"}</button>`;
-}
 
 /* ---------------------------- WALMART CART (v3.1.3) ----------------------------
    One tap sends the open grocery list to the shopper's own Walmart cart (affil.walmart.com add-to-cart link).
@@ -2725,8 +2753,95 @@ const WM = {
   pita: ["", "Great Value White Pita Bread", "4 count", "No steady item number for this one. Search finds it fast.", "Pantry", 0, "great value pita bread"],
   premier: ["45152391", "Premier Protein Shake, Chocolate", "4 x 11 oz", "30 g protein, 1 g sugar. The best grab-and-go backup.", "Pantry"],
   almonds: ["834401337", "Great Value Whole Almonds", "16 oz", "Handful (1 oz) is 6 g protein. Pre-portion them.", "Pantry"],
-  lyte: ["", "Liquid I.V. Hydration Multiplier", "stick packs", "For court days. Walmart's own listings change often, search shows what's in stock.", "Pantry", 0, "liquid iv hydration multiplier"]
+  lyte: ["", "Liquid I.V. Hydration Multiplier", "stick packs", "For court days. Walmart's own listings change often, search shows what's in stock.", "Pantry", 0, "liquid iv hydration multiplier"],
+  /* v3.1.6: breakfast, lunch, and snack items (IDs checked Nov 27, 2026) */
+  smsalmon: ["149452092", "Latitude 45 Cold Smoked Atlantic Salmon", "4 oz", "Ready to eat. Omega-3s for joints and mood.", "Meat & Fish"],
+  deliturkey: ["47394316", "Great Value Oven Roasted Turkey Breast Lunchmeat", "16 oz", "Lean deli protein for wraps and bistro boxes.", "Meat & Fish"],
+  beefstick: ["668668821", "Jack Link's Original Beef Sticks", "9 pack", "5 g protein each. Lives in the car or desk.", "Meat & Fish"],
+  cucumber: ["44390954", "Fresh Cucumber", "each", "", "Produce"],
+  orange: ["162577028", "Fresh Navel Orange", "each", "", "Produce"],
+  tomato: ["44390944", "Fresh Roma Tomato", "each", "", "Produce"],
+  grapes: ["47770140", "Fresh Red Seedless Grapes", "about 2.25 lb bag", "Sold by weight. Lasts most of the week.", "Produce"],
+  caesar: ["16935784", "Marketside Caesar Salad Kit", "11.55 oz", "Greens, croutons, parm, and dressing. Use half the dressing.", "Produce"],
+  hummus: ["10850129", "Sabra Classic Hummus", "10 oz", "", "Produce"],
+  eggwhite: ["13925176", "Great Value 100% Liquid Egg Whites", "32 oz", "Pure protein, pours straight into the mug or pan.", "Dairy & Eggs"],
+  milk: ["43984343", "fairlife 2% Ultra-Filtered Milk", "52 oz", "About double the protein of regular milk and lactose free.", "Dairy & Eggs"],
+  cottage: ["12444458", "Great Value 2% Small Curd Cottage Cheese", "24 oz", "About 13 g protein per half cup.", "Dairy & Eggs"],
+  creamch: ["10452358", "Great Value Neufchatel Cheese", "8 oz", "About a third less fat than regular cream cheese.", "Dairy & Eggs"],
+  skyr: ["189898289", "Siggi's Vanilla Skyr", "5.3 oz cup", "Thick Icelandic yogurt, high protein, low sugar. Often sells out, Walmart may offer a swap.", "Dairy & Eggs"],
+  feta: ["", "Crumbled feta cheese", "4 to 6 oz", "Walmart's feta listings change often. Search shows what's in stock near you.", "Dairy & Eggs", 0, "crumbled feta cheese"],
+  berries: ["46491742", "Great Value Frozen Cherry Berry Blend", "48 oz bag", "Berries plus tart cherries. Covers bowls, oats, and the recovery shake.", "Frozen"],
+  eggbites: ["424047158", "Jimmy Dean Meat Lovers Egg Bites", "2 count", "Microwave 60 sec. A full backup breakfast in the freezer.", "Frozen"],
+  chstrips: ["14664699", "Tyson Grilled Chicken Breast Strips", "22 oz bag", "Fully cooked. 22 g protein per serving.", "Frozen"],
+  steamveg: ["817042496", "Great Value Mixed Vegetables, Steamable", "12 oz bag", "Microwave in the bag. The veg for any leftover bowl.", "Frozen"],
+  edamame: ["328567678", "Great Value Edamame", "12 oz bag", "", "Frozen"],
+  granola: ["202344615", "Great Value Oats & Honey Granola", "11 oz", "Use a 1/4 cup topping, not a bowl.", "Pantry"],
+  whey: ["560728503", "Premier Protein 100% Whey, Chocolate", "24.5 oz tub", "About 30 scoops. Cheapest protein per gram in the app.", "Pantry", 1],
+  oats: ["10314925", "Great Value Old Fashioned Oats", "42 oz", "", "Pantry", 1],
+  pineapple: ["10315437", "Great Value Pineapple Chunks in Juice", "20 oz can", "Packed in juice, not syrup.", "Pantry"],
+  chia: ["862748103", "Great Value Organic Chia Seeds", "32 oz", "Fiber and omega-3s. One bag lasts months.", "Pantry", 1],
+  bread: ["170476642", "Dave's Killer Bread 21 Whole Grains, Thin-Sliced", "20.5 oz loaf", "Thin slices keep the carbs in check.", "Pantry"],
+  pb: ["3716446909", "Great Value Creamy Peanut Butter", "16 oz", "", "Pantry", 1],
+  bagel: ["14710094", "Thomas' Bagel Thins, Everything", "8 count", "Half the carbs of a full bagel.", "Pantry"],
+  cereal: ["47725952", "Kellogg's Special K Protein Cereal", "19 oz", "High-protein cereal for the skyr cup.", "Pantry"],
+  cocoa: ["21092535", "Hershey's Natural Unsweetened Cocoa", "8 oz", "", "Pantry", 1],
+  everything: ["798158724", "Great Value Everything Bagel Seasoning", "2.6 oz", "", "Pantry", 1],
+  oatcup: ["33141087", "Quaker Instant Oatmeal Cup", "1 cup", "Add hot water, 90 seconds. Flavor may vary by store.", "Pantry"],
+  mustard: ["43711099", "Great Value Yellow Mustard", "20 oz", "Zero-calorie flavor for tuna and turkey.", "Pantry", 1],
+  pickles: ["548915008", "Great Value Kosher Dill Pickle Spears", "24 oz jar", "", "Pantry", 1],
+  crackers: ["534402624", "Triscuit Original Whole Grain Crackers", "8.5 oz", "Whole grain with 3 g fiber per serving.", "Pantry"],
+  salmonpouch: ["", "StarKist Pink Salmon Pouch", "2.6 oz pouch", "The single pouch sells out often. Search shows singles and multipacks.", "Pantry", 0, "starkist pink salmon pouch"],
+  trailmix: ["711963269", "Great Value Omega-3 Trail Mix", "22 oz", "Nuts and seeds, less candy than most mixes. Pre-portion it.", "Pantry"],
+  tartcherry: ["24389738", "R.W. Knudsen Just Tart Cherry Juice", "32 oz", "Pure tart cherry, no blend. 8 oz on game nights.", "Pantry"],
+  darkchoc: ["10312259", "Lindt Excellence 70% Dark Chocolate", "3.5 oz bar", "2 squares is the portion.", "Pantry"],
+  chickpeas: ["", "Roasted chickpeas (Biena or similar)", "5 oz bag", "Brands rotate at Walmart. Search shows what your store has.", "Pantry", 0, "roasted chickpeas snack"],
+  probar: ["10422933", "Pure Protein Bars, Chocolate Peanut Butter", "6 count", "20 g protein, low sugar. Keep 2 in the car.", "Pantry"],
+  hotsauce: ["", "Hot sauce", "bottle", "Any one you like. Zero calories.", "Pantry", 0, "hot sauce"]
 };
+/* v3.1.6 what each breakfast, lunch, and snack buys, per serving: [[product, packs]]. Servings add up, then round up to whole packs.
+   rec = this card is a prep recipe, so + adds that recipe's whole batch. */
+const MEAL_BUY = {
+  "Greek Yogurt Bowl": [["yogurt", .35], ["berries", .1], ["granola", .15], ["honey", 1]],
+  "Microwave Mug Eggs": [["eggs", .17], ["eggwhite", .12], ["spinach", .15], ["salsa", .1]],
+  "Power Shake": [["whey", 1], ["bananas", 1], ["oats", 1], ["milk", .15]],
+  "Cottage Cheese + Fruit": [["cottage", .5], ["pineapple", .5], ["almonds", .07]],
+  "Protein Overnight Oats": [["oats", 1], ["whey", 1], ["milk", .1], ["chia", 1], ["berries", .1]],
+  "Egg Muffin Cups (prep)": { rec: "eggcups" },
+  "Breakfast Burrito (freezer)": { rec: "breakfastburrito" },
+  "Peanut Butter Protein Toast": [["bread", .1], ["pb", 1], ["bananas", 1], ["premier", .25]],
+  "Smoked Salmon Bagel": [["bagel", .125], ["creamch", .15], ["smsalmon", .75], ["cucumber", .5]],
+  "Turkey + Egg White Wrap": [["tortilla", .125], ["eggwhite", .25], ["deliturkey", .2], ["cheese", .05], ["hotsauce", 1]],
+  "Skyr + Cereal Cup": [["skyr", 2], ["cereal", .1], ["berries", .1]],
+  "Chocolate Cherry Recovery Shake": [["whey", 1], ["berries", .2], ["cocoa", 1], ["spinach", .1], ["milk", .15]],
+  "Hard-Boiled Eggs + Fruit + Milk": [["eggs", .17], ["orange", 1], ["milk", .25]],
+  "Cottage Cheese Toast": [["bread", .1], ["cottage", .33], ["tomato", 1], ["everything", 1]],
+  "Grab-and-Go Protein Shake + Oats Cup": [["premier", .25], ["oatcup", 1]],
+  "Ham + Cheese Egg Bites": [["eggbites", 1], ["apples", .15]],
+  "Rotisserie Chicken Wrap": [["tortilla", .125], ["rotis", .33], ["spinach", .1], ["hummus", .2], ["feta", .25]],
+  "Tuna Salad Power Plate": [["tuna", .25], ["yogurt", .1], ["mustard", 1], ["pickles", 1], ["crackers", .2], ["bcarrot", .2]],
+  "Chicken Caesar Bowl": [["caesar", .5], ["chstrips", .3]],
+  "Leftover Bowl Formula": [["brownrice", 1], ["steamveg", 1]],
+  "Deli Turkey Bistro Box": [["deliturkey", .33], ["string", .05], ["grapes", .2], ["almonds", .07], ["crackers", .2]],
+  "Greek Chicken Pita": [["pita", .25], ["rotis", .25], ["cucumber", .5], ["tomato", 1], ["tzatziki", .15], ["apples", .15]],
+  "Steak + Rice Leftover Bowl": [["sirloin", .25], ["brownrice", 1], ["salsa", .1], ["avocado", 1]],
+  "Chili Cup + Cheese": [["cheese", .1], ["yogurt", .1]],
+  "Salmon Salad Kit": [["salmonpouch", 1], ["saladkit", .5], ["lemon", 1]],
+  "Cottage Cheese Pasta Cup": [["cottage", .33], ["marinara", .2], ["banza", .25]],
+  "Greek yogurt cup + berries": [["oikos", .25], ["berries", .1]],
+  "Beef stick + apple": [["beefstick", .12], ["apples", .15]],
+  "2 hard-boiled eggs": [["eggs", .11]],
+  "Ready-to-drink protein shake": [["premier", .25]],
+  "Cottage cheese + pineapple": [["cottage", .33], ["pineapple", .5]],
+  "Edamame (1 cup, microwave)": [["edamame", .4]],
+  "Banana + peanut butter": [["bananas", 1], ["pb", 1]],
+  "Trail mix (small handful)": [["trailmix", .05]],
+  "Tart cherry juice (8 oz)": [["tartcherry", .25]],
+  "Dark chocolate (2 squares, 70%+)": [["darkchoc", .2]],
+  "Roasted chickpeas": [["chickpeas", .2]],
+  "Protein bar (20 g+, under 10 g sugar)": [["probar", .17]]
+};
+function mealKey(n) { return n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+function mealByKey(k) { return [...BREAKFASTS, ...LUNCHES, ...SNACKS].find(x => mealKey(x.n) === k); }
 /* grocery line name -> [[product, packs per batch]]. Fractions add up across recipes, then round up. */
 const WM_ING = {
   "Boneless skinless chicken thighs": [["thighs", .45]], "Chicken thighs": [["thighs", .45]], "Chicken breast": [["breast", .4]],
@@ -2750,17 +2865,30 @@ const WM_ING = {
   "Cajun or lemon pepper seasoning": [["lemonp", 1]], "Protein shakes (RTD)": [["premier", 1]], "Almonds": [["almonds", 1]], "Electrolyte packets": [["lyte", 1]]
 };
 const WM_CATS = ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"];
-function wmG() { const g = S.grocery; g.wmOff = g.wmOff || {}; g.wmQ = g.wmQ || {}; return g; }
-/* The list to send: unchecked grocery lines only (checked = already have it). */
+function wmG() { const g = S.grocery; g.sel = g.sel || {}; g.wmOff = g.wmOff || {}; g.wmQ = g.wmQ || {}; g.meals = g.meals || {}; g.extra = g.extra || {}; return g; }
+/* v3.1.6 The cart list: prep meals (whole batches), breakfasts/lunches/snacks (per serving), the office kit, and single items you added. */
 function wmBuild() {
-  const g = wmG(), tot = {}, from = {}, miss = [];
-  const use = (name, n) => { const m = WM_ING[name]; if (!m) { if (!miss.includes(name)) miss.push(name); return; } m.forEach(([k, per]) => { tot[k] = (tot[k] || 0) + per * n; (from[k] = from[k] || []).includes(name) || from[k].push(name); }); };
-  Object.entries(g.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => { if (!g.checked[i[0]]) use(i[0], n); }); });
-  if (g.kit) OFFICE_KIT.forEach(i => { if (!g.checked[i[0]]) use(i[0], 1); });
-  const list = Object.keys(tot).filter(k => WM[k]).map(k => { const p = WM[k], auto = p[5] ? 1 : Math.max(1, Math.ceil(tot[k] - 1e-6)); return { k, p, auto, q: Math.max(1, Math.min(12, g.wmQ[k] || auto)), from: from[k], on: !g.wmOff[k] }; });
+  const g = wmG(), tot = {}, ex = {}, from = {}, miss = [];
+  const tag = (k, why) => { (from[k] = from[k] || []).includes(why) || from[k].push(why); };
+  const add = (k, per, why) => { if (!WM[k]) return; tot[k] = (tot[k] || 0) + per; tag(k, why); };
+  const use = (name, n, why) => { const m = WM_ING[name]; if (!m) { if (!miss.includes(name)) miss.push(name); return; } m.forEach(([k, per]) => add(k, per * n, why)); };
+  Object.entries(g.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => use(i[0], n, r.n + (n > 1 ? " x" + n : ""))); });
+  if (g.kit) OFFICE_KIT.forEach(i => use(i[0], 1, "Office kit"));
+  Object.entries(g.meals).forEach(([mk, n]) => { const m = mealByKey(mk), b = m && MEAL_BUY[m.n]; if (!b || b.rec || !n) return; b.forEach(([k, per]) => add(k, per * n, m.n + (n > 1 ? " x" + n : ""))); });
+  Object.entries(g.extra).forEach(([k, q]) => { if (!WM[k] || !q) return; ex[k] = q; tag(k, "Added by you"); });
+  const keys = [...new Set([...Object.keys(tot), ...Object.keys(ex)])].filter(k => WM[k]);
+  const list = keys.map(k => { const p = WM[k], base = tot[k] ? (p[5] ? 1 : Math.max(1, Math.ceil(tot[k] - 1e-6))) : 0, auto = Math.min(24, base + (ex[k] || 0)); return { k, p, auto, q: Math.max(1, Math.min(24, g.wmQ[k] || auto)), from: from[k], on: !g.wmOff[k] }; });
   list.sort((a, b) => WM_CATS.indexOf(a.p[4]) - WM_CATS.indexOf(b.p[4]) || a.p[1].localeCompare(b.p[1]));
   return { list, cart: list.filter(x => x.p[0] && x.on), find: list.filter(x => !x.p[0] && x.on), miss };
 }
+/* What is in the cart list, as sources (for the top of the Cart sheet). */
+function wmSources() {
+  const g = wmG(), out = [];
+  Object.entries(g.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r && n) out.push({ kind: "rec", id, n, name: r.n, sub: "Prep meal, whole batch" }); });
+  Object.entries(g.meals).forEach(([mk, n]) => { const m = mealByKey(mk); if (m && n) out.push({ kind: "meal", id: mk, n, name: m.n, sub: n + " serving" + (n === 1 ? "" : "s") }); });
+  return out;
+}
+function wmCount() { const b = wmBuild(); return { n: b.cart.length + b.find.length, b }; }
 function wmSig(cart) { return cart.map(x => x.p[0] + "|" + x.q).sort().join(","); }
 function wmAffId() { return String(WM_AFF.id || (R().adminPin && !PERSON && S.meta.wmAff) || "").trim(); }
 /* The ONLY place a Walmart URL leaves the app. Affiliate wrap is Impact's standard deep link (goto.walmart.com/c/<publisher>/<ad>/<campaign>?u=<encoded url>). */
@@ -2786,21 +2914,26 @@ function wmFootHTML() {
   return o + `<div class="wm-fine">${wmPricesOn() ? "Before tax. Prices are Walmart.com estimates; meat and produce are sold by weight (~)." : "Walmart shows your prices and stock. Meat and produce are sold by weight."}</div>`;
 }
 function wmSheetHTML() {
-  const b = wmBuild(), g = S.grocery, w = g.wm, sent = wmSentNow(b.cart);
-  let o = `${sheetTitle("Send to Walmart")}<div class="wm-intro">Matched to real Walmart items, Great Value first. Uncheck what you already have. Walmart opens with these in your cart, and you sign in there, not here.</div>`;
+  const b = wmBuild(), g = wmG(), w = g.wm, sent = wmSentNow(b.cart), srcs = wmSources(), log = wmLog();
+  let o = `${sheetTitle("My cart")}`;
+  if (!b.list.length) return o + `<div class="cart-empty"><div class="ce-ic">🧺</div><b>Your cart is empty</b><span>Tap <b>+ Add to cart</b> on any breakfast, lunch, snack, or prep meal. Or add single items by aisle.</span><button class="btn primary block" data-act="goShop">🛒 Shop by aisle</button><button class="btn block" data-act="kit" style="margin-top:8px">${g.kit ? "✓ Office kit added" : "+ Add the office snack kit"}</button>${log.length ? `<button class="btn block wm-view" data-act="wmHist">What I've sent to Walmart (${log.length})</button>` : ""}</div>`;
+  o += `<div class="wm-intro">Matched to real Walmart items, Great Value first. Uncheck what you already have. Walmart opens with these in your cart, and you sign in there, not here.</div>`;
+  if (srcs.length || g.kit) o += `<h3 class="wm-cat"><span>Meals in your cart</span><span>${srcs.length + (g.kit ? 1 : 0)}</span></h3>` + srcs.map(x => `<div class="cart-src"><div><span class="wm-n">${esc(x.name)}</span><span class="wm-s">${esc(x.sub)}</span></div><div class="wm-q"><button data-act="${x.kind === "rec" ? "groc" : "mealCart"}" data-id="${x.id}" data-v="-1" aria-label="One less">−</button><b>${x.n}</b><button data-act="${x.kind === "rec" ? "groc" : "mealCart"}" data-id="${x.id}" data-v="1" aria-label="One more">+</button></div></div>`).join("") + (g.kit ? `<div class="cart-src"><div><span class="wm-n">Office snack + breakfast kit</span><span class="wm-s">11 desk staples</span></div><button class="btn sm" data-act="kit">Remove</button></div>` : "");
   if (!sent && w && w.at) o += `<div class="banner info" style="margin:0 0 6px"><b>Earlier send: ${wmTime(w.at)}</b>Those items are already in your Walmart cart. Uncheck any you sent then.</div>`;
   const carted = b.list.filter(x => x.p[0]);
   WM_CATS.forEach(c => {
     const rows = carted.filter(x => x.p[4] === c); if (!rows.length) return;
-    o += `<h3 class="wm-cat"><span>${c}</span><span>${rows.filter(x => x.on).length}/${rows.length}</span></h3>` + rows.map(x => `<div class="wm-row"><button class="check ${x.on ? "on" : ""}" data-act="wmTog" data-k="${x.k}"><span class="lbl"><span class="wm-n">${esc(x.p[1])}${x.p[5] ? `<span class="wm-tag">pantry staple</span>` : ""}</span><span class="wm-s">${esc(x.p[2])}${wmPrice(x.k) ? " · " + (wmPrice(x.k)[1] ? "~" : "") + wmMoney(wmPrice(x.k)[0]) : ""} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</span><span class="box">${CHK}</span></button><div class="wm-q"><button data-act="wmQty" data-k="${x.k}" data-v="-1" aria-label="One less">−</button><b id="wmq-${x.k}">${x.q}</b><button data-act="wmQty" data-k="${x.k}" data-v="1" aria-label="One more">+</button></div></div>`).join("");
+    o += `<h3 class="wm-cat wm-aisle"><span>${c}</span><span>${rows.filter(x => x.on).length}/${rows.length}</span></h3>` + rows.map(x => `<div class="wm-row"><button class="check ${x.on ? "on" : ""}" data-act="wmTog" data-k="${x.k}"><span class="lbl"><span class="wm-n">${esc(x.p[1])}${x.p[5] ? `<span class="wm-tag">pantry staple</span>` : ""}</span><span class="wm-s">${esc(x.p[2])}${wmPrice(x.k) ? " · " + (wmPrice(x.k)[1] ? "~" : "") + wmMoney(wmPrice(x.k)[0]) : ""}</span><span class="wm-s wm-for">for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</span><span class="box">${CHK}</span></button><div class="wm-q"><button data-act="wmQty" data-k="${x.k}" data-v="-1" aria-label="One less">−</button><b id="wmq-${x.k}">${x.q}</b><button data-act="wmQty" data-k="${x.k}" data-v="1" aria-label="One more">+</button></div></div>`).join("");
   });
   const find = b.list.filter(x => !x.p[0]);
   if (find.length) o += `<h3 class="wm-cat"><span>Search on Walmart</span><span>${find.length}</span></h3><div class="small muted" style="margin-bottom:4px">No solid item match, so these open a Walmart search instead of going in the cart link.</div>` + find.map(x => `<div class="wm-find"><div><span class="wm-n">${esc(x.p[1])}</span><span class="wm-s">${esc(x.p[2])} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</div><a class="btn sm" href="${esc(wmSearch(x.p[6]))}" target="_blank" rel="noopener">Search ›</a></div>`).join("");
   if (b.miss.length) o += `<div class="small muted" style="margin-top:10px">Not matched yet: ${esc(b.miss.join(", "))}</div>`;
+  o += `<div class="row" style="gap:8px;margin-top:14px"><button class="btn" style="flex:1" data-act="goShop">+ Add items</button><button class="btn danger" style="flex:1" data-act="cartClear">${UI.cartClearArm ? "Tap again to empty" : "Empty cart"}</button></div>`;
+  if (log.length) o += `<button class="btn block wm-view" data-act="wmHist">What I've sent to Walmart (${log.length})</button>`;
   return o + `<div class="wm-foot" id="wmFoot">${wmFootHTML()}</div>`;
 }
 /* Small in-place updates so nothing jumps and no other check re-animates. */
-function wmSync() { const f = $("wmFoot"); if (f) f.innerHTML = wmFootHTML(); document.querySelectorAll("#sheetBody .wm-cat").forEach(h => { const rows = []; let n = h.nextElementSibling; while (n && n.classList.contains("wm-row")) { rows.push(n); n = n.nextElementSibling; } if (rows.length) h.lastElementChild.textContent = rows.filter(r => r.firstElementChild.classList.contains("on")).length + "/" + rows.length; }); }
+function wmSync() { const f = $("wmFoot"); if (f) f.innerHTML = wmFootHTML(); document.querySelectorAll("#sheetBody .wm-aisle").forEach(h => { const rows = []; let n = h.nextElementSibling; while (n && n.classList.contains("wm-row")) { rows.push(n); n = n.nextElementSibling; } if (rows.length) h.lastElementChild.textContent = rows.filter(r => r.firstElementChild.classList.contains("on")).length + "/" + rows.length; }); }
 /* v3.1.4 estimated Walmart.com prices (checked Nov 27, 2026). [price, 1 = sold by weight so it's an average]. Search items have no price.
    Walmart's affiliate terms want shown prices refreshed within 24 h, so once the affiliate ID is on these hide unless WM_PRICED is today. */
 const WM_PRICED = "2026-11-27";
@@ -2808,27 +2941,40 @@ const WM_PRICE = { thighs: [13.97, 1], breast: [12.85, 1], turkey93: [5.56], bee
   bellred: [1.38], broccoli: [1.92, 1], redonion: [1.04, 1], babypot: [4.18], lettuce: [2.32], yonion: [3.64], lemon: [.68], sweetpot: [2.88], greenbeans: [2.47], asparagus: [4.27], zucchini: [.83, 1], spinach: [1.97], romaine: [3.63], avocado: [.73], greenonion: [1.10], grapetom: [2.27], garlic: [.72], bcarrot: [1.96], saladkit: [3.58], apples: [2.98], bananas: [.20, 1],
   eggs: [2.47], yogurt: [3.28], cheese: [3.58], parm: [3.18], tzatziki: [5.96], butter: [3.98], string: [6.34], oikos: [4.97], oj: [3.96], corn: [.98], stirfry: [2.84],
   evoo: [6.12], garlicp: [1.06], paprika: [2.14], taco: [.50], blackbeans: [.92], brownrice: [1.37], jasmine: [1.37], quinoa: [2.83], salsa: [3.84], kidney: [.92], pinto: [.92], dicedtom: [.96], tomsauce: [.96], chili: [.92], soy: [1.73], honey: [3.72], italian: [1.06], sesame: [2.18],
-  banza: [3.42], marinara: [2.54], tortilla: [2.12], greek: [5.12], broth: [1.54], lipton: [2.38], crumbs: [1.27], fajita: [.78], lentils: [1.92], lemonp: [1.08], premier: [9.58], almonds: [9.48] };
+  banza: [3.42], marinara: [2.54], tortilla: [2.12], greek: [5.12], broth: [1.54], lipton: [2.38], crumbs: [1.27], fajita: [.78], lentils: [1.92], lemonp: [1.08], premier: [9.58], almonds: [9.48],
+  smsalmon: [6.47], deliturkey: [5.97], cucumber: [.76], orange: [.88], tomato: [.22, 1], grapes: [3.76, 1], caesar: [3.78], hummus: [3.97], eggwhite: [4.87], milk: [5.32], cottage: [2.87], creamch: [1.56], skyr: [1.62],
+  berries: [8.00], eggbites: [3.46], chstrips: [8.72], steamveg: [.98], edamame: [1.92], granola: [2.78], whey: [34.48], oats: [4.18], pineapple: [1.68], chia: [11.32], bread: [5.47], pb: [1.98], bagel: [4.82], cereal: [4.48], cocoa: [3.64], everything: [2.24], oatcup: [1.32],
+  mustard: [1.00], pickles: [2.47], crackers: [2.98], tartcherry: [8.23], darkchoc: [3.24], probar: [8.48] };
 function wmPricesOn() { return !wmAffId() || WM_PRICED === todayStr(); }
 function wmPrice(k) { return wmPricesOn() && WM_PRICE[k] ? WM_PRICE[k] : null; }
 function wmMoney(n) { return "$" + n.toFixed(2); }
 function wmTotal(items) { let t = 0, est = false, miss = 0; items.forEach(([k, q]) => { const p = wmPrice(k); if (!p) { miss++; return; } t += p[0] * q; if (p[1]) est = true; }); return { t, est, miss }; }
-function wmTotalHTML(items, cls) { if (!wmPricesOn()) return ""; const r = wmTotal(items); return `<div class="wm-tot ${cls || ""}"><span>Est. subtotal before tax</span><b>${r.est ? "~" : ""}${wmMoney(r.t)}</b></div>`; }
-/* What was sent, kept even after the grocery list is cleared (last 6 sends). */
+function wmTotalHTML(items, cls) { if (!wmPricesOn()) return ""; const r = wmTotal(items); return `<div class="wm-tot ${cls || ""}"><span>Est. subtotal before tax${r.miss ? `<em>${r.miss} item${r.miss === 1 ? "" : "s"} priced on Walmart</em>` : ""}</span><b>${r.est ? "~" : ""}${wmMoney(r.t)}</b></div>`; }
+/* What was sent, kept even after the cart is emptied (last 6 sends). */
 function wmLog() { S.meta.wmLog = S.meta.wmLog || []; return S.meta.wmLog; }
 function wmCartSheetHTML() {
   const log = wmLog(), b = wmBuild(), last = log[0], cur = b.cart.map(x => [x.k, x.q]);
-  let o = `${sheetTitle("My Walmart cart")}<div class="wm-intro">Everything Game Shape sent to your Walmart cart, with counts and an estimated total. Changes you make on Walmart itself won't show here.</div>`;
+  let o = `${sheetTitle("Sent to Walmart")}<button class="btn sm" data-act="wmCart" style="margin-bottom:10px">‹ Back to my cart</button><div class="wm-intro">Everything Game Shape sent to your Walmart cart, with counts and an estimated total. Changes you make on Walmart itself won't show here.</div>`;
   const rowsHTML = items => WM_CATS.map(c => { const rs = items.filter(([k]) => WM[k] && WM[k][4] === c); if (!rs.length) return ""; return `<h3 class="wm-cat"><span>${c}</span><span>${rs.reduce((a, r) => a + r[1], 0)}</span></h3>` + rs.map(([k, q]) => { const p = WM[k], pr = wmPrice(k); return `<div class="wm-line"><b class="wm-qty">${q}×</b><div><span class="wm-n">${esc(p[1])}</span><span class="wm-s">${esc(p[2])}${pr ? " · " + (pr[1] ? "~" : "") + wmMoney(pr[0]) + " each" : ""}</span></div>${pr ? `<span class="wm-lt">${pr[1] ? "~" : ""}${wmMoney(pr[0] * q)}</span>` : ""}</div>`; }).join(""); }).join("");
   if (last) {
     const units = last.items.reduce((a, r) => a + r[1], 0);
     o += `<div class="wm-sum"><div><b>Sent ${wmTime(last.at)}</b><span>${last.items.length} items · ${units} total</span></div>${wmTotalHTML(last.items, "big")}</div>` + rowsHTML(last.items);
     if (log.length > 1) o += `<details class="wm-old"><summary>Earlier sends (${log.length - 1})</summary>${log.slice(1).map(l => `<div class="wm-sum sm"><div><b>${wmTime(l.at)}</b><span>${l.items.length} items</span></div>${wmTotalHTML(l.items)}</div>`).join("")}<div class="small muted">Each send adds on top of what was already in your Walmart cart.</div></details>`;
-  } else o += `<div class="banner info" style="margin:0 0 8px"><b>Nothing sent yet</b>${cur.length ? "Here's what your grocery list will send. Review it, then send." : "Add prep meals or the office kit to your grocery list first."}</div>` + (cur.length ? `<div class="wm-sum"><div><b>Ready to send</b><span>${cur.length} items</span></div>${wmTotalHTML(cur, "big")}</div>` + rowsHTML(cur) : "");
+  } else o += `<div class="banner info" style="margin:0 0 8px"><b>Nothing sent yet</b>${cur.length ? "Here's what your cart will send. Review it, then send." : "Add meals or items to your cart first."}</div>` + (cur.length ? `<div class="wm-sum"><div><b>Ready to send</b><span>${cur.length} items</span></div>${wmTotalHTML(cur, "big")}</div>` + rowsHTML(cur) : "");
   const pend = last && b.cart.length && !wmSentNow(b.cart);
   o += `<div class="wm-foot">${pend ? `<button class="wm-go" data-act="wmOpen" style="margin-bottom:10px">Your list changed · review and send</button>` : !last && cur.length ? `<button class="wm-go" data-act="wmOpen" style="margin-bottom:10px">Review and send (${cur.length})</button>` : ""}<a class="btn block" href="${esc(wmWrap("https://www.walmart.com/cart"))}" target="_blank" rel="noopener" style="min-height:48px;display:flex;align-items:center;justify-content:center;text-decoration:none">Open my cart on Walmart ›</a>${wmPricesOn() ? `<div class="wm-fine">Prices are Walmart.com estimates from ${fmtD(WM_PRICED)}. Meat and produce are sold by weight (~). Your store sets the final price.</div>` : ""}</div>`;
   return o;
 }
+/* Floating cart button on Fuel: shows once something is in the cart. */
+function cartPillSync() {
+  const el = $("cartPill"); if (!el) return; const { n, b } = wmCount();
+  if (UI.tab !== "fuel" || !n) { el.classList.add("hidden"); return; }
+  const tt = wmPricesOn() && b.cart.length ? wmTotal(b.cart.map(x => [x.k, x.q])) : null;
+  const h = `<span class="cp-ic">🧺</span><span>Cart · ${n} item${n === 1 ? "" : "s"}${tt ? " · " + (tt.est ? "~" : "") + wmMoney(tt.t) : ""}</span><span class="cp-go">View ›</span>`;
+  if (el._h !== h) { el._h = h; el.innerHTML = h; el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); }
+  el.classList.remove("hidden");
+}
+function sheetKeep(fn) { const sb = $("sheetBody"), y = sb ? sb.scrollTop : 0; fn(); const s2 = $("sheetBody"); if (s2) s2.scrollTop = y; }
 function wmAdminHTML() {
   if (PERSON || !R().adminPin) return "";
   return `<h3 class="sh3" style="margin-top:22px">Walmart affiliate</h3><label class="f">Impact publisher ID (test on this phone only)</label><input value="${esc(S.meta.wmAff || "")}" placeholder="Leave empty for plain Walmart links" inputmode="numeric" data-in="wmAff"><div class="small muted">${WM_AFF.id ? "Live for all 3 apps: " + esc(WM_AFF.id) + "." : "Not live. To switch it on for all 3 apps, set WM_AFF.id in index.html."} The paid-link note shows in the Walmart sheet whenever an ID is on.</div>`;
@@ -3046,7 +3192,7 @@ function renderSheet() {
   } else if (kind === "routine") { o = routineHTML();
   } else if (kind === "recipe") { o = recipeSheetHTML(arg);
   } else if (kind === "wm") { o = wmSheetHTML();
-  } else if (kind === "wmcart") { o = wmCartSheetHTML();
+  } else if (kind === "wmcart" || kind === "wmhist") { o = wmCartSheetHTML();
   } else if (kind === "pb") { o = playbookSheetHTML(arg);
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "health") { o = healthSheetHTML();
@@ -3111,7 +3257,7 @@ function render() {
   const html = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]() + `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`;
   const newTab = UI.lastTab !== UI.tab; patchView($("view"), html, !newTab); UI.lastTab = UI.tab; hdrH(); if (typeof slimSync === "function") slimSync(newTab ? false : null);
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
-  setTimeout(revealCards, 0);
+  setTimeout(revealCards, 0); cartPillSync();
   const st = $("scTotal"); if (st && +st.dataset.from !== +st.dataset.to) { countUp(st, +st.dataset.from, +st.dataset.to); } UI.scPrev = st ? +st.dataset.to : UI.scPrev;
 }
 /* v3.0.8: smooth re-render. Same tab: only the parts that changed are swapped, so taps never flash the page or jump the scroll.
@@ -3275,17 +3421,20 @@ const ACT = {
   wkPrev: () => { UI.trainOff--; UI.trainSel = null; render(); },
   wkNext: () => { UI.trainOff++; UI.trainSel = null; render(); },
   selDay: el => { UI.trainSel = el.dataset.date; render(); },
-  groc: el => { const id = el.dataset.id, n = Math.max(0, (S.grocery.sel[id] || 0) + +el.dataset.v); if (n) S.grocery.sel[id] = n; else delete S.grocery.sel[id]; save(); render(); },
-  kit: () => { S.grocery.kit = !S.grocery.kit; save(); render(); },
-  gchk: el => { const n = el.dataset.n; S.grocery.checked[n] = !S.grocery.checked[n]; save(); buzz(); render(); },
+  groc: el => { const g = wmG(), id = el.dataset.id, d = +el.dataset.v, n = Math.max(0, (g.sel[id] || 0) + d); if (n) g.sel[id] = n; else delete g.sel[id]; const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => (WM_ING[i[0]] || []).forEach(([k]) => { delete g.wmQ[k]; if (d > 0) delete g.wmOff[k]; })); UI.wmArm = false; UI.cartClearArm = false; save(); if (d > 0) toast(n === 1 ? "Added to cart" : n + " batches in cart"); render(); if (UI.sheet) sheetKeep(renderSheet); },
+  mealCart: el => { const g = wmG(), k = el.dataset.id, d = +el.dataset.v, n = Math.max(0, Math.min(14, (g.meals[k] || 0) + d)); if (n) g.meals[k] = n; else delete g.meals[k]; const m = mealByKey(k), bb = m && MEAL_BUY[m.n]; if (Array.isArray(bb)) bb.forEach(([pk]) => { delete g.wmQ[pk]; if (d > 0) delete g.wmOff[pk]; }); UI.wmArm = false; UI.cartClearArm = false; save(); if (d > 0) toast(n === 1 ? "Added to cart" : n + " in cart"); render(); if (UI.sheet) sheetKeep(renderSheet); },
+  wmAdd: el => { const g = wmG(), k = el.dataset.k, d = +el.dataset.v, q = Math.max(0, Math.min(24, (g.extra[k] || 0) + d)); if (q) g.extra[k] = q; else delete g.extra[k]; delete g.wmQ[k]; if (d > 0) delete g.wmOff[k]; UI.wmArm = false; UI.cartClearArm = false; save(); render(); if (UI.sheet) sheetKeep(renderSheet); },
+  kit: () => { const g = wmG(); g.kit = !g.kit; if (g.kit) OFFICE_KIT.forEach(i => (WM_ING[i[0]] || []).forEach(([k]) => { delete g.wmQ[k]; delete g.wmOff[k]; })); save(); render(); if (UI.sheet) sheetKeep(renderSheet); },
+  goShop: () => { closeSheet(); UI.shopOpen = UI.shopOpen || "Produce"; render(); setTimeout(() => ACT.fuelCat({ dataset: { v: "shop" }, offsetLeft: 0 }), 60); },
+  wmHist: () => openSheet("wmhist"),
+  cartClear: () => { if (!UI.cartClearArm) { UI.cartClearArm = true; sheetKeep(renderSheet); setTimeout(() => { if (UI.cartClearArm) { UI.cartClearArm = false; if (UI.sheet) sheetKeep(renderSheet); } }, 4000); return; } UI.cartClearArm = false; const g = wmG(); S.grocery = { sel: {}, kit: false, checked: g.checked || {}, meals: {}, extra: {}, wmOff: {}, wmQ: {}, wm: g.wm }; save(); toast("Cart emptied"); render(); sheetKeep(renderSheet); },
   wmOpen: () => { UI.wmArm = false; openSheet("wm"); },
-  wmCart: () => openSheet("wmcart"),
+  wmCart: () => { UI.wmArm = false; openSheet("wm"); },
   wmTog: el => { const g = wmG(), k = el.dataset.k; if (g.wmOff[k]) delete g.wmOff[k]; else g.wmOff[k] = 1; save(); buzz(); const on = !g.wmOff[k]; el.classList.toggle("on", on); const bx = el.querySelector(".box"); bx.classList.remove("anim"); if (on) { void bx.offsetWidth; bx.classList.add("anim"); } UI.wmArm = false; wmSync(); render(); },
-  wmQty: el => { const g = wmG(), k = el.dataset.k, b = wmBuild(), x = b.list.find(i => i.k === k); if (!x) return; const q = Math.max(1, Math.min(12, x.q + +el.dataset.v)); if (q === x.auto) delete g.wmQ[k]; else g.wmQ[k] = q; save(); const s = $("wmq-" + k); if (s) { s.textContent = q; s.classList.remove("pop"); void s.offsetWidth; s.classList.add("pop"); } UI.wmArm = false; wmSync(); render(); },
+  wmQty: el => { const g = wmG(), k = el.dataset.k, b = wmBuild(), x = b.list.find(i => i.k === k); if (!x) return; const q = Math.max(1, Math.min(24, x.q + +el.dataset.v)); if (q === x.auto) delete g.wmQ[k]; else g.wmQ[k] = q; save(); const s = $("wmq-" + k); if (s) { s.textContent = q; s.classList.remove("pop"); void s.offsetWidth; s.classList.add("pop"); } UI.wmArm = false; wmSync(); render(); },
   wmArm: () => { UI.wmArm = true; wmSync(); },
   wmDisarm: () => { UI.wmArm = false; wmSync(); },
   wmGo: (el, e) => { const b = wmBuild(); if (!b.cart.length) { if (e) e.preventDefault(); return; } S.grocery.wm = { at: Date.now(), sig: wmSig(b.cart), n: b.cart.length }; const lg = wmLog(); lg.unshift({ at: S.grocery.wm.at, items: b.cart.map(x => [x.k, x.q]) }); lg.length = Math.min(lg.length, 6); save(); popFx(el.getBoundingClientRect(), "mid"); toast("Sent. Tap Cart on Fuel any time to see what you added."); UI.wmArm = false; setTimeout(() => { wmSync(); render(); }, 350); },
-  gclear: () => { if (!UI.gclearArm) { UI.gclearArm = true; render(); setTimeout(() => { if (UI.gclearArm) { UI.gclearArm = false; render(); } }, 4000); return; } UI.gclearArm = false; S.grocery = { sel: {}, kit: false, checked: {} }; save(); toast("List cleared"); render(); },
   logBody: () => { const w = parseFloat($("bW").value), wa = parseFloat($("bWa").value); if (!w && !wa) return toast("Enter weight or waist"); const s = todayStr(), e = S.body.find(b => b.date === s) || (S.body.push({ date: s }), S.body[S.body.length - 1]); if (w) { e.weight = w; S.profile.weight = w; } if (wa) { e.waist = wa; S.profile.waist = wa; } save(); toast("Logged"); render(); },
   checkin: () => { const c = { date: todayStr(), weight: parseFloat($("ciW").value) || null, waist: parseFloat($("ciWa").value) || null, sore: $("ciS").value, win: $("ciWin").value, change: $("ciC").value }; S.checkins.push(c); if (c.weight || c.waist) { const e = S.body.find(b => b.date === c.date) || (S.body.push({ date: c.date }), S.body[S.body.length - 1]); if (c.weight) e.weight = c.weight; if (c.waist) e.waist = c.waist; } save(); toast("Check-in saved"); render(); },
   gameSave: el => { const id = el.dataset.a, g = { id: id || "g" + Date.now(), date: $("gD").value, time: $("gT").value || "18:30", opp: $("gO").value || "Game", gym: $("gG").value }; if (!g.date) return toast("Pick a date"); const i = S.games.findIndex(x => x.id === id); i >= 0 ? S.games[i] = g : S.games.push(g); invalidate(); save(); toast("Saved. Plan updated."); openSheet("hoops"); render(); },
