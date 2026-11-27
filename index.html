@@ -463,6 +463,20 @@ img,svg,video{max-width:100%}
 .scr{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px;transition:background .25s,border-color .25s}
 .scr.ok{border-color:var(--green);background:var(--green-tint)}
 .scr-top{display:flex;align-items:center;gap:10px}
+button.scr-ck{padding:0;background:#fff;cursor:pointer;width:44px;height:44px;font-size:18px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+button.scr-ck:active{transform:scale(.9)}
+button.scr-t{background:none;border:0;padding:4px 0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.scr-go{color:var(--orange-ink);font-weight:900}
+.od-mini{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.od-mini img{width:74px;height:40px;object-fit:cover;border-radius:8px;flex:none}
+.od-mini b{font-size:18px}
+.verse-mini{display:block;width:100%;text-align:left;padding:12px 14px;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0;cursor:pointer}
+.verse-mini .vm-ref{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ffd75e}
+.verse-mini .vm-t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:600 15px/1.4 Georgia,"Times New Roman",serif;margin-top:4px}
+.verse-mini.open .vm-t{-webkit-line-clamp:unset;display:block}
+.verse-mini .vm-more{display:block;font-size:11px;opacity:.7;margin-top:4px}
+.verse-mini .vm-pr{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.2);font-size:13px}
+.verse-mini .vm-pr b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#ffd75e}
 .scr-ck{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:900;color:#fff;font-size:14px}
 .scr.ok .scr-ck{background:var(--green);border-color:var(--green)}
 .scr-t{flex:1;min-width:0}.scr-t b{display:block;font-size:15px}.scr-t small{color:var(--ink-2);font-size:12px}
@@ -553,6 +567,38 @@ img,svg,video{max-width:100%}
 .exmore summary:before{content:"+ "}
 .exmore[open] summary:before{content:"− "}
 .sb-seg{margin:12px 0 8px;width:100%}
+.hero-mini{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.hero-mini img{width:42px;height:42px;border-radius:11px;flex:none}
+.hero-mini h2{margin:2px 0 0;font-size:20px;line-height:1.15}
+.wo-mini{padding:14px}
+.wo-mini-t{background:none;border:0;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer;display:block;width:100%}
+.wo-mini-t .eyebrow{display:block}
+.wo-mini-t b{display:block;font-size:19px;margin-top:4px;line-height:1.2}
+.line-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;cursor:pointer;color:inherit;font:inherit}
+.line-card img{width:64px;height:36px;object-fit:cover;border-radius:7px;flex:none}
+.line-card b{display:block;font-size:15px}
+.line-card small{display:block;font-size:12px;color:var(--ink-2)}
+.line-bar{display:block;height:6px;border-radius:4px;background:var(--line);margin-top:6px;overflow:hidden}
+.line-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--epc-teal),var(--orange));border-radius:4px}
+.rivals-mini{display:block;width:100%;text-align:left;padding:12px 14px;cursor:pointer;color:inherit;font:inherit}
+.rm-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.rm-row .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.rm-row b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.rm-dots{display:flex;gap:3px}
+.rm-dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.rm-dots i.on{background:var(--c)}
+.rm-row em{font-style:normal;font-weight:900;min-width:34px;text-align:right}
+.rivals-mini > .small{display:block;margin-top:8px}
+.more-today{padding:0}
+.more-today > summary{padding:16px;font-weight:900;font-size:16px;cursor:pointer;list-style:none}
+.more-today > summary::-webkit-details-marker{display:none}
+.more-today > summary:after{content:"+";float:right;color:var(--orange-ink)}
+.more-today[open] > summary:after{content:"−"}
+.more-today > .card,.more-today > .banner,.more-today > .grid3{margin:0 12px 12px}
+.scorecard .scr{padding:8px 10px;margin-top:6px}
+.scorecard .scr-ctl{margin-top:6px}
+.scorecard .scr-ctl .chip,.scorecard .scr-ctl .seg button,.scorecard .scr-ctl input{min-height:44px}
+.wg-link{min-height:44px}
 .verse-card{margin-top:16px;background:linear-gradient(135deg,#2f1b50,#4a2d76);color:#fff;border:0;text-align:center}
 .verse-card blockquote{margin:10px 4px 8px;font-size:19px;line-height:1.45;font-weight:700;font-family:Georgia,"Times New Roman",serif}
 .verse-ref{font-weight:900;color:#ffd75e;letter-spacing:.04em}
@@ -688,8 +734,10 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.6";
+const APP_VERSION = "3.0.8";
 const CHANGELOG = {
+  "3.0.8": ["Smoother Today: tap a circle to check it off, tap a title to open that tab, nothing jumps when you tap. Extras live under More for today"],
+  "3.0.7": ["Cleaner Today: a daily verse up top, tap any circle to check it off, tap any title to jump to that tab"],
   "3.0.6": ["Pick where you train for any day on the Train tab. Brett: YMCA days use the full gym, home days use what you have"],
   "3.0.5": ["Workout tune-up: cleaner sessions, steady weight progress"],
   "3.0.4": ["Good Reads doubled: 400+ books, all on Amazon. New sections: Hoops + Coaching Legends, Make Me Money, Pump Me Up, Good Habits, Husband + Dad, Proof of God, and Inspiring Christian Stories", "New daily verse and prayer at the bottom of Reads"],
@@ -1347,7 +1395,7 @@ function milesIn(from, to) { let m = 0; for (const d in S.logs) if (d >= from &&
 function bikeIn(from, to) { let m = 0; for (const d in S.logs) if (d >= from && d <= to) m += +S.logs[d].bike || 0; return Math.round(m * 10) / 10; }
 function runCardHTML(s, sess) {
   const l = getL(s), wk = milesIn(weekStart(s), s), wkB = bikeIn(weekStart(s), s), all = milesIn("2000-01-01", s) + bikeIn("2000-01-01", s);
-  const mode = UI.cardio || (C().features.runs ? "run" : "bike"), yday = cardioCredit(addDays(s, -1)), today = cardioCredit(s);
+  const mode = UI.cardio || "run", yday = cardioCredit(addDays(s, -1)), today = cardioCredit(s);
   const note = sess.run ? "Run day: a 1+ mile run is today's workout (" + PTS.workout + " pts)." : today ? "Cardio counted today: +" + PTS.cardio + "." : yday ? "Cardio counted yesterday, so today's miles log without points. Points are back tomorrow." : "Run 1+ mile or bike 3+ miles: +" + PTS.cardio + ". Counts once every other day.";
   return `<div class="card"><div class="row between"><h2 style="margin:0">Cardio log</h2><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div></div>
   <div class="grid3" style="margin-top:10px"><div class="tile"><div class="k">Today</div><div class="v" style="font-size:18px">${+(l.miles || 0).toFixed(1)} run${l.bike ? "<br>" + (+l.bike).toFixed(1) + " bike" : ""}</div></div><div class="tile"><div class="k">This week</div><div class="v" style="font-size:18px">${wk} run${wkB ? "<br>" + wkB + " bike" : ""}</div></div><div class="tile"><div class="k">All miles</div><div class="v">${Math.round(all * 10) / 10}</div></div></div>
@@ -1592,24 +1640,37 @@ function rulebookHTML() {
 /* ===== Today's scorecard: every point on the table, one tap each ===== */
 function scorecardHTML(s) {
   const l = getL(s), p = dayPoints(s), tot = Object.values(p).reduce((a, v) => a + v, 0), c = dayChecks(s), wg = waterGoal(s), pct = Math.min(100, Math.round((l.water || 0) / wg * 100));
-  const h = sleepOf(l), court = courtOn(s), mode = UI.cardio || (C().features.runs ? "run" : "bike"), cdt = cardioCredit(s), ycd = cardioCredit(addDays(s, -1));
-  const row = (ok, title, pts, sub, ctrl, cls) => `<div class="scr ${ok ? "ok" : ""} ${cls || ""}"><div class="scr-top"><span class="scr-ck">${ok ? "✓" : ""}</span><div class="scr-t"><b>${title}</b>${sub ? `<small>${sub}</small>` : ""}</div><em>${pts}</em></div>${ctrl ? `<div class="scr-ctl">${ctrl}</div>` : ""}</div>`;
+  const h = sleepOf(l), court = courtOn(s), mode = UI.cardio || "run", cdt = cardioCredit(s), ycd = cardioCredit(addDays(s, -1));
+  const keyOf = t => /^Water/.test(t) ? ["water", "fuel"] : /^Workout/.test(t) ? ["workout", "train"] : /^Basketball/.test(t) ? ["court", "train"] : /^Run/.test(t) ? ["cardio", "train"] : /^Read/.test(t) ? ["read", "reads"] : /^Sleep/.test(t) ? ["sleep", "recover"] : /^Protein/.test(t) ? ["protein", "fuel"] : /^Affirm/.test(t) ? ["affirm", "recover"] : [null, null];
+  const row = (ok, title, pts, sub, ctrl, cls) => { const [k, tab] = keyOf(title); return `<div class="scr ${ok ? "ok" : ""} ${cls || ""}"><div class="scr-top">${k ? `<button class="scr-ck" data-act="scTick" data-k="${k}" aria-label="${ok ? "Undo" : "Check"} ${esc(title)}">${ok ? "✓" : ""}</button>` : `<span class="scr-ck">${ok ? "✓" : ""}</span>`}<button class="scr-t" ${tab ? `data-tab="${tab}"` : ""}><b>${title}${tab ? ' <span class="scr-go">›</span>' : ""}</b>${sub ? `<small>${sub}</small>` : ""}</button><em>${pts}</em></div>${ctrl ? `<div class="scr-ctl">${ctrl}</div>` : ""}</div>`; };
   const nAll = ALLIN.filter(([k]) => c[k]).length;
   UI.scPrev = UI.scPrev == null ? tot : UI.scPrev;
   return `<div class="card scorecard"><div class="row between" style="align-items:flex-end"><div><h2 class="brand" style="margin:0">Today's scorecard</h2><div class="small muted">Tap as you go. Days are your main points.</div></div><div style="text-align:right"><div class="sc-total" id="scTotal" data-from="${UI.scPrev}" data-to="${tot}">${tot}</div><div class="small muted">points today</div></div></div>
-  ${row(c.water, "Water: " + (l.water || 0) + " of " + wg + " oz", "+" + PTS.water, "The big one. " + PTS.waterPart + " points at 75 percent.", `<div class="wbar"><i style="width:${pct}%"></i></div><div class="row" style="gap:6px;margin-top:8px"><button class="chip" style="flex:1" data-act="addW" data-v="8">+8</button><button class="chip" style="flex:1" data-act="addW" data-v="16">+16</button><button class="chip" style="flex:1" data-act="addW" data-v="20">+20</button><button class="chip ${c.water ? "on" : ""}" style="flex:1.4" data-act="scWater">${c.water ? "✓ Hit it" : "Hit my goal"}</button></div>${UI.wgEdit ? `<div class="wg-edit"><span>Daily goal</span><button class="chip" data-act="wgStep" data-v="-8">−8</button><b>${S.profile.waterBase} oz</b><button class="chip" data-act="wgStep" data-v="8">+8</button><button class="chip on" data-act="wgEdit">Done</button></div>${S.profile.waterCourtExtra ? `<div class="small muted" style="margin-top:4px">Court days add ${S.profile.waterCourtExtra} oz.</div>` : ""}` : `<button class="wg-link" data-act="wgEdit">Goal: ${wg} oz · change</button>`}`, "water")}
-  ${row(c.workout, "Workout", "+" + (l.mvdDone && !l.done ? PTS.quick : PTS.workout), l.done ? "Done. Nice work." : l.mvdDone ? "15-min version done" : "Use Train for the full session, or check it here when you finish.", `<div class="row" style="gap:6px"><button class="chip ${l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="full">${l.done ? "✓ " : ""}Full workout</button><button class="chip ${l.mvdDone && !l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="quick">${l.mvdDone && !l.done ? "✓ " : ""}15-min</button><button class="chip" data-tab="train">Train ›</button></div>`)}
-  ${court.length ? row(p.court > 0, "Basketball: " + esc(court[0].label), "+" + (p.court || (court.some(e => e.kind === "game" || e.type === "game") ? PTS.gamePlay : PTS.practice)), "Check in on the game or practice card.", "") : ""}
-  ${row(cdt, "Run or bike", "+" + PTS.cardio, cdt ? "Counted today." : ycd ? "Counted yesterday. Miles still log, points come back tomorrow." : "Run 1+ mile or bike 3+ miles. Every other day.", `<div class="row" style="gap:6px"><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="60" placeholder="Miles" style="flex:1;min-height:44px"><button class="chip" data-act="runAdd">Add</button></div>${l.miles || l.bike ? `<div class="small muted" style="margin-top:4px">${l.miles ? l.miles + " mi run " : ""}${l.bike ? l.bike + " mi bike" : ""} <button class="small" style="text-decoration:underline" data-act="runClear">undo</button></div>` : ""}`)}
-  ${row(c.read, "Read: " + (l.reading || 0) + " min", "up to +" + PTS.readCap, "1 point a minute. 10+ minutes counts for your medal.", `<div class="row" style="gap:6px"><button class="chip" style="flex:1" data-act="read" data-v="10">+10 min</button><button class="chip" style="flex:1" data-act="read" data-v="20">+20 min</button><button class="chip" style="flex:1" data-act="read" data-v="35">+35 min</button></div>${l.reading > 0 ? `<div class="row" style="gap:6px;margin-top:6px"><button class="chip" style="flex:1" data-act="readUndo" data-v="10">Undo 10 min</button><button class="chip" style="flex:1" data-act="readUndo" data-v="all">Clear today</button></div>` : ""}`)}
-  ${row(c.sleep, "Sleep last night" + (h != null ? ": " + (Math.round(h * 10) / 10) + " hrs" : ""), "+" + (p.sleep || PTS.sleepBest), "7 to 8 hrs is best (" + PTS.sleepBest + "). Under 6 is 0.", `<div class="row" style="gap:6px">${[[5, "5"], [6, "6"], [7, "7"], [8, "8"], [9, "9+"]].map(([v, n]) => `<button class="chip ${h != null && Math.floor(h) === v || (v === 9 && h >= 9) ? "on" : ""}" style="flex:1" data-act="scSleep" data-v="${v}">${n}</button>`).join("")}</div>`)}
-  ${row(c.protein, "Protein " + PTS.proteinG + " g", "+" + PTS.protein, "Counts for your medal too.", `<button class="chip ${c.protein ? "on" : ""}" style="width:100%" data-act="scProtein">${c.protein ? "✓ Got my " + PTS.proteinG + " g" : "I hit " + PTS.proteinG + " g today"}</button>`)}
-  ${row(c.affirm, "Affirmations", "0", "No points alone. Needed for All In.", `<button class="chip ${c.affirm ? "on" : ""}" style="width:100%" data-act="affCheck">${c.affirm ? "✓ Read them" : "I read my affirmations"}</button>`)}
+  ${row(c.water, "Water: " + (l.water || 0) + " of " + wg + " oz", "+" + PTS.water, (PTS.waterPart + " pts at 75%"), `<div class="wbar"><i style="width:${pct}%"></i></div><div class="row" style="gap:6px;margin-top:8px"><button class="chip" style="flex:1" data-act="addW" data-v="8">+8</button><button class="chip" style="flex:1" data-act="addW" data-v="16">+16</button><button class="chip" style="flex:1" data-act="addW" data-v="20">+20</button><button class="chip ${c.water ? "on" : ""}" style="flex:1.4" data-act="scWater">${c.water ? "✓ Hit it" : "Hit my goal"}</button></div>${UI.wgEdit ? `<div class="wg-edit"><span>Daily goal</span><button class="chip" data-act="wgStep" data-v="-8">−8</button><b>${S.profile.waterBase} oz</b><button class="chip" data-act="wgStep" data-v="8">+8</button><button class="chip on" data-act="wgEdit">Done</button></div>${S.profile.waterCourtExtra ? `<div class="small muted" style="margin-top:4px">Court days add ${S.profile.waterCourtExtra} oz.</div>` : ""}` : `<button class="wg-link" data-act="wgEdit">Goal: ${wg} oz · change</button>`}`, "water")}
+  ${row(c.workout, "Workout", "+" + (l.mvdDone && !l.done ? PTS.quick : PTS.workout), l.done ? "Done. Nice work." : l.mvdDone ? "15-min version done" : "Tap the circle when you finish", `<div class="row" style="gap:6px"><button class="chip ${l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="full">${l.done ? "✓ " : ""}Full workout</button><button class="chip ${l.mvdDone && !l.done ? "on" : ""}" style="flex:1" data-act="scWorkout" data-v="quick">${l.mvdDone && !l.done ? "✓ " : ""}15-min</button></div>`)}
+  ${court.length ? row(p.court > 0, "Basketball: " + esc(court[0].label), "+" + (p.court || (court.some(e => e.kind === "game" || e.type === "game") ? PTS.gamePlay : PTS.practice)), "", (() => { const ev = court, l2 = l, game = ev.find(e => e.kind === "game" || e.type === "game"), v = l2.court || ""; const opts = game ? [["played", "Played", PTS.gamePlay], ["watched", "Went, didn't play", PTS.gameWatch]] : [["practice", "Went to practice", PTS.practice]]; return `<div class="row" style="gap:6px">${opts.map(([k, n, pp]) => `<button class="chip ${v === k ? "on" : ""}" style="flex:1" data-act="courtSet" data-v="${k}">${v === k ? "✓ " : ""}${n} +${pp}</button>`).join("")}</div>`; })()) : ""}
+  ${row(cdt, "Run or bike", "+" + PTS.cardio, cdt ? "Counted today." : ycd ? "Counted yesterday. Miles still log, points come back tomorrow." : "1+ mile run or 3+ mile bike, every other day", `<div class="row" style="gap:6px"><div class="seg" style="width:auto"><button class="${mode === "run" ? "on" : ""}" data-act="cardioMode" data-v="run">Run</button><button class="${mode === "bike" ? "on" : ""}" data-act="cardioMode" data-v="bike">Bike</button></div><input id="runMi" type="number" inputmode="decimal" step="0.1" min="0" max="60" placeholder="Miles" style="flex:1;min-height:44px"><button class="chip" data-act="runAdd">Add</button></div>${l.miles || l.bike ? `<div class="small muted" style="margin-top:4px">${l.miles ? l.miles + " mi run " : ""}${l.bike ? l.bike + " mi bike" : ""} <button class="small" style="text-decoration:underline" data-act="runClear">undo</button></div>` : ""}`)}
+  ${row(c.read, "Read: " + (l.reading || 0) + " min", "up to +" + PTS.readCap, "1 pt a minute. 10+ min counts for your medal", `<div class="row" style="gap:6px"><button class="chip" style="flex:1" data-act="read" data-v="10">+10 min</button><button class="chip" style="flex:1" data-act="read" data-v="20">+20 min</button><button class="chip" style="flex:1" data-act="read" data-v="35">+35 min</button></div>${l.reading > 0 ? `<div class="row" style="gap:6px;margin-top:6px"><button class="chip" style="flex:1" data-act="readUndo" data-v="10">Undo 10 min</button><button class="chip" style="flex:1" data-act="readUndo" data-v="all">Clear today</button></div>` : ""}`)}
+  ${row(c.sleep, "Sleep last night" + (h != null ? ": " + (Math.round(h * 10) / 10) + " hrs" : ""), "+" + (p.sleep || PTS.sleepBest), "7 to 8 hrs = " + PTS.sleepBest + " pts", `<div class="row" style="gap:6px">${[[5, "5"], [6, "6"], [7, "7"], [8, "8"], [9, "9+"]].map(([v, n]) => `<button class="chip ${h != null && Math.floor(h) === v || (v === 9 && h >= 9) ? "on" : ""}" style="flex:1" data-act="scSleep" data-v="${v}">${n}</button>`).join("")}</div>`)}
+  ${row(c.protein, "Protein " + PTS.proteinG + " g", "+" + PTS.protein, (c.protein ? "Hit it today" : (l.protein || 0) + " g logged. Tap the circle when you hit it"), "")}
+  ${row(c.affirm, "Affirmations", "All In", "Read them, then tap the circle", "")}
   <div class="allin-bar ${c.allIn ? "on" : ""}"><b>${c.allIn ? "ALL IN today! +" + PTS.allIn : "All In: " + nAll + " of 6"}</b><span>${c.allIn ? "Every box checked." : "Workout, water, sleep, read, protein, affirmations = +" + PTS.allIn}</span></div></div>`;
+}
+function medalLineHTML() {
+  const t = todayStr(), sz = seasonOf(t);
+  if (t < sz.start) { const n = between(t, sz.start); return `<button class="card line-card" data-act="sheet" data-k="rules"><img src="epc-tropics.jpg?v=282" alt=""><span><b>Opening Day ${fmtShort(sz.start)}</b><small>${n} ${n === 1 ? "day" : "days"} until Season ${sz.n}. Tap for the rules.</small></span><span class="scr-go">›</span></button>`; }
+  const w = weekHits(weekStart(t)), nextK = ["bronze", "silver", "gold"].find(k => w.hits < TIERS[k].min), dleft = 6 - ((dow(t) + 6) % 7), pct = Math.min(100, Math.round(w.hits / WK_MAX * 100));
+  return `<button class="card line-card" data-tab="progress">${medalSVG(nextK || "gold", 30)}<span style="flex:1;min-width:0"><b>Medal chase: ${w.hits}/${WK_MAX}</b><small>${nextK ? `${TIERS[nextK].min - w.hits} more for ${TIERS[nextK].name}${dleft ? ", " + dleft + " day" + (dleft === 1 ? "" : "s") + " left" : ", last day"}` : "Gold locked. Keep stacking."}</small><i class="line-bar"><i style="width:${pct}%"></i></i></span><span class="scr-go">›</span></button>`;
+}
+function rivalsMiniHTML() {
+  const { pre, list } = standingsList(), t = todayStr();
+  const rows = list.map(p => { const td = p.today && p.today.date === t ? p.today : null, c = esc(p.accent || "#ff8200");
+    return `<span class="rm-row"><i class="dot" style="background:${c}"></i><b>${esc(p.id === PID ? myName() : p.name)}</b><span class="rm-dots">${RV_KEYS.map(([k]) => `<i class="${td && td.checks && td.checks[k] ? "on" : ""}" style="--c:${c}"></i>`).join("")}</span><em>${td ? td.pts : 0}</em></span>`; }).join("");
+  return `<button class="card rivals-mini" data-tab="progress"><span class="row between" style="align-items:center"><b class="brand">Live scoreboard</b>${livePill()}</span>${rows}<span class="small muted">${pre ? "Everyone shows 0 until Opening Day. " : ""}Tap for graphs and standings ›</span></button>`;
 }
 function weekCardHTML() {
   const t = todayStr(), sz = seasonOf(t);
-  if (t < sz.start) { const n = between(t, sz.start); return `<div class="card odcount">${tropicsHTML(150)}<div class="eyebrow">Opening Day • Monday, ${fmtD(sz.start).replace(/^\w+,? /, "")}</div><div class="n">${n}</div><div class="small muted">${n === 1 ? "day" : "days"} until Season ${sz.n} starts. Points, medals, and the Golden Tropics race all begin Monday. Practice the habits now.</div><button class="btn sm" style="margin-top:10px" data-act="sheet" data-k="rules">How the score works</button></div>`; }
+  if (t < sz.start) { const n = between(t, sz.start); return `<div class="card od-mini"><img src="epc-tropics.jpg?v=282" alt="EPC Tropics"><div style="flex:1;min-width:0"><div class="eyebrow">Opening Day • ${fmtShort(sz.start)}</div><b>${n} ${n === 1 ? "day" : "days"}</b> until Season ${sz.n}</div><button class="btn sm" data-act="sheet" data-k="rules">Rules</button></div>`; }
   const ws = weekStart(t), w = weekHits(ws), today = dayHits(t), dleft = 6 - ((dow(t) + 6) % 7);
   const got = ["bronze", "silver", "gold"].filter(k => w.hits >= TIERS[k].min), nextK = ["bronze", "silver", "gold"].find(k => w.hits < TIERS[k].min);
   const ladder = ["bronze", "silver", "gold"].map(k => `<div class="ms ${got.includes(k) ? "got" : ""} ${k === nextK ? "next" : ""}">${medalSVG(k, 36)}<b>${TIERS[k].name}</b><small>${got.includes(k) ? "locked ✓" : (TIERS[k].min - w.hits) + " to go"}</small></div>`).join("");
@@ -2146,7 +2207,7 @@ function floodFx(title, sub) {
   w.onclick = bye; setTimeout(bye, 1700);
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
-const POP_ACTS = new Set(["set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd"]);
+const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
   fn();
@@ -2226,43 +2287,36 @@ function renderToday() {
   const s = todayStr(), info = dayInfo(s), ph = phase(weekNum(s)), sess = buildSession(s), l = getL(s);
   const h = new Date().getHours(), greet = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
   const nc = nextCourt(), st = streak(), x = xp(), lvl = Math.floor(x / 300) + 1;
-  let out = "";
-  out += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="row between wrap"><div class="eyebrow">${weekNum(s) ? ph.label : "Starts " + fmtD(S.programStart)}</div>${badgeFor(info)}</div><div class="hero-top"><img src="icon-180.png" alt="Game Shape"><h2 style="font-size:24px;line-height:1.15">${greet}, ${esc(myName())}</h2></div><div class="identity">${esc((C().identity.length ? C().identity[pd(s).getDate() % C().identity.length] : ""))}</div></div>`;
-  // banners
+  let out = "", more = "";
+  /* v3.0.8 Today: greeting + verse, workout, quick scores, medal line, live scoreboard, then everything else folded away. */
+  out += `<div class="card hero-mini"><img src="icon-180.png" alt=""><div style="flex:1;min-width:0"><div class="eyebrow">${weekNum(s) ? esc(ph.label) : "Starts " + fmtD(S.programStart)}</div><h2>${greet}, ${esc(myName())}</h2></div>${badgeFor(info)}</div>`;
+  out += verseMiniHTML();
+  // only the banners that need action today stay up top
   if (S.schedAlert) out += `<div class="banner info"><b>Your schedule changed</b>${S.schedAlert.msgs.map(esc).join("<br>")}<br>Your plan was updated.<div style="margin-top:10px" class="row"><button class="btn sm" data-act="sheet" data-k="hoops">View schedule</button><button class="btn sm" data-act="dismissSched">Got it</button></div></div>`;
-  if (!upcomingEvents().length) out += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
   if (S.alert) out += `<div class="banner bad"><b>See a doctor or PT</b>${S.alert.msgs.map(esc).join("<br>")}<div style="margin-top:10px"><button class="btn sm" data-act="dismissAlert">Got it</button></div></div>`;
   const pa = painAreas(); if (pa.length) out += `<div class="banner warn"><b>Backing off: ${pa.map(a => AREAS.find(x => x[0] === a)[1] + " (" + S.pain[a].left + " left)").join(", ")}</b>Exercises that load these areas are swapped for pain-free versions.</div>`;
   if (info.midday) out += `<div class="banner info"><b>Sleep-in day</b>Late night yesterday. Sleep until 6:30 and train at 12:00.</div>`;
   const tmr = dayInfo(addDays(s, 1)); if (tmr.midday && !info.midday) out += `<div class="banner info"><b>Heads up: tomorrow is a sleep-in day</b>Turn off the ${fmtT((C().times && C().times.wake) || "05:00").replace(" AM", "")} alarm tonight. Workout moves to 12:00.</div>`;
-  if (!S.meta.lastBackup || between(S.meta.lastBackup, s) >= 7) out += `<div class="banner info"><b>Back up your data</b>iPhone can clear app storage. Takes 5 seconds. <div style="margin-top:10px"><button class="btn sm" data-act="export">Export backup</button></div></div>`;
-  // workout card
-  const done = l.done || l.mvdDone;
-  out += `<div class="card"><div class="row between"><div class="eyebrow">${sess.time}</div><span class="small muted">${sess.min} min</span></div><h2 style="margin-top:6px">${esc(sess.focus)}</h2><div class="small muted">${esc(sess.note)}</div><div class="small muted" style="margin-top:6px">${sess.main.length} exercises. RPE ${ph.rpe}.${C().features.hotTub && sess.tub ? " Hot tub " + sess.tub + " min." : " Foam roll after."}</div>
-  <div class="row" style="margin-top:14px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
-  out += courtCardHTML(s);
-  out += weekCardHTML();
-  if (testOpen() && booksReady().length) out += `<div class="card" style="border:2px solid var(--orange)"><h2 class="brand" style="margin:0">Book Test Week</h2><div class="small muted" style="margin:4px 0 8px">Pass a 3-question test on each book you read for +${PTS.quiz} each. Ends ${fmtD(testWindow().close)}.</div>${booksReady().map(id => { const b = bookById(id); return b ? `<button class="chip" style="display:block;width:100%;text-align:left;margin:5px 0" data-act="quizOpen" data-id="${esc(id)}">${esc(b.title)} <b style="float:right">Take test ›</b></button>` : ""; }).join("")}</div>`;
-  out += scorecardHTML(s);
-  // workout window check (people who pick their own windows)
-  const wins = myWindows();
-  const su0 = C().setup, tl = todayLoc(s);
-  if (su0 && su0.locs && su0.locs.length > 1) out += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
-  if (wins.length) out += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
-
-  // tiles
-  out += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">This week</div><div class="v">${weekHits(weekStart(s)).hits}<span class="small muted">/${WK_MAX}</span></div><div class="small muted">medal hits</div></div></div>`;
-  // crew check-ins (Brett only, after the admin PIN is saved)
-  if (!PERSON && R().adminPin) { if (!CREW.people && !CREW.err) loadCrew(() => { if (UI.tab === "today" && crewNew().length) render(); }); const nw = crewNew(); if (nw.length) out += `<div class="banner info"><b>New crew check-in</b>${esc(nw.map(p => p.name).join(" and "))} sent their workout setup.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="crew">View</button></div></div>`; }
-  // weekly scoreboard (compact)
-  out += rivalsHTML();
-  // Sunday review
-  if (dow(s) === 0) out += weeklyReview(s);
   if (nextCheckin() === s) out += `<div class="banner info"><b>4-week check-in today</b>Weigh in, measure your waist, and fill out the check-in in Progress.<div style="margin-top:10px"><button class="btn sm" data-tab="progress">Open check-in</button></div></div>`;
-  // fuel quick card retired in v2.9.1: water and protein live on the scorecard
-
-  // checklist
-  out += `<div class="card"><h2 class="brand">Today's checklist</h2>${dayChecklist(s).map(i => checkRow(s, i[0], fmtT(i[1]), i[2])).join("")}</div>`;
+  // workout: one compact card
+  const done = l.done || l.mvdDone, tl = todayLoc(s);
+  out += `<div class="card wo-mini"><div class="row between" style="align-items:flex-start;gap:10px"><button class="wo-mini-t" data-tab="train"><span class="eyebrow">${esc(sess.time)} • ${sess.min} min${tl ? " • " + esc(LOCS[tl] || "") : ""}</span><b>${esc(sess.focus)} <span class="scr-go">›</span></b></button></div>
+  <div class="row" style="margin-top:10px;gap:8px">${done ? `<button class="btn block" data-act="openWO" data-date="${s}">✓ Done. View session</button>` : `<button class="btn primary" style="flex:2" data-act="openWO" data-date="${s}">Start workout</button><button class="btn" style="flex:1" data-act="openWO" data-date="${s}" data-mvd="1">15 min</button>`}</div></div>`;
+  out += scorecardHTML(s);
+  out += medalLineHTML();
+  if (testOpen() && booksReady().length) out += `<div class="card" style="border:2px solid var(--orange)"><h2 class="brand" style="margin:0">Book Test Week</h2><div class="small muted" style="margin:4px 0 8px">Pass a 3-question test on each book you read for +${PTS.quiz} each. Ends ${fmtD(testWindow().close)}.</div>${booksReady().map(id => { const b = bookById(id); return b ? `<button class="chip" style="display:block;width:100%;text-align:left;margin:5px 0" data-act="quizOpen" data-id="${esc(id)}">${esc(b.title)} <b style="float:right">Take test ›</b></button>` : ""; }).join("")}</div>`;
+  out += rivalsMiniHTML();
+  // everything else lives in one folded section
+  const wins = myWindows(), su0 = C().setup;
+  if (su0 && su0.locs && su0.locs.length > 1) more += `<div class="card"><h3 style="margin:0 0 8px">Where are you training today?</h3><div class="row">${su0.locs.map(k => `<button class="chip ${tl === k ? "on" : ""}" style="flex:1" data-act="loc" data-v="${k}">${LOCS[k]}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Your workout changes to fit the equipment there.</div></div>`;
+  if (wins.length) more += `<div class="card"><h3 style="margin:0 0 8px">When did you train today?</h3><div class="row">${wins.map(w => `<button class="chip ${l.slot === w ? "on" : ""}" style="flex:1" data-act="slot" data-v="${esc(w)}">${l.slot === w ? "✓ " : ""}${esc(w)}</button>`).join("")}</div><div class="small muted" style="margin-top:6px">Tap the window you used. Change your windows in More, then Workout setup.</div></div>`;
+  if (!upcomingEvents().length) more += `<div class="banner warn"><b>Add your schedule</b>Import your games and practices from a file, a calendar link, or a photo. Your plan builds around them.<div style="margin-top:10px"><button class="btn sm primary" data-act="sheet" data-k="import">Import schedule</button></div></div>`;
+  if (!S.meta.lastBackup || between(S.meta.lastBackup, s) >= 7) more += `<div class="banner info"><b>Back up your data</b>iPhone can clear app storage. Takes 5 seconds. <div style="margin-top:10px"><button class="btn sm" data-act="export">Export backup</button></div></div>`;
+  if (!PERSON && R().adminPin) { if (!CREW.people && !CREW.err) loadCrew(() => { if (UI.tab === "today" && crewNew().length) render(); }); const nw = crewNew(); if (nw.length) more += `<div class="banner info"><b>New crew check-in</b>${esc(nw.map(p => p.name).join(" and "))} sent their workout setup.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="crew">View</button></div></div>`; }
+  more += `<div class="grid3"><div class="tile"><div class="k">Next court</div><div class="v">${nc ? countdown(nc.at) : "None"}</div><div class="small muted">${nc ? (nc.type === "game" ? "Game " : "Practice ") + fmtShort(nc.date) : ""}</div></div><div class="tile"><div class="k">Streak</div><div class="v">${st} ${I.flame}</div><div class="small muted">days</div></div><div class="tile"><div class="k">This week</div><div class="v">${weekHits(weekStart(s)).hits}<span class="small muted">/${WK_MAX}</span></div><div class="small muted">medal hits</div></div></div>`;
+  if (dow(s) === 0) more += weeklyReview(s);
+  more += `<div class="card"><h2 class="brand">Today's checklist</h2>${dayChecklist(s).map(i => checkRow(s, i[0], fmtT(i[1]), i[2])).join("")}</div>`;
+  out += `<details class="card more-today" id="moreToday"><summary>More for today</summary>${more}</details>`;
   return out;
 }
 function weeklyReview(s) {
@@ -2493,11 +2547,35 @@ function render() {
   $("hdrSub").textContent = weekNum(s) ? "Week " + weekNum(s) : "Starts " + fmtD(S.programStart);
   const nd = new Date(); $("hdrDate").textContent = nd.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
   const ta = TAB_ART[UI.tab];
-  $("view").innerHTML = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]();
-  $("view").insertAdjacentHTML("beforeend", `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`);
+  const html = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]() + `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`;
+  patchView($("view"), html, UI.lastTab === UI.tab); UI.lastTab = UI.tab;
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
   setTimeout(revealCards, 0);
   const st = $("scTotal"); if (st && +st.dataset.from !== +st.dataset.to) { countUp(st, +st.dataset.from, +st.dataset.to); } UI.scPrev = st ? +st.dataset.to : UI.scPrev;
+}
+/* v3.0.8: smooth re-render. Same tab: only the parts that changed are swapped, so taps never flash the page or jump the scroll.
+   Open/closed sections stay how you left them. A new tab still draws fresh. */
+function patchView(view, html, same) {
+  if (!same || !view.firstChild) { view.innerHTML = html; return; }
+  const tpl = document.createElement("template"); tpl.innerHTML = html;
+  const y = window.scrollY; morphKids(view, tpl.content, 0); if (Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y);
+}
+function morphKids(a, b, depth) {
+  const an = Array.from(a.childNodes), bn = Array.from(b.childNodes);
+  if (an.length !== bn.length || depth > 7) { a.replaceChildren(...bn); return; }
+  for (let i = 0; i < bn.length; i++) morphNode(an[i], bn[i], depth);
+}
+function morphNode(o, n, depth) {
+  if (o.nodeType !== n.nodeType || o.nodeName !== n.nodeName || (o.nodeType === 1 && o.id !== n.id)) { o.replaceWith(n); return; }
+  if (o.nodeType !== 1) { if (o.nodeValue !== n.nodeValue) o.nodeValue = n.nodeValue; return; }
+  const src = n.outerHTML; if (o._src === src) return;
+  if ((o.tagName === "INPUT" || o.tagName === "TEXTAREA" || o.tagName === "SELECT") && o !== document.activeElement && o._src !== undefined) { n._src = src; o.replaceWith(n); return; }
+  const keepCls = ["rv", "in"].filter(c => o.classList.contains(c));
+  for (const at of Array.from(o.attributes)) if (!n.hasAttribute(at.name) && !(at.name === "open" && o.tagName === "DETAILS") && at.name !== "data-rv" && !(at.name === "style" && o.dataset.rv)) o.removeAttribute(at.name);
+  for (const at of Array.from(n.attributes)) if (o.getAttribute(at.name) !== at.value && !(at.name === "open" && o.tagName === "DETAILS")) o.setAttribute(at.name, at.value);
+  keepCls.forEach(c => o.classList.add(c));
+  if (o.tagName === "INPUT" || o.tagName === "TEXTAREA" || o.tagName === "SELECT") { if (o !== document.activeElement && o._src !== undefined) { n._src = src; o.replaceWith(n); return; } o._src = src; return; }
+  morphKids(o, n, depth + 1); o._src = src;
 }
 function rerenderAll() { render(); if (UI.wo) renderWO(); if (UI.sheet) renderSheet(); }
 
@@ -2550,11 +2628,21 @@ const ACT = {
   slot: el => { const l = L(todayStr()); l.slot = l.slot === el.dataset.v ? null : el.dataset.v; save(); render(); },
   courtSet: el => { const l = L(todayStr()), v = el.dataset.v; if (l.court === v) { l.court = null; l.checks.court = false; } else { l.court = v; l.checks.court = true; toast("+" + (v === "watched" ? PTS.gameWatch : v === "practice" ? PTS.practice : PTS.gamePlay) + ". Showing up counts."); } save(); render(); },
   scWorkout: el => { const l = L(todayStr()), full = el.dataset.v === "full"; if (full) { l.done = !l.done; if (l.done) l.mvdDone = false; } else { l.mvdDone = !l.mvdDone; if (l.mvdDone) l.done = false; } l.checks.workout = !!(l.done || l.mvdDone); scSave(); },
-  scWater: () => { const l = L(todayStr()), g = waterGoal(todayStr()); l.water = l.water >= g ? Math.round(g * .5) : g; scSave(); },
+  scTick: el => { const k = el.dataset.k, l = L(todayStr());
+    if (k === "water") return ACT.scWater();
+    if (k === "workout") return ACT.scWorkout({ dataset: { v: l.mvdDone && !l.done ? "quick" : "full" } });
+    if (k === "protein") return ACT.scProtein();
+    if (k === "sleep") return ACT.scSleep({ dataset: { v: l.sleepH != null ? l.sleepH : 7 } });
+    if (k === "read") { if (l.reading > 0) { l.reading = 0; l.checks.wd_read = false; } else { l.reading = 10; l.checks.wd_read = true; } return scSave(); }
+    if (k === "affirm") return ACT.affCheck();
+    if (k === "court") { const ev = courtOn(todayStr()), game = ev.find(e => e.kind === "game" || e.type === "game"); return ACT.courtSet({ dataset: { v: l.court || (game ? "played" : "practice") } }); }
+    if (k === "cardio") { const i = $("runMi"); if (i) { i.focus(); i.scrollIntoView({ block: "center", behavior: "smooth" }); } } },
+  scWater: () => { const l = L(todayStr()), g = waterGoal(todayStr()); if (l.water >= g) { l.water = l.waterPrev != null && l.waterPrev < g ? l.waterPrev : 0; delete l.waterPrev; } else { l.waterPrev = l.water || 0; l.water = g; } scSave(); },
   scSleep: el => { const l = L(todayStr()), v = +el.dataset.v; l.sleepH = l.sleepH === v ? null : v; scSave(); },
   scProtein: () => { const l = L(todayStr()); l.protein50 = !proteinHit(l); if (!l.protein50 && l.protein >= PTS.proteinG) l.protein = 0; scSave(); },
   cardioMode: el => { UI.cardio = el.dataset.v; render(); },
-  runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || (C().features.runs ? "run" : "bike")) === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
+  runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || "run") === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
+    $("runMi").value = ""; $("runMi").blur();
     l[k] = Math.round(((+l[k] || 0) + v) * 10) / 10;
     if (!bike && buildSession(s).run && l.miles >= 1 && !l.done) { l.done = true; l.runDone = true; l.checks.workout = true; }
     save(); toast(v + " mi " + (bike ? "biked" : "run") + (cardioCredit(s) ? ". +" + PTS.cardio : runIsWorkout(s) ? ". Workout done" : "") + ". Nice work."); render(); },
@@ -2576,6 +2664,7 @@ const ACT = {
   toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
   addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
+  verseTog: () => { UI.verseOpen = !UI.verseOpen; const y = window.scrollY; render(); window.scrollTo(0, y); },
   wgEdit: () => { UI.wgEdit = !UI.wgEdit; const y = window.scrollY; render(); window.scrollTo(0, y); },
   wgStep: el => { S.profile.waterBase = Math.max(40, Math.min(200, (S.profile.waterBase || 100) + +el.dataset.v)); save(); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
   read: el => { const l = L(todayStr()); l.reading += +el.dataset.v; l.checks.wd_read = true; save(); buzz(); render(); },
@@ -2636,7 +2725,7 @@ document.addEventListener("change", e => {
   const el = e.target, k = el.dataset.in; if (!k) return;
   if (k === "weight") { L(UI.wo).weights[el.dataset.id] = el.value; save(); }
   else if (k === "hcNote") { const it = HC().issues[el.dataset.k]; if (it) it.note = el.value.slice(0, 80); }
-  else if (k === "sleep") { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); save(); render(); }
+  else if (k === "sleep") { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); if (l.sleep.bed && l.sleep.wake) delete l.sleepH; save(); render(); }
   else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
   else if (k === "supp") { S.supplements[+el.dataset.i][el.dataset.k] = el.value; save(); render(); }
   else if (k === "appt") { S.appointments[+el.dataset.i][el.dataset.k] = el.value; save(); }
@@ -2798,6 +2887,10 @@ function renderReadList() {
 const VERSES = [{"r": "Joshua 1:9", "t": "Haven’t I commanded you? Be strong and courageous. Don’t be afraid. Don’t be dismayed, for the LORD your God is with you wherever you go."}, {"r": "Proverbs 3:5-6", "t": "Trust in the LORD with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight."}, {"r": "Isaiah 40:31", "t": "But those who wait for the LORD will renew their strength. They will mount up with wings like eagles. They will run, and not be weary. They will walk, and not faint."}, {"r": "Philippians 4:13", "t": "I can do all things through Christ, who strengthens me."}, {"r": "Jeremiah 29:11", "t": "For I know the thoughts that I think toward you, says the LORD, thoughts of peace, and not of evil, to give you hope and a future."}, {"r": "Romans 8:28", "t": "We know that all things work together for good for those who love God, for those who are called according to his purpose."}, {"r": "Psalm 23:1-3", "t": "The LORD is my shepherd: I shall lack nothing. He makes me lie down in green pastures. He leads me beside still waters. He restores my soul. He guides me in the paths of righteousness for his name’s sake."}, {"r": "Matthew 6:33", "t": "But seek first God’s Kingdom, and his righteousness; and all these things will be given to you as well."}, {"r": "2 Corinthians 5:17", "t": "Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new."}, {"r": "Galatians 6:9", "t": "Let’s not be weary in doing good, for we will reap in due season, if we don’t give up."}, {"r": "Colossians 3:23-24", "t": "And whatever you do, work heartily, as for the Lord, and not for men, knowing that from the Lord you will receive the reward of the inheritance; for you serve the Lord Christ."}, {"r": "1 Corinthians 9:24", "t": "Don’t you know that those who run in a race all run, but one receives the prize? Run like that, that you may win."}, {"r": "Hebrews 12:1-2", "t": "Therefore let’s also, seeing we are surrounded by so great a cloud of witnesses, lay aside every weight and the sin which so easily entangles us, and let’s run with perseverance the race that is set before us, looking to Jesus, the author and perfecter of faith, who for the joy that was set before him endured the cross, despising its shame, and has sat down at the right hand of the throne of God."}, {"r": "2 Timothy 1:7", "t": "For God didn’t give us a spirit of fear, but of power, love, and self-control."}, {"r": "Psalm 46:1", "t": "God is our refuge and strength, a very present help in trouble."}, {"r": "Isaiah 41:10", "t": "Don’t you be afraid, for I am with you. Don’t be dismayed, for I am your God. I will strengthen you. Yes, I will help you. Yes, I will uphold you with the right hand of my righteousness."}, {"r": "Proverbs 27:17", "t": "Iron sharpens iron; so a man sharpens his friend’s countenance."}, {"r": "Ephesians 5:25", "t": "Husbands, love your wives, even as Christ also loved the assembly, and gave himself up for it."}, {"r": "1 Corinthians 16:13-14", "t": "Watch! Stand firm in the faith! Be courageous! Be strong! Let all that you do be done in love."}, {"r": "Micah 6:8", "t": "He has shown you, O man, what is good. What does the LORD require of you, but to act justly, to love mercy, and to walk humbly with your God?"}, {"r": "Psalm 118:24", "t": "This is the day that the LORD has made. We will rejoice and be glad in it!"}, {"r": "Lamentations 3:22-23", "t": "It is because of the LORD’s loving kindnesses that we are not consumed, because his compassion doesn’t fail. They are new every morning. Great is your faithfulness."}, {"r": "Matthew 11:28-30", "t": "Come to me, all you who labor and are heavily burdened, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and humble in heart; and you will find rest for your souls. For my yoke is easy, and my burden is light."}, {"r": "John 16:33", "t": "I have told you these things, that in me you may have peace. In the world you have trouble; but cheer up! I have overcome the world."}, {"r": "Romans 12:2", "t": "Don’t be conformed to this world, but be transformed by the renewing of your mind, so that you may prove what is the good, well-pleasing, and perfect will of God."}, {"r": "James 1:2-4", "t": "Count it all joy, my brothers, when you fall into various temptations, knowing that the testing of your faith produces endurance. Let endurance have its perfect work, that you may be perfect and complete, lacking in nothing."}, {"r": "1 Peter 5:7", "t": "Casting all your worries on him, because he cares for you."}, {"r": "Psalm 37:4", "t": "Also delight yourself in the LORD, and he will give you the desires of your heart."}, {"r": "Proverbs 16:3", "t": "Commit your deeds to the LORD, and your plans shall succeed."}, {"r": "Deuteronomy 31:6", "t": "Be strong and courageous. Don’t be afraid or scared of them; for the LORD your God himself is who goes with you. He will not fail you nor forsake you."}, {"r": "Psalm 121:1-2", "t": "I will lift up my eyes to the hills. Where does my help come from? My help comes from the LORD, who made heaven and earth."}, {"r": "John 3:16", "t": "For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life."}, {"r": "Ephesians 2:8-9", "t": "For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, that no one would boast."}, {"r": "Romans 5:3-5", "t": "Not only this, but we also rejoice in our sufferings, knowing that suffering produces perseverance; and perseverance, proven character; and proven character, hope: and hope doesn’t disappoint us, because God’s love has been poured into our hearts through the Holy Spirit who was given to us."}, {"r": "1 Timothy 4:8", "t": "For bodily exercise has some value, but godliness has value in all things, having the promise of the life which is now, and of that which is to come."}, {"r": "1 Corinthians 6:19-20", "t": "Or don’t you know that your body is a temple of the Holy Spirit who is in you, whom you have from God? You are not your own, for you were bought with a price. Therefore glorify God in your body and in your spirit, which are God’s."}, {"r": "Proverbs 22:6", "t": "Train up a child in the way he should go, and when he is old he will not depart from it."}, {"r": "Psalm 127:3", "t": "Behold, children are a heritage of the LORD. The fruit of the womb is his reward."}, {"r": "Ephesians 6:4", "t": "You fathers, don’t provoke your children to wrath, but nurture them in the discipline and instruction of the Lord."}, {"r": "1 Corinthians 13:4-7", "t": "Love is patient and is kind. Love doesn’t envy. Love doesn’t brag, is not proud, doesn’t behave itself inappropriately, doesn’t seek its own way, is not provoked, takes no account of evil; doesn’t rejoice in unrighteousness, but rejoices with the truth; bears all things, believes all things, hopes all things, and endures all things."}, {"r": "Proverbs 13:11", "t": "Wealth gained dishonestly dwindles away, but he who gathers by hand makes it grow."}, {"r": "Proverbs 21:5", "t": "The plans of the diligent surely lead to profit; and everyone who is hasty surely rushes to poverty."}, {"r": "Matthew 5:16", "t": "Even so, let your light shine before men; that they may see your good works, and glorify your Father who is in heaven."}, {"r": "John 15:13", "t": "Greater love has no one than this, that someone lay down his life for his friends."}, {"r": "Ecclesiastes 4:9-10", "t": "Two are better than one, because they have a good reward for their labor. For if they fall, the one will lift up his fellow; but woe to him who is alone when he falls, and doesn’t have another to lift him up."}, {"r": "Philippians 4:6-7", "t": "In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus."}, {"r": "Psalm 91:1-2", "t": "He who dwells in the secret place of the Most High will rest in the shadow of the Almighty. I will say of the LORD, He is my refuge and my fortress; my God, in whom I trust."}, {"r": "Isaiah 26:3", "t": "You will keep whoever’s mind is steadfast in perfect peace, because he trusts in you."}, {"r": "2 Corinthians 12:9", "t": "He has said to me, My grace is sufficient for you, for my power is made perfect in weakness. Most gladly therefore I will rather glory in my weaknesses, that the power of Christ may rest on me."}, {"r": "Hebrews 11:1", "t": "Now faith is assurance of things hoped for, proof of things not seen."}, {"r": "Romans 15:13", "t": "Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope, in the power of the Holy Spirit."}, {"r": "Psalm 143:8", "t": "Cause me to hear your loving kindness in the morning, for I trust in you. Cause me to know the way in which I should walk, for I lift up my soul to you."}, {"r": "Proverbs 4:23", "t": "Keep your heart with all diligence, for out of it is the wellspring of life."}, {"r": "1 Thessalonians 5:16-18", "t": "Always rejoice. Pray without ceasing. In everything give thanks, for this is the will of God in Christ Jesus toward you."}, {"r": "Zephaniah 3:17", "t": "The LORD, your God, is among you, a mighty one who will save. He will rejoice over you with joy. He will calm you in his love. He will rejoice over you with singing."}, {"r": "Nahum 1:7", "t": "The LORD is good, a stronghold in the day of trouble; and he knows those who take refuge in him."}, {"r": "Psalm 19:14", "t": "Let the words of my mouth and the meditation of my heart be acceptable in your sight, LORD, my rock, and my redeemer."}, {"r": "Matthew 7:24", "t": "Everyone therefore who hears these words of mine, and does them, I will liken him to a wise man, who built his house on a rock."}, {"r": "John 14:27", "t": "Peace I leave with you. My peace I give to you; not as the world gives, I give to you. Don’t let your heart be troubled, neither let it be fearful."}, {"r": "Philippians 3:13-14", "t": "Brothers, I don’t regard myself as yet having taken hold, but one thing I do: forgetting the things which are behind, and stretching forward to the things which are before, I press on toward the goal for the prize of the high calling of God in Christ Jesus."}];
 const PRAYERS = ["Lord, give me strength to show up today for my family, my work, and my body.", "God, help me lead my home with patience, humility, and love.", "Lord, guard my mind from worry. I trust You with what I cannot control.", "Father, thank You for my wife and kids. Help me love them well today.", "God, give me discipline when it is hard and rest when I need it.", "Lord, let my work today honor You. Make me honest, diligent, and kind.", "Father, heal what hurts in my body and my heart. Keep me humble and grateful.", "God, make me a friend who sharpens others and lifts them up.", "Lord, help me be quick to listen, slow to speak, and slow to anger.", "Father, I give You my plans. Lead me where You want me to go.", "God, thank You for another day. Help me use it well.", "Lord, protect my family. Give me courage to do the right thing.", "Father, when I fall short, remind me of Your grace and help me get back up.", "God, give me wisdom with money and a generous heart.", "Lord, quiet my mind tonight and give me deep, restful sleep."];
 /* Daily verse + prayer: rotates every day. Scripture from the World English Bible (public domain), with "the LORD" for God's name. */
+function verseMiniHTML() {
+  const n = Math.floor(new Date(todayStr() + "T12:00").getTime() / 864e5), v = VERSES[n % VERSES.length], pr = PRAYERS[n % PRAYERS.length];
+  return `<button class="card verse-mini ${UI.verseOpen ? "open" : ""}" data-act="verseTog" aria-expanded="${!!UI.verseOpen}"><span class="vm-ref">${esc(v.r)}</span><span class="vm-t">${esc(v.t)}</span>${UI.verseOpen ? `<span class="vm-pr"><b>Prayer</b>${esc(pr)}</span>` : `<span class="vm-more">Tap for today's prayer</span>`}</button>`;
+}
 function dailyVerseHTML() {
   const t = todayStr(), n = Math.floor(new Date(t + "T12:00").getTime() / 864e5), v = VERSES[n % VERSES.length], pr = PRAYERS[n % PRAYERS.length];
   return `<div class="card verse-card"><div class="eyebrow" style="color:#ffd75e">Today's verse</div><blockquote>${esc(v.t)}</blockquote><div class="verse-ref">${esc(v.r)} <span>WEB</span></div><div class="verse-pray"><b>Prayer</b>${esc(pr)}</div><div class="small" style="opacity:.7;margin-top:8px">A new verse and prayer every day.</div></div>`;
