@@ -158,6 +158,16 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .pb-list li{margin:8px 0;font-size:15px}
 .drink{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line)}.drink:last-child{border-bottom:0}
 .fgroc .btn.sm{min-height:44px}
+/* v3.1.2 slim pinned bar: slides in when you scroll up, hides when you scroll down. Hairline + teal-to-purple accent as the divider. */
+.slimbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:10px;height:calc(var(--st,0px) + 50px);padding:var(--st,0px) 14px 0;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(1.6) blur(14px);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line);box-shadow:0 6px 18px rgba(20,10,40,.07);transform:translateY(-110%);transition:transform .28s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.slimbar:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple));opacity:.85}
+.slimbar.show{transform:none;pointer-events:auto}
+.slimbar img{height:20px;width:auto}
+.slimbar b{flex:1;font-size:17px;font-weight:800;letter-spacing:-.2px;padding-left:10px;border-left:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slimbar .iconbtn.sm{width:38px;height:38px;min-height:38px;display:grid;place-items:center}
+@media (min-width:660px){.slimbar{padding-left:calc(50vw - 306px);padding-right:calc(50vw - 306px)}}
+.fuel-cats{transition:top .28s cubic-bezier(.2,.8,.2,1)}
+body.slim .fuel-cats{top:50px}
 .chip.pain.on{background:var(--danger);border-color:var(--danger);color:#fff}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -711,6 +721,7 @@ button.scr-t{background:none;border:0;padding:4px 0;text-align:left;color:inheri
     <div class="titlerow"><div><div class="eyebrow" id="hdrSub"></div><h1 id="hdrTitle">Today</h1></div>
     <button class="iconbtn" data-act="more" aria-label="More"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   </header>
+  <div id="slimBar" class="slimbar" aria-hidden="true"><img src="wordmark-on-light.png?v=282" alt=""><b id="slimTitle">Today</b><button class="iconbtn sm" data-act="more" aria-label="More"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/></svg></button></div>
   <div id="sportsArt" aria-hidden="true"></div>
   <main id="view"></main>
   <nav class="tabbar" id="tabbar">
@@ -789,8 +800,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.1";
+const APP_VERSION = "3.1.2";
 const CHANGELOG = {
+  "3.1.2": ["A slim Game Shape bar slides in at the top when you scroll back up"],
   "3.1.1": ["Fresher Fuel: your protein and water up top, a sticky category bar, swipe rows for meals, and recipes that open in one tap", "A teal and purple splash on every tap, everywhere in the app"],
   "3.1.0": ["New Recover tab: log or fix any night of sleep in one tap, a wind-down that counts, and a stretch library with videos and timed routines"],
   "3.0.8": ["Smoother Today: tap a circle to check it off, tap a title to open that tab, nothing jumps when you tap. Extras live under More for today"],
@@ -2221,6 +2233,17 @@ function revealCards() {
 }
 /* v3.1.1 tap splash: EPC Tropics teal + purple on every tap, everywhere in the app.
    Buttons and links get the full splash + ring the instant you touch. Anywhere else gets a soft ripple (on tap, not on scroll). */
+/* v3.1.2 slim bar: show on scroll up once the big header is gone, hide on scroll down or near the top. */
+let slimY = 0;
+function slimSync(force) {
+  const bar = $("slimBar"), hd = document.querySelector("header.top"); if (!bar || !hd) return;
+  const y = scrollY, past = y > hd.offsetHeight + 10, dy = y - slimY; let show = bar.classList.contains("show");
+  if (!past || force === false) show = false; else if (dy < -6) show = true; else if (dy > 6) show = false;
+  if (Math.abs(dy) > 6 || !past || force != null) slimY = y;
+  bar.classList.toggle("show", show); document.body.classList.toggle("slim", show); bar.setAttribute("aria-hidden", show ? "false" : "true");
+  const t = $("slimTitle"); if (t && TITLES[UI.tab] && t.textContent !== TITLES[UI.tab]) t.textContent = TITLES[UI.tab];
+}
+window.addEventListener("scroll", () => slimSync(), { passive: true });
 const TAP_SEL = ".btn,.chip,.iconbtn,.tabbar button,.menu button,a,[data-act],[data-tab],summary,.check,label,input,select,textarea,[role=button],.fcard,.pb-tile,.rt-btn,.sl-bar";
 function tapFx(x, y, sz, soft) {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -2815,7 +2838,7 @@ function render() {
   const nd = new Date(); $("hdrDate").textContent = nd.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
   const ta = TAB_ART[UI.tab];
   const html = `<div class="art" style="${ta[1]}">${ART[ta[0]]}</div>` + ({ today: renderToday, train: renderTrain, fuel: renderFuel, reads: renderReads, recover: renderRecover, progress: renderProgress })[UI.tab]() + `<div class="signoff"><img src="gs-mark.png" alt=""><span>Train. Fuel. Read. Recover. <b class="ball">BALL</b> out your Life.</span></div>`;
-  patchView($("view"), html, UI.lastTab === UI.tab); UI.lastTab = UI.tab; hdrH();
+  const newTab = UI.lastTab !== UI.tab; patchView($("view"), html, !newTab); UI.lastTab = UI.tab; hdrH(); if (typeof slimSync === "function") slimSync(newTab ? false : null);
   document.querySelectorAll("#tabbar button").forEach(b => b.classList.toggle("on", b.dataset.tab === UI.tab));
   setTimeout(revealCards, 0);
   const st = $("scTotal"); if (st && +st.dataset.from !== +st.dataset.to) { countUp(st, +st.dataset.from, +st.dataset.to); } UI.scPrev = st ? +st.dataset.to : UI.scPrev;
@@ -2944,7 +2967,7 @@ const ACT = {
   addP: el => { const l = L(todayStr()), v = +el.dataset.v; l.protein = Math.max(0, l.protein + v); if (v > 0) { l.pLog = (l.pLog || []).concat(v).slice(-20); } if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); fuelBump(0); },
   fuelUndo: () => { const l = L(todayStr()), v = (l.pLog || []).pop(); if (!v) return; l.protein = Math.max(0, l.protein - v); if (l.protein < PTS.proteinG && l.protein50 && !l.pLog.length) l.protein50 = false; save(); toast("Removed " + v + " g"); rerenderAll(); fuelBump(0); },
   fuelCat: el => { const id = el.dataset.v, sec = $("fc-" + id), bar = $("fuelCats"); UI.fuelCat = id; UI.fuelLock = Date.now() + 900; if (bar) { bar.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.v === id)); bar.scrollTo({ left: el.offsetLeft - 16, behavior: "smooth" }); }
-    if (sec) { const y = sec.getBoundingClientRect().top + scrollY - (bar ? bar.getBoundingClientRect().height : 0) - 8; scrollTo({ top: y, behavior: "smooth" }); sec.classList.remove("flash"); void sec.offsetWidth; sec.classList.add("flash"); } },
+    if (sec) { let y = sec.getBoundingClientRect().top + scrollY - (bar ? bar.getBoundingClientRect().height : 0) - 8; if (y < scrollY) y -= 50; scrollTo({ top: y, behavior: "smooth" }); sec.classList.remove("flash"); void sec.offsetWidth; sec.classList.add("flash"); } },
   fuelRecipe: el => openSheet("recipe", el.dataset.id),
   fuelPb: el => { openSheet("pb", +el.dataset.i); $("sheet").scrollTop = 0; },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); fuelBump(1); },
