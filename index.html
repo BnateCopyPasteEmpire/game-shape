@@ -102,6 +102,23 @@ main>*{position:relative;z-index:1}
 .btn.danger{color:var(--danger)}
 .chip{min-height:44px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px;color:var(--ink)}
 .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.sl-big{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 12px}.sl-big b{font-size:30px;letter-spacing:-.5px}
+.sl-strip{display:flex;gap:6px;align-items:flex-end;margin-top:16px;padding-top:10px;border-top:1px solid var(--line)}
+.sl-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-height:104px;padding:4px 0;border-radius:10px;background:none;border:1px solid transparent;color:var(--ink)}
+.sl-bar i{display:block;width:70%;max-width:30px;border-radius:6px}.sl-bar small{font-size:11px;font-weight:800;min-height:14px}.sl-bar span{font-size:11px;font-weight:700;color:var(--ink-2)}
+.sl-bar.on{border-color:var(--line);background:var(--surface)}
+.rt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.rt-btn{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;min-height:64px;padding:10px 12px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-align:left;color:var(--ink)}
+.rt-btn b{font-size:14px}.rt-btn small{font-size:12px;color:var(--ink-2)}
+.st-item{padding:14px 0;border-bottom:1px solid var(--line)}.st-item:last-child{border-bottom:0}
+ol.st-cues{margin:0;padding-left:20px;font-size:14px}ol.st-cues li{margin:3px 0}
+.rt-clock{font-size:64px;font-weight:900;text-align:center;letter-spacing:-2px;margin:14px 0 0;font-variant-numeric:tabular-nums}
+.rt-side{text-align:center;font-weight:800;color:var(--orange-ink);min-height:20px}
+.rt-track{height:8px;border-radius:8px;background:var(--surface);overflow:hidden;margin-top:8px}.rt-track i{display:block;height:100%;background:var(--green);transition:width .9s linear}
+details.tip{box-shadow:none;margin-bottom:8px}details.tip>summary{font-size:15px;min-height:48px;padding:12px 14px}
+.chip.pain:not(.on){border-color:var(--danger);color:var(--danger)}
+#affCard>summary{padding:16px}
+.st-item .howto,#sheetBody .howto{min-height:44px}#stretchCard .chiprow .chip{min-height:44px}#windCard .btn.sm,#affCard .btn.sm,#sleepCard .btn.sm{min-height:44px}
 .chip.pain.on{background:var(--danger);border-color:var(--danger);color:#fff}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -734,8 +751,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.0.9";
+const APP_VERSION = "3.1.0";
 const CHANGELOG = {
+  "3.1.0": ["New Recover tab: log or fix any night of sleep in one tap, a wind-down that counts, and a stretch library with videos and timed routines"],
   "3.0.8": ["Smoother Today: tap a circle to check it off, tap a title to open that tab, nothing jumps when you tap. Extras live under More for today"],
   "3.0.7": ["Cleaner Today: a daily verse up top, tap any circle to check it off, tap any title to jump to that tab"],
   "3.0.6": ["Pick where you train for any day on the Train tab. Brett: YMCA days use the full gym, home days use what you have"],
@@ -1095,12 +1113,7 @@ const RECIPES = [
 const OFFICE_KIT = [["Jerky / meat sticks", "Meat & Fish"], ["Tuna or chicken packets", "Pantry"], ["Greek yogurt cups", "Dairy & Eggs"], ["Eggs (for hard-boiling)", "Dairy & Eggs"], ["Protein shakes (RTD)", "Pantry"], ["Apples + bananas", "Produce"], ["Baby carrots", "Produce"], ["Almonds", "Pantry"], ["String cheese", "Dairy & Eggs"], ["Orange juice (small, for iron)", "Dairy & Eggs"], ["Electrolyte packets", "Pantry"]];
 
 /* ---------------------------- ROUTINES ---------------------------- */
-const ROUTINES = [
-  { n: "5-Min Morning Unlock", items: ["Cat-cow 60 sec", "90/90 hip switches 60 sec", "World's greatest stretch x3/side", "Ankle circles x10 each way", "Glute bridge x15"] },
-  { n: "10-Min Back + Sciatica Care", note: "Nerve glides: move, do not stretch. Tingling should fade, not build.", items: ["Knees-to-chest 60 sec", "Sciatic nerve glide x10/side", "McGill curl-up 3 x 8 sec", "Bird dog x6/side", "Cat-cow x10", "Figure-4 45 sec/side", "Child's pose 60 sec", "90/90 breathing 60 sec"] },
-  { n: "Calf Care (8 min)", note: "Pain stays 3/10 or below. Soreness that fades by morning is OK.", items: ["Wall calf stretch, straight knee 30 sec x2/side", "Wall calf stretch, bent knee 30 sec x2/side", "Calf raise isometric hold 3 x 30 sec", "Tibialis raise 2 x 15", "Roll arch on a ball 60 sec/side", "Ankle circles x10 each way"] },
-  { n: "20-Min Full Flow", items: ["Easy bike or walk 5 min", "Cat-cow x10", "World's greatest stretch x4/side", "90/90 hip switches x8/side", "Couch stretch 45 sec/side", "Strap hamstring stretch 45 sec/side", "Figure-4 45 sec/side", "Wall calf stretch 30 sec each way", "Sciatic nerve glide x10/side", "Child's pose 60 sec", "5 min breathing"] }
-];
+/* v3.1.0: routines moved to ST_ROUTINES in the Recover section. */
 const WIND = [["wd_tv", "20:00", "TV off, phone on charger"], ["wd_stretch", "20:25", "Back + hip stretch 10 min"], ["wd_read", "20:35", "Read 20 min"], ["wd_breathe", "20:55", "5 min breathing + affirmations"], ["bed", "21:00", "In bed. Lights out by 9:30 to 10:00"]];
 const RED_FLAGS = [
   ["pop", "Felt or heard a pop", "See a doctor or PT before loading that area again."],
@@ -1373,8 +1386,8 @@ function checkBadges() {
 const BADGES = [["week1", "flag", "First Week"], ["streak7", "fire", "7-Day Streak"], ["hydro", "drop", "Hydration Hero"], ["calf", "shield", "Calf Armor"], ["book", "book", "Bookworm"], ["game", "hoop", "Game Ready"], ["sleep", "moon", "Sleep Pro"], ["finish1", "book", "First Finish"], ["shelf5", "book", "Shelf Builder"], ["scout", "flag", "Scout"]];
 function sleepHrs(sl) { if (!sl || !sl.bed || !sl.wake) return null; let d = toMin(sl.wake) - toMin(sl.bed); if (d <= 0) d += 1440; return d / 60; }
 function last7Sleep() {
-  const arr = []; for (let i = 0; i < 7; i++) { const l = S.logs[addDays(todayStr(), -i)]; if (l && l.sleep) arr.push(l.sleep); }
-  const h = arr.map(sleepHrs).filter(x => x != null), q = arr.map(x => +x.q).filter(Boolean);
+  const ls = []; for (let i = 0; i < 7; i++) { const l = S.logs[addDays(todayStr(), -i)]; if (l) ls.push(l); }
+  const h = ls.map(sleepOf).filter(x => x != null), q = ls.map(l => l.sleep ? +l.sleep.q : 0).filter(Boolean);
   return { hrs: h.length ? (h.reduce((a, b) => a + b, 0) / h.length) : null, q: q.length ? q.reduce((a, b) => a + b, 0) / q.length : null };
 }
 function nextCourt() {
@@ -1386,7 +1399,7 @@ function countdown(d) { const ms = d - new Date(); if (ms <= 0) return "Now"; co
 function nextCheckin() { let c = addDays(S.programStart, 27); const t = todayStr(); while (c < t) c = addDays(c, 28); return c; }
 function weekReport(ws) {
   const t = todayStr(); let days = 0, act = 0, tub = 0, read = 0, water = 0, prot = 0, slp = 0;
-  for (let i = 0; i < 7; i++) { const s = addDays(ws, i); if (s > t) break; days++; const l = getL(s); if (isActive(s)) act++; if (l.checks.hottub || l.checks.wd_tub) tub++; if (l.reading > 0) read++; if (l.water >= waterGoal(s)) water++; if (l.protein >= S.profile.protein) prot++; if (l.sleep) slp++; }
+  for (let i = 0; i < 7; i++) { const s = addDays(ws, i); if (s > t) break; days++; const l = getL(s); if (isActive(s)) act++; if (l.checks.hottub || l.checks.wd_tub) tub++; if (l.reading > 0) read++; if (l.water >= waterGoal(s)) water++; if (l.protein >= S.profile.protein) prot++; if (sleepOf(l) != null) slp++; }
   return { days, act, tub, read, water, prot, slp, pct: days ? Math.round(act / days * 100) : 0 };
 }
 
@@ -2208,10 +2221,10 @@ function floodFx(title, sub) {
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
 /* Buttons that log points. A tap that started on a popup or the update bar can "fall through" onto these right after it closes. */
-const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep"]);
+const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ"]);
 window.__tapGuard = Date.now();
 try { history.scrollRestoration = "manual"; } catch (e) {}
-const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd"]);
+const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
   fn();
@@ -2284,7 +2297,7 @@ function dayChecklist(s) {
   c.habits.forEach(h => items.push([h.id, h.time, esc(h.label)]));
   if (court) { add("electro", fromMin(toMin(court.start) - 60), "Electrolyte drink"); items.push(["court", court.start, "<b>" + esc(court.label) + "</b>" + (court.gym ? " <span class='muted small'>at " + esc(court.gym) + "</span>" : "")]); }
   if (court && toMin(court.end) >= toMin(T.windDown)) { add("wd_tv", fromMin(toMin(court.end) + 15), "Short wind-down: shower, protein, 5 min stretch"); add("bed", fromMin(Math.max(toMin(T.bed), toMin(court.end) + 75)), "Lights out"); }
-  else { add("wd_tv", T.windDown, "Wind-down: " + esc((c.wind[0] || { label: "TV off" }).label)); add("wd_read", T.read, esc(readLabel())); add("bed", T.bed, "In bed by " + fmtT(T.bed)); }
+  else { add("wd_tv", T.windDown, "Wind-down: screens off, phone on the charger"); add("wd_read", T.read, esc(readLabel())); add("bed", T.bed, "In bed by " + fmtT(T.bed)); }
   return items.sort((a, b) => toMin(a[1]) - toMin(b[1]));
 }
 function renderToday() {
@@ -2435,21 +2448,174 @@ function groceryHTML() {
   return o + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">Clear list</button>`;
 }
 
-/* ---------------------------- RECOVER ---------------------------- */
+/* ---------------------------- RECOVER (v3.1.0) ----------------------------
+   Sleep: one number per night (sleepH). Bed/wake times, the Today hour chips, and the Lights out stamp all write that same number.
+   Sleep for "last night" lives on the morning's date. */
+const ST_AREAS = [["calves", "Calves + Achilles"], ["hams", "Hamstrings"], ["hips", "Hips + glutes"], ["groin", "Groin"], ["quads", "Quads + hip flexors"], ["back", "Low back"], ["tspine", "Upper back"], ["chest", "Chest + shoulders"], ["neck", "Neck"], ["feet", "Ankles + feet"]];
+/* id: [area, name, what it helps, cues, hold, YouTube id, channel] (every link checked Nov 2026) */
+const ST = {
+  gastroc: ["calves", "Wall calf stretch, straight knee", "Upper calf. Tight calves after court or running.", ["Hands on the wall, back leg straight", "Heel stays down, toes point forward", "Lean in until you feel the upper calf"], "30 sec each side, 2 rounds", "TXVLJ3WH8Zg", "Aubrey Monie, physio"],
+  soleus: ["calves", "Wall calf stretch, bent knee", "Lower calf and Achilles (soleus).", ["Same setup, step the back foot in", "Bend the back knee, heel stays down", "Feel it low, near the Achilles"], "30 sec each side, 2 rounds", "xDhzGbQ6dmM", "PhysioMSK"],
+  heeldrop: ["calves", "Eccentric heel drop", "Builds a tougher Achilles and calf. Best tendon insurance there is.", ["Up on both feet on a step", "Shift to one foot, lower the heel slow for 3 sec", "Use both feet to come back up"], "2 x 10 each side", "d7ZsskaHtfg", "BSR Physical Therapy"],
+  calfroll: ["calves", "Foam roll calves", "Loosens tight calves before a stretch.", ["Roller under the calf, other leg crossed on top", "Roll ankle to knee, slow", "Pause 10 sec on tight spots, turn the leg in and out"], "60 sec each side", "eHjW-hejN94", "Bob & Brad, PTs"],
+  hamstrap: ["hams", "Hamstring stretch with a strap", "Tight hamstrings and low back that tugs when you bend.", ["On your back, strap or towel around the foot", "Leg straight, pull up until you feel a stretch", "Other leg flat, back flat"], "45 sec each side", "Il1L75v6gq0", "Ask Doctor Jo, PT"],
+  hinge: ["hams", "Staggered hip hinge", "Hamstrings and glutes. Great standing warmup.", ["One foot a half step forward, toes up", "Push the hips back, flat back", "Stop at the stretch, stand back up"], "10 slow reps each side", "qLgTO7gMkBU", "Body Balance PT"],
+  nerve: ["hams", "Sciatic nerve glide", "Tingly or zingy back of the leg. Moves the nerve, does not stretch it.", ["Sit tall, straighten the knee", "Look up as the knee straightens, down as it bends", "Smooth and easy. Symptoms should fade, not build"], "10 each side", "zwiiy_hfSe8", "Bob & Brad, PTs"],
+  fig4: ["hips", "Figure-4 stretch", "Glutes and piriformis. Helps butt and sciatic-type tightness.", ["On your back, ankle on the opposite knee", "Pull the bottom thigh toward you", "Keep the low back down"], "45 sec each side", "-g0nuyTHMrI", "Ask Doctor Jo, PT"],
+  pigeon: ["hips", "Elevated pigeon (on a bench)", "Deep glute stretch that is easy on the knees.", ["Shin across a bench or bed edge", "Back leg straight behind you", "Tall chest, hinge forward slowly"], "45 sec each side", "9ZoS-dDF9ro", "Got ROM"],
+  hip9090: ["hips", "90/90 hip switches", "Hip rotation both ways. Smoother cuts and slides.", ["Sit with both knees bent to 90", "Rotate both knees to the other side", "Hands back for help, then hands free"], "8 switches each way", "HUZimFZJZWU", "Alejandro Matias"],
+  wgs: ["hips", "World's greatest stretch", "Hips, hip flexors, groin, and upper back in one move.", ["Big lunge, both hands down inside the front foot", "Drop the inside elbow toward the ankle", "Rotate and reach that arm to the ceiling"], "4 each side", "-CiWQ2IvY34", "Squat University"],
+  rockback: ["groin", "Adductor rock-back", "Inner thigh. Helps prevent groin pulls on lateral moves.", ["On all fours, one leg straight out to the side", "Flat back, rock the hips back", "Stop at the stretch, rock forward"], "10 each side", "yF8o6I6aSZg", "Mike Reinold, PT"],
+  cossack: ["groin", "Cossack squat", "Groin and hip mobility plus lateral strength.", ["Wide stance, sit into one hip", "Other leg straight, toes up", "Chest up, go only as low as feels good"], "6 each side", "tpczTeSkHz0", "FitnessFAQs"],
+  butterfly: ["groin", "Butterfly stretch", "Gentle groin and inner hip stretch.", ["Sit, soles of the feet together", "Tall back, hold your feet", "Let the knees drop, no bouncing"], "60 sec", "4xweyzS7Rno", "Arthritis Foundation"],
+  couch: ["quads", "Couch stretch", "Front of the hip and quad. Undoes a day of sitting.", ["Back knee down, shin up a couch or bench", "Front foot flat, squeeze the back glute", "Tall chest, small move forward"], "45 sec each side", "-rsIS-wl-ig", "Seriously Strong Training"],
+  hipflex: ["quads", "Half-kneeling hip flexor stretch", "Tight hip flexors and low back from sitting.", ["One knee down on a pad", "Tuck the tailbone, squeeze that glute", "Shift forward until the front of the hip stretches"], "45 sec each side", "F55tzqJggAY", "Cara Giusti, PT"],
+  quad: ["quads", "Standing quad stretch", "Quick quad stretch anywhere.", ["Hold a wall, grab the ankle", "Knees together, hips tucked", "Pull the heel to your butt"], "30 sec each side", "Td-9CSgSFhs", "Lurie Children's Hospital"],
+  catcow: ["back", "Cat-cow", "Loosens a stiff spine. Good first move of the day.", ["On all fours", "Round up slowly, then let the belly drop", "Move with your breath"], "10 slow reps", "vTCFRbPlYHM", "Kitsilano Physio"],
+  child: ["back", "Child's pose", "Low back and lats. Calms you down.", ["Knees wide, sit back on your heels", "Reach the arms long", "Breathe into your back"], "60 sec", "X-OGH5-gLUs", "Ask Doctor Jo, PT"],
+  k2c: ["back", "Knee to chest", "Gentle low back and glute release.", ["On your back", "Hug one knee in, other leg relaxed", "Easy pull, no straining"], "30 sec each side", "Yd9wY25koVk", "Ask Doctor Jo, PT"],
+  pressup: ["back", "Prone press-up", "Some low backs love this one. Stop if pain goes down the leg.", ["Face down, hands under the shoulders", "Press the chest up, hips stay down", "Let the back relax, lower slowly"], "10 reps", "a3NUkU_n0NE", "Elite Performance Institute"],
+  mcgill: ["back", "McGill Big 3", "Curl-up, side plank, bird dog. Builds a back that holds up.", ["Curl-up: hands under the low back, lift the head an inch", "Side plank from the knees", "Bird dog: reach opposite arm and leg, hold 8 sec"], "3 rounds of 8 sec holds", "FmZwkgg7pqU", "Zack Henderson"],
+  openbook: ["tspine", "Open book", "Mid-back rotation. Helps shooting form and posture.", ["Lie on your side, knees bent up", "Arms together in front", "Open the top arm across, follow it with your eyes"], "8 each side", "peeW19ofFUg", "Elite Performance Institute"],
+  needle: ["tspine", "Thread the needle", "Upper back and shoulder blade tightness.", ["On all fours", "Slide one arm under the other", "Rest the shoulder down, then reach up"], "8 each side", "7C8-zj3nRro", "Elite Performance Institute"],
+  textroll: ["tspine", "Foam roller extension", "Stiff upper back from desk or phone time.", ["Roller under the shoulder blades", "Hands behind the head, ribs down", "Lean back over the roller, move up an inch"], "5 spots, 5 reps each", "2H5HsTsG-s0", "Momenta Chiropractic"],
+  pec: ["chest", "Doorway pec stretch", "Tight chest and rounded shoulders.", ["Forearm on the door frame at shoulder height", "Step through with the same-side foot", "Turn the chest away gently"], "30 sec each side", "Dmm8_S23I74", "Dr. Raz, PT"],
+  crossbody: ["chest", "Cross-body shoulder stretch", "Back of the shoulder. Good for shooters.", ["Pull the arm across your chest", "Keep the shoulder down, away from the ear", "Hold just below the elbow"], "30 sec each side", "TCDA6qCp1FU", "Ask Doctor Jo, PT"],
+  wallslide: ["chest", "Wall slides", "Overhead reach and shoulder blade control.", ["Forearms on the wall, a towel under the hands", "Slide up as high as is comfortable", "Shoulders down, slide back slowly"], "10 reps", "ICA10IY-0jU", "Michele Erickson, PT"],
+  uptrap: ["neck", "Upper trap stretch", "Neck and shoulder tension, tension headaches.", ["Sit on one hand", "Tilt the ear to the other shoulder", "Light hand on the head, no pulling"], "30 sec each side", "xvZ9_5lqcVI", "NUH Singapore Physio"],
+  levator: ["neck", "Levator scapulae stretch", "Stiff neck where it meets the shoulder blade.", ["Turn your nose toward your armpit", "Gentle hand on the back of the head", "Look down until it stretches"], "30 sec each side", "F8oDQEwbAuI", "Bob & Brad, PTs"],
+  chintuck: ["neck", "Chin tucks", "Forward head posture and neck tightness.", ["Sit or stand tall", "Slide the chin straight back, make a double chin", "Hold 3 sec, relax"], "10 reps", "hCRpdwrK8zc", "Dr. Katherine Coyner"],
+  knee2wall: ["feet", "Knee to wall ankle mobility", "Ankle bend for safer landings and deeper squats.", ["Toes a few inches from the wall", "Drive the knee to the wall, heel stays down", "Move the foot back as it gets easier"], "10 each side", "Y1IZXkdPPdw", "Nick Brattain"],
+  footroll: ["feet", "Ball roll the foot", "Sore arches and heel tightness.", ["Ball under the arch, seated or standing", "Roll heel to toes slowly", "Medium pressure, not pain"], "60 sec each foot", "P3oBz2S511Y", "Elite Performance Institute"],
+  tibraise: ["feet", "Tibialis raise", "Front of the shin. Helps shin splints and knee health.", ["Back on a wall, feet a foot out", "Lift the toes up toward the shins", "Lower slowly"], "2 x 15", "RHWRxiBe1iU", "Elite Performance Institute"]
+};
+const ytUrl = id => "https://www.youtube.com/watch?v=" + id;
+const BREATHE = { n: "Slow breathing", cues: ["In through the nose 4 sec", "Hold 4, out slow 6 to 8", "Let the shoulders drop"] };
+/* Routines: [stretch id or "breathe", seconds, sides?] */
+const ST_ROUTINES = [
+  { id: "am5", n: "5-min morning", sub: "Wake the body up before work", steps: [["catcow", 45], ["wgs", 60, 1], ["hip9090", 60], ["knee2wall", 60, 1], ["needle", 60, 1]] },
+  { id: "post10", n: "10-min post-workout", sub: "Calves, hams, hips while you're warm", steps: [["gastroc", 60, 1], ["soleus", 60, 1], ["hamstrap", 90, 1], ["couch", 90, 1], ["fig4", 90, 1], ["rockback", 45], ["openbook", 60, 1], ["child", 60]] },
+  { id: "court10", n: "10-min pre-court", sub: "Moving warmup. No long holds before you play", steps: [["catcow", 45], ["knee2wall", 60, 1], ["tibraise", 45], ["heeldrop", 60, 1], ["wgs", 60, 1], ["rockback", 45], ["cossack", 60, 1], ["hip9090", 60], ["hinge", 45, 1]] },
+  { id: "bed15", n: "15-min bedtime", sub: "Slow and easy. Do it in bed or on the floor", steps: [["child", 90], ["catcow", 60], ["k2c", 60, 1], ["fig4", 120, 1], ["hamstrap", 120, 1], ["butterfly", 90], ["openbook", 90, 1], ["needle", 60, 1], ["uptrap", 60, 1], ["breathe", 120]] },
+  { id: "back10", n: "Low back + sciatica safe", sub: "Gentle. Nothing should send pain down the leg", note: "Nerve glides move, they do not stretch. If a move makes pain spread down the leg, skip it.", steps: [["catcow", 60], ["k2c", 60, 1], ["nerve", 60, 1], ["mcgill", 180], ["fig4", 90, 1], ["child", 60], ["breathe", 60]] },
+  { id: "desk6", n: "Desk-day reset", sub: "Stand up and undo the chair", steps: [["chintuck", 30], ["uptrap", 60, 1], ["levator", 60, 1], ["pec", 60, 1], ["hipflex", 60, 1], ["hinge", 45, 1], ["wallslide", 45]] }
+];
+const rtMins = r => Math.round(r.steps.reduce((a, s) => a + s[1], 0) / 60);
+const RECOVER_TIPS = [
+  ["Walk", ["10 to 20 min easy walk the day after a game or hard legs", "Blood flow clears soreness faster than lying around", "Talking pace. This is not cardio"]],
+  ["Breathe", ["4 sec in, 4 hold, 6 to 8 out, for 2 to 5 min", "Slows the heart rate and helps you fall asleep", "Try it in bed with the lights off"]],
+  ["Foam roll", ["30 to 60 sec per spot, before you stretch", "Calves, quads, glutes, upper back", "Medium pressure. Skip anything bruised or freshly strained"]],
+  ["Water + electrolytes", ["Hit your water goal first. Pale yellow pee = good", "Court nights: an electrolyte drink 30 to 60 min before you play", "Big sweat or cramps: salt your food and add electrolytes"]],
+  ["Protein timing", ["20 to 40 g within a couple hours of training", "Spread protein over 3 or 4 meals", "Greek yogurt or a shake before bed works"]],
+  ["Cold + heat", ["Heat (warm shower, heating pad) for stiff, achy muscles", "Cold for a fresh tweak or swelling in the first 48 hrs", "Skip cold right after strength work if you're chasing size"]],
+  ["Active recovery day", ["Easy walk, stretch routine, light mobility", "Keep it under 30 min and easy", "Still counts toward your streak on a planned rest day"]],
+  ["Deload week", ["Every 4 to 6 weeks, or when everything feels heavy", "Same lifts, about half the sets, lighter weight", "You come back stronger, not weaker"]],
+  ["Soreness vs pain", ["Soreness: dull, both sides, fades in 1 to 3 days, better once warm", "Pain: sharp, one spot, worse as you go, or changes how you move", "Pain means back off that area and swap the exercise. Log it after your workout"]]
+];
+/* sleep model */
+function sleepSet(s, v) { const l = L(s); l.sleepH = v; if (l.sleep && l.sleep.bed) l.sleep.wake = fromMin(toMin(l.sleep.bed) + Math.round(v * 60)); else if (l.sleep) delete l.sleep.wake; }
+function sleepClear(s) { const l = L(s); delete l.sleepH; delete l.sleep; }
+function sleepTimes(s) { const l = L(s), sl = l.sleep || {}; if (sl.bed && sl.wake) l.sleepH = Math.round(sleepHrs(sl) * 100) / 100; else if (sl.wake && !sl.bed) delete l.sleepH; }
+const hrsTxt = h => h == null ? "--" : (Math.round(h * 10) / 10) + "";
+/* The evening a wind-down belongs to: before 4 AM it is still last night. */
+const eveDate = () => new Date().getHours() < 4 ? addDays(todayStr(), -1) : todayStr();
+function last7Nights() { const out = []; for (let i = 6; i >= 0; i--) { const d = addDays(todayStr(), -i), l = S.logs[d]; out.push({ d, h: sleepOf(l), q: l && l.sleep ? +l.sleep.q || null : null }); } return out; }
+function sleepStreak() { let n = 0; for (let i = 0; i < 400; i++) { const h = sleepOf(S.logs[addDays(todayStr(), -i)]); if (h != null && h >= 6 && h < 9.01) n++; else if (i === 0 && h == null) continue; else break; } return n; }
+
+function sleepCardHTML() {
+  const t = todayStr(), d = UI.slDate && UI.slDate < t && UI.slDate >= addDays(t, -6) ? UI.slDate : t, l = getL(d), sl = l.sleep || {}, h = sleepOf(l), pts = sleepPts(h);
+  const isLast = d === t, lbl = isLast ? "Last night" : "Night before " + pd(d).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  const nights = last7Nights(), got = nights.filter(n => n.h != null), avg = got.length ? got.reduce((a, n) => a + n.h, 0) / got.length : null, goal = got.filter(n => n.h >= 6 && n.h < 9.01).length;
+  const waiting = isLast && sl.bed && !sl.wake && l.sleepH == null;
+  const bar = n => { const ht = n.h == null ? 6 : Math.max(10, Math.min(1, n.h / 10) * 64), p = sleepPts(n.h), c = n.h == null ? "var(--line)" : p === PTS.sleepBest ? "var(--green)" : p ? "var(--orange)" : "var(--danger)";
+    return `<button class="sl-bar ${n.d === d ? "on" : ""}" data-act="slPick" data-date="${n.d}" aria-label="Edit ${n.d}"><small>${n.h == null ? "" : hrsTxt(n.h)}</small><i style="height:${ht}px;background:${c}"></i><span>${"SMTWTFS"[dow(n.d)]}</span></button>`; };
+  return `<div class="card" id="sleepCard"><div class="row between" style="align-items:center"><h2 class="brand" style="margin:0">${lbl}</h2>${isLast ? "" : `<button class="btn sm" data-act="slPick" data-date="${t}">Back to last night</button>`}</div>
+  <div class="sl-big"><b>${h == null ? (waiting ? "In bed " + fmtT(sl.bed) : "Not logged") : hrsTxt(h) + " hrs"}</b><span class="tg ${pts ? "shelf" : ""}">${h == null ? "7 to 8 hrs = " + PTS.sleepBest : "+" + pts + " pts"}</span></div>
+  ${waiting ? `<button class="btn primary block" data-act="slWake" style="margin:6px 0 10px">I'm up: log wake time now</button>` : ""}
+  <div class="row" style="gap:6px">${[[5, "5"], [6, "6"], [7, "7"], [8, "8"], [9, "9+"]].map(([v, n]) => `<button class="chip ${h != null && (Math.floor(h) === v || (v === 9 && h >= 9)) ? "on" : ""}" style="flex:1" data-act="slHrs" data-v="${v}" data-date="${d}">${n}</button>`).join("")}</div>
+  <div class="small muted" style="margin:6px 0 2px">Tap hours, or set exact times. Same number either way.</div>
+  <div class="grid2"><div><label class="f">In bed</label><input type="time" value="${sl.bed || ""}" data-in="sleep" data-k="bed" data-date="${d}"></div><div><label class="f">Woke up</label><input type="time" value="${sl.wake || ""}" data-in="sleep" data-k="wake" data-date="${d}"></div></div>
+  <label class="f">How'd you sleep? (optional)</label><div class="row" style="gap:6px">${[1, 2, 3, 4, 5].map(n => `<button class="chip ${+sl.q === n ? "on" : ""}" style="flex:1" data-act="sleepQ" data-v="${n}" data-date="${d}">${n}</button>`).join("")}</div>
+  ${h != null || sl.bed || sl.wake || sl.q ? `<button class="btn sm block" style="margin-top:10px" data-act="slClear" data-date="${d}">${UI.slClearArm === d ? "Tap again to clear this night" : "Clear this night"}</button>` : ""}
+  <div class="sl-strip">${nights.map(bar).join("")}</div>
+  <div class="grid3" style="margin-top:8px"><div class="tile"><div class="k">7-day avg</div><div class="v" style="font-size:20px">${avg == null ? "--" : avg.toFixed(1) + "h"}</div></div><div class="tile"><div class="k">Goal nights</div><div class="v" style="font-size:20px">${goal}<span class="small muted">/7</span></div></div><div class="tile"><div class="k">Streak</div><div class="v" style="font-size:20px">${sleepStreak()}</div></div></div>
+  <div class="small muted" style="margin-top:6px">Tap a bar to fix that night. Goal night = 6 to 9 hrs (medal hit).</div></div>`;
+}
+
+const WIND_IDS = ["wd_tv", "wd_stretch", "wd_read", "wd_breathe", "bed"];
+function windRow(on, act, title, sub, extra) {
+  return `<button class="check ${on ? "on" : ""}" data-act="${act}" ${extra || ""}><span class="lbl"><b>${title}</b><div class="small muted">${sub}</div></span><span class="box">${CHK}</span></button>`;
+}
+function windHTML() {
+  const t = todayStr(), e = eveDate(), le = getL(t), cw = C(), T = cw.times, read = le.reading || 0, aff = !!le.checks.affirm, nb = getL(addDays(e, 1)).sleep, lo = !!getL(e).checks.bed, court = isCourt(t);
+  const extras = cw.wind.filter(w => !WIND_IDS.includes(w.id));
+  return `<div class="card" id="windCard"><div class="row between" style="align-items:center"><h2 style="margin:0">Tonight's wind-down</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div>
+  <div class="small muted" style="margin:4px 0 4px">Screens off at ${fmtT(T.windDown)}. Lights out by ${fmtT(T.bed)}.${court ? " Court night: shower, protein, a short stretch, and late is OK." : ""}</div>
+  ${UI.windEdit ? `<div class="grid2" style="margin:8px 0"><div><label class="f">Wind-down starts</label><input type="time" value="${T.windDown}" data-in="ctime" data-k="windDown"></div><div><label class="f">Lights out</label><input type="time" value="${T.bed}" data-in="ctime" data-k="bed"></div></div><div class="small muted" style="margin:4px 0">Add your own steps. They're habits, no points.</div>${timedEditor("wind", cw.wind.filter(w => !WIND_IDS.includes(w.id)), "Add a step, like journal 5 min")}` :
+  windRow(!!le.checks.wd_stretch, "wdStretch", "Stretch 5 to 15 min", "No points. Helps you fall asleep. Tap to check, or start the bedtime routine below.") +
+  windRow(read >= 10, "wdRead", readLabel(), read ? read + " min logged today. " + Math.min(read, PTS.readCap) + " pts + medal hit at 10." : "Checks off 10 min: +10 pts and a medal hit. Fine-tune on Reads.") +
+  windRow(aff, "affCheck", "Read your affirmations", "No points alone. Needed for All In (+" + PTS.allIn + ").") +
+  windRow(lo, "lightsOut", "Lights out", lo && nb && nb.bed ? "Bedtime saved: " + fmtT(nb.bed) + ". Tap \"I'm up\" in the morning." : "Saves your bedtime. In the morning, one tap logs your sleep.") +
+  extras.map(w => checkRow(t, w.id, fmtT(w.time), esc(w.label), "Your habit")).join("")}
+  ${UI.windEdit ? "" : `<button class="btn block" style="margin-top:10px" data-act="rtOpen" data-v="bed15">▶ Start the 15-min bedtime routine</button>`}</div>`;
+}
+function affCardHTML() {
+  const aff = !!getL(todayStr()).checks.affirm;
+  return `<details class="card" id="affCard" style="padding:0"><summary>Affirmations${aff ? ` <span class="tg shelf" style="margin-left:8px">read today</span>` : ""}</summary><div class="in">${UI.affEdit ? `<div class="small muted" style="margin:0 0 8px">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}
+  <div class="row" style="gap:8px;margin-top:10px"><button class="btn ${aff ? "" : "primary"}" style="flex:1" data-act="affCheck">${aff ? "✓ Read today" : "I read them"}</button><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div></div></details>`;
+}
+const PAIN2ST = { calf: "calves", achilles: "calves", ankle: "feet", knee: "quads", hamstring: "hams", hip: "hips", back: "back" };
+function stretchHTML() {
+  const pa = painAreas(), flag = pa.map(a => PAIN2ST[a]).filter(Boolean), area = UI.stArea || flag[0] || "hams";
+  const list = Object.entries(ST).filter(([, v]) => v[0] === area);
+  return `<div class="card" id="stretchCard"><h2 class="brand" style="margin:0 0 4px">Stretch + mobility</h2><div class="small muted" style="margin-bottom:10px">Reference only. No points, no logging. Pick a routine or a body area.</div>
+  <div class="rt-grid">${ST_ROUTINES.map(r => `<button class="rt-btn" data-act="rtOpen" data-v="${r.id}"><b>${esc(r.n)}</b><small>${rtMins(r)} min · ${r.steps.length} moves</small></button>`).join("")}</div>
+  <h3 class="sh3" style="margin-top:16px">By body area</h3><div class="chiprow">${ST_AREAS.map(([k, n]) => `<button class="chip ${k === area ? "on" : ""} ${flag.includes(k) ? "pain" : ""}" data-act="stArea" data-v="${k}">${n}</button>`).join("")}</div>
+  ${flag.includes(area) ? `<div class="banner warn" style="margin:10px 0 0"><b>This area is flagged</b>Gentle range only. Stretch to mild tension, never into pain. If it's not better in a week, see a PT.</div>` : ""}
+  ${list.map(([id, v]) => `<div class="st-item"><div class="row between" style="align-items:baseline;gap:8px"><b>${esc(v[1])}</b><span class="tg">${esc(v[4])}</span></div><div class="small" style="margin:2px 0 6px">${esc(v[2])}</div><ol class="st-cues">${v[3].map(c => `<li>${esc(c)}</li>`).join("")}</ol><a class="howto" href="${ytUrl(v[5])}" target="_blank" rel="noopener">▶ Watch demo <span class="muted small">(${esc(v[6])})</span></a></div>`).join("")}</div>`;
+}
+function recoverTipsHTML() {
+  return `<div class="card" id="tipsCard" style="padding-bottom:6px"><h2 style="margin:0 0 8px">More ways to recover</h2>${RECOVER_TIPS.map(([n, b]) => `<details class="tip"><summary>${esc(n)}</summary><div class="in"><ul class="list">${b.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></details>`).join("")}</div>`;
+}
 function renderRecover() {
-  const s = todayStr(), l = getL(s), sl = l.sleep || {}, a = last7Sleep();
-  let o = `<div class="card"><h2 class="brand">Last night's sleep</h2><div class="grid2"><div><label class="f">In bed</label><input type="time" value="${sl.bed || ""}" data-in="sleep" data-k="bed"></div><div><label class="f">Woke up</label><input type="time" value="${sl.wake || ""}" data-in="sleep" data-k="wake"></div></div><label class="f">Quality</label><div class="row">${[1, 2, 3, 4, 5].map(n => `<button class="chip ${+sl.q === n ? "on" : ""}" style="flex:1" data-act="sleepQ" data-v="${n}">${n}</button>`).join("")}</div>
-  <div class="grid2" style="margin-top:14px"><div class="tile"><div class="k">7-day avg sleep</div><div class="v">${a.hrs ? a.hrs.toFixed(1) + " h" : "--"}</div></div><div class="tile"><div class="k">7-day quality</div><div class="v">${a.q ? a.q.toFixed(1) + "/5" : "--"}</div></div></div></div>`;
-  const cw = C(), wind = cw.wind.filter(w => cw.features.hotTub || !/hot tub/i.test(w.label));
-  o += `<div class="card"><div class="row between"><h2 style="margin:0">Wind-down (${fmtT(cw.times.windDown)} to ${fmtT(cw.times.bed)})</h2><button class="btn sm" data-act="editWind">${UI.windEdit ? "Done" : "Edit"}</button></div><div class="small muted" style="margin-top:6px">No TV. ${isCourt(s) ? "Court night: shower, protein, 5 min stretch, lights out late is OK." : ""}</div>${UI.windEdit ? timedEditor("wind", cw.wind, "New step") : wind.map(w => checkRow(s, w.id, fmtT(w.time), esc(w.id === "wd_read" ? readLabel() : w.label))).join("")}</div>`;
-  const affDone = !!(getL(todayStr()).checks || {}).affirm;
-  o += `<div class="card"><button class="btn ${affDone ? "" : "primary"} block" data-act="affCheck">${affDone ? "✓ Affirmations read today" : "I read my affirmations today"}</button></div>`;
-  o += `<div class="card"><div class="row between"><h2 class="brand" style="margin:0">Affirmations</h2><button class="btn sm" data-act="editAff">${UI.affEdit ? "Done" : "Edit"}</button></div>${UI.affEdit ? `<div class="small muted" style="margin:8px 0">Tap any line to change it. Use the arrows to reorder.</div>` + listEditor("aff", S.affirmations, "New affirmation") : S.affirmations.length ? `<ol class="aff">${S.affirmations.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : emptyState("Add a few lines you want to read every night.")}</div>`;
-  o += `${false ? ""  : `<div class="card"><h2>Reading</h2><div class="tile"><div class="k">Reading today</div><div class="v">${l.reading} min</div></div><div class="grid2" style="margin-top:10px"><button class="btn sm" data-act="read" data-v="10">+10 min read</button><button class="btn sm" data-act="read" data-v="20">+20 min read</button></div>${l.reading > 0 ? `<div class="row" style="gap:6px;margin-top:6px"><button class="btn sm" style="flex:1" data-act="readUndo" data-v="10">Undo 10 min</button><button class="btn sm" style="flex:1" data-act="readUndo" data-v="all">Clear today</button></div>` : ""}</div>`}`;
-  o += ROUTINES.filter(r => !(PID === "brett" && /^Calf Care/.test(r.n))).map(r => `<details><summary>${esc(r.n)}</summary><div class="in">${r.note ? `<div class="small" style="color:var(--warn);margin-bottom:8px">${esc(r.note)}</div>` : ""}<ol class="list">${r.items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div></details>`).join("");
-  o += `<div class="banner bad"><b>Red flags</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}</div>`;
+  let o = sleepCardHTML() + windHTML() + affCardHTML() + stretchHTML() + recoverTipsHTML();
+  o += `<div class="banner bad"><b>See a doctor or PT if</b>${RED_FLAGS.map(f => esc(f[1]) + ": " + esc(f[2])).join("<br>")}<br>Pain that's sharp, in one spot, or still there after a week of backing off: get it looked at.</div>`;
   return o;
 }
+
+/* Routine player: one move at a time with a countdown. */
+const RT = { id: null, i: 0, left: 0, run: false, h: null, done: false };
+function rtStep() { const r = ST_ROUTINES.find(x => x.id === RT.id), s = r.steps[RT.i]; return { r, s, ex: s[0] === "breathe" ? { n: BREATHE.n, cues: BREATHE.cues } : { n: ST[s[0]][1], cues: ST[s[0]][3], yt: ST[s[0]][5] } }; }
+function rtStop() { clearInterval(RT.h); RT.h = null; RT.run = false; }
+function rtTick() {
+  if (!UI.sheet || UI.sheet.kind !== "routine") return rtStop();
+  RT.left--; const { s } = rtStep(), c = $("rtClock"), half = s[2] && RT.left === Math.floor(s[1] / 2);
+  if (half) { buzz(); try { snd("tick"); } catch (e) {} const sw = $("rtSide"); if (sw) sw.textContent = "Switch sides"; }
+  if (RT.left <= 0) { buzz(); try { snd("tick"); } catch (e) {} return ACT.rtNext(); }
+  if (c) c.textContent = fmtClock(RT.left);
+  const bar = $("rtBar"); if (bar) bar.style.width = Math.round((1 - RT.left / s[1]) * 100) + "%";
+}
+const fmtClock = n => Math.floor(n / 60) + ":" + pad(n % 60);
+function routineHTML() {
+  if (RT.done) { const r = ST_ROUTINES.find(x => x.id === RT.id); return `<div style="text-align:center;padding:30px 0"><div style="font-size:48px">✓</div><h2>${esc(r.n)} done</h2><div class="muted">Nice work. Your body will thank you on the court.</div><button class="btn primary block" style="margin-top:20px" data-act="closeSheet">Close</button></div>`; }
+  const { r, s, ex } = rtStep();
+  return `<div style="margin-right:48px"><div class="small muted" style="margin-bottom:2px">${esc(r.n)} · move ${RT.i + 1} of ${r.steps.length}</div><h2 style="margin:0 0 6px">${esc(ex.n)}</h2></div>${r.note && RT.i === 0 ? `<div class="banner warn" style="margin:8px 0"><b>Heads up</b>${esc(r.note)}</div>` : ""}
+  <div class="rt-clock" id="rtClock">${fmtClock(RT.left)}</div><div id="rtSide" class="rt-side">${s[2] ? (RT.left <= Math.floor(s[1] / 2) ? "Switch sides" : "First side, switch at half") : ""}</div>
+  <div class="rt-track"><i id="rtBar" style="width:${Math.round((1 - RT.left / s[1]) * 100)}%"></i></div>
+  <ol class="st-cues" style="margin:14px 0">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ol>
+  ${ex.yt ? `<a class="howto" href="${ytUrl(ex.yt)}" target="_blank" rel="noopener">▶ Watch demo</a>` : ""}
+  <div class="row" style="gap:8px;margin-top:16px"><button class="btn" style="flex:1" data-act="rtPrev" ${RT.i ? "" : "disabled"}>‹ Back</button><button class="btn primary" style="flex:1.4" data-act="rtPlay">${RT.run ? "Pause" : RT.left < s[1] ? "Resume" : "Start"}</button><button class="btn" style="flex:1" data-act="rtNext">Next ›</button></div>
+  <div class="small muted" style="margin-top:10px;text-align:center">Up next: ${RT.i + 1 < r.steps.length ? esc((r.steps[RT.i + 1][0] === "breathe" ? BREATHE.n : ST[r.steps[RT.i + 1][0]][1])) : "done"}</div><button class="btn block" style="margin-top:14px" data-act="closeSheet">End routine</button>`;
+}
+/* Lights out: stamps tonight's bedtime onto tomorrow morning's sleep log. */
+function lightsOut() {
+  const hr = new Date().getHours(); if (hr >= 4 && hr < 17) { toast("That's for tonight. Log last night up top."); return; }
+  const e = eveDate(), le = L(e), m = L(addDays(e, 1)); le.checks.bed = !le.checks.bed;
+  if (le.checks.bed) { const n = new Date(); m.sleep = Object.assign(m.sleep || {}, { bed: pad(n.getHours()) + ":" + pad(n.getMinutes()) }); delete m.sleep.wake; delete m.sleepH; toast("Lights out " + fmtT(m.sleep.bed) + ". Sleep well."); }
+  else if (m.sleep && !m.sleep.wake) { delete m.sleep.bed; if (!m.sleep.q) delete m.sleep; }
+  save(); render();
+}
+function readToggle(s) { const l = L(s); if ((l.reading || 0) >= 10) { l.reading = 0; l.checks.wd_read = false; } else { l.reading = 10; l.checks.wd_read = true; buzz(); } save(); render(); }
 
 /* ---------------------------- PROGRESS ---------------------------- */
 function chart(field, unit, color) {
@@ -2478,7 +2644,7 @@ function renderProgress() {
 
 /* ---------------------------- SHEETS (More menu) ---------------------------- */
 function openSheet(kind, arg) { UI.sheet = { kind, arg }; renderSheet(); $("sheet").classList.remove("hidden"); }
-function closeSheet() { window.__tapGuard = Date.now(); if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
+function closeSheet() { window.__tapGuard = Date.now(); if (typeof rtStop === "function") rtStop(); if (UI.wnPending) { S.meta.seenVersion = UI.wnPending; UI.wnPending = null; save(); } UI.sheet = null; UI.setup = null; $("sheet").classList.add("hidden"); if (S.meta.tourSeen && !S.meta.health) setTimeout(() => { if (!UI.sheet && !UI.wo && !document.querySelector(".welcome,.mburst,.bburst")) openSheet("health"); }, 300); if (ME && ME.badgeImg && !S.meta.welcomed) setTimeout(maybeWelcome, 350); }
 const back = `<button class="btn sm" data-act="sheet" data-k="menu" style="margin-bottom:10px">‹ Back</button>`;
 function renderSheet() {
   if (!UI.sheet) return; const { kind, arg } = UI.sheet; let o = "";
@@ -2491,6 +2657,7 @@ function renderSheet() {
   } else if (kind === "mapper") { o = mapperHTML();
   } else if (kind === "tour") { o = tourHTML();
   } else if (kind === "rules") { o = `<button class="btn sm" data-act="closeSheet" style="margin-bottom:10px">‹ Close</button>` + rulebookHTML();
+  } else if (kind === "routine") { o = routineHTML();
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "health") { o = healthSheetHTML();
   } else if (kind === "crew") { o = back + crewHTML();
@@ -2603,7 +2770,19 @@ const ACT = {
   nickGo: () => { closeSheet(); openSheet("settings"); setTimeout(() => { const el = document.querySelector('[data-k="nickname"]'); if (el) el.focus(); }, 300); },
   sbOpen: el => { UI.sbOpen = UI.sbOpen === el.dataset.id ? null : el.dataset.id; render(); },
   prizeEdit: () => { const t = prompt("Season prize", SB.prize || DEFAULT_PRIZE); if (t == null) return; fetch("/.netlify/functions/scoreboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "prize", pin: R().adminPin, season: seasonOf(todayStr()).id, text: t }) }).then(r => r.ok ? r.json() : Promise.reject()).then(d => { SB.prize = d.prize; toast("Prize updated"); render(); }).catch(() => toast("Could not save. Check your PIN.")); },
-  affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("Nice. Mind right."); render(); },
+  slPick: el => { UI.slDate = el.dataset.date; UI.slClearArm = null; render(); const c = $("sleepCard"); if (c && c.getBoundingClientRect().top < 0) c.scrollIntoView({ block: "start", behavior: "smooth" }); },
+  slHrs: el => { const d = el.dataset.date, h = sleepOf(getL(d)), v = +el.dataset.v; if (h != null && (Math.floor(h) === v || (v === 9 && h >= 9))) { UI.slClearArm = null; sleepClear(d); } else { sleepSet(d, v); buzz(); } save(); render(); },
+  slWake: () => { const t = todayStr(), l = L(t), n = new Date(); l.sleep = Object.assign(l.sleep || {}, { wake: pad(n.getHours()) + ":" + pad(n.getMinutes()) }); sleepTimes(t); save(); buzz(); const h = sleepOf(l); toast(hrsTxt(h) + " hrs logged. +" + sleepPts(h)); render(); },
+  slClear: el => { const d = el.dataset.date; if (UI.slClearArm !== d) { UI.slClearArm = d; render(); setTimeout(() => { if (UI.slClearArm === d) { UI.slClearArm = null; render(); } }, 4000); return; } UI.slClearArm = null; sleepClear(d); save(); toast("Night cleared"); render(); },
+  wdStretch: () => { const l = L(todayStr()); l.checks.wd_stretch = !l.checks.wd_stretch; if (l.checks.wd_stretch) buzz(); save(); render(); },
+  wdRead: () => readToggle(todayStr()),
+  lightsOut: () => lightsOut(),
+  stArea: el => { UI.stArea = el.dataset.v; render(); },
+  rtOpen: el => { rtStop(); const r = ST_ROUTINES.find(x => x.id === el.dataset.v); RT.id = r.id; RT.i = 0; RT.left = r.steps[0][1]; RT.done = false; openSheet("routine"); },
+  rtPlay: () => { if (RT.run) rtStop(); else { RT.run = true; RT.h = setInterval(rtTick, 1000); try { snd("small"); } catch (e) {} } renderSheet(); },
+  rtNext: () => { const r = ST_ROUTINES.find(x => x.id === RT.id), was = RT.run; rtStop(); if (RT.i + 1 >= r.steps.length) { RT.done = true; const l = L(todayStr()); if (r.id === "bed15") l.checks.wd_stretch = true; save(); try { snd("mid"); } catch (e) {} renderSheet(); render(); return; } RT.i++; RT.left = r.steps[RT.i][1]; if (was) { RT.run = true; RT.h = setInterval(rtTick, 1000); } renderSheet(); },
+  rtPrev: () => { const r = ST_ROUTINES.find(x => x.id === RT.id), was = RT.run; rtStop(); RT.i = Math.max(0, RT.i - 1); RT.left = r.steps[RT.i][1]; if (was) { RT.run = true; RT.h = setInterval(rtTick, 1000); } renderSheet(); },
+  affCheck: () => { const l = L(todayStr()); l.checks.affirm = !l.checks.affirm; save(); if (l.checks.affirm) toast("Nice. Mind right."); rerenderAll(); },
   buyNo: () => { SSN().pendingBuy = null; save(); closeSheet(); },
   buyBook: el => { const id = el.dataset.id; if (SSN().bought[id]) return closeSheet(); SSN().pendingBuy = null; save(); openSheet("result", buyPriceHTML(id)); setTimeout(() => { const i = $("buyPrice"); if (i) i.focus(); }, 300); },
   buyConfirm: el => { const id = el.dataset.id, p = Math.round((+($("buyPrice") || {}).value || 0) * 100) / 100; if (!(p > 0) || p > 150) return toast("Enter what you paid, like 18.99"); const pts = Math.floor(p * PTS.perDollar); SSN().bought[id] = { date: todayStr(), price: p, pts }; save(); toast("+" + pts + " points. Enjoy the read."); queueScore(); openSheet("book", id); },
@@ -2636,13 +2815,13 @@ const ACT = {
     if (k === "water") return ACT.scWater();
     if (k === "workout") return ACT.scWorkout({ dataset: { v: l.mvdDone && !l.done ? "quick" : "full" } });
     if (k === "protein") return ACT.scProtein();
-    if (k === "sleep") return ACT.scSleep({ dataset: { v: l.sleepH != null ? l.sleepH : 7 } });
+    if (k === "sleep") { if (sleepOf(l) != null) sleepClear(todayStr()); else sleepSet(todayStr(), 7); return scSave(); }
     if (k === "read") { if (l.reading > 0) { l.reading = 0; l.checks.wd_read = false; } else { l.reading = 10; l.checks.wd_read = true; } return scSave(); }
     if (k === "affirm") return ACT.affCheck();
     if (k === "court") { const ev = courtOn(todayStr()), game = ev.find(e => e.kind === "game" || e.type === "game"); return ACT.courtSet({ dataset: { v: l.court || (game ? "played" : "practice") } }); }
     if (k === "cardio") { const i = $("runMi"); if (i) { i.focus(); i.scrollIntoView({ block: "center", behavior: "smooth" }); } } },
   scWater: () => { const l = L(todayStr()), g = waterGoal(todayStr()); if (l.water >= g) { l.water = l.waterPrev != null && l.waterPrev < g ? l.waterPrev : 0; delete l.waterPrev; } else { l.waterPrev = l.water || 0; l.water = g; } scSave(); },
-  scSleep: el => { const l = L(todayStr()), v = +el.dataset.v; l.sleepH = l.sleepH === v ? null : v; scSave(); },
+  scSleep: el => { const t = todayStr(), h = sleepOf(getL(t)), v = +el.dataset.v; if (h != null && (Math.floor(h) === v || (v === 9 && h >= 9))) sleepClear(t); else sleepSet(t, v); scSave(); },
   scProtein: () => { const l = L(todayStr()); l.protein50 = !proteinHit(l); if (!l.protein50 && l.protein >= PTS.proteinG) l.protein = 0; scSave(); },
   cardioMode: el => { UI.cardio = el.dataset.v; render(); },
   runAdd: () => { const v = Math.round((+$("runMi").value || 0) * 10) / 10, bike = (UI.cardio || "run") === "bike"; if (v <= 0 || v > 60) return toast("Enter miles, like 2.5"); const s = todayStr(), l = L(s), k = bike ? "bike" : "miles";
@@ -2665,7 +2844,7 @@ const ACT = {
   more: () => openSheet("menu"),
   sheet: el => { if (el.dataset.k === "tour") UI.tourPage = 0; openSheet(el.dataset.k, el.dataset.a); },
   closeSheet: el => { if (el && el.classList && el.classList.contains("sheet-bg") && UI.sheet && (UI.wnPending || UI.sheet.kind === "tour" || (UI.sheet.kind === "setup" && UI.sheet.arg === "first"))) return; closeSheet(); },
-  toggle: el => { const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
+  toggle: el => { if (el.dataset.id === "bed" && el.dataset.date === todayStr()) return lightsOut(); if (el.dataset.id === "wd_read") return readToggle(el.dataset.date); const l = L(el.dataset.date), id = el.dataset.id; l.checks[id] = !l.checks[id]; if (l.checks[id]) { buzz(); el.querySelector(".box").classList.add("pop"); } if (id === "hottub" || id === "wd_tub") l.hottub = l.checks[id] ? Math.max(l.hottub, 12) : l.hottub; checkBadges(); save(); setTimeout(rerenderAll, 120); },
   addP: el => { const l = L(todayStr()); l.protein = Math.max(0, l.protein + +el.dataset.v); if (l.protein >= S.profile.protein) l.checks.protein_goal = true; save(); buzz(); rerenderAll(); },
   addW: el => { const l = L(todayStr()); l.water = Math.max(0, l.water + +el.dataset.v); save(); buzz(); checkBadges(); rerenderAll(); },
   verseTog: () => { UI.verseOpen = !UI.verseOpen; const y = window.scrollY; render(); window.scrollTo(0, y); },
@@ -2677,7 +2856,7 @@ const ACT = {
     if (rd.current && rd.minutes && rd.minutes[rd.current]) rd.minutes[rd.current] = Math.max(0, rd.minutes[rd.current] - v);
     save(); toast("Removed " + v + " min of reading"); const y = window.scrollY; render(); window.scrollTo(0, y); queueScore(); },
   tub: el => { const l = L(todayStr()); l.hottub += +el.dataset.v; l.checks.hottub = true; save(); buzz(); render(); },
-  sleepQ: el => { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { q: +el.dataset.v }); save(); render(); },
+  sleepQ: el => { const l = L(el.dataset.date || todayStr()), v = +el.dataset.v; l.sleep = Object.assign(l.sleep || {}, { q: l.sleep && +l.sleep.q === v ? 0 : v }); save(); render(); },
   openWO: el => openWO(el.dataset.date, el.dataset.mvd === "1"),
   closeWO: () => closeWO(),
   mvd: el => { UI.mvd = el.dataset.v === "1"; L(UI.wo).mvd = UI.mvd; save(); renderWO(); },
@@ -2730,7 +2909,7 @@ document.addEventListener("change", e => {
   const el = e.target, k = el.dataset.in; if (!k) return;
   if (k === "weight") { L(UI.wo).weights[el.dataset.id] = el.value; save(); }
   else if (k === "hcNote") { const it = HC().issues[el.dataset.k]; if (it) it.note = el.value.slice(0, 80); }
-  else if (k === "sleep") { const l = L(todayStr()); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); if (l.sleep.bed && l.sleep.wake) delete l.sleepH; save(); render(); }
+  else if (k === "sleep") { const d = el.dataset.date || todayStr(), l = L(d); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); if (!el.value) delete l.sleep[el.dataset.k]; sleepTimes(d); save(); render(); }
   else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
   else if (k === "supp") { S.supplements[+el.dataset.i][el.dataset.k] = el.value; save(); render(); }
   else if (k === "appt") { S.appointments[+el.dataset.i][el.dataset.k] = el.value; save(); }
@@ -2757,7 +2936,8 @@ function C() {
   for (const k in DEFAULT_TIMES) if (!c.times[k]) c.times[k] = DEFAULT_TIMES[k];
   if (!c.hide) c.hide = {};
   if (!c.habits) c.habits = [];
-  if (!c.wind) c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] }));
+  if (!c.wind) c.wind = [];
+  if (!c.wind310) { c.wind = c.wind.filter(w => !["wd_tv", "wd_stretch", "wd_read", "wd_breathe", "bed"].includes(w.id)); c.wind310 = 1; }   // v3.1.0: built-in steps live on Recover now; keep only your own
   if (!c.identity) c.identity = IDENTITY.slice();
   if (!c.features) c.features = {};
   c.features.hotTub = false; c.hide = c.hide || {}; c.hide.hottub = true;   // v3.0.0: hot tub removed from the app
@@ -2813,7 +2993,7 @@ Object.assign(ACT, {
   cHide: el => { const c = C(), k = el.dataset.k; c.hide[k] = !c.hide[k]; save(); rerenderAll(); },
   cAccent: el => { C().accent = el.dataset.v; save(); toast("Color updated"); setTimeout(() => location.reload(), 350); },
   cFeat: el => { const c = C(), k = el.dataset.k; c.features[k] = !c.features[k]; save(); rerenderAll(); },
-  cReset: () => { if (!UI.cResetArm) { UI.cResetArm = true; renderSheet(); setTimeout(() => { UI.cResetArm = false; }, 4000); return; } UI.cResetArm = false; const c = C(); c.times = clone(DEFAULT_TIMES); c.wind = WIND.map(w => ({ id: w[0], time: w[1], label: w[2] })); c.identity = IDENTITY.slice(); c.hide = {}; save(); toast("Defaults restored"); rerenderAll(); },
+  cReset: () => { if (!UI.cResetArm) { UI.cResetArm = true; renderSheet(); setTimeout(() => { UI.cResetArm = false; }, 4000); return; } UI.cResetArm = false; const c = C(); c.times = clone(DEFAULT_TIMES); c.wind = []; c.identity = IDENTITY.slice(); c.hide = {}; save(); toast("Defaults restored"); rerenderAll(); },
   suppAdd: () => { S.supplements.push({ id: uid("s"), name: "New supplement", dose: "1 serving", time: "08:00", note: "" }); save(); renderSheet(); render(); },
   suppDel: el => { const i = +el.dataset.i; if (UI.suppDelArm !== i) { UI.suppDelArm = i; renderSheet(); setTimeout(() => { UI.suppDelArm = null; }, 4000); return; } UI.suppDelArm = null; S.supplements.splice(i, 1); save(); renderSheet(); render(); },
   editAff: () => { UI.affEdit = !UI.affEdit; render(); },
