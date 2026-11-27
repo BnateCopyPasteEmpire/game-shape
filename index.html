@@ -120,11 +120,11 @@ details.tip{box-shadow:none;margin-bottom:8px}details.tip>summary{font-size:15px
 #affCard>summary{padding:16px}
 .st-item .howto,#sheetBody .howto{min-height:44px}#stretchCard .chiprow .chip{min-height:44px}#windCard .btn.sm,#affCard .btn.sm,#sleepCard .btn.sm{min-height:44px}
 /* v3.1.1 tap splash: teal core, purple ring */
-.tapfx{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.15);opacity:1;background:radial-gradient(circle,rgba(255,255,255,.85) 0 7%,rgba(var(--epc-teal-rgb),.7) 8% 30%,rgba(var(--epc-purple-rgb),.45) 31% 52%,rgba(var(--epc-purple-rgb),0) 70%);animation:tapfx2 .5s cubic-bezier(.15,.8,.3,1) forwards}
+.tapfx{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.15);opacity:.5;background:radial-gradient(circle,rgba(255,255,255,.85) 0 7%,rgba(var(--epc-teal-rgb),.7) 8% 30%,rgba(var(--epc-purple-rgb),.45) 31% 52%,rgba(var(--epc-purple-rgb),0) 70%);animation:tapfx2 .5s cubic-bezier(.15,.8,.3,1) forwards}
 .tapfx.soft{background:radial-gradient(circle,rgba(var(--epc-teal-rgb),.35) 0 30%,rgba(var(--epc-purple-rgb),.18) 31% 55%,rgba(var(--epc-purple-rgb),0) 70%);animation-duration:.45s}
-.tapring{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.3);border:3px solid rgba(var(--epc-purple-rgb),.75);box-shadow:0 0 12px rgba(var(--epc-teal-rgb),.7),inset 0 0 10px rgba(var(--epc-teal-rgb),.5);animation:tapring2 .5s ease-out forwards}
+.tapring{position:fixed;border-radius:50%;pointer-events:none;z-index:140;transform:translate(-50%,-50%) scale(.3);opacity:.55;border:2px solid rgba(var(--epc-purple-rgb),.6);box-shadow:0 0 8px rgba(var(--epc-teal-rgb),.45),inset 0 0 6px rgba(var(--epc-teal-rgb),.3);animation:tapring2 .5s ease-out forwards}
 @keyframes tapfx2{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
-@keyframes tapring2{to{transform:translate(-50%,-50%) scale(1.45);opacity:0;border-width:1px}}
+@keyframes tapring2{to{transform:translate(-50%,-50%) scale(1.3);opacity:0;border-width:1px}}
 summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-bar:active{transform:scale(.98)}
 @media (prefers-reduced-motion:reduce){.tapfx,.tapring{display:none}}
 /* v3.1.1 Fuel */
@@ -158,6 +158,53 @@ summary:active,.check:active,.fcard:active,.pb-tile:active,.rt-btn:active,.sl-ba
 .pb-list li{margin:8px 0;font-size:15px}
 .drink{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line)}.drink:last-child{border-bottom:0}
 .fgroc .btn.sm{min-height:44px}
+/* v3.1.3 Reads: swipe between up to 4 books you're reading */
+.rd-car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px 14px;padding:0 16px;scroll-padding:0 16px;overscroll-behavior-x:contain}
+.rd-car::-webkit-scrollbar{display:none}
+.rd-car>.card{flex:0 0 100%;scroll-snap-align:center;margin:0}
+.rd-car .btn.sm{min-height:44px}
+.rd-car.solo{overflow:visible;margin:0 0 14px;padding:0}
+.rd-dots{display:flex;justify-content:center;gap:7px;margin:-6px 0 14px}
+.rd-dots i{width:7px;height:7px;border-radius:7px;background:#d5dad5;transition:all .25s}
+.rd-dots i.on{width:20px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple))}
+.rd-n{float:right;font-size:12px;font-weight:800;color:var(--epc-purple)}
+@media (max-width:400px){.rd-car{margin:0 -12px 12px;padding:0 12px;scroll-padding:0 12px}}
+/* v3.1.3 Walmart cart: one button under the grocery list, a review sheet, one add-to-cart link */
+.wm-send{margin-top:14px;min-height:52px;font-weight:800;font-size:15px;color:#fff;border:0;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));box-shadow:0 6px 18px rgba(var(--epc-purple-rgb),.28);display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
+.wm-send.sent{background:#fff;color:var(--epc-purple);border:1.5px solid rgba(var(--epc-purple-rgb),.35);box-shadow:none}
+.wm-send .wm-ic{font-size:18px}
+.wm-intro{font-size:13px;color:var(--ink-2);margin:-4px 0 10px}
+.wm-cat{color:var(--muted);font-size:13px;text-transform:uppercase;margin:16px 0 2px;display:flex;justify-content:space-between}
+.wm-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.wm-row:last-child{border-bottom:0}
+.wm-row .check{border-bottom:0;flex:1;min-width:0;padding:10px 0}
+.wm-row .check .lbl{min-width:0}
+.wm-row .check.on .lbl{color:var(--ink);text-decoration:none}
+.wm-row .check:not(.on) .lbl{color:var(--ink-2);text-decoration:line-through;text-decoration-color:#c9cfc9}
+.wm-row .on>.box{background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));border-color:transparent}
+.wm-row .box svg path{stroke:#fff}
+.wm-row .check.on>.box.anim{animation:wmChk .38s cubic-bezier(.2,1.5,.4,1)}
+@keyframes wmChk{0%{transform:scale(.55)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.wm-n{display:block;font-weight:700;line-height:1.25}
+.wm-s{display:block;font-size:12px;color:var(--ink-2);margin-top:2px;line-height:1.3}
+.wm-tag{font-size:10.5px;font-weight:800;color:var(--epc-purple);background:rgba(var(--epc-purple-rgb),.09);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
+.wm-q{display:flex;align-items:center;gap:2px;flex:none;transition:opacity .2s}
+.wm-q button{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:20px;font-weight:800;color:var(--ink);display:grid;place-items:center}
+.wm-q b{min-width:22px;text-align:center}
+.wm-row .check:not(.on)~.wm-q{opacity:.3;pointer-events:none}
+.wm-find{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.wm-find:last-child{border-bottom:0}
+.wm-find>div{flex:1;min-width:0}
+.wm-find .btn{min-height:44px;flex:none;display:inline-flex;align-items:center;text-decoration:none}
+.wm-foot{position:sticky;bottom:calc(-1 * (var(--sb) + 24px));margin:14px -16px calc(-1 * (var(--sb) + 24px));padding:12px 16px calc(var(--sb) + 16px);background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -10px 20px -14px rgba(0,0,0,.25);z-index:2}
+.wm-disc{font-size:12px;color:var(--ink-2);margin-bottom:8px;line-height:1.35}
+.wm-disc b{color:var(--ink)}
+.wm-go{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;text-decoration:none;font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--epc-teal),var(--epc-purple));border:0;border-radius:14px;box-shadow:0 6px 18px rgba(var(--epc-purple-rgb),.28);width:100%}
+.wm-go[aria-disabled=true]{opacity:.45;pointer-events:none}
+.wm-again{background:rgba(var(--epc-purple-rgb),.07);border:1.5px solid rgba(var(--epc-purple-rgb),.25);border-radius:14px;padding:10px 12px;margin-bottom:10px;font-size:13.5px}
+.wm-again .row{margin-top:8px;gap:8px}
+.wm-again .row>*{flex:1}
+.wm-fine{font-size:11.5px;color:var(--ink-2);margin-top:8px;text-align:center}
 /* v3.1.2 slim pinned bar: slides in when you scroll up, hides when you scroll down. Hairline + teal-to-purple accent as the divider. */
 .slimbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:10px;height:calc(var(--st,0px) + 50px);padding:var(--st,0px) 14px 0;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(1.6) blur(14px);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line);box-shadow:0 6px 18px rgba(20,10,40,.07);transform:translateY(-110%);transition:transform .28s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 .slimbar:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--epc-teal),var(--epc-purple));opacity:.85}
@@ -800,8 +847,9 @@ const IDENTITY = [
 
 
 /* ---------------------------- BRAND ART + ICONS (shared across every person's app) ---------------------------- */
-const APP_VERSION = "3.1.2";
+const APP_VERSION = "3.1.3";
 const CHANGELOG = {
+  "3.1.3": ["Send your grocery list to your own Walmart cart in one tap. Review it first, uncheck what you have, then sign in on Walmart", "Reads: keep up to 4 books going and swipe between them", "A smaller, softer tap splash"],
   "3.1.2": ["A slim Game Shape bar slides in at the top when you scroll back up"],
   "3.1.1": ["Fresher Fuel: your protein and water up top, a sticky category bar, swipe rows for meals, and recipes that open in one tap", "A teal and purple splash on every tap, everywhere in the app"],
   "3.1.0": ["New Recover tab: log or fix any night of sleep in one tap, a wind-down that counts, and a stretch library with videos and timed routines"],
@@ -851,7 +899,7 @@ const CHANGELOG = {
   "2.0.0": ["New clean white look with Game Shape colors and logo", "Auto-updates: new versions install themselves and keep all your data", "Branded badges, workout-complete screen, and daily splash"]
 };
 /* App color: each person can pick an accent (intake "Favorite app color" or Customize). Logo, green, and white never change. */
-const ACCENTS = [["#ff8200", "Tennessee orange"], ["#3ecf7a", "Green"], ["#4cc9f0", "Ice blue"], ["#a78bfa", "Purple"], ["#ff3b5c", "Red"], ["#facc15", "Gold"]];
+const ACCENTS = [["#ff8200", "Orange"], ["#3ecf7a", "Green"], ["#4cc9f0", "Ice blue"], ["#a78bfa", "Purple"], ["#ff3b5c", "Red"], ["#facc15", "Gold"]];
 function getAccent() {
   try {
     const P = window.GS_PERSON, k = P ? "gameShape_" + P.id + "_v1" : "gameShape_v1", d = JSON.parse(localStorage.getItem(k) || "null");
@@ -2253,9 +2301,9 @@ function tapFx(x, y, sz, soft) {
 }
 document.addEventListener("pointerdown", e => {
   const el = e.target.closest(TAP_SEL); if (!el || el.disabled) return;
-  const r = el.getBoundingClientRect(); tapFx(e.clientX, e.clientY, Math.min(240, Math.max(90, Math.max(r.width, r.height) * 1.5)));
+  const r = el.getBoundingClientRect(); tapFx(e.clientX, e.clientY, Math.min(120, Math.max(54, Math.max(r.width, r.height) * .85)));
 }, { passive: true, capture: true });
-document.addEventListener("click", e => { if (e.target.closest(TAP_SEL) || e.clientX == null || (!e.clientX && !e.clientY)) return; tapFx(e.clientX, e.clientY, 110, true); }, { passive: true, capture: true });
+document.addEventListener("click", e => { if (e.target.closest(TAP_SEL) || e.clientX == null || (!e.clientX && !e.clientY)) return; tapFx(e.clientX, e.clientY, 64, true); }, { passive: true, capture: true });
 
 /* v2.9.4 check-off feel: a color splash in your colors, a soft click, a buzz, and the points floating up. Big flood + check for a finished workout. */
 let AC = null;
@@ -2291,14 +2339,14 @@ function floodFx(title, sub) {
 }
 /* Actions that splash: sets and warmup checks always splash when they turn on. Scorecard taps splash when they complete a goal. */
 /* Buttons that log points. A tap that started on a popup or the update bar can "fall through" onto these right after it closes. */
-const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ", "fuelUndo", "groc", "gchk", "kit", "gclear"]);
+const LOG_ACTS = new Set(["read", "readMin", "readUndo", "addW", "addP", "scTick", "scWater", "scSleep", "scProtein", "scWorkout", "affCheck", "courtSet", "runAdd", "toggle", "wgStep", "slHrs", "slWake", "slClear", "wdRead", "wdStretch", "lightsOut", "sleepQ", "fuelUndo", "groc", "gchk", "kit", "gclear", "wmTog", "wmQty"]);
 window.__tapGuard = Date.now();
 try { history.scrollRestoration = "manual"; } catch (e) {}
-const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut", "addP", "gchk", "kit", "groc"]);
+const POP_ACTS = new Set(["scTick", "set", "toggle", "scWorkout", "scWater", "scSleep", "scProtein", "addW", "read", "affCheck", "courtSet", "runAdd", "slHrs", "wdRead", "wdStretch", "lightsOut", "addP", "gchk", "kit", "groc", "wmTog"]);
 function withPop(el, fn) {
   const r = el.getBoundingClientRect(), a = el.dataset.act, on0 = el.classList.contains("on"), t = todayStr(), c0 = dayChecks(t), p0 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0);
   fn();
-  if (a === "set" || a === "toggle" || a === "gchk" || a === "kit") { if (!on0) popFx(r, "small"); return; }
+  if (a === "set" || a === "toggle" || a === "gchk" || a === "kit" || a === "wmTog") { if (!on0) popFx(r, "small"); return; }
   if (a === "groc") { if (+el.dataset.v > 0) popFx(r, "small", "+1"); return; }
   const c1 = dayChecks(t), p1 = Object.values(dayPoints(t)).reduce((x, v) => x + v, 0), newly = Object.keys(c1).filter(k => c1[k] && !c0[k]), gain = p1 - p0;
   if (newly.includes("allIn")) { popFx(r, "big", gain > 0 ? "+" + gain : ""); setTimeout(() => toast("ALL IN today. +" + PTS.allIn + " bonus"), 300); }
@@ -2562,7 +2610,174 @@ function groceryHTML() {
   let o = `<button class="check ${S.grocery.kit ? "on" : ""}" data-act="kit"><span class="lbl">Add office snack + breakfast kit</span><span class="box">${CHK}</span></button>`;
   if (!Object.keys(cats).length) return o + emptyState("Tap + on a prep meal to build your list.");
   ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"].forEach(c => { if (!cats[c]) return; o += `<h3 style="color:var(--muted);font-size:13px;text-transform:uppercase;margin:14px 0 4px">${c}</h3>` + cats[c].map(i => { const on = S.grocery.checked[i.name]; return `<button class="check ${on ? "on" : ""}" data-act="gchk" data-n="${esc(i.name)}"><span class="lbl">${esc(i.name)}${i.q.length ? ` <span class="small muted">${esc(i.q.join(" + "))}</span>` : ""}</span><span class="box">${CHK}</span></button>`; }).join(""); });
-  return o + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">${UI.gclearArm ? "Tap again to clear the list" : "Clear list"}</button>`;
+  return o + wmBtnHTML() + `<button class="btn sm danger" style="margin-top:12px" data-act="gclear">${UI.gclearArm ? "Tap again to clear the list" : "Clear list"}</button>`;
+}
+
+/* ---------------------------- WALMART CART (v3.1.3) ----------------------------
+   One tap sends the open grocery list to the shopper's own Walmart cart (affil.walmart.com add-to-cart link).
+   Sign-in happens on Walmart only. Game Shape never asks for or stores a Walmart login.
+   No points, no scoring. Walmart prices are never shown in the app (affiliate terms require 24 h price updates).
+   AFFILIATE SWITCH: paste the Impact publisher ID into WM_AFF.id to turn on tracked links for all 3 apps.
+   Empty id = plain Walmart links. Every Walmart link goes through wmWrap(), nowhere else. */
+const WM_AFF = { id: "", ad: "565706", camp: "9383" };
+/* key: [Walmart item id ("" = search instead), name, size, why this pick, aisle, staple (1 = qty stays 1), search words] (IDs checked Nov 2026) */
+const WM = {
+  thighs: ["124782654", "Freshness Guaranteed Boneless Skinless Chicken Thighs, Family Pack", "4.7 to 6 lb", "Juicier than breast on a sheet pan and cheaper per lb. One pack covers 2 recipes, freeze the rest.", "Meat & Fish"],
+  breast: ["27935840", "Freshness Guaranteed Boneless Skinless Chicken Breasts", "about 5 lb tray", "Leanest protein per dollar. Freeze what you won't cook this week.", "Meat & Fish"],
+  turkey93: ["167794433", "Jennie-O Lean Ground Turkey 93/7", "1 lb", "93% lean is the sweet spot: high protein, not dry. 2 lb recipes get 2 packs.", "Meat & Fish"],
+  beef90: ["366307122", "90% Lean Ground Beef Sirloin", "2.25 lb tray", "90/10 keeps chili and skillets lean. One tray covers a 2 lb recipe.", "Meat & Fish"],
+  salmon: ["21656993", "Great Value Wild Caught Pink Salmon Fillets (Frozen)", "2 lb bag", "Frozen wild salmon costs less than fresh and has the same omega-3s.", "Meat & Fish"],
+  sirloin: ["5010664322", "Top Sirloin Steak, Choice Angus, Family Pack", "4 or 6 steaks", "Lean cut with real flavor. Slice thin for fajitas.", "Meat & Fish"],
+  rotis: ["906875248", "Marketside Pulled Rotisserie Seasoned Chicken", "16 oz", "Already pulled, no carving. 2 tubs is about the meat of 2 chickens.", "Meat & Fish"],
+  shrimp: ["791288879", "Great Value Raw Large Peeled Shrimp, Tail-off (Frozen)", "2 lb bag", "Peeled and tail-off, so zero prep. Thaws in 5 minutes.", "Meat & Fish"],
+  tsausage: ["16672793", "Jennie-O Lean Turkey Sausage Roll", "1 lb", "Breakfast sausage flavor with far less fat than pork.", "Meat & Fish"],
+  pork: ["895966481", "Smithfield Fresh Pork Tenderloin, 2 Count", "1.4 to 3.4 lb", "One of the leanest cuts there is. 2 pieces fit the crock pot.", "Meat & Fish"],
+  csausage: ["10317798", "Aidells Chicken & Apple Sausage", "12 oz, 4 links", "Precooked, browns in minutes. 2 packs give the soup its pound.", "Meat & Fish"],
+  jerky: ["824446989", "Jack Link's Original Beef Jerky", "10 oz bag", "Big bag is cheaper per ounce for the desk drawer.", "Meat & Fish"],
+  tuna: ["40711461", "StarKist Chunk Light Tuna Pouches, 8 Pack", "2.6 oz each", "Light tuna is lower in mercury than albacore. No can opener needed.", "Pantry"],
+  bellred: ["44391581", "Fresh Red Bell Pepper", "each", "Red is sweeter than green with about twice the vitamin C.", "Produce"],
+  broccoli: ["51259378", "Fresh Broccoli Crowns", "each, about 0.75 lb", "Mostly florets, less stem waste. Count is set from the recipe's pounds.", "Produce"],
+  redonion: ["51259215", "Fresh Red Onion", "each", "Roasts sweet on a sheet pan.", "Produce"],
+  babypot: ["44391123", "Fresh Yellow Petite Potatoes", "1.5 lb bag", "No peeling. Microwave, then air fry.", "Produce"],
+  lettuce: ["13893731", "Marketside Shredded Iceberg Lettuce", "8 oz bag", "Pre-shredded for taco bowls.", "Produce"],
+  yonion: ["10447842", "Fresh Yellow Onions", "3 lb bag", "One bag covers about 6 recipes. Cheaper than singles.", "Produce", 1],
+  lemon: ["41752773", "Fresh Lemon", "each", "", "Produce"],
+  sweetpot: ["132720824", "Sweet Potatoes", "3 lb bag", "4 to 5 potatoes. Slow carbs for training days.", "Produce"],
+  greenbeans: ["14053328", "Marketside Fresh Green Beans", "12 oz steam bag", "Washed and trimmed. Steams right in the bag.", "Produce"],
+  asparagus: ["44390952", "Fresh Green Asparagus", "1 bunch, about 1 lb", "The recipe sautes asparagus, so it gets the nod over green beans.", "Produce"],
+  zucchini: ["44390947", "Fresh Zucchini", "each", "", "Produce"],
+  spinach: ["13893738", "Marketside Fresh Spinach", "10 oz bag", "Better value than the 5 oz bag. One bag covers 2 recipes.", "Produce"],
+  romaine: ["10532755", "Fresh Romaine Hearts", "3 count", "Hearts keep longer than a loose head.", "Produce"],
+  avocado: ["44390949", "Fresh Hass Avocado", "each", "Slice day-of so it stays green.", "Produce"],
+  greenonion: ["51259361", "Fresh Green Onions", "1 bunch", "", "Produce"],
+  grapetom: ["10451313", "Fresh Grape Tomatoes", "10 oz", "Grape tomatoes hold their shape better than cherry when roasted.", "Produce"],
+  garlic: ["44391100", "Fresh Garlic Bulb", "each", "", "Produce", 1],
+  bcarrot: ["51259199", "Marketside Organic Baby Peeled Carrots", "1 lb bag", "No peeling. Works in the crock pot and as a desk snack.", "Produce"],
+  saladkit: ["343402197", "Marketside Southwest Chopped Salad Kit", "13.5 oz", "Greens, toppings, and dressing in one bag.", "Produce"],
+  apples: ["44390958", "Fresh Gala Apples", "3 lb bag", "Cheaper than singles and lasts the week.", "Produce"],
+  bananas: ["44390948", "Fresh Banana", "each", "5 for the work week.", "Produce"],
+  mirepoix: ["", "Diced mirepoix (onion, carrot, celery)", "10 oz tray", "Walmart's pre-diced tray comes and goes. Search shows the fresh or frozen one near you.", "Produce", 0, "diced mirepoix"],
+  eggs: ["172844767", "Great Value Large White Eggs", "18 count", "18 count covers a full batch of egg cups or burritos.", "Dairy & Eggs"],
+  yogurt: ["26559565", "Great Value Plain Nonfat Greek Yogurt", "32 oz tub", "Your sour cream swap with about 3 times the protein.", "Dairy & Eggs"],
+  cheese: ["15544059", "Great Value Fiesta Blend Shredded Cheese", "16 oz bag", "One bag covers several recipes.", "Dairy & Eggs"],
+  parm: ["10315402", "Great Value Grated Parmesan", "8 oz shaker", "", "Dairy & Eggs", 1],
+  tzatziki: ["886189683", "Marketside Tzatziki Dip", "16 oz", "", "Dairy & Eggs"],
+  butter: ["10315054", "Great Value Unsalted Butter", "4 sticks", "", "Dairy & Eggs", 1],
+  string: ["357809532", "Great Value Mozzarella String Cheese", "24 count", "7 g protein each, grab and go.", "Dairy & Eggs"],
+  oikos: ["49028504", "Oikos Triple Zero Vanilla Greek Yogurt", "4 cups", "15 g protein, 0 added sugar. 2 packs cover the work week.", "Dairy & Eggs"],
+  oj: ["403284742", "Great Value 100% Orange Juice, No Pulp", "52 oz", "A small glass with iron-rich meals helps you absorb the iron.", "Dairy & Eggs"],
+  corn: ["659879040", "Great Value Whole Kernel Corn, Steamable", "12 oz bag", "", "Frozen"],
+  stirfry: ["980539185", "Great Value Deluxe Stir Fry Vegetables", "20 oz bag", "", "Frozen"],
+  evoo: ["10315102", "Great Value Extra Virgin Olive Oil", "17 oz", "", "Pantry", 1],
+  garlicp: ["676979470", "Great Value Garlic Powder", "3.4 oz", "", "Pantry", 1],
+  paprika: ["785841258", "Great Value Smoked Paprika", "2 oz", "", "Pantry", 1],
+  taco: ["913906651", "Great Value Mild Taco Seasoning", "1 oz packet", "", "Pantry"],
+  blackbeans: ["10534038", "Great Value Black Beans", "15 oz can", "Rinse them to cut the sodium about 40%.", "Pantry"],
+  brownrice: ["17383470714", "Great Value 90-Second Brown Rice", "8.8 oz pouch", "Fiber plus speed. No pot to wash.", "Pantry"],
+  jasmine: ["400530816", "Great Value 90-Second Jasmine Rice", "8.8 oz pouch", "", "Pantry"],
+  quinoa: ["25524598", "Seeds of Change Quinoa & Brown Rice", "8.5 oz pouch", "Great Value has no quinoa pouch. This one microwaves in 90 seconds.", "Pantry"],
+  salsa: ["13448694", "Pace Chunky Medium Salsa", "24 oz jar", "Great Value salsa kept showing out of stock. Pace is the steady pick.", "Pantry"],
+  kidney: ["10534045", "Great Value Dark Red Kidney Beans", "15.5 oz can", "", "Pantry"],
+  pinto: ["10534043", "Great Value Pinto Beans", "15.5 oz can", "", "Pantry"],
+  dicedtom: ["10416105", "Great Value Petite Diced Tomatoes", "14.5 oz can", "Petite dice melts into chili and skillets.", "Pantry"],
+  tomsauce: ["10415500", "Great Value Tomato Sauce", "15 oz can", "", "Pantry"],
+  chili: ["871036105", "Great Value Chili Seasoning Mix", "1.25 oz packet", "", "Pantry"],
+  soy: ["15056122", "Great Value Less Sodium Soy Sauce", "15 oz", "36% less sodium than regular.", "Pantry", 1],
+  honey: ["20647992", "Great Value Honey", "12 oz bear", "", "Pantry", 1],
+  italian: ["637648335", "Great Value Italian Seasoning", "0.95 oz", "", "Pantry", 1],
+  teriyaki: ["", "Kikkoman Less Sodium Teriyaki", "10 oz bottle", "Walmart's listing for this was a third-party seller at a markup. Search shows the regular bottle.", "Pantry", 0, "kikkoman less sodium teriyaki"],
+  sesame: ["614782809", "Great Value Sesame Seeds", "2.2 oz", "", "Pantry", 1],
+  banza: ["47929314", "Banza Chickpea Penne", "8 oz box", "About double the protein of regular pasta. 2 boxes for a full batch.", "Pantry"],
+  marinara: ["52796305", "Great Value Organic Marinara", "24 oz jar", "No added sugar junk, and still a Great Value price.", "Pantry"],
+  tortilla: ["339860540", "Great Value Burrito Flour Tortillas", "8 count", "Burrito size so the fillings fit.", "Pantry"],
+  greek: ["10451917", "Cavender's All Purpose Greek Seasoning", "8 oz", "Great Value doesn't make one. Cavender's is the classic.", "Pantry", 1],
+  broth: ["44391066", "Great Value Reduced Sodium Chicken Broth", "32 oz carton", "", "Pantry"],
+  lipton: ["10307791", "Lipton Recipe Secrets Onion Soup Mix", "2 envelopes", "One box covers 2 roasts.", "Pantry"],
+  crumbs: ["10315089", "Great Value Plain Bread Crumbs", "15 oz", "", "Pantry", 1],
+  fajita: ["149215159", "Great Value Fajita Seasoning Mix", "1.25 oz packet", "", "Pantry"],
+  lentils: ["10314942", "Great Value Dry Lentils", "1 lb bag", "No soaking. 18 g protein per cooked cup.", "Pantry"],
+  lemonp: ["408264184", "Great Value Lemon & Pepper Seasoning", "4.25 oz", "Lemon pepper over Cajun: less sodium, same kick.", "Pantry", 1],
+  pita: ["", "Great Value White Pita Bread", "4 count", "No steady item number for this one. Search finds it fast.", "Pantry", 0, "great value pita bread"],
+  premier: ["45152391", "Premier Protein Shake, Chocolate", "4 x 11 oz", "30 g protein, 1 g sugar. The best grab-and-go backup.", "Pantry"],
+  almonds: ["834401337", "Great Value Whole Almonds", "16 oz", "Handful (1 oz) is 6 g protein. Pre-portion them.", "Pantry"],
+  lyte: ["", "Liquid I.V. Hydration Multiplier", "stick packs", "For court days. Walmart's own listings change often, search shows what's in stock.", "Pantry", 0, "liquid iv hydration multiplier"]
+};
+/* grocery line name -> [[product, packs per batch]]. Fractions add up across recipes, then round up. */
+const WM_ING = {
+  "Boneless skinless chicken thighs": [["thighs", .45]], "Chicken thighs": [["thighs", .45]], "Chicken breast": [["breast", .4]],
+  "93% lean ground turkey": [["turkey93", 2]], "90% lean ground beef": [["beef90", 1]], "Salmon fillets (6 oz)": [["salmon", .75]], "Salmon fillets": [["salmon", 1]],
+  "Sirloin steak": [["sirloin", 1]], "Flank or sirloin steak": [["sirloin", 1]], "Rotisserie chickens": [["rotis", 2]], "Frozen raw shrimp, peeled": [["shrimp", 1]],
+  "Turkey sausage": [["tsausage", .75]], "Pork tenderloin": [["pork", 1]], "Chicken sausage": [["csausage", 1.34]], "Jerky / meat sticks": [["jerky", 1]], "Tuna or chicken packets": [["tuna", 1]],
+  "Bell peppers": [["bellred", 2]], "Bell pepper": [["bellred", 1]], "Broccoli": [["broccoli", 1.67]], "Red onion": [["redonion", 1]], "Baby potatoes": [["babypot", .8]],
+  "Shredded lettuce": [["lettuce", 1]], "Onion": [["yonion", .17]], "Lemon": [["lemon", 1]], "Sweet potatoes": [["sweetpot", 1]], "Green beans": [["greenbeans", 2]],
+  "Asparagus or green beans": [["asparagus", 1]], "Zucchini": [["zucchini", 2]], "Spinach": [["spinach", .5]], "Romaine": [["romaine", .34]], "Avocados": [["avocado", 2]],
+  "Green onions": [["greenonion", 1]], "Cherry tomatoes": [["grapetom", 1]], "Garlic": [["garlic", 1]], "Carrots": [["bcarrot", 1]], "Carrots + celery + onion (mirepoix)": [["mirepoix", 1]],
+  "Bagged salad kit": [["saladkit", 2]], "Apples + bananas": [["apples", 1], ["bananas", 5]], "Baby carrots": [["bcarrot", 1]],
+  "Eggs": [["eggs", .67]], "Eggs (for hard-boiling)": [["eggs", .5]], "Plain Greek yogurt": [["yogurt", .25]], "Greek yogurt + salsa": [["yogurt", .25], ["salsa", 1]], "Shredded cheese": [["cheese", .3]],
+  "Parmesan": [["parm", 1]], "Tzatziki": [["tzatziki", 1]], "Butter": [["butter", 1]], "String cheese": [["string", 1]], "Greek yogurt cups": [["oikos", 2]], "Orange juice (small, for iron)": [["oj", 1]],
+  "Frozen corn": [["corn", 1]], "Frozen stir-fry veggies": [["stirfry", 2]],
+  "Olive oil": [["evoo", 1]], "Butter or olive oil": [["evoo", 1]], "Garlic powder + smoked paprika": [["garlicp", 1], ["paprika", 1]], "Taco seasoning": [["taco", 1]], "Black beans": [["blackbeans", 1]],
+  "Brown rice pouches": [["brownrice", 2]], "Rice pouches": [["brownrice", 2]], "Jasmine rice pouches": [["jasmine", 2]], "Quinoa pouches": [["quinoa", 2]], "Quinoa or rice pouches": [["quinoa", 2]],
+  "Pita or rice pouches": [["pita", 1]], "Salsa": [["salsa", 1]], "Kidney + pinto beans": [["kidney", 1], ["pinto", 1]], "Diced tomatoes": [["dicedtom", 1]], "Tomato sauce": [["tomsauce", 1]],
+  "Chili seasoning": [["chili", 1]], "Soy sauce + honey": [["soy", 1], ["honey", 1]], "Italian seasoning": [["italian", 1]], "Teriyaki sauce (low sugar)": [["teriyaki", 1]], "Sesame seeds": [["sesame", 1]],
+  "Protein pasta (chickpea or lentil)": [["banza", 2]], "Marinara": [["marinara", 1]], "Large tortillas": [["tortilla", 1.25]], "Tortillas": [["tortilla", 1]], "Greek seasoning": [["greek", 1]],
+  "Chicken broth": [["broth", .75]], "Ranch or onion soup mix": [["lipton", .5]], "Breadcrumbs": [["crumbs", 1]], "Fajita seasoning": [["fajita", 1]], "Dry lentils": [["lentils", 1]],
+  "Cajun or lemon pepper seasoning": [["lemonp", 1]], "Protein shakes (RTD)": [["premier", 1]], "Almonds": [["almonds", 1]], "Electrolyte packets": [["lyte", 1]]
+};
+const WM_CATS = ["Meat & Fish", "Produce", "Dairy & Eggs", "Pantry", "Frozen"];
+function wmG() { const g = S.grocery; g.wmOff = g.wmOff || {}; g.wmQ = g.wmQ || {}; return g; }
+/* The list to send: unchecked grocery lines only (checked = already have it). */
+function wmBuild() {
+  const g = wmG(), tot = {}, from = {}, miss = [];
+  const use = (name, n) => { const m = WM_ING[name]; if (!m) { if (!miss.includes(name)) miss.push(name); return; } m.forEach(([k, per]) => { tot[k] = (tot[k] || 0) + per * n; (from[k] = from[k] || []).includes(name) || from[k].push(name); }); };
+  Object.entries(g.sel).forEach(([id, n]) => { const r = RECIPES.find(x => x.id === id); if (r) r.ing.forEach(i => { if (!g.checked[i[0]]) use(i[0], n); }); });
+  if (g.kit) OFFICE_KIT.forEach(i => { if (!g.checked[i[0]]) use(i[0], 1); });
+  const list = Object.keys(tot).filter(k => WM[k]).map(k => { const p = WM[k], auto = p[5] ? 1 : Math.max(1, Math.ceil(tot[k] - 1e-6)); return { k, p, auto, q: Math.max(1, Math.min(12, g.wmQ[k] || auto)), from: from[k], on: !g.wmOff[k] }; });
+  list.sort((a, b) => WM_CATS.indexOf(a.p[4]) - WM_CATS.indexOf(b.p[4]) || a.p[1].localeCompare(b.p[1]));
+  return { list, cart: list.filter(x => x.p[0] && x.on), find: list.filter(x => !x.p[0] && x.on), miss };
+}
+function wmSig(cart) { return cart.map(x => x.p[0] + "|" + x.q).sort().join(","); }
+function wmAffId() { return String(WM_AFF.id || (R().adminPin && !PERSON && S.meta.wmAff) || "").trim(); }
+/* The ONLY place a Walmart URL leaves the app. Affiliate wrap is Impact's standard deep link (goto.walmart.com/c/<publisher>/<ad>/<campaign>?u=<encoded url>). */
+function wmWrap(url) { const a = wmAffId(); return a ? `https://goto.walmart.com/c/${encodeURIComponent(a)}/${WM_AFF.ad}/${WM_AFF.camp}?veh=aff&subId1=gameshape&u=${encodeURIComponent(url)}` : url; }
+function wmLink(cart) { return wmWrap("https://affil.walmart.com/cart/addToCart?items=" + cart.map(x => x.p[0] + "|" + x.q).join(",")); }
+function wmSearch(q) { return wmWrap("https://www.walmart.com/search?q=" + encodeURIComponent(q)); }
+function wmTime(ts) { const d = new Date(ts), t = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }); return ds(d) === todayStr() ? t : d.toLocaleDateString([], { weekday: "short" }) + " " + t; }
+function wmSentNow(cart) { const w = S.grocery.wm; return w && cart.length && w.sig === wmSig(cart) ? w.at : 0; }
+function wmBtnHTML() {
+  const b = wmBuild(); if (!b.list.length) return "";
+  const sent = wmSentNow(b.cart), n = b.cart.length;
+  return `<button class="btn wm-send ${sent ? "sent" : ""}" data-act="wmOpen"><span class="wm-ic">🛒</span>${sent ? "Sent to Walmart " + wmTime(sent) : `Send to Walmart (${n} item${n === 1 ? "" : "s"})`}</button>`;
+}
+function wmFootHTML() {
+  const b = wmBuild(), n = b.cart.length, sent = wmSentNow(b.cart), aff = wmAffId();
+  const disc = aff ? `<div class="wm-disc"><b>Paid link.</b> Game Shape may earn a small commission from Walmart purchases. Your price doesn't change.</div>` : "";
+  const go = `<a class="wm-go" id="wmGo" href="${esc(wmLink(b.cart))}" target="_blank" rel="noopener" data-act="wmGo" ${n ? "" : 'aria-disabled="true"'}>${sent ? "Send anyway" : `Open my Walmart cart (${n})`}</a>`;
+  let o = disc;
+  if (sent && !UI.wmArm) o += `<button class="wm-go" data-act="wmArm">✓ Sent to Walmart ${wmTime(sent)} · Send again?</button>`;
+  else if (sent) o += `<div class="wm-again"><b>This adds the items again.</b> Send anyway?<div class="row">${go.replace('class="wm-go"', 'class="wm-go" style="min-height:48px"')}<button class="btn" data-act="wmDisarm">Cancel</button></div></div>`;
+  else o += n ? go : `<a class="wm-go" aria-disabled="true">Pick at least 1 item</a>`;
+  return o + `<div class="wm-fine">Walmart shows your prices and stock. Meat and produce are sold by weight.</div>`;
+}
+function wmSheetHTML() {
+  const b = wmBuild(), g = S.grocery, w = g.wm, sent = wmSentNow(b.cart);
+  let o = `${sheetTitle("Send to Walmart")}<div class="wm-intro">Matched to real Walmart items, Great Value first. Uncheck what you already have. Walmart opens with these in your cart, and you sign in there, not here.</div>`;
+  if (!sent && w && w.at) o += `<div class="banner info" style="margin:0 0 6px"><b>Earlier send: ${wmTime(w.at)}</b>Those items are already in your Walmart cart. Uncheck any you sent then.</div>`;
+  const carted = b.list.filter(x => x.p[0]);
+  WM_CATS.forEach(c => {
+    const rows = carted.filter(x => x.p[4] === c); if (!rows.length) return;
+    o += `<h3 class="wm-cat"><span>${c}</span><span>${rows.filter(x => x.on).length}/${rows.length}</span></h3>` + rows.map(x => `<div class="wm-row"><button class="check ${x.on ? "on" : ""}" data-act="wmTog" data-k="${x.k}"><span class="lbl"><span class="wm-n">${esc(x.p[1])}${x.p[5] ? `<span class="wm-tag">pantry staple</span>` : ""}</span><span class="wm-s">${esc(x.p[2])} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</span><span class="box">${CHK}</span></button><div class="wm-q"><button data-act="wmQty" data-k="${x.k}" data-v="-1" aria-label="One less">−</button><b id="wmq-${x.k}">${x.q}</b><button data-act="wmQty" data-k="${x.k}" data-v="1" aria-label="One more">+</button></div></div>`).join("");
+  });
+  const find = b.list.filter(x => !x.p[0]);
+  if (find.length) o += `<h3 class="wm-cat"><span>Search on Walmart</span><span>${find.length}</span></h3><div class="small muted" style="margin-bottom:4px">No solid item match, so these open a Walmart search instead of going in the cart link.</div>` + find.map(x => `<div class="wm-find"><div><span class="wm-n">${esc(x.p[1])}</span><span class="wm-s">${esc(x.p[2])} · for ${esc(x.from.join(", "))}</span>${x.p[3] ? `<span class="wm-s">${esc(x.p[3])}</span>` : ""}</div><a class="btn sm" href="${esc(wmSearch(x.p[6]))}" target="_blank" rel="noopener">Search ›</a></div>`).join("");
+  if (b.miss.length) o += `<div class="small muted" style="margin-top:10px">Not matched yet: ${esc(b.miss.join(", "))}</div>`;
+  return o + `<div class="wm-foot" id="wmFoot">${wmFootHTML()}</div>`;
+}
+/* Small in-place updates so nothing jumps and no other check re-animates. */
+function wmSync() { const f = $("wmFoot"); if (f) f.innerHTML = wmFootHTML(); document.querySelectorAll("#sheetBody .wm-cat").forEach(h => { const rows = []; let n = h.nextElementSibling; while (n && n.classList.contains("wm-row")) { rows.push(n); n = n.nextElementSibling; } if (rows.length) h.lastElementChild.textContent = rows.filter(r => r.firstElementChild.classList.contains("on")).length + "/" + rows.length; }); }
+function wmAdminHTML() {
+  if (PERSON || !R().adminPin) return "";
+  return `<h3 class="sh3" style="margin-top:22px">Walmart affiliate</h3><label class="f">Impact publisher ID (test on this phone only)</label><input value="${esc(S.meta.wmAff || "")}" placeholder="Leave empty for plain Walmart links" inputmode="numeric" data-in="wmAff"><div class="small muted">${WM_AFF.id ? "Live for all 3 apps: " + esc(WM_AFF.id) + "." : "Not live. To switch it on for all 3 apps, set WM_AFF.id in index.html."} The paid-link note shows in the Walmart sheet whenever an ID is on.</div>`;
 }
 
 /* ---------------------------- RECOVER (v3.1.0) ----------------------------
@@ -2776,6 +2991,7 @@ function renderSheet() {
   } else if (kind === "rules") { o = `<button class="btn sm" data-act="closeSheet" style="margin-bottom:10px">‹ Close</button>` + rulebookHTML();
   } else if (kind === "routine") { o = routineHTML();
   } else if (kind === "recipe") { o = recipeSheetHTML(arg);
+  } else if (kind === "wm") { o = wmSheetHTML();
   } else if (kind === "pb") { o = playbookSheetHTML(arg);
   } else if (kind === "quiz") { o = quizHTML();
   } else if (kind === "health") { o = healthSheetHTML();
@@ -2787,7 +3003,7 @@ function renderSheet() {
     o = back + `${sheetTitle("Health appointments")}` + S.appointments.map((a, i) => `<div class="card" style="background:var(--card2)"><input value="${esc(a.title)}" data-in="appt" data-i="${i}" data-k="title" style="font-weight:700"><div class="grid2"><div><label class="f">Date</label><input type="date" value="${a.date}" data-in="appt" data-i="${i}" data-k="date"></div><div><label class="f">Status</label><select data-in="appt" data-i="${i}" data-k="status">${["To schedule", "Scheduled", "Done"].map(x => `<option ${a.status === x ? "selected" : ""}>${x}</option>`).join("")}</select></div></div><label class="f">Notes</label><textarea data-in="appt" data-i="${i}" data-k="notes">${esc(a.notes)}</textarea><button class="btn sm danger" style="margin-top:8px" data-act="apptDel" data-i="${i}">Delete</button></div>`).join("") + `<button class="btn primary block" data-act="apptAdd">+ Add appointment</button>`;
   } else if (kind === "settings") {
     const p = S.profile;
-    o = back + `${sheetTitle("Settings")}${badgeHTML(false)}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Feel</h3><button class="toggle ${S.meta.sound === false ? "" : "on"}" data-act="sndTog">Click sound on check-offs<span class="sw"></span></button><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
+    o = back + `${sheetTitle("Settings")}${badgeHTML(false)}<label class="f">Name</label><input value="${esc(p.name)}" data-in="prof" data-k="name"><label class="f">Nickname (optional)</label><input value="${esc(p.nickname || "")}" maxlength="20" placeholder="Shows instead of your first name" data-in="prof" data-k="nickname"><div class="small muted">Your nickname shows on Today, the Score tab, and the scoreboard.</div><div class="grid2"><div><label class="f">Weight (lb)</label><input type="number" value="${p.weight}" data-in="prof" data-k="weight"></div><div><label class="f">Protein goal (g)</label><input type="number" value="${p.protein}" data-in="prof" data-k="protein"></div><div><label class="f">Water base (oz)</label><input type="number" value="${p.waterBase}" data-in="prof" data-k="waterBase"></div><div><label class="f">Program start</label><input type="date" value="${S.programStart}" data-in="start"></div></div><div class="banner info" style="margin-top:14px"><b>More to customize</b>Daily times, checklist items, habits, wind-down, affirmations, and quotes live in Customize.<div style="margin-top:8px"><button class="btn sm" data-act="sheet" data-k="custom">Open Customize</button></div></div><label class="f">Sleep-in day override</label><div class="small muted">Make a date a midday session (or cancel an automatic one).</div><div class="row" style="margin-top:6px"><input type="date" id="mdD"><button class="btn sm" data-act="midday" data-v="1">Sleep in</button><button class="btn sm" data-act="midday" data-v="0">Normal</button></div><h3 class="sh3" style="margin-top:22px">Feel</h3><button class="toggle ${S.meta.sound === false ? "" : "on"}" data-act="sndTog">Click sound on check-offs<span class="sw"></span></button><h3 class="sh3" style="margin-top:22px">Good Reads</h3><button class="toggle ${R().spicy ? "on" : ""}" data-act="spicy">Show spicy reads (18+)<span class="sw"></span></button><button class="btn sm block" style="margin-top:10px" data-act="unhideAll">Show books I hid (${(R().hidden || []).length})</button>${R().adminPin ? `<div class="banner info" style="margin-top:10px"><b>Admin mode on</b>You can hide or promote community picks.<div style="margin-top:8px"><button class="btn sm" data-act="adminLock">Turn off</button></div></div>` : `<label class="f">Admin PIN (Brett only)</label><div class="row"><input id="adPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn sm" data-act="adminUnlock">Unlock</button></div>`}${wmAdminHTML()}<button class="btn block danger" style="margin-top:24px" data-act="reset">Reset all data</button>`;
   } else if (kind === "backup") {
     o = back + `${sheetTitle("Backup + restore")}<div class="small muted">Last backup: ${S.meta.lastBackup ? fmtD(S.meta.lastBackup) : "never"}. Do it weekly. iPhone can clear web app storage.</div><button class="btn primary block" style="margin-top:14px" data-act="export">Export backup file</button><button class="btn block" style="margin-top:10px" data-act="copyBk">Copy backup to clipboard</button><button class="btn block" style="margin-top:10px" data-act="importF">Import backup file</button><label class="f">Or paste backup text</label><textarea id="pasteBk" placeholder='{"schemaVersion":1,...}'></textarea><button class="btn block" style="margin-top:10px" data-act="importP">Restore from pasted text</button>`;
   } else if (kind === "book") o = bookSheet(arg);
@@ -3007,6 +3223,12 @@ const ACT = {
   groc: el => { const id = el.dataset.id, n = Math.max(0, (S.grocery.sel[id] || 0) + +el.dataset.v); if (n) S.grocery.sel[id] = n; else delete S.grocery.sel[id]; save(); render(); },
   kit: () => { S.grocery.kit = !S.grocery.kit; save(); render(); },
   gchk: el => { const n = el.dataset.n; S.grocery.checked[n] = !S.grocery.checked[n]; save(); buzz(); render(); },
+  wmOpen: () => { UI.wmArm = false; openSheet("wm"); },
+  wmTog: el => { const g = wmG(), k = el.dataset.k; if (g.wmOff[k]) delete g.wmOff[k]; else g.wmOff[k] = 1; save(); buzz(); const on = !g.wmOff[k]; el.classList.toggle("on", on); const bx = el.querySelector(".box"); bx.classList.remove("anim"); if (on) { void bx.offsetWidth; bx.classList.add("anim"); } UI.wmArm = false; wmSync(); render(); },
+  wmQty: el => { const g = wmG(), k = el.dataset.k, b = wmBuild(), x = b.list.find(i => i.k === k); if (!x) return; const q = Math.max(1, Math.min(12, x.q + +el.dataset.v)); if (q === x.auto) delete g.wmQ[k]; else g.wmQ[k] = q; save(); const s = $("wmq-" + k); if (s) { s.textContent = q; s.classList.remove("pop"); void s.offsetWidth; s.classList.add("pop"); } UI.wmArm = false; wmSync(); render(); },
+  wmArm: () => { UI.wmArm = true; wmSync(); },
+  wmDisarm: () => { UI.wmArm = false; wmSync(); },
+  wmGo: (el, e) => { const b = wmBuild(); if (!b.cart.length) { if (e) e.preventDefault(); return; } S.grocery.wm = { at: Date.now(), sig: wmSig(b.cart), n: b.cart.length }; save(); popFx(el.getBoundingClientRect(), "mid"); toast("Opening Walmart. Sign in there to see your cart."); UI.wmArm = false; setTimeout(() => { wmSync(); render(); }, 350); },
   gclear: () => { if (!UI.gclearArm) { UI.gclearArm = true; render(); setTimeout(() => { if (UI.gclearArm) { UI.gclearArm = false; render(); } }, 4000); return; } UI.gclearArm = false; S.grocery = { sel: {}, kit: false, checked: {} }; save(); toast("List cleared"); render(); },
   logBody: () => { const w = parseFloat($("bW").value), wa = parseFloat($("bWa").value); if (!w && !wa) return toast("Enter weight or waist"); const s = todayStr(), e = S.body.find(b => b.date === s) || (S.body.push({ date: s }), S.body[S.body.length - 1]); if (w) { e.weight = w; S.profile.weight = w; } if (wa) { e.waist = wa; S.profile.waist = wa; } save(); toast("Logged"); render(); },
   checkin: () => { const c = { date: todayStr(), weight: parseFloat($("ciW").value) || null, waist: parseFloat($("ciWa").value) || null, sore: $("ciS").value, win: $("ciWin").value, change: $("ciC").value }; S.checkins.push(c); if (c.weight || c.waist) { const e = S.body.find(b => b.date === c.date) || (S.body.push({ date: c.date }), S.body[S.body.length - 1]); if (c.weight) e.weight = c.weight; if (c.waist) e.waist = c.waist; } save(); toast("Check-in saved"); render(); },
@@ -3032,6 +3254,7 @@ document.addEventListener("click", e => {
 document.addEventListener("change", e => {
   const el = e.target, k = el.dataset.in; if (!k) return;
   if (k === "weight") { L(UI.wo).weights[el.dataset.id] = el.value; save(); }
+  else if (k === "wmAff") { S.meta.wmAff = el.value.trim(); save(); toast(S.meta.wmAff ? "Affiliate ID on for this phone" : "Affiliate ID off"); }
   else if (k === "hcNote") { const it = HC().issues[el.dataset.k]; if (it) it.note = el.value.slice(0, 80); }
   else if (k === "sleep") { const d = el.dataset.date || todayStr(), l = L(d); l.sleep = Object.assign(l.sleep || {}, { [el.dataset.k]: el.value }); if (!el.value) delete l.sleep[el.dataset.k]; sleepTimes(d); save(); render(); }
   else if (k === "prac") { S.practice[el.dataset.k] = el.dataset.k === "weekday" ? +el.value : el.value; invalidate(); save(); render(); }
@@ -3204,14 +3427,25 @@ function dailyVerseHTML() {
   const t = todayStr(), n = Math.floor(new Date(t + "T12:00").getTime() / 864e5), v = VERSES[n % VERSES.length], pr = PRAYERS[n % PRAYERS.length];
   return `<div class="card verse-card"><div class="eyebrow" style="color:#ffd75e">Today's verse</div><blockquote>${esc(v.t)}</blockquote><div class="verse-ref">${esc(v.r)} <span>WEB</span></div><div class="verse-pray"><b>Prayer</b>${esc(pr)}</div><div class="small" style="opacity:.7;margin-top:8px">A new verse and prayer every day.</div></div>`;
 }
+/* v3.1.3: up to 4 books on the "reading" shelf at once. rd.current = the card you swiped to (minutes credit that book). */
+const READ_MAX = 4;
+function readingIds() { const rd = R(), sh = rd.shelf || {}, on = Object.keys(sh).filter(id => sh[id] === "reading" && bookById(id)); rd.readOrder = (rd.readOrder || []).filter(id => on.includes(id)); on.forEach(id => { if (!rd.readOrder.includes(id)) rd.readOrder.push(id); }); return rd.readOrder.slice(0, READ_MAX); }
+function rdCarSync() {
+  const c = $("rdCar"); if (!c || c.classList.contains("solo")) return; const ids = readingIds(), k = Math.max(0, ids.indexOf(R().current));
+  if (!c._wired) { c._wired = 1; c.addEventListener("scroll", () => { if (Date.now() - (c._prog || 0) < 450) return; clearTimeout(c._t); c._t = setTimeout(() => { c._t = 0; const i = Math.round(c.scrollLeft / (c.firstElementChild.offsetWidth + 12)), id = readingIds()[i]; if (id && R().current !== id) { R().current = id; save(); render(); } }, 140); }, { passive: true }); }
+  const want = k * (c.firstElementChild.offsetWidth + 12); if (Math.abs(c.scrollLeft - want) > 4 && !c._t) { c._prog = Date.now(); c.scrollLeft = want; }
+  const d = $("rdDots"); if (d) [...d.children].forEach((x, i) => x.classList.toggle("on", i === k));
+}
 function renderReads() {
-  const rd = R(), cur = rd.current && bookById(rd.current);
+  const rd = R(), ids = readingIds(); if (ids.length && !ids.includes(rd.current)) rd.current = ids[0];
   const counts = { want: 0, reading: 0, done: 0 }; Object.entries(rd.shelf || {}).forEach(([id, v]) => { if (counts[v] != null && bookById(id)) counts[v]++; });
   let o = "";
-  if (cur) {
-    const pct = (rd.progress || {})[cur.id] || 0, mins = (rd.minutes || {})[cur.id] || 0;
-    o += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading</div><div class="row" style="align-items:flex-start;margin-top:10px;gap:14px">${coverHTML(cur, 74)}<div style="flex:1"><div style="font-weight:800;font-size:18px;line-height:1.2">${esc(cur.title)}</div><div class="small muted">${esc(cur.author)}</div><div class="pbar"><i style="width:${pct}%"></i></div><div class="small muted">${pct}% • ${mins} min logged</div></div></div>
-    <div class="grid2" style="margin-top:12px"><button class="btn primary sm" data-act="readMin" data-v="10">+10 min</button>${getL(todayStr()).reading > 0 ? `<button class="btn sm" data-act="readUndo" data-v="10">Undo 10 min</button>` : ""}<button class="btn sm" data-act="readPct" data-v="10">+10% progress</button><button class="btn sm" data-act="book" data-id="${cur.id}">Notes + rate</button><button class="btn sm" data-act="finishBook">Finished it</button></div></div>`;
+  if (ids.length) {
+    o += `<div class="rd-car ${ids.length > 1 ? "" : "solo"}" id="rdCar">` + ids.map((id, k) => { const cur = bookById(id), pct = (rd.progress || {})[cur.id] || 0, mins = (rd.minutes || {})[cur.id] || 0;
+      return `<div class="card hero" data-rid="${cur.id}"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading${ids.length > 1 ? `<span class="rd-n">${k + 1} of ${ids.length} · swipe</span>` : ""}</div><div class="row" style="align-items:flex-start;margin-top:10px;gap:14px">${coverHTML(cur, 74)}<div style="flex:1"><div style="font-weight:800;font-size:18px;line-height:1.2">${esc(cur.title)}</div><div class="small muted">${esc(cur.author)}</div><div class="pbar"><i style="width:${pct}%"></i></div><div class="small muted">${pct}% • ${mins} min logged</div></div></div>
+    <div class="grid2" style="margin-top:12px"><button class="btn primary sm" data-act="readMin" data-v="10" data-id="${cur.id}">+10 min</button>${getL(todayStr()).reading > 0 && rd.current === cur.id ? `<button class="btn sm" data-act="readUndo" data-v="10">Undo 10 min</button>` : ""}<button class="btn sm" data-act="readPct" data-v="10" data-id="${cur.id}">+10% progress</button><button class="btn sm" data-act="book" data-id="${cur.id}">Notes + rate</button><button class="btn sm" data-act="finishBook" data-id="${cur.id}">Finished it</button></div></div>`; }).join("") + `</div>`;
+    if (ids.length > 1) o += `<div class="rd-dots" id="rdDots">${ids.map(id => `<i class="${id === rd.current ? "on" : ""}"></i>`).join("")}</div>`;
+    setTimeout(rdCarSync, 0);
   } else o += `<div class="card hero"><div class="swoosh">${ART.swoosh}</div><div class="eyebrow">Currently reading</div><h2 style="margin-top:8px">Pick your next read</h2><div class="small muted">Tap any book, then "Start reading." Minutes you log here count toward your 9:00 PM wind-down and the Bookworm badge.</div></div>`;
   const picks = (BOOKDATA.books || []).filter(b => b.pick && (rd.spicy || b.category !== "romance") && !(rd.hidden || []).includes(b.id));
   o += `<div class="card"><h2 class="brand">Game Shape Picks</h2><div class="carousel">${picks.map(b => `<button class="cv" data-act="book" data-id="${b.id}">${coverHTML(b, 96)}</button>`).join("")}</div></div>`;
@@ -3319,12 +3553,12 @@ Object.assign(ACT, {
   rchip: el => { RUI.chip = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rchip"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
   rshelf: el => { RUI.shelf = el.dataset.v; RUI.limit = 30; document.querySelectorAll('[data-act="rshelf"]').forEach(b => b.classList.toggle("on", b === el)); renderReadList(); },
   moreBooks: () => { RUI.limit += 30; renderReadList(); },
-  setShelf: el => { const rd = R(), id = el.dataset.id, v = el.dataset.v; rd.shelf = rd.shelf || {}; rd.shelf[id] = rd.shelf[id] === v ? "" : v; if (rd.shelf[id] === "reading") rd.current = id; if (rd.shelf[id] === "done") { rd.progress = rd.progress || {}; rd.progress[id] = 100; if (rd.current === id) rd.current = null; save(); checkBadges(); render(); return openQuiz(id); } save(); checkBadges(); renderSheet(); render(); },
+  setShelf: el => { const rd = R(), id = el.dataset.id, v = el.dataset.v; rd.shelf = rd.shelf || {}; if (v === "reading" && rd.shelf[id] !== "reading" && readingIds().length >= READ_MAX) return toast("You're reading " + READ_MAX + " already. Finish one or move it to Want first."); rd.shelf[id] = rd.shelf[id] === v ? "" : v; if (rd.shelf[id] === "reading") rd.current = id; if (rd.current === id && rd.shelf[id] !== "reading") rd.current = readingIds()[0] || null; if (rd.shelf[id] === "done") { rd.progress = rd.progress || {}; rd.progress[id] = 100; if (rd.current === id) rd.current = readingIds()[0] || null; save(); checkBadges(); render(); return openQuiz(id); } save(); checkBadges(); renderSheet(); render(); },
   rateBook: el => { const rd = R(); rd.rating = rd.rating || {}; rd.rating[el.dataset.id] = +el.dataset.v; save(); renderSheet(); },
   hideBook: el => { const rd = R(); rd.hidden = (rd.hidden || []).concat([el.dataset.id]); save(); closeSheet(); render(); toast("Hidden. Undo in Settings."); },
-  readMin: el => { logReading(+el.dataset.v); toast("+" + el.dataset.v + " min logged"); render(); },
-  readPct: el => { const rd = R(); rd.progress = rd.progress || {}; rd.progress[rd.current] = Math.min(100, (rd.progress[rd.current] || 0) + +el.dataset.v); save(); render(); },
-  finishBook: () => { const rd = R(), id = rd.current; if (!id) return; rd.shelf[id] = "done"; rd.progress = rd.progress || {}; rd.progress[id] = 100; rd.current = null; save(); checkBadges(); render(); openQuiz(id); },
+  readMin: el => { if (el.dataset.id) R().current = el.dataset.id; logReading(+el.dataset.v); toast("+" + el.dataset.v + " min logged"); render(); },
+  readPct: el => { const rd = R(); if (el.dataset.id) rd.current = el.dataset.id; rd.progress = rd.progress || {}; rd.progress[rd.current] = Math.min(100, (rd.progress[rd.current] || 0) + +el.dataset.v); save(); render(); },
+  finishBook: el => { const rd = R(), id = (el && el.dataset.id) || rd.current; if (!id) return; rd.shelf[id] = "done"; rd.progress = rd.progress || {}; rd.progress[id] = 100; rd.current = readingIds()[0] || null; save(); checkBadges(); render(); openQuiz(id); },
   sendRec: () => sendRec(),
   spicy: () => { R().spicy = !R().spicy; save(); renderSheet(); render(); },
   unhideAll: () => { R().hidden = []; save(); toast("All books visible again"); render(); },
